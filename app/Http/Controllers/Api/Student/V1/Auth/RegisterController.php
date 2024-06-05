@@ -35,7 +35,6 @@ class RegisterController extends Controller
         ];
 
         return $this->response(
-
             data : $data  ,
             statusCode : 200 ,
             message : trans('api.registed successfully')

@@ -32,7 +32,7 @@ class LoginController extends Controller
 
 
 
-         $data = [
+        $data = [
             'user' => new StudentResource($student) , 
             'token' => $student->createToken($student->id)->plainTextToken
         ];
