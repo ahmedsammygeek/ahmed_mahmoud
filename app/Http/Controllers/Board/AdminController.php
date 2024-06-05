@@ -1,0 +1,82 @@
+<?php
+
+namespace App\Http\Controllers\Board;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Http\Requests\Board\Admins\StoreAdminRequest;
+use App\Http\Requests\Board\Admins\UpdateAdminRequest;
+use Hash;
+use App\Models\User;
+class AdminController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        return view('board.admins.index');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return view('board.admins.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(StoreAdminRequest $request)
+    {
+        $admin = new User;
+        $admin->name = $request->name;
+        $admin->email = $request->email;
+        $admin->password = Hash::make($request->password);
+        $admin->is_active = $request->filled('active')  ? 1 : 0;
+        $admin->type = User::ADMIN;
+        $admin->save();
+        return redirect(route('board.admins.index'))->with('success' , 'تم إضافه المشرف بنجاح');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(User $admin)
+    {
+        return view('board.admins.show' , compact('admin') );
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(User $admin)
+    {
+        return view('board.admins.edit' , compact('admin') );
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(UpdateAdminRequest $request, User $admin)
+    {
+        $admin->name = $request->name;
+        $admin->email = $request->email;
+        if ($request->filled('password')) {
+            $admin->password = Hash::make($request->password);
+        }
+        $admin->is_active = $request->filled('active')  ? 1 : 0;
+        $admin->save();
+        return redirect(route('board.admins.index'))->with('success' , 'تم تعديل بينات المشرف بنجاح');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
+    }
+}
