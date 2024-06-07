@@ -6,19 +6,24 @@ use App\Http\Controllers\Api\Student\V1\Auth\RegisterController;
 use App\Http\Controllers\Api\Student\V1\Auth\LoginController;
 use App\Http\Controllers\Api\Student\V1\Auth\LogoutController;
 use App\Http\Controllers\Api\Student\V1\ProfileController;
-
+use App\Http\Controllers\Api\Student\V1\PhoneVerificationController;
 
 Route::group(['prefix' => 'student/v1'], function() {
-    
+
 
     Route::post('/register' , [RegisterController::class , 'index'] );    
     Route::post('/login' , [LoginController::class , 'index'] );    
-    
+    Route::group(['middleware' => ['auth:student']  ], function() {
 
 
-    Route::group(['middleware' => 'auth:student'], function() {
-        Route::post('/logout' , [LogoutController::class , 'index'] ); 
+        Route::post('/verification' , [PhoneVerificationController::class , 'index'] );
+        Route::post('/verification/code/send' , [PhoneVerificationController::class , 'send_code'] );
+
         Route::get('/profile' , [ProfileController::class , 'index'] ); 
+        Route::group(['middleware' => 'phone_verification'], function() {
+            Route::post('/logout' , [LogoutController::class , 'index'] ); 
+            Route::patch('/profile' , [ProfileController::class , 'update'] ); 
+        });        
     });
 
 

@@ -18,6 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
     $middleware->alias([
         'admin' => RedirectIfNotAdminMiddleware::class , 
+        'phone_verification' => \App\Http\Middleware\StudentMustVerifyHisPhoneNumberMiddleware::class , 
         'localize'                => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class,
         'localizationRedirect'    => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter::class,
         'localeSessionRedirect'   => \Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect::class,

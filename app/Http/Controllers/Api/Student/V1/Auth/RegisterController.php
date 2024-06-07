@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Api\Student\V1\Auth\RegisterRequest;
 use App\Models\Student;
+use App\Models\PhoneVerificationCode;
 use App\Traits\Api\GeneralResponse;
 use App\Http\Resources\Api\Student\V1\Auth\StudentResource;
 class RegisterController extends Controller
@@ -28,6 +29,11 @@ class RegisterController extends Controller
         $student->mobile_serial_number = $request->mobile_serial_number;
         $student->app_platform = $request->app_platform;
         $student->save();
+
+        $code = new PhoneVerificationCode;
+        $code->code = '123456';
+        $code->mobile = $request->mobile;
+        $code->save();
 
         $data = [
             'user' => new StudentResource($student) , 
