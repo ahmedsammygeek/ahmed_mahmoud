@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
-class Course extends Model
+
+class CourseUnitLesson extends Model
 {
     use HasFactory , HasTranslations ;
-
 
     public $translatable = ['title' , 'content' ];
 
@@ -17,14 +17,12 @@ class Course extends Model
         return $this->belongsTo(User::class , 'user_id');
     }
 
-    public function teachers()
+
+    public function courseUnit()
     {
-        return $this->hasMany(CourseTeacher::class);
+        return $this->belongsTo(CourseUnit::class);
     }
 
 
-    public function educationalSystems()
-    {
-        return $this->hasMany(CourseEducationalSystem::class);
-    }
+
 }

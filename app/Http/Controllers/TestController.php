@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Student;
+use Arr;
 class TestController extends Controller
 {
     /**
@@ -12,20 +12,6 @@ class TestController extends Controller
     public function index()
     {
 
-        $Student = Student::find(1);
-        // $student = new Student;
-        // $student->name = 'student name';
-        // $student->email = 'student@yahoo.com';
-        // $student->password = '123456789';
-        // $student->mobile = '+201014340346';
-        // $student->guardian_mobile = '+201014340346';
-        // $student->grade = 12;
-        // $student->educational_system_id = 1;
-        // $student->app_serial_number = 'dfhdfjkd5890r58rfdlfgkj50986590865906';
-        // $student->save();
-
-
-        dd($Student->createToken($Student->id)->plainTextToken);
         
     }
 
