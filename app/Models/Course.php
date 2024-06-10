@@ -23,6 +23,11 @@ class Course extends Model
     }
 
 
+    public function units()
+    {
+        return $this->hasMany(CourseUnit::class );
+    }
+
     public function educationalSystems()
     {
         return $this->hasMany(CourseEducationalSystem::class);

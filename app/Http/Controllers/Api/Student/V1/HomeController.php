@@ -32,6 +32,20 @@ class HomeController extends Controller
         })->get();
 
 
+        $courses->map(function($course) use ($student) {
+            $course->dose_user_subscribed = CourseTeacherGroupStudent::where('student_id' , $student->id )
+            ->whereHas('CourseTeacherGroup' , function($query) use($course) {
+                $query->whereHas('CourseTeacher' , function($query) use($course) {
+                    $query->where('course_id' , $course->id );
+                });
+
+            })->first() ? true : false ;
+            return $course;
+        });
+
+
+
+
         $suggested_courses = Course::query()
         ->where('grade_id' , $student->grade_id )
         ->whereNotIn('id' , $courses->pluck('id')->toArray())
@@ -40,6 +54,17 @@ class HomeController extends Controller
         })
         ->get();
 
+         $suggested_courses->map(function($course) use ($student) {
+            $course->dose_user_subscribed = CourseTeacherGroupStudent::where('student_id' , $student->id )
+            ->whereHas('CourseTeacherGroup' , function($query) use($course) {
+                $query->whereHas('CourseTeacher' , function($query) use($course) {
+                    $query->where('course_id' , $course->id );
+                });
+
+            })->first() ? true : false ;
+            return $course;
+        });
+
         $slides = Slide::active()->latest()->get();
         $teachers = Teacher::suggested()->get();
 
@@ -47,61 +72,11 @@ class HomeController extends Controller
             'slides' => SlideResource::collection($slides) , 
             'teachers' => TeacherResource::collection($teachers) , 
             'my_courses' => StudentCourseResource::collection($courses) , 
-            'my_courses' => StudentCourseResource::collection($suggested_courses) , 
+            'suggested_courses' => StudentCourseResource::collection($suggested_courses) , 
         ];
 
-
         return $this->response(
-
             data : $data , 
         );
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

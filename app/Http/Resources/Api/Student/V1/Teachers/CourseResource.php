@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources\Api\Student\V1\Home;
+namespace App\Http\Resources\Api\Student\V1\Teachers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Storage;
-class StudentCourseResource extends JsonResource
+class CourseResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,9 +18,11 @@ class StudentCourseResource extends JsonResource
             'id' => $this->id , 
             'title' => $this->title , 
             'image' => Storage::url('courses/'.$this->image) , 
-            'total_mins' => mt_rand(20 , 140 ) , 
             'price' => $this->price , 
-            'dose_user_subscribed' => $this->dose_user_subscribed , 
+            'total_mins' => mt_rand(70  , 190) , 
+            'rate' => 4.9 , 
+            'students_count' => mt_rand(300 , 9000) , 
+            'dose_user_subscribed' => $this->dose_user_subscribed
         ];
     }
 }
