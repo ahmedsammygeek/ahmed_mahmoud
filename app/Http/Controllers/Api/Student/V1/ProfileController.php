@@ -32,20 +32,25 @@ class ProfileController extends Controller
     {
         $student = Auth::guard('student')->user();
         
-        if ($request->hasFile('profile_picture')) {
-            $student->profile_picture = basename($request->file('profile_picture')->store('students'));
+        if ($request->hasFile('image')) {
+            $student->profile_picture = basename($request->file('image')->store('students'));
         }
 
-        $student->grade = $request->grade;
+        $student->grade_id = $request->grade;
         $student->educational_system_id = $request->educational_system_id;
         $student->name = $request->name;
-        // $student->mobile = $request->mobile;
         $student->save();
 
+        $data = [
+
+            'student' => new StudentResource($student) , 
+
+        ];
 
         return $this->response(
             message : trans('api.profile updated successfully') , 
-            statusCode : 200
+            statusCode : 200 , 
+            data : $data , 
         );
     }
 
