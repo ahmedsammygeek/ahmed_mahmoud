@@ -12,6 +12,8 @@ use App\Http\Controllers\Api\Student\V1\HomeController;
 use App\Http\Controllers\Api\Student\V1\SearchController;
 use App\Http\Controllers\Api\Student\V1\TeacherController;
 use App\Http\Controllers\Api\Student\V1\CourseController;
+use App\Http\Controllers\Api\Student\V1\GradeController;
+use App\Http\Controllers\Api\Student\V1\EducationalSystemController;
 Route::group(['prefix' => 'student/v1'], function() {
 
     Route::post('/register' , [RegisterController::class , 'index'] );    
@@ -19,6 +21,10 @@ Route::group(['prefix' => 'student/v1'], function() {
     Route::post('forget-password' , [ForgetPasswordController::class , 'index'] );
     Route::post('forget-password/verify' , [ForgetPasswordController::class , 'verify'] );
     Route::post('forget-password/change-password' , [ForgetPasswordController::class , 'change_password']);
+
+
+    Route::get('educational_systems' , [EducationalSystemController::class , 'index'] );
+    Route::get('grades' , [GradeController::class , 'index'] );
 
 
     Route::group(['middleware' => ['auth:student']  ], function() {
