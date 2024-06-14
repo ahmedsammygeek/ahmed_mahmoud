@@ -25,6 +25,7 @@ class LoginController extends Controller
             return $this->response(
                 status : 'error' ,
                 statusCode : 401 , 
+                message  : trans('api.mobile ,  password is wrong ')
             );
 
         }
@@ -40,7 +41,7 @@ class LoginController extends Controller
         return $this->response(
             data : $data  ,
             statusCode : 200 ,
-            message : trans('api.registed successfully')
+            message : trans('api.logined in successfully')
 
         );
     }
