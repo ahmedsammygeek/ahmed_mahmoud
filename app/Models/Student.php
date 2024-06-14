@@ -27,11 +27,11 @@ class Student extends Authenticatable
     }
 
 
-    protected function profile_picture() :Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => $value == null ? 'student_default.png' : $value  ,
-        );
-    }
+    // protected function profile_picture() :Attribute
+    // {
+    //     return Attribute::make(
+    //         get: fn ($value) => $value == null ? 'student_default.png' : $value  ,
+    //     );
+    // }
 
 }

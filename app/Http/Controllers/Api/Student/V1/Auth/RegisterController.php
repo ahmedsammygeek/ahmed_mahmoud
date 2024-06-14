@@ -22,7 +22,7 @@ class RegisterController extends Controller
         $student->password = $request->password;
         $student->mobile = $request->mobile;
         $student->guardian_mobile = $request->guardian_mobile;
-        $student->grade = $request->grade;
+        $student->grade_id = $request->grade;
         $student->educational_system_id = $request->educational_system_id;
         $student->app_language = $request->app_language;
         $student->firebase_fcm = $request->firebase_fcm;
