@@ -18,7 +18,7 @@ class StudentResource extends JsonResource
             'name' => $this->name , 
             'mobile' => $this->mobile , 
             'guardian_mobile' => $this->guardian_mobile , 
-            'grade' => $this->grade , 
+            'grade' => $this->grade_id , 
             'educational_system_id' => $this->educational_system_id , 
             'is_phone_verified' => $this->phone_verified_at ? true : false , 
             'is_banned' => $this->is_banned == 1 ? true : false , 
