@@ -16,6 +16,7 @@ class AdminLoginController extends Controller
 
     public function login(LoginRequest $request)
     {
+
         if (Auth::attempt($request->only('password' , 'email'))) {
             $request->session()->regenerate();
             return redirect(route('board.index'))->with('success' , 'تم تسجيل الدخول بنجاح' );

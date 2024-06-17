@@ -17,6 +17,7 @@ use App\Http\Controllers\TestController;
 Route::get('/test' , [TestController::class , 'index'] );
 
 
+
 Route::group(
     [
         'prefix' => LaravelLocalization::setLocale(),
@@ -25,7 +26,7 @@ Route::group(
         Route::group(['prefix' => 'Board' , 'as' => 'board.' ], function() {
             Route::get('/login' , [AdminLoginController::class , 'form'] )->name('login.form');
             Route::post('/login' , [AdminLoginController::class , 'login'] )->name('login');
-            Route::group(['middleware' => 'admin'], function() {
+            Route::group(['middleware' => [] ], function() {
                 Route::get('/' , [BoardController::class , 'index'] )->name('index');
                 Route::resource('admins', AdminController::class);
                 Route::resource('categories', CategoryController::class);
@@ -36,7 +37,15 @@ Route::group(
                 Route::resource('cities', CityController::class);
             });
         });
+
+
+
+
+        Livewire::setUpdateRoute(function ($handle) {
+            return Route::post('/livewire/update', $handle);
+        });
         
     });
+
 
 

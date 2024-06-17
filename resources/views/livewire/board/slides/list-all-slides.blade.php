@@ -1,75 +1,108 @@
-<div>
-    <div class="row">
-        <div class="col-md-12">
-            <a href='{{ route('board.slides.create') }}' class='btn btn-primary mb-2' style="float: left;">  <i class="icon-plus3  me-2"></i>  إضافه صوره جديد </a>
-
-            <a  class='btn btn-primary mb-2 ' data-bs-toggle="collapse" data-bs-target="#filters" style="float: left; margin-left: 4px;">
-                <i  class='icon-filter3 ' >  </i>
-            </a>
-        </div>
-        <div class="col-md-12 collapse" id="filters" wire:ignore.self>
-            <div class="card">
-                <div class="card-body d-sm-flex">
-                    <div class="ms-sm-3">
-                        <select wire:model='is_active' class="form-select wmin-sm-200 mb-3 mb-sm-0">
-                            <option value="all"> جميع الصور </option>
-                            <option value="1">فعال</option>
-                            <option value="0">غير فعال</option>
-                        </select>
-                    </div>
+<div class="row">
+    <div class="col-md-12">
+        <a href='{{ route('board.slides.create') }}' class='btn btn-primary mb-2' style="float: left;">  <i class="icon-plus3 me-2"></i>  
+            @lang('slides.add new slide')
+        </a>
+    </div>
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header bg-primary text-white d-sm-flex align-items-sm-center ">
+                <h5 class="mb-0"> @lang('slides.show all slides') </h5>
+                <div class="ms-sm-auto my-sm-auto">
+                    <select wire:model.live='rows' class="form-select wmin-200">
+                        <option value="2">2 @lang('dashboard.rows') </option>
+                        <option value="15">15 @lang('dashboard.rows') </option>
+                        <option value="30">30 @lang('dashboard.rows') </option>
+                        <option value="50">50 @lang('dashboard.rows') </option>
+                        <option value="70">70 @lang('dashboard.rows') </option>
+                        <option value="100">100 @lang('dashboard.rows') </option>
+                    </select>
                 </div>
+            </div>
+            <div class='card-body' >
+                <table  class='table  table-responsive table-striped table-xs text-center '>
+                    <thead>
+                        <tr>
+                            <th> # </th>
+                            <th> @lang('slides.image') </th>
+                            <th> @lang('slides.title') </th>
+                            <th> @lang('slides.subtitle') </th>
+                            <th> @lang('slides.sort') </th>
+                            <th> @lang('slides.status') </th>
+                            <th> @lang('slides.options') </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @php
+                        $i =1
+                        @endphp
+                        @foreach ($slides as $slide)
+                        <tr>
+                            <td> {{ $i++ }} </td>
+                            <td>
+                                <a href="{{ Storage::url('slides/'.$slide->image) }}" data-bs-popup="lightbox" >
+                                    <img class="img-preview" src="{{ Storage::url('slides/'.$slide->image) }}" alt="">
+                                </a>
+                                
+                            </td>
+                            <td> {{ $slide->title }} </td>
+                            <td> {{ $slide->subtitle }} </td>
+                            <td> {{ $slide->sort }} </td>
+                            <td>
+                                @switch($slide->is_active)
+                                @case(0)
+                                <span class='badge bg-danger' > @lang('slides.inactive')  </span>
+                                @break
+                                @case(1)
+                                <span class='badge bg-primary' >  @lang('slides.active') </span>
+                                @break
+                                @endswitch
+                                
+                            </td>
+                            <td>
+                                <a href='{{ route('board.slides.show' , $slide ) }}' class='btn btn-sm btn-primary ' title='مشاهده' >  <i class="icon-eye "></i>  </a>
+                                <a href='{{ route('board.slides.edit' , $slide ) }}' class='btn btn-sm btn-warning ' title='تعديل' >  <i class="icon-database-edit2 "></i>  </a>
+                                <a wire:click="$dispatch('deleteConfirmation', '{{ $slide->id }}')" class='btn btn-sm btn-danger  delete_item' title='حذف' >  <i class="icon-trash "></i>  </a>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer d-sm-flex justify-content-sm-between flex-sm-wrap py-sm-2">
+                <div class="pagination hstack gap-3">
+
+                </div>
+
+                {{ $slides->links() }}
             </div>
         </div>
     </div>
-    @include('board.layouts.messages')
-    <div class="row">
-        @foreach ($slides as $slide)
-        <div class="col-sm-6 col-xl-3">
-            <div class="card">
-                <div class="card-img-actions mx-1 mt-1">
-                    <img class="card-img img-fluid" src="{{ Storage::url('slides/'.$slide->image) }}" alt="">
-                    <div class="card-img-actions-overlay card-img">
-                        <a href="{{ Storage::url('slides/'.$slide->image) }}" class="btn btn-outline-white btn-icon rounded-pill" data-bs-popup="lightbox" data-gallery="gallery1">
-                            <i class="ph-plus"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="card-body">
-                    <div class="d-flex align-items-start flex-nowrap">
-                        <div>
-                            <div class="fw-semibold me-2"> ترتيب العرض : {{ $slide->order }} </div>
-                            @if ($slide->is_active)
-                            <span class='badge bg-success fs-sm ' > فعال</span>
-                            @else
-                            <span class='badge bg-danger fs-sm ' > غير فعال </span>
-                            @endif
-                        </div>
-
-                        <div class="d-inline-flex ms-auto">
-                            <a href="{{ route('board.slides.show' , $slide ) }}" class="text-body ms-2"><i class="icon-eye text-primary"></i></a>
-                            <a href="{{ route('board.slides.edit' , $slide ) }}" class="text-body ms-2"><i class="icon-database-edit2  text-warning"></i></a>
-                            <a wire:click="$emit('deleteConfirmation', '{{ $slide->id }}')" class="text-body delete_item ms-2">
-                                <i class="icon-trash text-danger "></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @endforeach
-    </div>
-
 </div>
+
+
 
 @section('scripts')
 <script src="{{ asset('board_assets/js/vendor/notifications/sweet_alert.min.js') }}"></script>
 <script src="{{ asset('board_assets/demo/pages/extra_sweetalert.js') }}"></script>
 <script src="{{ asset('board_assets/js/vendor/media/glightbox.min.js') }}"></script>
-<script src="{{ asset('board_assets/demo/pages/gallery.js') }}"></script>
+<script src="{{ asset('board_assets/demo/pages/gallery_library.js') }}"></script>
+
+
 <script>
     $(function() {
 
+
+        Livewire.on('itemDeleted', () =>  {
+            swalInit.fire({
+                text: "@lang('dashboard.deleted successfully')" ,
+                icon: 'success',
+                toast: true,
+                showConfirmButton: false,
+                position: 'top-start' , 
+                timer: 1500
+            });
+        });
 
         const swalInit = swal.mixin({
             buttonsStyling: false,
@@ -84,12 +117,11 @@
 
         Livewire.on('deleteConfirmation', (itemId) => {
             swalInit.fire({
-                title: 'تاكيد الحذف',
-                text: "لا يمكن التراجع بعد الحذف",
+                title: "@lang('dashboard.delete confirmation')",
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonText: 'نعم احذف',
-                cancelButtonText: 'تراجع',
+                confirmButtonText: "@lang('dashboard.yes delete')",
+                cancelButtonText: "@lang('dashboard.cancel')",
                 buttonsStyling: false,
                 customClass: {
                     confirmButton: 'btn btn-success',
@@ -97,15 +129,7 @@
                 }
             }).then(function(result) {
                 if(result.value) {
-                    Livewire.emit('deleteItem' , itemId)
-                    swalInit.fire({
-                        text: 'تم الحذف بنجاح',
-                        icon: 'success',
-                        toast: true,
-                        showConfirmButton: false,
-                        position: 'top-start' , 
-                        timer: 1500
-                    });
+                    Livewire.dispatch('deleteItem' , {itemId} );
                 }
             });
         })

@@ -8,6 +8,9 @@ use App\Http\Requests\Board\Slides\StoreSlideRequest;
 use App\Http\Requests\Board\Slides\UpdateSlideRequest;
 use Auth;
 use App\Models\Slide;
+
+use App\Actions\Board\SlideActions\StoreSlideAction;
+use App\Actions\Board\SlideActions\UpdateSlideAction;
 class SlideController extends Controller
 {
     /**
@@ -29,15 +32,12 @@ class SlideController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreSlideRequest $request)
+    public function store(StoreSlideRequest $request , StoreSlideAction $action )
     {
-        $slide = new Slide;
-        $slide->image = basename($request->file('image')->store('slides'));
-        $slide->order = $request->order;
-        $slide->is_active = $request->filled('active') ? 1 : 0;
-        $slide->user_id = Auth::id();
-        $slide->save();
-        return redirect(route('board.slides.index'))->with('success' , 'تم إضافه الصوره بنجاح');
+        
+        $action->execute($request);
+
+        return redirect(route('board.slides.index'))->with('success' , trans('slides.slide addedd successfully') );
     }
 
     /**
@@ -60,15 +60,10 @@ class SlideController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSlideRequest $request, Slide $slide)
+    public function update(UpdateSlideRequest $request, Slide $slide , UpdateSlideAction $action )
     {
-        if ($request->hasFile('image')) {
-            $slide->image = basename($request->file('image')->store('slides'));
-        }
-        $slide->order = $request->order;
-        $slide->is_active = $request->filled('active') ? 1 : 0;
-        $slide->save();
-        return redirect(route('board.slides.index'))->with('success' , 'تم تعديل الصوره بنجاح');
+        $action->execute($request  , $slide );
+        return redirect(route('board.slides.index'))->with('success' , trans('dashboard.updated successfully') );
     }
 
     /**

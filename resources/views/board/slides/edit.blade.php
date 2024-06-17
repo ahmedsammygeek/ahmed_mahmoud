@@ -1,10 +1,28 @@
-@extends('board.layouts.master')
+@extends('board.layout.master')
+
+@section('page_title')
+@lang('slides.edit slide details')
+@endsection
 
 
 @section('breadcrumb')
-<a href="{{ route('board.slides.index') }}" class="breadcrumb-item"> عارض الصور </a>
-<span class="breadcrumb-item active"> إضافه صوره جديده </span>
+<a href="{{ route('board.slides.index') }}" class="breadcrumb-item">  @lang('slides.slides')  </a>
+<span class="breadcrumb-item active"> @lang('slides.edit slide details') </span>
 @endsection
+
+
+@section('page_header')
+<div class="page-header">
+	<div class="page-header-content d-lg-flex">
+		<div class="d-flex">
+			<h4 class="page-title mb-0">
+				@lang('dashboard.dashboard') - <span class="fw-normal"> @lang('slides.slides') </span>
+			</h4>
+		</div>
+	</div>
+</div>
+@endsection
+
 
 @section('page_content')
 <!-- Main charts -->
@@ -12,7 +30,7 @@
 	<div class="col-md-12">
 		<div class="card">
 			<div class="card-header bg-primary text-white">
-				<h5 class="mb-0"> إضافه صوره جديده </h5>
+				<h5 class="mb-0"> @lang('slides.edit slide details') </h5>
 			</div>
 
 			<form class="" method="POST" action="{{ route('board.slides.update' , $slide ) }}" enctype="multipart/form-data" >
@@ -20,50 +38,108 @@
 					@csrf
 					@method('PATCH')
 					<div class="mb-4">
-						<div class="fw-bold border-bottom pb-2 mb-3"> بيانات الشريحه </div>
-						<div class="row mb-3">
-							<label class="col-form-label col-lg-2"> الصوره <span class="text-danger">*</span></label>
-							<div class="col-lg-10">
-								<input type="file" name="image"  class="form-control @error('image')  is-invalid @enderror" >
-								@error('image')
-								<p class='text-danger' > {{ $message }} </p>
-								@enderror
+						<div class="fw-bold border-bottom pb-2 mb-3"> @lang('slides.slide details') </div>
+
+						<div class="row">
+							<div class="col-md-4">
+								<div class=" mb-3">
+									<label class="col-form-label col-lg-12"> @lang('slides.image') <span class="text-danger">*</span></label>
+									<div class="col-lg-12">
+										<input type="file" name="image"  class="form-control @error('image')  is-invalid @enderror" >
+										@error('image')
+										<p class='text-danger' > {{ $message }} </p>
+										@enderror
+									</div>
+								</div>
 							</div>
-						</div>
-						
-						<div class="row mb-3">
-							<label class="col-form-label col-lg-2">  ترتيب العرض  </label>
-							<div class="col-lg-10">
-								<input type="number" name="order" value='{{ $slide->order }}'  class="form-control"  placeholder="ترتيب عرض الصوره">
-								@error('order')
-								<p class='text-danger' > {{ $message }} </p>
-								@enderror
+							<div class="col-md-4">
+								<div class=" mb-3">
+									<label class="col-form-label col-lg-12">  @lang('slides.sort') </label>
+									<div class="col-lg-12">
+										<input type="number" name="sort" value="{{ $slide->sort }}"  class="form-control"  placeholder="1">
+										@error('order')
+										<p class='text-danger' > {{ $message }} </p>
+										@enderror
+									</div>
+								</div>
 							</div>
-						</div>
-						
-						<div class="row mb-3">
-							<label class="col-lg-2 col-form-label pt-0"> حاله الشريحه </label>
-							<div class="col-lg-10">
-								<label class="form-check form-switch">
-									<input type="checkbox" value='1' class="form-check-input" name="active" {{ $slide->is_active == 1 ? 'checked' : '' }} >
-									<span class="form-check-label"> فعال </span>
-								</label>
+
+							<div class="col-md-4">
+								<div class=" mb-3">
+									<label class="col-lg-12 col-form-label "> @lang('slides.status') </label>
+									<div class="col-lg-12">
+										<label class="form-check form-switch">
+											<input type="checkbox" value='1' class="form-check-input" name="active" checked="" >
+											<span class="form-check-label"> @lang('slides.active') </span>
+										</label>
+									</div>
+								</div>
 							</div>
 						</div>
 
-						<div class="row mb-3">
-							<label class="col-form-label col-lg-2"> الصوره الحاليه <span class="text-danger">*</span></label>
-							<div class="col-lg-10">
-								<img class='img-responsive img-thumbnail' src="{{ Storage::url('slides/'.$slide->image) }}" alt="">
+						<div class="row">
+							<div class="col-md-6">
+								<div class=" mb-3">
+									<label class="col-form-label col-lg-12">  @lang('slides.title') [@lang('slides.arabic')] </label>
+									<div class="col-lg-12">
+										<input type="text" name="title_ar"  value="{{ $slide->getTranslation('title' , 'ar' ) }}" class="form-control"  placeholder="">
+										@error('order')
+										<p class='text-danger' > {{ $message }} </p>
+										@enderror
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class=" mb-3">
+									<label class="col-form-label col-lg-12">  @lang('slides.title') [@lang('slides.english')] </label>
+									<div class="col-lg-12">
+										<input type="text" name="title_en" value="{{ $slide->getTranslation('title' , 'en' ) }}"  class="form-control"  placeholder="">
+										@error('order')
+										<p class='text-danger' > {{ $message }} </p>
+										@enderror
+									</div>
+								</div>
 							</div>
 						</div>
+
+						<div class="row">
+							<div class="col-md-6">
+								<div class=" mb-3">
+									<label class="col-form-label col-lg-12">  @lang('slides.subtitle') [@lang('slides.arabic')] </label>
+									<div class="col-lg-12">
+										<input type="text" name="subtitle_ar" value="{{ $slide->getTranslation('subtitle' , 'ar') }}"  class="form-control"  placeholder="">
+										@error('order')
+										<p class='text-danger' > {{ $message }} </p>
+										@enderror
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class=" mb-3">
+									<label class="col-form-label col-lg-12">  @lang('slides.subtitle') [@lang('slides.english')] </label>
+									<div class="col-lg-12">
+										<input type="text" name="subtitle_en" value="{{ $slide->getTranslation('subtitle' , 'en') }}"  class="form-control"  placeholder="">
+										@error('order')
+										<p class='text-danger' > {{ $message }} </p>
+										@enderror
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<label for=""> @lang('dashboard.current image') </label>
+							<img class="img-thumbnail" src="{{ Storage::url('slides/'.$slide->image) }}" alt="">
+						</div>
+						
+
 
 					</div>
 				</div>
 
 				<div class="card-footer d-flex justify-content-end">
-					<a  href='{{ route('board.slides.index') }}' class="btn btn-light" id="reset"> الغاء </a>
-					<button type="submit" class="btn btn-primary ms-3"> تعديل <i class="ph-paper-plane-tilt ms-2"></i></button>
+					<a  href='{{ route('board.slides.index') }}' class="btn btn-light" id="reset"> @lang('dashboard.cancel') </a>
+					<button type="submit" class="btn btn-primary ms-3"> @lang('dashboard.edit') <i class="ph-paper-plane-tilt ms-2"></i></button>
 				</div>
 			</form>
 		</div>

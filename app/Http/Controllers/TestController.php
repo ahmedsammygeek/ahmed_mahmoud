@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Arr;
+use Auth;
+use App\Models\User;
 class TestController extends Controller
 {
     /**
@@ -11,7 +13,10 @@ class TestController extends Controller
      */
     public function index()
     {
+        $user = User::find(1);
 
+
+        Auth::login($user);
         
     }
 
