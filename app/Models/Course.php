@@ -23,6 +23,11 @@ class Course extends Model
     }
 
 
+    public function grade()
+    {
+        return $this->belongsTo(Grade::class , 'grade_id');
+    }
+
     public function units()
     {
         return $this->hasMany(CourseUnit::class );

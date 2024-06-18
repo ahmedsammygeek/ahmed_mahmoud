@@ -9,7 +9,7 @@
             <div class="card-header bg-primary text-white d-sm-flex align-items-sm-center ">
                 <h5 class="mb-0"> @lang('slides.show all slides') </h5>
                 <div class="ms-sm-auto my-sm-auto">
-                    <select wire:model.live='rows' class="form-select wmin-200">
+                    <select wire:model.live='rows' class="form-select ">
                         <option value="2">2 @lang('dashboard.rows') </option>
                         <option value="15">15 @lang('dashboard.rows') </option>
                         <option value="30">30 @lang('dashboard.rows') </option>
@@ -43,7 +43,6 @@
                                 <a href="{{ Storage::url('slides/'.$slide->image) }}" data-bs-popup="lightbox" >
                                     <img class="img-preview" src="{{ Storage::url('slides/'.$slide->image) }}" alt="">
                                 </a>
-                                
                             </td>
                             <td> {{ $slide->title }} </td>
                             <td> {{ $slide->subtitle }} </td>

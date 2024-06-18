@@ -12,4 +12,6 @@ return array (
   'delete confirmation' => 'تاكيد الحذف',
   'current image' => 'الصوره الحاليه',
   'cancel' => 'تراجع',
+  'add' => 'إضافه',
+  'navigation' => 'الروابط',
 );

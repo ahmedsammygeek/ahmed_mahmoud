@@ -10,6 +10,9 @@ use App\Http\Controllers\Board\SlideController;
 use App\Http\Controllers\Board\BrandController;
 use App\Http\Controllers\Board\GovernorateController;
 use App\Http\Controllers\Board\CityController;
+use App\Http\Controllers\Board\StudentController;
+use App\Http\Controllers\Board\CourseController;
+use App\Http\Controllers\Board\CourseUnitController;
 use App\Http\Controllers\TestController;
 
 
@@ -35,6 +38,9 @@ Route::group(
                 Route::resource('brands', BrandController::class);
                 Route::resource('governorates', GovernorateController::class);
                 Route::resource('cities', CityController::class);
+                Route::resource('students', StudentController::class );
+                Route::resource('courses', CourseController::class );
+                Route::resource('courses.units', CourseUnitController::class );
             });
         });
 

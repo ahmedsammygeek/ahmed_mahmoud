@@ -12,4 +12,6 @@ return array (
   'delete confirmation' => 'Delete Confirmation',
   'yes delete' => 'Yes Delete It',
   'updated successfully' => 'Updated Successfully',
+  'navigation' => 'Navigation',
+  'add' => 'Add',
 );
