@@ -14,4 +14,6 @@ return array (
   'updated successfully' => 'Updated Successfully',
   'navigation' => 'Navigation',
   'add' => 'Add',
+  'no data to show' => 'No Data to show',
+  'addedd successfully' => 'addedd successfully',
 );

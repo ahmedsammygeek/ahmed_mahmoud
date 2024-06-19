@@ -14,6 +14,7 @@
 		<script src="{{ asset('board_assets/js/vendor/notifications/noty.min.js') }}"></script>
 	@livewireStyles
 	@yield('styles')
+	@stack('styles')
 
 	@if (LaravelLocalization::getCurrentLocale() == 'ar')
 	<link href="{{ asset('assets/css/rtl/all.min.css') }}" id="stylesheet" rel="stylesheet" type="text/css">
@@ -380,6 +381,7 @@
 
 	@livewireScripts
 	@yield('scripts')
+	@stack('scripts')
 	@include('board.layout.messages')
 </body>
 </html>

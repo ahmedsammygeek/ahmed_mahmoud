@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Board;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\{Grade , EducationalSystem , Student };
+use App\Http\Requests\Board\Students\{StoreStudentRequest , UpdateStudentRequest};
 
+use App\Actions\Board\StudentActions\StoreStudentAction;
 class StudentController extends Controller
 {
     /**
@@ -20,23 +23,28 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view('board.students.create');
+        $grades = Grade::select('id' , 'name' )->get();
+        $systems = EducationalSystem::select('id' , 'name' )->get();
+        return view('board.students.create' , compact('grades' , 'systems' ) );
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreStudentRequest $request  , StoreStudentAction $action)
     {
-        //
+        $student = $action->execute($request);
+
+        return redirect(route('board.students.show' , $student ))->with('success' , trans('students.student addedd successfully') );
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Student $student)
     {
-        //
+        $student->load(['educationalSystem' , 'grade' , 'user' , 'loginDevices' ]);
+        return view('board.students.show' , compact('student') );
     }
 
     /**

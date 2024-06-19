@@ -19,6 +19,11 @@ class Teacher extends Model
 
 
 
+    public function courses()
+    {
+        return $this->hasMany(CourseTeacher::class , 'teacher_id');
+    }
+
     // suggested
 
 

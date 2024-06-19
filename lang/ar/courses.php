@@ -31,4 +31,13 @@ return array (
   'status' => 'الحاله',
   'unit details' => 'بيانات الوحده',
   'units' => 'الوحدات',
+  'updated successfully' => 'تم التعديل بنجاح',
+  'added_by' => 'تم الاضافه بواسطه',
+  'edit unit details' => 'تعديل بيانات الوحده',
+  'inactive' => 'غير فعال',
+  'lessons count' => 'عدد الدروس داخل الوحده',
+  'related course' => 'الكورس المرتبط به',
+  'show all units' => 'عرض كافه الوحدات',
+  'show unit details' => 'عرض بيانات الوحده',
+  'unit added successfully' => 'تم إضافه الوحده بنجاح',
 );

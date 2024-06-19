@@ -38,7 +38,7 @@
 					<form class="login-form wmin-sm-400" action="{{ route('board.login') }}" method='POST' >
 						@csrf
 
-						@include('board.layouts.messages')
+						@include('board.layout.messages')
 						<div class="card mb-0">
 							<ul class="nav nav-tabs nav-tabs-underline nav-justified bg-light rounded-top mb-0">
 								<li class="nav-item">

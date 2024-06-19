@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Arr;
 use Auth;
 use App\Models\User;
+use App\Jobs\UploadVidoeLessontoYoutubeJob;
+use Youtube;
+use Hash;
 class TestController extends Controller
 {
     /**
@@ -13,10 +16,28 @@ class TestController extends Controller
      */
     public function index()
     {
-        $user = User::find(1);
+
+        dd(Hash::make(90909090));
+
+        $fullPathToVideo = public_path().'/Sunset_Swinging04_MP4_HDV_1080p25__TanuriX_Stock_Footage_NS_720p_5000br.mp4';
+
+        $video = Youtube::upload($fullPathToVideo, [
+            'title'       => 'ماده الفيزياء الوحده الاول',
+            'description' => 'مراجع عامله على ماده الفزيا للصف الثانى الثانوى',
+            'tags'        => ['مراجعه', 'فيزياء'],
+            'category_id' => 10
+        ] , 'unlisted' );
+
+        return $video->getVideoId();
+
+        // video_for_test.mp4
+
+        // $user = User::find(1);
+        // Auth::login($user);
+
+        // dispatch(new UploadVidoeLessontoYoutubeJob);
 
 
-        Auth::login($user);
         
     }
 

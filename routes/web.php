@@ -13,6 +13,8 @@ use App\Http\Controllers\Board\CityController;
 use App\Http\Controllers\Board\StudentController;
 use App\Http\Controllers\Board\CourseController;
 use App\Http\Controllers\Board\CourseUnitController;
+use App\Http\Controllers\Board\LessonController;
+use App\Http\Controllers\Board\UploadLessonVideoController;
 use App\Http\Controllers\TestController;
 
 
@@ -29,7 +31,7 @@ Route::group(
         Route::group(['prefix' => 'Board' , 'as' => 'board.' ], function() {
             Route::get('/login' , [AdminLoginController::class , 'form'] )->name('login.form');
             Route::post('/login' , [AdminLoginController::class , 'login'] )->name('login');
-            Route::group(['middleware' => [] ], function() {
+            Route::group(['middleware' => ['admin'] ], function() {
                 Route::get('/' , [BoardController::class , 'index'] )->name('index');
                 Route::resource('admins', AdminController::class);
                 Route::resource('categories', CategoryController::class);
@@ -41,6 +43,14 @@ Route::group(
                 Route::resource('students', StudentController::class );
                 Route::resource('courses', CourseController::class );
                 Route::resource('courses.units', CourseUnitController::class );
+                Route::resource('courses.units.lessons', LessonController::class);
+
+
+
+
+                Route::post('proccess_video_uploads' , [UploadLessonVideoController::class , 'store'] )->name('proccess_video_uploads');
+                Route::patch('proccess_video_uploads' , [UploadLessonVideoController::class , 'store'] )->name('proccess_video_uploads');
+
             });
         });
 

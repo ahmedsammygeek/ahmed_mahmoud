@@ -39,12 +39,32 @@
 				</li>
 				<li class="nav-item nav-item-submenu">
 					<a href="{{ route('board.slides.index') }}" class="nav-link">
-						<i class="ph-layout"></i>
+						<i class="icon-images2"></i>
 						<span> @lang('slides.slides') </span>
 					</a>
 					<ul class="nav-group-sub collapse">
 						<li class="nav-item"><a href="{{ route('board.slides.create') }}" class="nav-link "> @lang('slides.add new slide') </a></li>
 						<li class="nav-item"><a href="{{ route('board.slides.index') }}" class="nav-link"> @lang('slides.show all slides') </a></li>
+					</ul>
+				</li>
+				<li class="nav-item nav-item-submenu">
+					<a href="{{ route('board.courses.index') }}" class="nav-link">
+						<i class="icon-graduation2  "></i>
+						<span> @lang('courses.courses') </span>
+					</a>
+					<ul class="nav-group-sub collapse">
+						<li class="nav-item"><a href="{{ route('board.courses.create') }}" class="nav-link "> @lang('courses.add new course') </a></li>
+						<li class="nav-item"><a href="{{ route('board.courses.index') }}" class="nav-link"> @lang('courses.show all courses') </a></li>
+					</ul>
+				</li>
+				<li class="nav-item nav-item-submenu">
+					<a href="{{ route('board.students.index') }}" class="nav-link">
+						<i class="icon-graduation2  "></i>
+						<span> @lang('students.students') </span>
+					</a>
+					<ul class="nav-group-sub collapse">
+						<li class="nav-item"><a href="{{ route('board.students.create') }}" class="nav-link "> @lang('students.add new student') </a></li>
+						<li class="nav-item"><a href="{{ route('board.students.index') }}" class="nav-link"> @lang('students.show all students') </a></li>
 					</ul>
 				</li>
 			</ul>

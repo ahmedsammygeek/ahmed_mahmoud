@@ -27,6 +27,28 @@ class Student extends Authenticatable
     }
 
 
+    public function grade()
+    {
+        return $this->belongsTo(Grade::class , 'grade_id');
+    }
+
+
+    public function educationalSystem()
+    {
+        return $this->belongsTo(EducationalSystem::class , 'educational_system_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class , 'user_id' );
+    }
+
+
+    public function loginDevices()
+    {
+        return $this->hasMany(StudentLoginDevice::class , 'student_id');
+    }
+
     // protected function profile_picture() :Attribute
     // {
     //     return Attribute::make(

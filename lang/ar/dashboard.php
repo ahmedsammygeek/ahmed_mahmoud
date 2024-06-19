@@ -14,4 +14,6 @@ return array (
   'cancel' => 'تراجع',
   'add' => 'إضافه',
   'navigation' => 'الروابط',
+  'no data to show' => 'لاء يوجد بيانات للعرض',
+  'addedd successfully' => 'تم الاضافه بنجاح',
 );
