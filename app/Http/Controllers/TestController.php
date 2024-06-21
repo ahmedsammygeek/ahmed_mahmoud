@@ -16,6 +16,8 @@ class TestController extends Controller
      */
     public function index()
     {
+                // $user = User::find(1);
+        // Auth::login($user);
 
         dd(Hash::make(90909090));
 
@@ -32,8 +34,6 @@ class TestController extends Controller
 
         // video_for_test.mp4
 
-        // $user = User::find(1);
-        // Auth::login($user);
 
         // dispatch(new UploadVidoeLessontoYoutubeJob);
 

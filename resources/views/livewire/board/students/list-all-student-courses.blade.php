@@ -66,6 +66,7 @@
                                @endif
                             </td>
                             <td>
+                                <a class='btn btn-sm btn-primary ' title='' >  <i class="icon-video-camera2"></i>  </a>
                                 <a class='btn btn-sm btn-primary ' title='مشاهده' >  <i class="icon-eye "></i>  </a>
                                 <a class='btn btn-sm btn-warning ' title='تعديل' >  <i class="icon-database-edit2 "></i>  </a>
                                 <a wire:click="$dispatch('deleteConfirmation', '{{ $course->id }}')" class='btn btn-sm btn-danger  delete_item' title='حذف' >  <i class="icon-trash "></i>  </a>

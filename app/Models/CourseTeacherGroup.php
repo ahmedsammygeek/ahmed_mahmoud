@@ -26,4 +26,10 @@ class CourseTeacherGroup extends Model
         return $this->hasMany(CourseTeacherGroupStudent::class , 'course_teacher_group_id');
     }
 
+
+    public function times()
+    {
+        return $this->hasMany(GroupTime::class);
+    }
+
 }
