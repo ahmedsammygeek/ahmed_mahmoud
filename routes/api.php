@@ -20,6 +20,7 @@ use App\Http\Controllers\Api\Student\V1\NotificationController;
 use App\Http\Controllers\Api\Student\V1\SplashController;
 use App\Http\Controllers\Api\Student\V1\AboutController;
 use App\Http\Controllers\Api\Student\V1\TermController;
+use App\Http\Controllers\Api\Student\V1\PrivacyController;
 
 
 Route::group(['prefix' => 'student/v1'], function() {
@@ -36,6 +37,8 @@ Route::group(['prefix' => 'student/v1'], function() {
     Route::get('/splashes' , [SplashController::class , 'index'] );
     Route::get('/about' , [AboutController::class , 'index'] );
     Route::get('/terms' , [TermController::class , 'index'] );
+    Route::get('/privacy' , [PrivacyController::class , 'index'] );
+    Route::get('/faq' , [TermController::class , 'index'] );
 
 
     Route::group(['middleware' => ['auth:student']  ], function() {
