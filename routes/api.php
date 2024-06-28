@@ -17,7 +17,7 @@ use App\Http\Controllers\Api\Student\V1\EducationalSystemController;
 use App\Http\Controllers\Api\Student\V1\LessonController;
 use App\Http\Controllers\Api\Student\V1\ExamController;
 use App\Http\Controllers\Api\Student\V1\NotificationController;
-
+use App\Http\Controllers\Api\Student\V1\SplashController;
 
 
 Route::group(['prefix' => 'student/v1'], function() {
@@ -31,6 +31,7 @@ Route::group(['prefix' => 'student/v1'], function() {
 
     Route::get('educational_systems' , [EducationalSystemController::class , 'index'] );
     Route::get('grades' , [GradeController::class , 'index'] );
+    Route::get('/splashes' , [SplashController::class , 'index'] );
 
 
     Route::group(['middleware' => ['auth:student']  ], function() {
@@ -51,7 +52,6 @@ Route::group(['prefix' => 'student/v1'], function() {
             Route::get('exams/{exam}' , [ExamController::class , 'show'] );
             Route::get('notifications' , [NotificationController::class , 'index'] );
             Route::post('notifications' , [NotificationController::class , 'read'] );
-
         });        
     });
 
