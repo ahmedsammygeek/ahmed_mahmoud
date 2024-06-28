@@ -22,6 +22,7 @@ use App\Http\Controllers\Api\Student\V1\AboutController;
 use App\Http\Controllers\Api\Student\V1\TermController;
 use App\Http\Controllers\Api\Student\V1\PrivacyController;
 use App\Http\Controllers\Api\Student\V1\FAQController;
+use App\Http\Controllers\Api\Student\V1\FeebackController;
 
 
 Route::group(['prefix' => 'student/v1'], function() {
@@ -60,6 +61,7 @@ Route::group(['prefix' => 'student/v1'], function() {
             Route::get('exams/{exam}' , [ExamController::class , 'show'] );
             Route::get('notifications' , [NotificationController::class , 'index'] );
             Route::post('notifications' , [NotificationController::class , 'read'] );
+            Route::post('feedback' , [FeebackController::class , 'store'] );
         });        
     });
 
