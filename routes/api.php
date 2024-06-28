@@ -18,6 +18,8 @@ use App\Http\Controllers\Api\Student\V1\LessonController;
 use App\Http\Controllers\Api\Student\V1\ExamController;
 use App\Http\Controllers\Api\Student\V1\NotificationController;
 use App\Http\Controllers\Api\Student\V1\SplashController;
+use App\Http\Controllers\Api\Student\V1\AboutController;
+use App\Http\Controllers\Api\Student\V1\TermController;
 
 
 Route::group(['prefix' => 'student/v1'], function() {
@@ -32,6 +34,8 @@ Route::group(['prefix' => 'student/v1'], function() {
     Route::get('educational_systems' , [EducationalSystemController::class , 'index'] );
     Route::get('grades' , [GradeController::class , 'index'] );
     Route::get('/splashes' , [SplashController::class , 'index'] );
+    Route::get('/about' , [AboutController::class , 'index'] );
+    Route::get('/terms' , [TermController::class , 'index'] );
 
 
     Route::group(['middleware' => ['auth:student']  ], function() {
