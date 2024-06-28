@@ -21,6 +21,7 @@ use App\Http\Controllers\Api\Student\V1\SplashController;
 use App\Http\Controllers\Api\Student\V1\AboutController;
 use App\Http\Controllers\Api\Student\V1\TermController;
 use App\Http\Controllers\Api\Student\V1\PrivacyController;
+use App\Http\Controllers\Api\Student\V1\FAQController;
 
 
 Route::group(['prefix' => 'student/v1'], function() {
@@ -38,7 +39,7 @@ Route::group(['prefix' => 'student/v1'], function() {
     Route::get('/about' , [AboutController::class , 'index'] );
     Route::get('/terms' , [TermController::class , 'index'] );
     Route::get('/privacy' , [PrivacyController::class , 'index'] );
-    Route::get('/faq' , [TermController::class , 'index'] );
+    Route::get('/faq' , [FAQController::class , 'index'] );
 
 
     Route::group(['middleware' => ['auth:student']  ], function() {
