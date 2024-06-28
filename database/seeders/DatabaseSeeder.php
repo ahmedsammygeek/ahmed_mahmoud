@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
             // GradeSeeder::class ,
             // UnitSeeder::class , 
             // UnitLessonSeeder::class ,  
+            // QuestionSeeder::class , 
+            QuestionAnswerSeeder::class , 
         ]);
         // User::factory(10)->create();
 

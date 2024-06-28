@@ -15,6 +15,8 @@ use App\Http\Controllers\Api\Student\V1\CourseController;
 use App\Http\Controllers\Api\Student\V1\GradeController;
 use App\Http\Controllers\Api\Student\V1\EducationalSystemController;
 use App\Http\Controllers\Api\Student\V1\LessonController;
+use App\Http\Controllers\Api\Student\V1\ExamController;
+use App\Http\Controllers\Api\Student\V1\NotificationController;
 
 
 
@@ -46,6 +48,10 @@ Route::group(['prefix' => 'student/v1'], function() {
             Route::get('/courses' , [CourseController::class , 'index'] );
             Route::get('/courses/{course}' , [CourseController::class , 'show'] );
             Route::get('/courses/{course}/lessons/{lesson}' , [LessonController::class , 'show'] );
+            Route::get('exams/{exam}' , [ExamController::class , 'show'] );
+            Route::get('notifications' , [NotificationController::class , 'index'] );
+            Route::post('notifications' , [NotificationController::class , 'read'] );
+
         });        
     });
 

@@ -5,18 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
-class Exam extends Model
+class QuestionAnswer extends Model
 {
     use HasFactory , HasTranslations ;
-    public $translatable = ['title'  ];
+    public $translatable = ['content' ];
 
-    protected function casts(): array
-    {
-        return [
-            'starts_at' => 'datetime',
-            'ends_at' => 'datetime',
-        ];
-    }
 
 
     public function user()
@@ -25,8 +18,12 @@ class Exam extends Model
     }
 
 
-    public function questions()
+    public function question()
     {
-        return $this->hasMany(ExamQuestion::class , 'exam_id' );
+        return $this->belongsTo(Course::class , 'question_id' );
     }
+
+
+
+
 }
