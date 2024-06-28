@@ -12,10 +12,10 @@ class AliasServiceProvider extends ServiceProvider
     public function register(): void
     {
         // Get the AliasLoader instance
-        $loader = AliasLoader::getInstance();
+        // $loader = AliasLoader::getInstance();
 
         // Add your aliases
-        $loader->alias('Youtube', \Dawson\Youtube\Facades\Youtube::class);
+        // $loader->alias('Youtube', \Alaouy\Youtube\Facades\Youtube::class);
 
     }
 

@@ -11,7 +11,7 @@ class UpdateStudentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,12 @@ class UpdateStudentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required', 
+            'mobile' => 'required|unique:students,mobile,'.$this->student->id , 
+            'guardian_mobile' => 'required' , 
+            'grade' => 'required' , 
+            'educational_system_id' => 'required' ,
+            'student_type' => 'required' , 
         ];
     }
 }

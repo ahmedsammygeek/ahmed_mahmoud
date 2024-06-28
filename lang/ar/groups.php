@@ -16,4 +16,11 @@ return array (
   'status' => 'الحاله',
   'teacher' => 'المدرس',
   'times' => 'الاوقات',
+  'students' => 'الطلاب',
+  'statrs_at' => 'يبدا فى',
+  'ends_at' => 'ينتهى فى',
+  'options' => 'اعدادات',
+  'show all groups' => 'عرض كافه المجموعات',
+  'show group calendar' => 'عرض جدول المجموعه',
+  'show group details' => 'عرض تفاصيل المجموعه',
 );

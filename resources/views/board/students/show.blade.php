@@ -70,137 +70,155 @@
 
 			
 
-			</ul>
+		</ul>
 
-		</div>
 	</div>
-	<!-- /profile navigation -->
+</div>
+<!-- /profile navigation -->
 
 
-	<!-- Content area -->
-	<div class="content">
+<!-- Content area -->
+<div class="content">
 
-		<!-- Inner container -->
-		<div class="d-flex align-items-stretch align-items-lg-start flex-column flex-lg-row">
+	<!-- Inner container -->
+	<div class="d-flex align-items-stretch align-items-lg-start flex-column flex-lg-row">
 
-			<!-- Left content -->
-			<div class="tab-content flex-fill order-2 order-lg-1">
-				<div class="tab-pane fade active show " id="student_details">
+		<!-- Left content -->
+		<div class="tab-content flex-fill order-2 order-lg-1">
+			<div class="tab-pane fade active show " id="student_details">
 
-					<div class="row">
-						<div class="col-lg-12">
-							<div class="card">
-								<div class="card-header bg-primary text-white">
-									<h5 class="mb-0">  @lang('students.show student details') </h5>
-								</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="card">
+							<div class="card-header bg-primary text-white">
+								<h5 class="mb-0">  @lang('students.show student details') </h5>
+							</div>
 
-								<div class='card-body' >
-									<table  class='table table-bordered table-responsive table-striped'>
-										<tbody>
-											<tr>
-												<th> @lang('students.created at') </th>
-												<td>{{ $student->created_at }}<span class='text-muted'>{{ $student->created_at->diffForHumans() }} </span> </td>
-											</tr>
-											<tr>
-												<th> @lang('students.added by') </th>
-												<td> 
-													@if ($student->user_id)
-													<p> {{ $student->user?->name }} </p>
-													@else
-													@lang('students.student join via mobile app')
-													@endif
-												</td>
-											</tr>
-											<tr>
-												<th> @lang('students.name') </th>
-												<td> {{ $student->name }} </td>
-											</tr>
+							<div class='card-body' >
+								<table  class='table table-bordered table-responsive table-striped'>
+									<tbody>
+										<tr>
+											<th> @lang('students.created at') </th>
+											<td>{{ $student->created_at }}<span class='text-muted'>{{ $student->created_at->diffForHumans() }} </span> </td>
+										</tr>
+										<tr>
+											<th> @lang('students.added by') </th>
+											<td> 
+												@if ($student->user_id)
+												<p> {{ $student->user?->name }} </p>
+												@else
+												@lang('students.student join via mobile app')
+												@endif
+											</td>
+										</tr>
+										<tr>
+											<th> @lang('students.name') </th>
+											<td> {{ $student->name }} </td>
+										</tr>
 
-											<tr>
-												<th>  @lang('students.mobile') </th>
-												<td> {{ $student->mobile }} </td>
-											</tr>
-											<tr>
-												<th>  @lang('students.guardian mobile') </th>
-												<td> {{ $student->guardian_mobile }} </td>
-											</tr>
-											<tr>
-												<th>  @lang('students.educational system') </th>
-												<td> {{ $student->educationalSystem?->name }} </td>
-											</tr>
-											<tr>
-												<th>  @lang('students.grade') </th>
-												<td> {{ $student->grade?->name }} </td>
-											</tr>
-											<tr>
-												<th>  @lang('students.grade') </th>
-												<td> {{ $student->grade?->name }} </td>
-											</tr>
-											<tr>
-												<th>  @lang('students.mobile serial number') </th>
-												<td> {{ $student->mobile_serial_number }} </td>
-											</tr>
-											<tr>
-												<th>  @lang('students.app platform') </th>
-												<td> {{ $student->app_platform }} </td>
-											</tr>
-											<tr>
-												<th>  @lang('students.mobile serial number') </th>
-												<td> {{ $student->mobile_serial_number }} </td>
-											</tr>
+										<tr>
+											<th>  @lang('students.mobile') </th>
+											<td> {{ $student->mobile }} </td>
+										</tr>
+										<tr>
+											<th>  @lang('students.guardian mobile') </th>
+											<td> {{ $student->guardian_mobile }} </td>
+										</tr>
+										<tr>
+											<th>  @lang('students.educational system') </th>
+											<td> {{ $student->educationalSystem?->name }} </td>
+										</tr>
+										<tr>
+											<th>  @lang('students.grade') </th>
+											<td> {{ $student->grade?->name }} </td>
+										</tr>
+										<tr>
+											<th>  @lang('students.grade') </th>
+											<td> {{ $student->grade?->name }} </td>
+										</tr>
+										<tr>
+											<th>  @lang('students.mobile serial number') </th>
+											<td> {{ $student->mobile_serial_number }} </td>
+										</tr>
+										<tr>
+											<th>  @lang('students.app platform') </th>
+											<td> {{ $student->app_platform }} </td>
+										</tr>
+										<tr>
+											<th>  @lang('students.mobile serial number') </th>
+											<td> {{ $student->mobile_serial_number }} </td>
+										</tr>
 
-											<tr>
-												<th>  @lang('students.is verified') </th>
-												<td> 
-													@if ($student->phone_verified_at)
-													<span class="badge bg-primary"> @lang('students.yes') </span>
-													@else
-													<span class="badge bg-danger"> @lang('students.no') </span>
-													@endif
-												</td>
-											</tr>
-											<tr>
-												<th>  @lang('students.is banned') </th>
-												<td> 
-													@if ($student->is_banned)
-													<span class="badge bg-danger"> @lang('students.yes') </span>
-													<br>
-													<span> {{ $student->banning_message }} </span>
-													@else
-													<span class="badge bg-primary"> @lang('students.no') </span>
-													@endif
-												</td>
-											</tr>
+										<tr>
+											<th>  @lang('students.student type') </th>
+											<td> 
+												@switch($student->student_type)
+												@case(1)
+												<span class='badge bg-primary' > @lang('students.only center student') </span>
+												@break
+												@case(2)
+												<span class='badge bg-success' >@lang('students.only mobile student')   </span>
+												@break
+												@case(3)
+												<span class='badge bg-info' > @lang('students.student can use both') </span>
+												@break
+												@endswitch
 
-											
-										</tbody>
-									</table>
-								</div>
+											</td>
+										</tr>
+
+										<tr>
+											<th>  @lang('students.is verified') </th>
+											<td> 
+												@if ($student->phone_verified_at)
+												<span class="badge bg-primary"> @lang('students.yes') </span>
+												@else
+												<span class="badge bg-danger"> @lang('students.no') </span>
+												@endif
+											</td>
+										</tr>
+										<tr>
+											<th>  @lang('students.is banned') </th>
+											<td> 
+												@if ($student->is_banned)
+												<span class="badge bg-danger"> @lang('students.yes') </span>
+												<br>
+												<span> {{ $student->banning_message }} </span>
+												@else
+												<span class="badge bg-primary"> @lang('students.no') </span>
+												@endif
+											</td>
+										</tr>
+
+
+									</tbody>
+								</table>
 							</div>
 						</div>
 					</div>
-
-
 				</div>
 
-				<div class="tab-pane fade " id="courses">
-					@livewire('board.students.list-all-student-courses' , ['student' => $student] )
-				</div>
 
-				<div class="tab-pane fade" id="settings">
-
-					
-
-				</div>
 			</div>
-			<!-- /left content -->
+
+			<div class="tab-pane fade " id="courses">
+				@livewire('board.students.list-all-student-courses' , ['student' => $student] )
+			</div>
+
+			<div class="tab-pane fade" id="settings">
 
 
 
-
+			</div>
 		</div>
-		<!-- /inner container -->
+		<!-- /left content -->
+
+
+
 
 	</div>
-	<!-- /content area -->
-	@endsection
+	<!-- /inner container -->
+
+</div>
+<!-- /content area -->
+@endsection

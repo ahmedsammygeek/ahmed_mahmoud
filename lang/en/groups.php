@@ -16,4 +16,11 @@ return array (
   'maxmimam student number' => 'maxmimam students number',
   'starts at' => 'Starts At',
   'ends at' => 'Ends At',
+  'show group calendar' => 'Show Group Calendar',
+  'show all groups' => 'Show All Groups',
+  'show group details' => 'show group details',
+  'statrs_at' => 'Starts At',
+  'ends_at' => 'Ends At',
+  'students' => 'students',
+  'options' => 'Options',
 );

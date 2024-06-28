@@ -1,5 +1,10 @@
 @extends('board.layout.master')
 
+@section('page_title')
+@lang('groups.show group details')
+@endsection
+
+
 
 @section('breadcrumb')
 <a href="{{ route('board.groups.index') }}" class="breadcrumb-item"> @lang('groups.groups')</a>
@@ -66,21 +71,6 @@
 								</ul>
 							</td>
 						</tr>
-
-
-
-
-{{-- 
-						<tr  class='row' >
-							<th class='col-md-2' > حاله العلامه </th>
-							<td class='col-md-10' > 
-								@if ($group->is_active)
-								<span class='badge bg-success' > فعال</span>
-								@else
-								<span class='badge bg-danger' > غير فعال </span>
-								@endif
-							</td>
-						</tr> --}}
 
 					</tbody>
 				</table>

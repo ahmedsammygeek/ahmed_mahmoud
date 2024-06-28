@@ -17,9 +17,9 @@ class Course extends Model
         return $this->belongsTo(User::class , 'user_id');
     }
 
-    public function teachers()
+    public function teacher()
     {
-        return $this->hasMany(CourseTeacher::class);
+        return $this->belongsTo(Teacher::class , 'teacher_id' );
     }
 
 
@@ -31,6 +31,12 @@ class Course extends Model
     public function units()
     {
         return $this->hasMany(CourseUnit::class );
+    }
+
+
+    public function lessons()
+    {
+        return $this->hasManyThrough(CourseUnitLesson::class , CourseUnit::class);
     }
 
     public function educationalSystems()

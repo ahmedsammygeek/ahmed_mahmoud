@@ -15,7 +15,7 @@ class CourseDetailsResource extends JsonResource
      * @return array<string, mixed>
      */
     public function toArray(Request $request): array
-    {
+    {    
         return [
             'id' => $this->id , 
             'title' => $this->title , 
@@ -25,7 +25,8 @@ class CourseDetailsResource extends JsonResource
             'rate' => 4.9 , 
             'students_count' => mt_rand(300 , 9000) , 
             'content' => $this->content , 
-            'teacher' => new CourseDetailsTeacherResource($this->teachers()->first()), 
+            'dose_user_subscribed' => $this->dose_user_subscribed , 
+            'teacher' => new CourseDetailsTeacherResource($this->teacher), 
             'units' => CourseUnitResource::collection($this->units) , 
         ];
     }

@@ -14,6 +14,10 @@ use App\Http\Controllers\Api\Student\V1\TeacherController;
 use App\Http\Controllers\Api\Student\V1\CourseController;
 use App\Http\Controllers\Api\Student\V1\GradeController;
 use App\Http\Controllers\Api\Student\V1\EducationalSystemController;
+use App\Http\Controllers\Api\Student\V1\LessonController;
+
+
+
 Route::group(['prefix' => 'student/v1'], function() {
 
     Route::post('/register' , [RegisterController::class , 'index'] );    
@@ -41,6 +45,7 @@ Route::group(['prefix' => 'student/v1'], function() {
             Route::get('/teachers/{teacher}' , [TeacherController::class , 'show'] );
             Route::get('/courses' , [CourseController::class , 'index'] );
             Route::get('/courses/{course}' , [CourseController::class , 'show'] );
+            Route::get('/courses/{course}/lessons/{lesson}' , [LessonController::class , 'show'] );
         });        
     });
 

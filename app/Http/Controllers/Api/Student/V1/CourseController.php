@@ -5,11 +5,9 @@ namespace App\Http\Controllers\Api\Student\V1;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Traits\Api\GeneralResponse;
-use App\Models\Course;
+use App\Models\{Course , CourseStudent };
 use App\Http\Resources\Api\Student\V1\Courses\CourseResource;
 use Auth;
-use App\Models\CourseTeacher;
-use App\Models\CourseTeacherGroupStudent;
 use App\Http\Resources\Api\Student\V1\Courses\CourseDetailsResource;
 
 class CourseController extends Controller
@@ -30,15 +28,9 @@ class CourseController extends Controller
         })
         ->get();
 
-
         $courses->map(function($course) use ($student) {
-            $course->dose_user_subscribed = CourseTeacherGroupStudent::where('student_id' , $student->id )
-            ->whereHas('CourseTeacherGroup' , function($query) use($course) {
-                $query->whereHas('CourseTeacher' , function($query) use($course) {
-                    $query->where('course_id' , $course->id );
-                });
-
-            })->first() ? true : false ;
+            $course->dose_user_subscribed = CourseStudent::where('student_id' , $student->id )->where('course_id' , $course->id )
+            ->first() ? true : false ;
             return $course;
         });
 
@@ -58,6 +50,9 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
+        $student = Auth::user();
+        $course['dose_user_subscribed'] = CourseStudent::where('student_id' , $student->id )->where('course_id' , $course->id )
+            ->first() ? true : false ;
         $data = [
             'course' => new CourseDetailsResource($course)  , 
         ];

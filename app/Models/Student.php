@@ -49,6 +49,12 @@ class Student extends Authenticatable
         return $this->hasMany(StudentLoginDevice::class , 'student_id');
     }
 
+
+    public function courses()
+    {
+        return $this->hasMany(CourseTeacherStudent::class , 'student_id');
+    }
+
     // protected function profile_picture() :Attribute
     // {
     //     return Attribute::make(

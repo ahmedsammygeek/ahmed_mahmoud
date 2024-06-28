@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CourseTeacherGroup extends Model
+class Group extends Model
 {
     use HasFactory;
 
@@ -15,16 +15,16 @@ class CourseTeacherGroup extends Model
     }
 
 
-    public function CourseTeacher()
+    public function course()
     {
-        return $this->belongsTo(CourseTeacher::class , 'course_teacher_id');
+        return $this->belongsTo(Course::class , 'course_id');
     }
 
 
-    public function students()
-    {
-        return $this->hasMany(CourseTeacherGroupStudent::class , 'course_teacher_group_id');
-    }
+    // public function students()
+    // {
+    //     return $this->hasMany(CourseTeacherGroupStudent::class , 'course_teacher_group_id');
+    // }
 
 
     public function times()

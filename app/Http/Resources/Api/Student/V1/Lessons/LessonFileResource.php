@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources\Api\Student\V1\Courses;
+namespace App\Http\Resources\Api\Student\V1\Lessons;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Storage;
-class CourseDetailsTeacherResource extends JsonResource
+class LessonFileResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,8 +16,9 @@ class CourseDetailsTeacherResource extends JsonResource
     {
         return [
             'id' => $this->id , 
-            'name' => $this->name , 
-            'image' => Storage::url('teachers/'.$this->image)
-        ];;
+            'file' => Storage::url('lesson_files/'.$this->file) , 
+            'name' => $this->file , 
+
+        ];
     }
 }

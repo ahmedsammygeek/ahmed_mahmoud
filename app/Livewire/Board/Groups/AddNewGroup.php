@@ -12,6 +12,10 @@ class AddNewGroup extends Component
 
     public $course_id;
     public $course_teacher_id;
+    public $group_days = 1 ;
+    public $days = [];
+    public $from = [];
+    public $to = [];
 
     #[Computed]
     public function courseTeachers()
@@ -21,6 +25,18 @@ class AddNewGroup extends Component
         })->get();
     }
 
+    public function addMoreDays()
+    {
+        $this->group_days++;
+    }
+
+
+    public function save()
+    {
+        sleep(4);
+
+        
+    }
 
     public function render()
     {

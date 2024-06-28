@@ -15,17 +15,8 @@
 				<h5 class="mb-0">  @lang('groups.add new group')  </h5>
 			</div>
 
-			<form class="" method="POST" action="{{ route('board.groups.store') }}" enctype="multipart/form-data" >
-				<div class="card-body">
-					@csrf
-					@livewire('board.groups.add-new-group')
-				</div>
+			@livewire('board.groups.add-new-group')
 
-				<div class="card-footer d-flex justify-content-end">
-					<a  href='{{ route('board.groups.index') }}' class="btn btn-light" id="reset"> @lang('groups.cancel') </a>
-					<button type="submit" class="btn btn-primary ms-3"> @lang('groups.add') <i class="ph-paper-plane-tilt ms-2"></i></button>
-				</div>
-			</form>
 		</div>
 	</div>
 </div>

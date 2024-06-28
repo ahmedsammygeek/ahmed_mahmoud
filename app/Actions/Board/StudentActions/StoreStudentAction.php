@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Actions\Board\StudentActions;
-use Illuminate\Http\Request;
+
 use App\Models\Student;
 use Auth;
 class StoreStudentAction
@@ -16,16 +16,17 @@ class StoreStudentAction
 
 
 
-    public function execute(Request $request)
+    public function execute($data)
     {
         $student = new Student;
-        $student->name = $request->name;
-        $student->password = $request->password;
-        $student->grade_id = $request->grade;
-        $student->educational_system_id = $request->educational_system_id;
-        $student->mobile = $request->mobile;
-        $student->guardian_mobile = $request->guardian_mobile;
-        $student->is_banned = $request->filled('is_active') ? 0 : 1;
+        $student->name = $data['name'];
+        $student->password = array_key_exists('password' , $data ) ? $data['password'] : null ;
+        $student->grade_id = $data['grade'];
+        $student->educational_system_id = $data['educational_system_id'];
+        $student->mobile = $data['mobile'];
+        $student->guardian_mobile = $data['guardian_mobile'];
+        $student->is_banned =  0 ;
+        $student->student_type = $data['student_type'];
         $student->user_id = Auth::id();
         $student->save();
         return $student;

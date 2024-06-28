@@ -1,3 +1,30 @@
+@php
+$groups = $home = $students = $users = $courses = $slides = '';
+
+
+
+switch (request()->segment(3)) {
+	case 'groups':
+	$groups = 'active';
+	break;
+	case 'students':
+	$students = 'active';
+	break;
+	case 'users':
+	$users = 'active';
+	break;
+	case 'courses':
+	$courses = 'active';
+	break;
+	case 'slides':
+	$slides = 'active';
+	break;
+	default:
+	$home = 'active';
+	break;
+}
+@endphp
+
 <div class="sidebar sidebar-dark sidebar-main sidebar-expand-lg">
 
 	<!-- Sidebar content -->
@@ -30,7 +57,7 @@
 					<i class="ph-dots-three sidebar-resize-show"></i>
 				</li>
 				<li class="nav-item">
-					<a href="{{ route('board.index') }}" class="nav-link active">
+					<a href="{{ route('board.index') }}" class="nav-link {{ $home }}">
 						<i class="ph-house"></i>
 						<span>
 							@lang('dashboard.home')
@@ -38,7 +65,7 @@
 					</a>
 				</li>
 				<li class="nav-item nav-item-submenu">
-					<a href="{{ route('board.slides.index') }}" class="nav-link">
+					<a href="{{ route('board.slides.index') }}" class="nav-link {{ $slides }}">
 						<i class="icon-images2"></i>
 						<span> @lang('slides.slides') </span>
 					</a>
@@ -48,7 +75,7 @@
 					</ul>
 				</li>
 				<li class="nav-item nav-item-submenu">
-					<a href="{{ route('board.courses.index') }}" class="nav-link">
+					<a href="{{ route('board.courses.index') }}" class="nav-link {{ $courses }}">
 						<i class="icon-graduation2  "></i>
 						<span> @lang('courses.courses') </span>
 					</a>
@@ -58,7 +85,7 @@
 					</ul>
 				</li>
 				<li class="nav-item nav-item-submenu">
-					<a href="{{ route('board.students.index') }}" class="nav-link">
+					<a href="{{ route('board.students.index') }}" class="nav-link {{ $students }}">
 						<i class="icon-graduation2  "></i>
 						<span> @lang('students.students') </span>
 					</a>
@@ -67,6 +94,67 @@
 						<li class="nav-item"><a href="{{ route('board.students.index') }}" class="nav-link"> @lang('students.show all students') </a></li>
 					</ul>
 				</li>
+				<li class="nav-item nav-item-submenu">
+					<a href="{{ route('board.groups.index') }}" class="nav-link {{ $groups }} ">
+						<i class="icon-graduation2  "></i>
+						<span> @lang('groups.groups') </span>
+					</a>
+					<ul class="nav-group-sub collapse">
+						<li class="nav-item"><a href="{{ route('board.groups.create') }}" class="nav-link "> @lang('groups.add new gourp') </a></li>
+						<li class="nav-item"><a href="{{ route('board.groups.index') }}" class="nav-link"> @lang('groups.show all groups') </a></li>
+					</ul>
+				</li>
+				<li class="nav-item nav-item-submenu">
+					<a  class="nav-link ">
+						<i class="icon-graduation2  "></i>
+						<span> @lang('halls.halls') </span>
+					</a>
+					<ul class="nav-group-sub collapse">
+						<li class="nav-item"><a  class="nav-link "> @lang('halls.add new hall') </a></li>
+						<li class="nav-item"><a  class="nav-link"> @lang('halls.show all halls') </a></li>
+					</ul>
+				</li>
+
+
+				<li class="nav-item nav-item-submenu">
+					<a  class="nav-link ">
+						<i class="icon-graduation2  "></i>
+						<span> @lang('exams.exams') </span>
+					</a>
+					<ul class="nav-group-sub collapse">
+						<li class="nav-item"><a  class="nav-link "> @lang('exams.add new exams') </a></li>
+						<li class="nav-item"><a  class="nav-link"> @lang('exams.show all exams') </a></li>
+					</ul>
+				</li>
+
+				<li class="nav-item nav-item-submenu">
+					<a  class="nav-link ">
+						<i class="icon-graduation2  "></i>
+						<span> @lang('Question bank.Question bank') </span>
+					</a>
+					<ul class="nav-group-sub collapse">
+						<li class="nav-item"><a  class="nav-link "> @lang('Question bank.add new question') </a></li>
+						<li class="nav-item"><a  class="nav-link"> @lang('Question bank.show all questions') </a></li>
+					</ul>
+				</li>
+
+				<li class="nav-item">
+					<a href="" class="nav-link ">
+						<i class="ph-house"></i>
+						<span>
+							@lang('dashboard.payments')
+						</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a href="" class="nav-link ">
+						<i class="ph-house"></i>
+						<span>
+							@lang('dashboard.installments')
+						</span>
+					</a>
+				</li>
+
 			</ul>
 		</div>
 		<!-- /main navigation -->

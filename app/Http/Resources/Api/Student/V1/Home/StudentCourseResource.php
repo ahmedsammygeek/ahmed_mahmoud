@@ -15,12 +15,14 @@ class StudentCourseResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id , 
-            'title' => $this->title , 
-            'image' => Storage::url('courses/'.$this->image) , 
+            'id' => $this->course_id  , 
+            'title' => $this->course?->title , 
+            'image' => Storage::url('courses/'.$this->course?->image) , 
             'total_mins' => mt_rand(20 , 140 ) , 
-            'price' => $this->price , 
-            'dose_user_subscribed' => $this->dose_user_subscribed , 
+            'price' => $this->course?->price , 
+            'allowed' => (bool)$this->allow , 
+            'dose_user_subscribed' => true , 
+            'not_allow_message' => $this->not_allow_message
         ];
     }
 }

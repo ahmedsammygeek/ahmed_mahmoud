@@ -18,6 +18,11 @@ class CourseUnitLesson extends Model
     }
 
 
+    public function files() {
+
+        return $this->hasMany(LessonFile::class , 'course_unit_lesson_id');
+    }
+
     public function courseUnit()
     {
         return $this->belongsTo(CourseUnit::class);

@@ -6,17 +6,66 @@ use Illuminate\Http\Request;
 use Arr;
 use Auth;
 use App\Models\User;
+use App\Models\Course;
+use App\Models\Student;
+use App\Models\StudentLesson;
+use App\Models\CourseUnitLesson;
+use App\Models\LessonFile;
 use App\Jobs\UploadVidoeLessontoYoutubeJob;
-use Youtube;
+// use Youtube;
+// use Alaouy\Youtube\Facades\Youtube;
+ use Alaouy\Youtube\Facades\Youtube;
 use Hash;
+use Storage;
 class TestController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
-    {
-                // $user = User::find(1);
+    {       
+
+
+        $pdf_path = 'sample.pdf';
+       
+
+        $lessons = CourseUnitLesson::get();
+
+        foreach ($lessons as $lesson) {
+            $file = new LessonFile;
+            $file->course_unit_lesson_id = $lesson->id;
+            $file->user_id = 1;
+            $file->download_allowed_number = 20;
+            $file->file = 'sample.pdf';
+            $file->save();
+        }
+
+
+       
+        dd('done');
+        // dd($videoId);
+
+
+        // dd(Auth::id());
+        $course = Course::find(3);
+        // dd($course->lessons()->pluck('course_unit_lessons.id')->toArray());
+
+
+        foreach ($course->lessons()->pluck('course_unit_lessons.id')->toArray() as $lesson_id) {
+            $lesson = new StudentLesson;
+            $lesson->user_id = 1;
+            $lesson->course_unit_lesson_id = $lesson_id;
+            $lesson->student_id = 15;
+            $lesson->allowed = 1;
+            $lesson->total_views_till_now = 50;
+            $lesson->allowed_views = 20;
+            $lesson->remains_views = 18; 
+            $lesson->save();
+        }
+
+
+
+        // $user = User::find(1);
         // Auth::login($user);
 
         dd(Hash::make(90909090));
