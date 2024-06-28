@@ -20,7 +20,7 @@ class CourseResource extends JsonResource
             'image' => Storage::url('courses/'.$this->image) , 
             'total_mins' => mt_rand(20 , 140 ) , 
             'price' => $this->price , 
-            'dose_user_subscribed' => $this->dose_user_subscribed
+            'dose_user_subscribed' => $this->dose_user_subscribed , 
         ];
     }
 }
