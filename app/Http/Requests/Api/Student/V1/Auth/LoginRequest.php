@@ -29,6 +29,7 @@ class LoginRequest extends FormRequest
             'device_platform' => 'required' , 
             'device_serial_number' => 'required' , 
             'device_brand' => 'required' , 
+            'firebase_fcm' => 'required'
         ];
     }
 }

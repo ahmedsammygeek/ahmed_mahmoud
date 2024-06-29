@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Student\V1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{Course , CourseUnitLesson  , StudentLesson};
+use App\Models\{Course , CourseUnitLesson  , StudentLesson };
 use App\Traits\Api\GeneralResponse;
 use App\Http\Resources\Api\Student\V1\Lessons\LessonResource;
 use Auth;
@@ -13,6 +13,23 @@ class LessonController extends Controller
 
     use GeneralResponse;
 
+
+    public function watched(Course $course , CourseUnitLesson $lesson )
+    {
+        $student = Auth::guard('student')->user();
+        $student_lesson = StudentLesson::where('student_id' , $student->id )->where('course_unit_lesson_id' , $lesson->id )->first();
+
+        if ($student_lesson) {
+           $student_lesson->total_views_till_now = $student_lesson->total_views_till_now + 1;
+           $student_lesson->remains_views = $student_lesson->remains_views - 1;
+           $student_lesson->save();
+        }
+
+        return $this->response(
+            message : 'lesson marked as watched successfully'  , 
+        );
+        
+    }
 
     
     /**

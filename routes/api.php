@@ -60,6 +60,7 @@ Route::group(['prefix' => 'student/v1'], function() {
             Route::get('/courses' , [CourseController::class , 'index'] );
             Route::get('/courses/{course}' , [CourseController::class , 'show'] );
             Route::get('/courses/{course}/lessons/{lesson}' , [LessonController::class , 'show'] );
+            Route::post('/courses/{course}/lessons/{lesson}/watched' , [LessonController::class , 'watched'] );
             Route::get('exams/{exam}' , [ExamController::class , 'show'] );
             Route::get('notifications' , [NotificationController::class , 'index'] );
             Route::post('notifications' , [NotificationController::class , 'read'] );

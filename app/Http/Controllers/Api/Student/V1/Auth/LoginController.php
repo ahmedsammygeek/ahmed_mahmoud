@@ -31,6 +31,8 @@ class LoginController extends Controller
         }
 
 
+        $student->firebase_fcm = $request->firebase_fcm;
+        $student->save();
 
 
         $data = [
@@ -42,7 +44,6 @@ class LoginController extends Controller
             data : $data  ,
             statusCode : 200 ,
             message : trans('api.logined in successfully')
-
         );
     }
 
