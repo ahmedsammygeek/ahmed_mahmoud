@@ -17,8 +17,11 @@ class SettingResource extends JsonResource
         return [
             'lesson_mins_to_be_viewed' => $this->lesson_mins_to_be_viewed ,
             'show_phone_on_viedo' => (bool)$this->show_phone_on_viedo ,
+            'show_phone_on_viedo_ervery' => $this->show_phone_on_viedo_ervery ,
+            'show_phone_on_viedo_ervery' => (bool)$this->show_phone_on_viedo ,
             'speak_user_phone' => (bool)$this->speak_user_phone ,
             'speak_user_phone_every' => $this->speak_user_phone_every ,
+            'allow_virtual_apps' => (bool)$this->allow_virtual_apps ,
         ];
     }
 }
