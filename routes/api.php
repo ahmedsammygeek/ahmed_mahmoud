@@ -24,6 +24,7 @@ use App\Http\Controllers\Api\Student\V1\PrivacyController;
 use App\Http\Controllers\Api\Student\V1\FAQController;
 use App\Http\Controllers\Api\Student\V1\FeebackController;
 use App\Http\Controllers\Api\Student\V1\StudentCourseController;
+use App\Http\Controllers\Api\Student\V1\SettingController;
 
 Route::group(['prefix' => 'student/v1'], function() {
 
@@ -41,6 +42,7 @@ Route::group(['prefix' => 'student/v1'], function() {
     Route::get('/terms' , [TermController::class , 'index'] );
     Route::get('/privacy' , [PrivacyController::class , 'index'] );
     Route::get('/faq' , [FAQController::class , 'index'] );
+    Route::get('/settings' , [SettingController::class , 'index'] );
 
 
     Route::group(['middleware' => ['auth:student']  ], function() {
