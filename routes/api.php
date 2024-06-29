@@ -62,6 +62,10 @@ Route::group(['prefix' => 'student/v1'], function() {
             Route::get('/courses/{course}/lessons/{lesson}' , [LessonController::class , 'show'] );
             Route::post('/courses/{course}/lessons/{lesson}/watched' , [LessonController::class , 'watched'] );
             Route::get('exams/{exam}' , [ExamController::class , 'show'] );
+            Route::get('exams/{exam}/result' , [ExamController::class , 'result'] );
+            Route::post('exams/{exam}/answer' , [ExamController::class , 'answer'] );
+
+
             Route::get('notifications' , [NotificationController::class , 'index'] );
             Route::post('notifications' , [NotificationController::class , 'read'] );
             Route::post('feedback' , [FeebackController::class , 'store'] );
