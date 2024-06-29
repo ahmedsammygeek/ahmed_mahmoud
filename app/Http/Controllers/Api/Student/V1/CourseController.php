@@ -5,10 +5,11 @@ namespace App\Http\Controllers\Api\Student\V1;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Traits\Api\GeneralResponse;
-use App\Models\{Course , CourseStudent };
+use App\Models\{Course , CourseStudent  , Exam};
 use App\Http\Resources\Api\Student\V1\Courses\CourseResource;
 use Auth;
 use App\Http\Resources\Api\Student\V1\Courses\CourseDetailsResource;
+use App\Http\Resources\Api\Student\V1\Courses\ExamResource;
 
 class CourseController extends Controller
 {
@@ -53,8 +54,11 @@ class CourseController extends Controller
         $student = Auth::user();
         $course['dose_user_subscribed'] = CourseStudent::where('student_id' , $student->id )->where('course_id' , $course->id )
             ->first() ? true : false ;
+
+        $exams = Exam::get();
         $data = [
             'course' => new CourseDetailsResource($course)  , 
+            'exams' => ExamResource::collection($exams) , 
         ];
 
         return $this->response(
