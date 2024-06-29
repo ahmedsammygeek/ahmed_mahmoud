@@ -69,7 +69,7 @@ class ExamController extends Controller
                 // dd($student_exam_questions->pluck('question_id')->toArray());
                 $data['exam'] = new ExamResource($exam);
                 $data['exam_questions'] = ExamQuestionResource::collection($student_exam_questions);
-                $data['user_exam_id'] = $user_exam->id;
+                $data['student_exam_id'] = $user_exam->id;
 
                 return $this->response(
                     data : $data , 
@@ -98,7 +98,7 @@ class ExamController extends Controller
         $student_exam_questions  = StudentExamAnswer::with('question')->where('exam_id' , $exam->id )->where('student_id' , $student->id )->where('student_exam_id' , $student_exam->id )->get();
         $data['exam'] = new ExamResource($exam);
         $data['exam_questions'] = ExamQuestionResource::collection($student_exam_questions);
-        $data['user_exam_id'] = $student_exam->id;
+        $data['student_exam_id'] = $student_exam->id;
 
         return $this->response(
             data : $data , 
