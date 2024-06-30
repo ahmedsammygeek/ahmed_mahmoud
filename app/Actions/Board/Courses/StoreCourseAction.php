@@ -32,6 +32,7 @@ class StoreCourseAction
         $course->is_active = $request->filled('active') ? 1 : 0;
         $course->suggest_course = $request->filled('show_in_home') ? 1 : 0;
         $course->user_id = Auth::id();
+        $course->teacher_id = $request->teacher_id;
         $course->save();
 
         
@@ -39,30 +40,15 @@ class StoreCourseAction
         if ($request->filled('educational_system_id')) {
             $systems = [];
             foreach ($request->educational_system_id as $educational_system) {
-
                 $systems[] = new CourseEducationalSystem([
                     'course_id' => $course->id , 
                     'educational_system_id' => $educational_system , 
                     'user_id' => Auth::id() , 
                 ]);
             }
-
             $course->educationalSystems()->saveMany($systems);
         }
         
-        if ($request->filled('teachers')) {
-            $course_teachers = [];
-            foreach ($request->teachers as $teacher) {
-
-                $course_teachers[] = new CourseTeacher([
-                    'course_id' => $course->id , 
-                    'teacher_id' => $teacher , 
-                    'user_id' => Auth::id() , 
-                ]);
-            }
-
-            $course->teachers()->saveMany($course_teachers);            
-        }
 
         return true;
     }

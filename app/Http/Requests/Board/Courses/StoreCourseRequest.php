@@ -28,7 +28,7 @@ class StoreCourseRequest extends FormRequest
             'content_ar' => 'required' , 
             'content_en' => 'required' , 
             'price' => 'required' , 
-            'teachers' => 'required' , 
+            'teacher_id' => 'required' , 
             'educational_system_id' => 'required' , 
             'grade' => 'required' , 
         ];

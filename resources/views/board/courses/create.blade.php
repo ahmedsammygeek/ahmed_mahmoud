@@ -38,15 +38,14 @@
 
 
                             <div class="col-md-2">
-                                <label class="col-form-label col-lg-12"> @lang('courses.teachers') <span class="text-danger">*</span></label>
+                                <label class="col-form-label col-lg-12"> @lang('courses.teacher') <span class="text-danger">*</span></label>
                                 <div class="col-lg-12">
-                                    <select name="teachers[]" class='form-control form-select select' multiple="" id="">
-                                        <option value=""> اختر التصنيف </option>
+                                    <select name="teacher_id" class='form-control form-select select'  id="">
                                         @foreach ($teachers as $teacher)
                                         <option value="{{ $teacher->id }}">    {{ $teacher->name }}  </option>
                                         @endforeach
                                     </select>
-                                    @error('teachers')
+                                    @error('teacher_id')
                                     <p class='text-danger'> {{ $message }} </p>
                                     @enderror
                                 </div>

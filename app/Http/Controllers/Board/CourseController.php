@@ -4,15 +4,9 @@ namespace App\Http\Controllers\Board;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Grade;
-use App\Models\EducationalSystem;
-use App\Models\Teacher;
-use App\Models\Course;
-use App\Models\CourseTeacher;
-use App\Models\CourseEducationalSystem;
-use App\Http\Requests\Board\Courses\{StoreCourseRequest , UpdateCourseRequest};
-
-use App\Actions\Board\Courses\{StoreCourseAction , UpdateCourseAction };
+use App\Models\{ Grade  , EducationalSystem,  Teacher, Course  , CourseEducationalSystem };
+use App\Http\Requests\Board\Courses\{ StoreCourseRequest , UpdateCourseRequest};
+use App\Actions\Board\Courses\{ StoreCourseAction , UpdateCourseAction };
 class CourseController extends Controller
 {
     /**
@@ -61,9 +55,8 @@ class CourseController extends Controller
         $grades = Grade::select('id' , 'name' )->get();
         $systems = EducationalSystem::select('id' , 'name' )->get();
         $teachers = Teacher::select('id' , 'name' )->get();
-        $course_teachers = CourseTeacher::where('course_id' , $course->id )->pluck('teacher_id')->toArray();
         $course_educational_systems = CourseEducationalSystem::where('course_id' , $course->id )->pluck('educational_system_id')->toArray();
-        return view('board.courses.edit' , compact( 'course' ,  'systems' , 'grades' , 'teachers' , 'course_teachers' , 'course_educational_systems' ) );
+        return view('board.courses.edit' , compact( 'course' ,  'systems' , 'grades' , 'teachers'  , 'course_educational_systems' ) );
     }
 
     /**

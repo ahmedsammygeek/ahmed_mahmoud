@@ -31,6 +31,7 @@ class UpdateCourseAction
         $course->grade_id = $request->grade;
         $course->is_active = $request->filled('active') ? 1 : 0;
         $course->suggest_course = $request->filled('show_in_home') ? 1 : 0;
+        $course->teacher_id = $request->teacher_id;
         $course->save();
 
         
@@ -48,21 +49,6 @@ class UpdateCourseAction
             }
 
             $course->educationalSystems()->saveMany($systems);
-        }
-        
-        if ($request->filled('teachers')) {
-            $course->teachers()->delete(); 
-            $course_teachers = [];
-            foreach ($request->teachers as $teacher) {
-
-                $course_teachers[] = new CourseTeacher([
-                    'course_id' => $course->id , 
-                    'teacher_id' => $teacher , 
-                    'user_id' => Auth::id() , 
-                ]);
-            }
-
-            $course->teachers()->saveMany($course_teachers);            
         }
 
         return true;
