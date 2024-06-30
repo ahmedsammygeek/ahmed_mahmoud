@@ -70,7 +70,7 @@ class ExamController extends Controller
                 $data['exam'] = new ExamResource($exam);
                 $data['exam_questions'] = ExamQuestionResource::collection($student_exam_questions);
                 $data['student_exam_id'] = $user_exam->id;
-                $data['student_started_exam_at'] = $user_exam->started_at;
+                $data['student_started_exam_at'] = $user_exam->started_at->toDateTimeString();
 
                 return $this->response(
                     data : $data , 
@@ -100,7 +100,7 @@ class ExamController extends Controller
         $data['exam'] = new ExamResource($exam);
         $data['exam_questions'] = ExamQuestionResource::collection($student_exam_questions);
         $data['student_exam_id'] = $student_exam->id;
-        $data['student_started_exam_at'] = $student_exam->started_at;
+        $data['student_started_exam_at'] = $student_exam->started_at->toDateTimeString();
 
         return $this->response(
             data : $data , 
