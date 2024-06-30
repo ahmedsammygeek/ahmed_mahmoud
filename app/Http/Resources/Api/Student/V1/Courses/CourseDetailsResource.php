@@ -29,6 +29,7 @@ class CourseDetailsResource extends JsonResource
             'user_progress' => 20 , 
             'teacher' => new CourseDetailsTeacherResource($this->teacher), 
             'units' => CourseUnitResource::collection($this->units) , 
-        ];
+            'contact_mobile' => '01014340346' , 
+        ]; 
     }
 }
