@@ -26,61 +26,27 @@
                                 <p class='is-invalid text-danger'> {{ $message }} </p>
                                 @enderror 
                             </div>
-
-                        </div>
-
-                        <div class="row mb-3">
-                            <label class="col-form-label col-sm-3"> @lang('students.teacher') </label>
-                            <div class="col-sm-9">
-                                <select wire:model.live='teacher_id' class="form-select form-control  @error('teacher_id') is-invalid @enderror" id="">
-                                    <option value=""></option>
-                                    @foreach ($this->teachers as $teacher)
-                                    <option value="{{ $teacher->id }}"> {{ $teacher->name }} </option>
-                                    @endforeach
-                                </select>
-                                @error('teacher_id')
-                                <p class='is-invalid text-danger'> {{ $message }} </p>
-                                @enderror 
-                            </div>
                         </div>
 
                         <div class="row mb-3">
                             <label class="col-form-label col-sm-3"> @lang('students.group') </label>
                             <div class="col-sm-9">
-                                <select wire:model.live='group_id' class="form-select form-control  @error('group_id') is-invalid @enderror " id="">
+                                <select wire:model.live='group_id' class="form-select form-control @error('course_id') is-invalid @enderror " id="">
                                     <option value=""></option>
                                     @foreach ($this->groups as $group)
                                     <option value="{{ $group->id }}"> {{ $group->name }} </option>
                                     @endforeach
                                 </select>
-                                @error('group_id')
+                                @error('course_id')
                                 <p class='is-invalid text-danger'> {{ $message }} </p>
                                 @enderror 
                             </div>
                         </div>
 
-                        <div class="row mb-3">
-                            <label class="col-form-label col-sm-3"> @lang('students.purchase_price') </label>
-                            <div class="col-sm-9">
-                                <input type="text" wire:model.live='purchase_price' class='form-control  @error('purchase_price') is-invalid @enderror' >
-                                @error('purchase_price')
-                                <p class='invalid-feedback text-danger'> {{ $message }} </p>
-                                @enderror  
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-form-label col-sm-3"> @lang('students.deposit') </label>
-                            <div class="col-sm-9">
-                                <input type="text" wire:model.live='deposit' class='form-control  @error('deposit') is-invalid @enderror' >
-                                @error('deposit')
-                                <p class='invalid-feedback text-danger'> {{ $message }} </p>
-                                @enderror   
 
-                            </div>
-                        </div>
 
                         <div class="row mb-3">
-                            <label class="col-form-label col-sm-3"> @lang('students.allow') </label>
+                            <label class="col-form-label col-sm-3"> @lang('students.allow to view on app') </label>
                             <div class="col-sm-9">
                                 <div class="form-check form-switch  mb-2 center-block ">
                                     <input type="checkbox" class="form-check-input" id="sc_lss_c" wire:model.live='allow' checked>

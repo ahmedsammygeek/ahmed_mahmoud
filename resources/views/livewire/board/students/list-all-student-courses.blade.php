@@ -23,53 +23,58 @@
                         <tr>
                             <th> # </th>
                             <th> @lang('students.course') </th>
-                            <th> @lang('students.teacher') </th>
                             <th> @lang('students.group') </th>
-                            <th> @lang('students.deposit') </th>
-                            <th> @lang('students.purchase_price') </th>
+                            <th> @lang('students.force headphons') </th>
                             <th> @lang('students.allow') </th>
                             <th> @lang('students.options') </th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class='text-center center-block' >
                         @php
                         $i =1
                         @endphp
-                        @foreach ($courses as $course)
+                        @foreach ($student_courses as $student_course)
                         <tr>
                             <td> {{ $i++ }} </td>
+                            
                             <td>
-                                {{ $course?->CourseTeacherGroup?->CourseTeacher?->course?->title }}
+                                {{ $student_course?->course?->title }}
                             </td>
                             <td>
-                                {{ $course?->CourseTeacherGroup?->CourseTeacher?->teacher?->name }}
+                                {{ $student_course?->group?->name }}
                             </td>
-                            <td>
-                                {{ $course?->CourseTeacherGroup?->name }}
-                            </td>
-                            <td>
-                                {{ $course?->deposit }} <span class='text-muted'> @lang('students.le') </span>
-                            </td>
-                            <td>
-                                {{ $course?->purchase_price }} <span class='text-muted'> @lang('students.le') </span>
-                            </td>
-                            <td>
-                               @if ($course->allow)
-                                   <div class="form-check form-switch  mb-2 center-block ">
-                                    <input type="checkbox" data-course_id='{{ $course->id }}' class="form-check-input disallow" checked>
+
+                            <td class='center-block' >
+                                @if ($student_course->force_headphones)
+                                <div class="form-check form-switch  mb-2 center-block ">
+                                    <input type="checkbox" wire:click='un_force_headphonse({{ $student_course->id }})' class="form-check-input un_force_headphonse" checked>
                                 </div>
                                 @else
                                 <div class="form-check form-switch  mb-2 center-block ">
-                                    <input type="checkbox" data-course_id='{{ $course->id }}' class="form-check-input allow" >
+                                    <input type="checkbox" wire:click='force_headphone({{  $student_course->id }})' class="form-check-input" >
                                 </div>
-                                <span> {{ $course->not_allow_message }} </span>
-                               @endif
+                                <span> {{ $student_course->not_allow_message }} </span>
+                                @endif
+                            </td>
+
+
+                            <td>
+                                @if ($student_course->allow)
+                                <div class="form-check form-switch  mb-2 center-block ">
+                                    <input type="checkbox" data-course_id='{{ $student_course->id }}' class="form-check-input disallow" checked>
+                                </div>
+                                @else
+                                <div class="form-check form-switch  mb-2 center-block ">
+                                    <input type="checkbox" data-course_id='{{ $student_course->id }}' class="form-check-input allow" >
+                                </div>
+                                <span> {{ $student_course->not_allow_message }} </span>
+                                @endif
                             </td>
                             <td>
-                                <a class='btn btn-sm btn-primary ' title='' >  <i class="icon-video-camera2"></i>  </a>
-                                <a class='btn btn-sm btn-primary ' title='مشاهده' >  <i class="icon-eye "></i>  </a>
-                                <a class='btn btn-sm btn-warning ' title='تعديل' >  <i class="icon-database-edit2 "></i>  </a>
-                                <a wire:click="$dispatch('deleteConfirmation', '{{ $course->id }}')" class='btn btn-sm btn-danger  delete_item' title='حذف' >  <i class="icon-trash "></i>  </a>
+                                <a class='btn btn-sm btn-primary' title='الدروس' href="{{ route('board.students.courses.lessons.index' , [ 'student' => $student , 'course' => $student_course->course_id ] ) }}"   >  <i class="icon-video-camera2"></i>  </a>
+                                <a class='btn btn-sm btn-primary ' title='مشاهده' href="{{ route('board.students.courses.show' , ['student' => $student_course->student_id , 'course' => $student_course->course_id ] ) }}" >  <i class="icon-eye "></i>  </a>
+                                <a class='btn btn-sm btn-warning ' title='تعديل' href="{{ route('board.students.courses.edit' , ['student' => $student_course->student_id , 'course' => $student_course->course_id ] ) }}" >  <i class="icon-database-edit2 "></i>  </a>
+                                <a wire:click="$dispatch('deleteConfirmation', '{{ $student_course->id }}')" class='btn btn-sm btn-danger  delete_item' title='حذف' >  <i class="icon-trash "></i>  </a>
                             </td>
                         </tr>
                         @endforeach
@@ -78,7 +83,7 @@
             </div>
             <div class="card-footer d-sm-flex justify-content-sm-between flex-sm-wrap py-sm-2">
 
-                {{ $courses->links() }}
+                {{ $student_courses->links() }}
             </div>
         </div>
     </div>
@@ -132,7 +137,6 @@
 
 
         Livewire.on('changed' , () => {
-
             $(document).find('#not_allow_message_modal').modal('hide');
             swalInit.fire({
                 text: "@lang('dashboard.changed successfully')" ,
@@ -142,8 +146,9 @@
                 position: 'top-start' , 
                 timer: 1500
             });
-
         });
+
+
 
         $(document).on('click', 'input.disallow', function(event) {
             event.preventDefault();
@@ -167,13 +172,14 @@
                     $(document).find('#not_allow_message_modal').modal('show');
                 }
             });
+
         });
 
 
         $(document).on('click', 'input.allow', function(event) {
             event.preventDefault();
             var course_id = $(this).attr('data-course_id');
-                        swalInit.fire({
+            swalInit.fire({
                 title: "@lang('dashboard.change confirmation')",
                 icon: 'warning',
                 showCancelButton: true,

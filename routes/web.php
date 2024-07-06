@@ -17,6 +17,8 @@ use App\Http\Controllers\Board\LessonController;
 use App\Http\Controllers\Board\UploadLessonVideoController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\Board\GroupController;
+use App\Http\Controllers\Board\StudentCourseController;
+use App\Http\Controllers\Board\StudentLessonController;
 
 
 Route::get('/test' , [TestController::class , 'index'] );
@@ -44,6 +46,10 @@ Route::group(
                 Route::resource('courses', CourseController::class );
                 Route::resource('courses.units', CourseUnitController::class );
                 Route::resource('courses.units.lessons', LessonController::class);
+                Route::resource('students.courses' , StudentCourseController::class);
+                Route::resource('students.courses.lessons', StudentLessonController::class);
+
+
 
                 Route::resource('groups', GroupController::class );
                 Route::get('groups/{group}/calendar' , [GroupController::class , 'calendar'])->name('groups.calendar');

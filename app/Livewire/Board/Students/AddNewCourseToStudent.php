@@ -3,7 +3,7 @@
 namespace App\Livewire\Board\Students;
 
 use Livewire\Component;
-use App\Models\{Course , Teacher , CourseTeacherGroup , CourseTeacherGroupStudent };
+use App\Models\{Course , CourseStudent , Group , StudentLesson };
 use Livewire\Attributes\Computed;
 use Auth;
 use Livewire\Attributes\Validate; 
@@ -12,64 +12,47 @@ class AddNewCourseToStudent extends Component
 
     #[Validate('required')]
     public $course_id;
-    
-    #[Validate('required')]
-    public $teacher_id;
 
-    #[Validate('required')]
-    public $purchase_price = 0 ;
-
-    #[Validate('required')]
-    public $deposit ;
-
-    #[Validate('required')]
-    public $group_id ;
+    public $group_id;
 
     public $student;
     public $allow = true;
 
 
 
-    public function updatedCourseId()
-    {
-        $course = Course::find($this->course_id);
-        if ($course) {
-            $this->purchase_price = $course->price;
-        }
-
-    }
-
-    #[Computed]
-    public function teachers()
-    {
-        return Teacher::whereHas('courses' , function($query){
-            $query->where('course_id' , $this->course_id );
-        })->get();
-    }
-
-
     #[Computed]
     public function groups()
     {
-        return CourseTeacherGroup::whereHas('CourseTeacher' , function($query){
-            $query->where([
-                ['teacher_id' , '=' , $this->teacher_id ] , 
-                ['course_id' , '=' , $this->course_id ] , 
-            ]);
-        })->get();
+        return Group::where('course_id' , $this->course_id )->get();
     }
 
     public function save()
     {
         $this->validate(); 
-        
-        $CourseTeacherGroupStudent = new CourseTeacherGroupStudent;
-        $CourseTeacherGroupStudent->user_id = Auth::id();
-        $CourseTeacherGroupStudent->student_id = $this->student->id;
-        $CourseTeacherGroupStudent->purchase_price = $this->purchase_price;
-        $CourseTeacherGroupStudent->deposit = $this->deposit;
-        $CourseTeacherGroupStudent->course_teacher_group_id = $this->group_id;
-        $CourseTeacherGroupStudent->save();
+        $student_course = new CourseStudent;
+        $student_course->user_id = Auth::id();
+        $student_course->student_id = $this->student->id;
+        $student_course->course_id = $this->course_id;
+        $student_course->group_id = $this->group_id;
+        $student_course->save();
+
+        if ($this->allow) {
+            $course = Course::find($this->course_id);
+            $course_lessons = $course->lessons()->pluck('lessons.id')->toArray();
+            $user_id = Auth::id();
+            $student_lessons = [];
+            foreach ($course_lessons as $course_lesson) {
+                $student_lessons[] = new StudentLesson([
+                    'lesson_id' => $course_lesson , 
+                    'user_id' => $user_id, 
+                    'student_id' => $this->student->id , 
+                    'allowed_views' => $course->default_view_number , 
+                    'remains_views' => $course->default_view_number , 
+                    'total_views_till_now' => 0  ,
+                ]);
+            }
+            $this->student->lessons()->saveMany($student_lessons);
+        }
         $this->dispatch('studentAddedToCourse');
         $this->dispatch('studentAddedToCourse')->to(ListAllStudentCourses::class);
 
@@ -77,14 +60,7 @@ class AddNewCourseToStudent extends Component
 
     public function render()
     {   
-        $student_courses = Course::whereHas('teachers' , function($query)  {
-            $query->whereHas('groups' , function($query) {
-                $query->whereHas('students' , function($query) {
-                    $query->where('student_id' , $this->student->id );
-                });
-            });
-        })->pluck('id')->toArray();
-
+        $student_courses = CourseStudent::where('student_id' , $this->student->id )->pluck('course_id')->toArray();
         $courses = Course::select('id' , 'title' )->whereNotIn('id' , $student_courses )->get();
         return view('livewire.board.students.add-new-course-to-student' , compact('courses') );
     }

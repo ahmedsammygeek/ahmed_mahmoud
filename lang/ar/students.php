@@ -52,4 +52,6 @@ return array (
   'student can use both' => 'الطلب يستطيع ان يكون الاثنين',
   'student type' => 'نوع الطالب',
   'student updated successfully' => 'تم تعديل بيانات الطالب بنجاح',
+  'allow to view on app' => 'السماح بالمشاهده عبر الموبيل',
+  'force headphons' => 'وجوب استعمال سماعات الاذن ؟',
 );

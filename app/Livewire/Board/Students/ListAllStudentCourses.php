@@ -3,7 +3,7 @@
 namespace App\Livewire\Board\Students;
 
 use Livewire\Component;
-use App\Models\{CourseTeacherGroupStudent , Course };
+use App\Models\{ CourseStudent};
 use Livewire\Attributes\On; 
 use Livewire\Attributes\Validate;
 class ListAllStudentCourses extends Component
@@ -29,16 +29,34 @@ class ListAllStudentCourses extends Component
     }
 
 
-    
+    public function force_headphone($student_course_id)
+    {
+        $student_course = CourseStudent::find($student_course_id);
+        if ($student_course) {
+            $student_course->force_headphones = 1;
+            $student_course->save();
+        }
+        $this->dispatch('changed');
+    }
+
+    public function un_force_headphonse($student_course_id)
+    {
+        $student_course = CourseStudent::find($student_course_id);
+        if ($student_course) {
+            $student_course->force_headphones = 0;
+            $student_course->save();
+        }
+        $this->dispatch('changed');
+    }
 
 
     public function disallow()
     {
         $this->validate();
-        $course = CourseTeacherGroupStudent::find($this->student_course_id);
+        $course = CourseStudent::find($this->student_course_id);
         if ($course) {
             $course->allow = 0;
-            $course->not_allow_message = $this->not_allow_message;
+            $course->disable_reason = $this->not_allow_message;
             $course->save();
             $this->dispatch('changed');
             $this->dispatch('changed')->to(ListAllStudentCourses::class);
@@ -49,10 +67,10 @@ class ListAllStudentCourses extends Component
     public function allow($course_id)
     {
 
-        $course = CourseTeacherGroupStudent::find($course_id);
+        $course = CourseStudent::find($course_id);
         if ($course) {
             $course->allow = 1;
-            $course->not_allow_message = null;
+            $course->disable_reason = null;
             $course->save();
             $this->dispatch('changed');
             $this->dispatch('changed')->to(ListAllStudentCourses::class);
@@ -62,7 +80,7 @@ class ListAllStudentCourses extends Component
 
     public function render()
     {
-        $courses = CourseTeacherGroupStudent::where('student_id' , $this->student->id )->paginate(15);
-        return view('livewire.board.students.list-all-student-courses' , compact('courses') );
+        $student_courses = CourseStudent::with(['course', 'group' ])->where('student_id' , $this->student->id )->paginate(15);
+        return view('livewire.board.students.list-all-student-courses' , compact('student_courses') );
     }
 }

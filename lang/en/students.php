@@ -52,4 +52,6 @@ return array (
   'only online students' => 'only online students',
   'login details' => 'login details',
   'student updated successfully' => 'student updated successfully',
+  'force headphons' => 'force headphons',
+  'allow to view on app' => 'allow to view on app',
 );

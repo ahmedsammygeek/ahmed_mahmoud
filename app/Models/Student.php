@@ -52,14 +52,17 @@ class Student extends Authenticatable
 
     public function courses()
     {
-        return $this->hasMany(CourseTeacherStudent::class , 'student_id');
+        return $this->hasMany(CourseStudent::class , 'student_id');
     }
 
-    // protected function profile_picture() :Attribute
-    // {
-    //     return Attribute::make(
-    //         get: fn ($value) => $value == null ? 'student_default.png' : $value  ,
-    //     );
-    // }
+    public function groups()
+    {
+        return $this->hasMany(GroupStudent::class , 'student_id');
+    }
+
+    public function lessons()
+    {
+        return $this->hasMany(StudentLesson::class , 'student_id');
+    }
 
 }

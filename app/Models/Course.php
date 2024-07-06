@@ -30,13 +30,13 @@ class Course extends Model
 
     public function units()
     {
-        return $this->hasMany(CourseUnit::class );
+        return $this->hasMany(Unit::class );
     }
 
 
     public function lessons()
     {
-        return $this->hasManyThrough(CourseUnitLesson::class , CourseUnit::class);
+        return $this->hasManyThrough(Lesson::class , Unit::class);
     }
 
     public function educationalSystems()

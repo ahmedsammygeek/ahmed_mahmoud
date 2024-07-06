@@ -21,12 +21,6 @@ class Group extends Model
     }
 
 
-    // public function students()
-    // {
-    //     return $this->hasMany(CourseTeacherGroupStudent::class , 'course_teacher_group_id');
-    // }
-
-
     public function times()
     {
         return $this->hasMany(GroupTime::class);
