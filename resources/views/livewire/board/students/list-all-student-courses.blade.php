@@ -74,7 +74,7 @@
                                 <a class='btn btn-sm btn-primary' title='الدروس' href="{{ route('board.students.courses.lessons.index' , [ 'student' => $student , 'course' => $student_course->course_id ] ) }}"   >  <i class="icon-video-camera2"></i>  </a>
                                 <a class='btn btn-sm btn-primary ' title='مشاهده' href="{{ route('board.students.courses.show' , ['student' => $student_course->student_id , 'course' => $student_course->course_id ] ) }}" >  <i class="icon-eye "></i>  </a>
                                 <a class='btn btn-sm btn-warning ' title='تعديل' href="{{ route('board.students.courses.edit' , ['student' => $student_course->student_id , 'course' => $student_course->course_id ] ) }}" >  <i class="icon-database-edit2 "></i>  </a>
-                                <a wire:click="$dispatch('deleteConfirmation', '{{ $student_course->id }}')" class='btn btn-sm btn-danger  delete_item' title='حذف' >  <i class="icon-trash "></i>  </a>
+                                <a data-item_id='{{ $student_course->id }}' class='btn btn-sm btn-danger  delete_item' title='حذف' >  <i class="icon-trash "></i>  </a>
                             </td>
                         </tr>
                         @endforeach
@@ -147,6 +147,17 @@
                 timer: 1500
             });
         });
+        Livewire.on('deleted' , () => {
+
+            swalInit.fire({
+                text: "@lang('dashboard.deleted successfully')" ,
+                icon: 'success',
+                toast: true,
+                showConfirmButton: false,
+                position: 'top-start' , 
+                timer: 1500
+            });
+        });
 
 
 
@@ -194,9 +205,30 @@
                 if(result.value) {
                     Livewire.dispatch('allowStudentToWatchCourse' , {course_id} );
                 }
-            });
+            });        
+        });
 
-            
+
+
+        $(document).on('click', 'a.delete_item', function(event) {
+            event.preventDefault();
+            var item_id = $(this).attr('data-item_id');
+            swalInit.fire({
+                title: "@lang('dashboard.delete confirmation')",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: "@lang('dashboard.yes change')",
+                cancelButtonText: "@lang('dashboard.cancel')",
+                buttonsStyling: false,
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                }
+            }).then(function(result) {
+                if(result.value) {
+                    Livewire.dispatch('deleteStudentCourse' , {item_id} );
+                }
+            });        
         });
 
 

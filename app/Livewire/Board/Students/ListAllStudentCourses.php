@@ -3,9 +3,10 @@
 namespace App\Livewire\Board\Students;
 
 use Livewire\Component;
-use App\Models\{ CourseStudent};
+use App\Models\{ CourseStudent , StudentLesson };
 use Livewire\Attributes\On; 
 use Livewire\Attributes\Validate;
+
 class ListAllStudentCourses extends Component
 {
     public $student;
@@ -28,6 +29,21 @@ class ListAllStudentCourses extends Component
         $refresh;
     }
 
+
+    #[On('deleteStudentCourse')] 
+    public function delete($item_id)
+    {   
+        // we need first to delete all lessons
+        $student_course = CourseStudent::with('course')->find($item_id);
+        StudentLesson::where('student_id' , $this->student->id )->whereIn('lesson_id' , $student_course->course->lessons()->pluck('lessons.id')->toArray() )->delete();
+
+        $student_course->delete();
+
+        $this->dispatch('deleted');
+    }
+
+
+    
 
     public function force_headphone($student_course_id)
     {
