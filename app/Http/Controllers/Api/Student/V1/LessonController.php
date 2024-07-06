@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Student\V1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{Course , CourseUnitLesson  , StudentLesson };
+use App\Models\{Course , Lesson  , StudentLesson };
 use App\Traits\Api\GeneralResponse;
 use App\Http\Resources\Api\Student\V1\Lessons\LessonResource;
 use Auth;
@@ -14,10 +14,10 @@ class LessonController extends Controller
     use GeneralResponse;
 
 
-    public function watched(Course $course , CourseUnitLesson $lesson )
+    public function watched(Course $course , Lesson $lesson )
     {
         $student = Auth::guard('student')->user();
-        $student_lesson = StudentLesson::where('student_id' , $student->id )->where('course_unit_lesson_id' , $lesson->id )->first();
+        $student_lesson = StudentLesson::where('student_id' , $student->id )->where('lesson_id' , $lesson->id )->first();
 
         if ($student_lesson) {
            $student_lesson->total_views_till_now = $student_lesson->total_views_till_now + 1;
@@ -35,11 +35,15 @@ class LessonController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Course $course , CourseUnitLesson $lesson )
+    public function show(Course $course , Lesson $lesson )
     {
+
+
         // we need first to check if this lesson related to this course or not
 
-        $course_lessons_ids = $course->lessons()->pluck('course_unit_lessons.id')->toArray();
+        $course_lessons_ids = $course->lessons()->pluck('lessons.id')->toArray();
+
+
 
         if (!in_array($lesson->id, $course_lessons_ids)) {
 
@@ -72,7 +76,7 @@ class LessonController extends Controller
             );
         }
 
-        $student_lesson = StudentLesson::where('student_id' , $student->id )->where('course_unit_lesson_id' , $lesson->id )->first();
+        $student_lesson = StudentLesson::where('student_id' , $student->id )->where('lesson_id' , $lesson->id )->first();
 
         if (!$student_lesson || ($student_lesson->allowed == 0) ) {
             return $this->response(
@@ -81,7 +85,7 @@ class LessonController extends Controller
         }
 
         if ($student_lesson->remains_views > 0 ) {
-            $student_lesson = StudentLesson::where('student_id' , $student->id )->where('course_unit_lesson_id' , $lesson->id )->first();
+            $student_lesson = StudentLesson::where('student_id' , $student->id )->where('lesson_id' , $lesson->id )->first();
             $lesson['remains_views'] = $student_lesson ? $student_lesson->remains_views : 0;
             $data['lesson'] = new LessonResource($lesson);
             return $this->response(

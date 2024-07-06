@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
- 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 class Student extends Authenticatable
 {
-    use  Notifiable , HasApiTokens ;
+    use  Notifiable , HasApiTokens , SoftDeletes ;
     
     /**
      * Get the attributes that should be cast.

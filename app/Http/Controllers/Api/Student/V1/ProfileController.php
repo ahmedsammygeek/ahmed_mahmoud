@@ -42,15 +42,25 @@ class ProfileController extends Controller
         $student->save();
 
         $data = [
-
             'student' => new StudentResource($student) , 
-
         ];
 
         return $this->response(
             message : trans('api.profile updated successfully') , 
             statusCode : 200 , 
             data : $data , 
+        );
+    }
+
+
+    public function delete()
+    {
+        $student = Auth::guard('student')->user();
+        $student->delete();
+
+        return $this->response(
+            message : trans('api.profile deleted successfully') , 
+            statusCode : 200 , 
         );
     }
 
