@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class GroupTime extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id' , 'course_teacher_group_id' , 'time_from' , 'time_to' ];
+    protected $fillable = ['user_id' , 'group_id' , 'time_from' , 'time_to' ];
 
 
     public function group()
     {
-        return $this->belongsTo(CourseTeacherGroup::class , 'course_teacher_group_id');
+        return $this->belongsTo(Group::class , 'group_id');
     }
 
     public function user()

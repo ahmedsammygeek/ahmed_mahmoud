@@ -19,6 +19,7 @@ use App\Http\Controllers\TestController;
 use App\Http\Controllers\Board\GroupController;
 use App\Http\Controllers\Board\StudentCourseController;
 use App\Http\Controllers\Board\StudentLessonController;
+use App\Http\Controllers\Board\QuestionController;
 
 
 Route::get('/test' , [TestController::class , 'index'] );
@@ -49,6 +50,7 @@ Route::group(
                 Route::resource('students.courses' , StudentCourseController::class);
                 Route::resource('students.courses.lessons', StudentLessonController::class);
 
+                Route::resource('questions', QuestionController::class);
 
 
                 Route::resource('groups', GroupController::class );

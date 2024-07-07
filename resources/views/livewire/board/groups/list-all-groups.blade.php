@@ -39,8 +39,8 @@
                         <tr>
                             <td> {{ $i++ }} </td>
                             <td> {{ $group->name }} </td>
-                            <td> {{ $group->CourseTeacher?->course?->title }} </td>
-                            <td> {{ $group->CourseTeacher?->teacher?->name }} </td>
+                            <td> {{ $group->course?->title }} </td>
+                            <td> {{ $group->course?->teacher?->name }} </td>
                             <td> {{ $group->max_students_limit }} </td>
                             <td>
                                 <a href='{{ route('board.groups.calendar' , $group ) }}' class='btn btn-sm btn-success ' title="@lang('dashboard.view')" >  <i class="icon-calendar "></i>  </a>

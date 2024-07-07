@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Actions\Board\Groups;
-use App\Models\{CourseTeacherGroup  ,GroupTime};
+use App\Models\{Group  ,GroupTime};
 use Auth;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
@@ -12,11 +12,11 @@ class StoreGroupAction
 
     public function execute($data)
     {
-        $group = new CourseTeacherGroup;
+        $group = new Group;
         $group->user_id = Auth::id();
         $group->name = $data['name'];
         $group->max_students_limit  = $data['maxmimam'];
-        $group->course_teacher_id = $data['course_teacher_id'];
+        $group->course_id = $data['course_id'];
         $group->starts_at = $data['starts_at'];
         $group->ends_at = $data['ends_at'];
         $group->save();

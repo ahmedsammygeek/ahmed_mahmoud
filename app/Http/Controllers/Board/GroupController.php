@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Board;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Models\{CourseTeacherGroup , GroupTime};
+use App\Models\{Group , GroupTime};
 use App\Http\Requests\Board\Groups\{StoreGroupRequest , UpdateGroupRequest};
 use App\Actions\Board\Groups\{StoreGroupAction , UpdateGroupAction };
 class GroupController extends Controller
@@ -30,7 +30,9 @@ class GroupController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(StoreGroupRequest $request , StoreGroupAction $action )
-    {
+    {  
+
+
 
         $action->execute($request->validated());
 
@@ -41,10 +43,10 @@ class GroupController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(CourseTeacherGroup $group)
+    public function show(Group $group)
     {
 
-        $times = GroupTime::select('id' , 'time_from' , 'time_to'  )->where('course_teacher_group_id' , $group->id )->get();
+        $times = GroupTime::select('id' , 'time_from' , 'time_to'  )->where('group_id' , $group->id )->get();
 
         $times = $times->map(function($time) {
             return [
@@ -54,7 +56,7 @@ class GroupController extends Controller
             ];
         })->unique('day');
         // dd($times);
-        $group->load('times' , 'CourseTeacher' , 'user' );
+        $group->load('times' , 'course' , 'user' );
         return view('board.groups.show' , compact('group' , 'times' ) );
     }
 
@@ -77,7 +79,7 @@ class GroupController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function calendar(CourseTeacherGroup $group)
+    public function calendar(Group $group)
     {
 
         $times = GroupTime::select('id' , 'time_from' , 'time_to'  )->where('course_teacher_group_id' , $group->id )->get();

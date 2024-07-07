@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Requests\Board\Groups;
+namespace App\Http\Requests\Board\Questions;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreGroupRequest extends FormRequest
+class StoreQuestionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -22,16 +22,11 @@ class StoreGroupRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required' , 
             'course_id' => 'required' , 
-            'starts_at' => 'required' , 
-            'ends_at' => 'required' , 
-            'maxmimam' => 'nullable' , 
-            'active' => 'nullable' , 
-            'days' => 'array|min:1' , 
-            'days.*' => 'required' , 
-            'from.*' => 'required' , 
-            'to.*' => 'required'
+            'is_active' => 'nullable' , 
+            'content' => 'required' , 
+            'answer_type' => 'required' , 
+            'question_type' => 'required' , 
         ];
     }
 }

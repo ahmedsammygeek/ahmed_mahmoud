@@ -1,17 +1,13 @@
-<form wire:submit='save' enctype="multipart/form-data" >
+<form action="{{ route('board.groups.store') }}" method="POST"  enctype="multipart/form-data" >
     <div class="card-body">
+
+        @csrf
 
         <div class="mb-4">
             <div class="fw-bold border-bottom pb-2 mb-3"> @lang('groups.gourp details') </div>
 
-            <div wire:loading> 
-                <div class="card-overlay card-overlay-fadeout">
-                    <span class="ph-spinner spinner"></span>
-                    جارى التحقق من المواعيد برجاء الانتظار
-                </div>
-            </div>
             <div class="row mb-3">
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <label class="col-form-label col-lg-12"> @lang('groups.name') <span class="text-danger">*</span></label>
                     <div class="col-lg-12">
                         <input type="text" name="name" value="{{ old('name') }}" class="form-control @error('name')  is-invalid @enderror"  >
@@ -21,7 +17,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <label class="col-form-label col-lg-12"> @lang('groups.course') <span class="text-danger">*</span></label>
                     <div class="col-lg-12">
                         <select name="course_id" wire:model.live='course_id' class='form-control form-select select'>
@@ -35,20 +31,7 @@
                         @enderror
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <label class="col-form-label col-lg-12"> @lang('groups.teacher') <span class="text-danger">*</span></label>
-                    <div class="col-lg-12">
-                        <select name="course_teacher_id" wire:model.live='course_teacher_id' class='form-control form-select '>
-                            <option value=""></option>
-                            @foreach ($this->courseTeachers as $courseTeacher)
-                            <option value="{{ $courseTeacher->id }}"> {{ $courseTeacher->teacher?->name }} </option>
-                            @endforeach
-                        </select>
-                        @error('course_teacher_id')
-                        <p class='text-danger' > {{ $message }} </p>
-                        @enderror
-                    </div>
-                </div>
+
             </div>
 
             <div class="row mb-3 ">
@@ -84,13 +67,13 @@
 
             <div class="fw-bold border-bottom pb-2 mb-3"> @lang('groups.times') <button wire:click.prevent="addMoreDays" class='btn btn-primary'> <i class='icon-stack-plus'></i> </button> </div>
 
-
+            {{ var_dump($days) }}
             @for ($i = 0; $i < $group_days ; $i++)
             <div class="row mb3">
-                <div class="col-lg-4">
+                <div class="col-lg-3">
                     <div class="mb-3">
                         <label class="form-label"> @lang('groups.day') </label>
-                        <select wire:model.live='days' name="days[]" id="" class='form-control form-select' >
+                        <select  name="days[]" id="" class='form-control form-select' >
                             <option value=""></option>
                             <option value="Saturday"> السبت </option>
                             <option value="Sunday"> الاحد </option>
@@ -105,14 +88,21 @@
                 <div class="col-lg-4">
                     <div class="mb-3">
                         <label class="form-label"> @lang('groups.starts at') </label>
-                        <input type="text" wire:model.live='from' name='from[]' class="form-control timepicker">
+                        <input type="text"  name='from[]' class="form-control timepicker">
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="mb-3">
                         <label class="form-label">  @lang('groups.ends at') </label>
-                        <input type="text" wire:model.live='to' name='to[]' class="form-control timepicker">
+                        <input type="text"  name='to[]' class="form-control timepicker">
                     </div>
+                </div>
+                <div class="col-lg-1">
+                    @if ($i != 0)
+                    <div class="mt-4">
+                        <a href="#" class='btn btn-danger btn-sm delete_row'> <i class='icon-trash' ></i> </a>
+                    </div>
+                    @endif
                 </div>
             </div>
             @endfor
@@ -142,6 +132,12 @@
 <script>
     $(function() {
 
+
+        $(document).on('click', 'a.delete_row', function(event) {
+            event.preventDefault();
+            $(this).parent().parent().parent().remove();
+            Livewire.dispatch('removeRow');
+        });
 
         Livewire.hook('morph.added', ({ el }) => {
             $(el).find('input[name="from[]"]').timepicker({});

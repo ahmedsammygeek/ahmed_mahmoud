@@ -3,7 +3,7 @@
 namespace App\Livewire\Board\Groups;
 
 use Livewire\Component;
-use App\Models\CourseTeacherGroup;
+use App\Models\Group;
 use Livewire\WithPagination;
 use Livewire\WithoutUrlPagination;
 use Storage;
@@ -25,7 +25,7 @@ class ListAllGroups extends Component
 
     public function deleteItem($itemId)
     {
-        $item = CourseTeacherGroup::find($itemId);
+        $item = Group::find($itemId);
         if($item) {
             $item->delete();
             $this->dispatch('itemDeleted');
@@ -35,8 +35,8 @@ class ListAllGroups extends Component
 
     public function render()
     {
-        $groups = CourseTeacherGroup::query()
-        ->with(['CourseTeacher'])
+        $groups = Group::query()
+        ->with(['course' , 'course.teacher' ])
         ->when($this->is_active !='all' , function($query){
             $query->where('is_active' , $this->is_active);
         })->latest()->paginate($this->rows);

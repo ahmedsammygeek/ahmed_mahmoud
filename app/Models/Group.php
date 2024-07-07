@@ -9,6 +9,14 @@ class Group extends Model
 {
     use HasFactory;
 
+    protected function casts(): array
+    {
+        return [
+            'starts_at' => 'datetime',
+            'ends_at' => 'datetime',
+        ];
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class , 'user_id');
