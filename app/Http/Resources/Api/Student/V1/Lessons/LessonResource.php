@@ -23,8 +23,10 @@ class LessonResource extends JsonResource
             'lesson_video_driver' => $this->lesson_video_driver , 
             'lesson_video_id' => $this->video_id , 
             'remains_views_allowed' => $this->remains_views , 
+            'show_phone_on_viedo' => true ,
+            'speak_user_phone' => true ,
             'files' => LessonFileResource::collection($this->files) , 
-
+            
         ];
     }
 }
