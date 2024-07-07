@@ -15,7 +15,6 @@ class SettingResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'lesson_mins_to_be_viewed' => $this->lesson_mins_to_be_viewed ,
             'allow_virtual_apps' => (bool)$this->allow_virtual_apps ,
         ];
     }

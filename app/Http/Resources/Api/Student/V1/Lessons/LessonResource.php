@@ -25,8 +25,9 @@ class LessonResource extends JsonResource
             'remains_views_allowed' => $this->remains_views , 
             'show_phone_on_viedo' => true ,
             'speak_user_phone' => true ,
+            'lesson_mins_to_be_mark_as_viewed' => 10 ,
             'files' => LessonFileResource::collection($this->files) , 
-            
+
         ];
     }
 }
