@@ -10,7 +10,7 @@ class QuestionAnswer extends Model
     use HasFactory , HasTranslations ;
     public $translatable = ['content' ];
 
-
+    protected $fillable = ['question_id' , 'content' , 'user_id' , 'is_correct_answer' ];
 
     public function user()
     {

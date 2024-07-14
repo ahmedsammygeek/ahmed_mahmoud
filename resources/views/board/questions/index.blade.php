@@ -1,16 +1,16 @@
 @extends('board.layout.master')
 
 @section('page_title')
-@lang('groups.show all groups') 
+@lang('questions.show all questions') 
 @endsection
 
 
 @section('breadcrumb')
-<a href="{{ route('board.groups.index') }}" class="breadcrumb-item"> @lang('groups.groups') </a>
-<span class="breadcrumb-item active"> @lang('groups.show all groups')  </span>
+<a href="{{ route('board.questions.index') }}" class="breadcrumb-item"> @lang('questions.questions') </a>
+<span class="breadcrumb-item active"> @lang('questions.show all questions')  </span>
 @endsection
 
 @section('page_content')
-@livewire('board.groups.list-all-groups')
+@livewire('board.questions.list-all-questions')
 @endsection
 

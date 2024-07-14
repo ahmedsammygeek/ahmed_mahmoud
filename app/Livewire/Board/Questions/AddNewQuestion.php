@@ -9,59 +9,49 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\On; 
 use Livewire\WithFileUploads;
 use App\Models\Question;
-
+use App\Models\QuestionAnswer;
 use Auth;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 class AddNewQuestion extends Component
 {
-    use WithFileUploads;
+    use WithFileUploads , LivewireAlert ;
 
-
-
-
-    #[Validate('required')] 
     public $question_type;
-
-    #[Validate('required')] 
     public $answer_type;
-
-    #[Validate('required')] 
     public $course_id;
-
-    #[Validate('required')] 
     public $degree;
 
-
-    #[Validate('required_if:question_type,1')] 
     public $question_text_content_ar;
-
-    #[Validate('required_if:question_type,1')] 
     public $question_text_content_en;
-
-    #[Validate('required_if:question_type,2')] 
     public $question_image_content;
-
-
-    #[Validate('required_if:answer_type,1')] 
     public $correct_answer;
-
-    #[Validate('required_if:answer_type,1|array|size:4')] 
     public $answers_ar = [] ;
-
-    #[Validate('required_if:answer_type,1|array|size:4')] 
     public $answers_en = [] ;
 
-    
-    public function addQuestion()
-    {
-        // code...
-    }
+
 
 
     public function save()
     {
-        $this->validate();
 
-        dd($this->answers_ar , $this->answers_en );
+        $rules = [
+            'course_id' => 'required',
+            'degree' => 'required',
+            'answer_type' => 'required' , 
+            'question_type' => 'required' , 
+            'question_text_content_ar' => 'required_if:question_type,1' , 
+            'question_text_content_en' => 'required_if:question_type,1' , 
+            'question_image_content' => 'required_if:question_type,2' , 
+            'correct_answer' => 'required_if:answer_type,1' , 
+        ];
+
+        if ($this->answer_type == 1 ) {
+            $rules['answers_ar'] = 'array|size:4|required_if:answer_type,1' ; 
+            $rules['answers_en'] = 'array|size:4|required_if:answer_type,1' ; 
+        }
+
+        $this->validate($rules);
+
 
         $question = new Question;
         $question->course_id = $this->course_id;
@@ -71,19 +61,41 @@ class AddNewQuestion extends Component
         $question->degree = $this->degree;
         $question->is_active = 1;
         if ($this->question_type == 1 ) {
-            $question->content = $this->question_text_content;
-            // $question->content = $this->question_text_content;
+            $question->setTranslation('content' , 'en' , $this->question_text_content_ar );
+            $question->setTranslation('content' , 'ar' , $this->question_text_content_en );
         } else {
-            $image = $this->question_image_content->store('questions');
+            $image = basename($this->question_image_content->store('questions'));
             $question->setTranslation('content' , 'en' , $image );
             $question->setTranslation('content' , 'ar' , $image );
         }
         $question->save();
 
+        if ($this->answer_type == 2 ) {
+            $answers = [];
 
-        // dd($this->answers , $this->correct_answer ); 
+            for ($i=0; $i <count($this->answers_ar) ; $i++) { 
+                $content = [
+                    'ar' => $this->answers_ar[$i] , 
+                    'en' => $this->answers_ar[$i] , 
+                ];
+                $answers[] = new  QuestionAnswer([
+                    'question_id' => $question->id , 
+                    'user_id' => Auth::id(), 
+                    'content' => $content , 
+                    'is_correct_answer' => $this->correct_answer == $i ? 1 : 0 , 
+                ]);
+            }
 
-        dd('ff');
+            $question->answers()->saveMany($answers);
+        }       
+
+
+        $this->alert('success', trans('questions.question added successfully ') , [
+            'toast' => false , 
+            'position' => 'center' , 
+        ]);
+
+        $this->reset();
     }
 
 

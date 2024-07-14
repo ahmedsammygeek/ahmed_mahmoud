@@ -9,6 +9,7 @@
         "alaouy/youtube": "^2.2",
         "barryvdh/laravel-translation-manager": "^0.6.6",
         "dawson/youtube": "^2.0",
+        "jantinnerezo/livewire-alert": "^3.0",
         "laravel/framework": "^11.9",
         "laravel/pulse": "^1.2",
         "laravel/sanctum": "^4.0",

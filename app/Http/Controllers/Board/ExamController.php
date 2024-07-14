@@ -4,15 +4,21 @@ namespace App\Http\Controllers\Board;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Course;
-class QuestionController extends Controller
+use App\Http\Requests\Board\Exams\StoreExamRequest;
+
+use App\Actions\Board\Exams\StoreExamAction;
+
+
+use App\Models\Exam;
+
+class ExamController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('board.questions.index');
+        return view('board.exams.index');
     }
 
     /**
@@ -20,24 +26,25 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        return view('board.questions.create');
+        return view('board.exams.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request , StoreExamAction $action )
     {
-
-        dd($request->all());
+        $action->execute($request->all());
+        return redirect(route('board.exams.index'))->with('success' , trans('exams.exam added successfully ') );
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Exam $exam)
     {
-        //
+        $exam->load('questions' , 'user' , 'course' );
+        return view('board.exams.show' , compact('exam') );
     }
 
     /**

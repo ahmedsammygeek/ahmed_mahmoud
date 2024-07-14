@@ -1,11 +1,17 @@
 @php
-$groups = $home = $students = $users = $courses = $slides = '';
+$groups = $home = $students = $questions = $exams = $users = $courses = $slides = '';
 
 
 
 switch (request()->segment(3)) {
 	case 'groups':
 	$groups = 'active';
+	break;
+	case 'questions':
+	$questions = 'active';
+	break;
+	case 'exams':
+	$exams = 'active';
 	break;
 	case 'students':
 	$students = 'active';
@@ -104,39 +110,33 @@ switch (request()->segment(3)) {
 						<li class="nav-item"><a href="{{ route('board.groups.index') }}" class="nav-link"> @lang('groups.show all groups') </a></li>
 					</ul>
 				</li>
+
+
 				<li class="nav-item nav-item-submenu">
-					<a  class="nav-link ">
+					<a  href="{{ route('board.questions.index') }}"  class="nav-link {{ $questions }} "  >
 						<i class="icon-graduation2  "></i>
-						<span> @lang('halls.halls') </span>
+						<span> @lang('questions.questions') </span>
 					</a>
 					<ul class="nav-group-sub collapse">
-						<li class="nav-item"><a  class="nav-link "> @lang('halls.add new hall') </a></li>
-						<li class="nav-item"><a  class="nav-link"> @lang('halls.show all halls') </a></li>
+						<li class="nav-item"><a href="{{ route('board.questions.create') }}" class="nav-link"> @lang('questions.add new question') </a></li>
+						<li class="nav-item"><a href="{{ route('board.questions.index') }}" class="nav-link"> @lang('questions.show all questions') </a></li>
 					</ul>
 				</li>
 
 
+
 				<li class="nav-item nav-item-submenu">
-					<a  class="nav-link ">
-						<i class="icon-graduation2  "></i>
+					<a  class="nav-link  {{ $exams }}">
+						<i class="icon-graduation2 "></i>
 						<span> @lang('exams.exams') </span>
 					</a>
 					<ul class="nav-group-sub collapse">
-						<li class="nav-item"><a  class="nav-link "> @lang('exams.add new exams') </a></li>
-						<li class="nav-item"><a  class="nav-link"> @lang('exams.show all exams') </a></li>
+						<li class="nav-item"><a href="{{ route('board.exams.create') }}" class="nav-link "> @lang('exams.add new exams') </a></li>
+						<li class="nav-item"><a href="{{ route('board.exams.index') }}" class="nav-link"> @lang('exams.show all exams') </a></li>
 					</ul>
 				</li>
 
-				<li class="nav-item nav-item-submenu">
-					<a  class="nav-link ">
-						<i class="icon-graduation2  "></i>
-						<span> @lang('Question bank.Question bank') </span>
-					</a>
-					<ul class="nav-group-sub collapse">
-						<li class="nav-item"><a  class="nav-link "> @lang('Question bank.add new question') </a></li>
-						<li class="nav-item"><a  class="nav-link"> @lang('Question bank.show all questions') </a></li>
-					</ul>
-				</li>
+				
 
 				<li class="nav-item">
 					<a href="" class="nav-link ">

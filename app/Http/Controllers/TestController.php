@@ -32,14 +32,51 @@ class TestController extends Controller
      */
     public function index()
     {       
+        $n = 15;
+
+
+        foreach (range(1, 15) as $number) {
+    if(0 !== $number % 3 && 0 !== $number % 5) {
+        echo $number.'<br>';
+        continue;
+    }
+
+    if(0 === $number % 3) {
+        echo 'Fizz';
+    }
+
+    if(0 === $number % 5) {
+        echo 'Buzz';
+    }
+
+    echo '<br>';
+}
+
+
+        // for ($i=1; $i <= $n ; $i++) { 
+        //     $output = $i ;
+            
+        //     if ( (($i % 3) == 0 ) && (($i % 5) == 0 ) ) {
+        //         $output = 'FizzBuzz';
+        //     } else {
+        //         if ($i%3 == 0 ) {
+        //            $output = 'Fizz';
+        //         } elseif ($i%5 == 0 ) {
+
+        //             $output = 'Buzz';
+        //         } 
+        //     }
+        //     echo $output.'<br>';
+        // }
 
 
 
 
-        $student = Student::find(26);
 
-        $student->notify(new WelcomeNotification);
-        $student->notify(new NewCourseLessonAddedNotification);
+        // $student = Student::find(26);
+
+        // $student->notify(new WelcomeNotification);
+        // $student->notify(new NewCourseLessonAddedNotification);
 
         // dd($student);
 
