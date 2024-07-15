@@ -1,5 +1,5 @@
 @php
-$groups = $home = $students = $questions = $exams = $users = $courses = $slides = '';
+$groups = $home = $students = $dashboard_notifications = $questions = $exams = $users = $courses = $slides = '';
 
 
 
@@ -21,6 +21,9 @@ switch (request()->segment(3)) {
 	break;
 	case 'courses':
 	$courses = 'active';
+	break;
+	case 'dashboard_notifications':
+	$dashboard_notifications = 'active';
 	break;
 	case 'slides':
 	$slides = 'active';
@@ -133,6 +136,16 @@ switch (request()->segment(3)) {
 					<ul class="nav-group-sub collapse">
 						<li class="nav-item"><a href="{{ route('board.exams.create') }}" class="nav-link "> @lang('exams.add new exams') </a></li>
 						<li class="nav-item"><a href="{{ route('board.exams.index') }}" class="nav-link"> @lang('exams.show all exams') </a></li>
+					</ul>
+				</li>
+				<li class="nav-item nav-item-submenu">
+					<a  class="nav-link  {{ $dashboard_notifications }}">
+						<i class="icon-bell2 "></i>
+						<span> @lang('dashboard_notifications.dashboard_notifications') </span>
+					</a>
+					<ul class="nav-group-sub collapse">
+						<li class="nav-item"><a href="{{ route('board.dashboard_notifications.create') }}" class="nav-link "> @lang('dashboard_notifications.send new notification') </a></li>
+						<li class="nav-item"><a href="{{ route('board.dashboard_notifications.index') }}" class="nav-link"> @lang('dashboard_notifications.show all notifications') </a></li>
 					</ul>
 				</li>
 

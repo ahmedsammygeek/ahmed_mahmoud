@@ -22,6 +22,7 @@ use App\Http\Controllers\Board\StudentLessonController;
 use App\Http\Controllers\Board\QuestionController;
 use App\Http\Controllers\Board\ExamController;
 use App\Http\Controllers\Board\ExamStudentController;
+use App\Http\Controllers\Board\DashboardNotificationController;
 
 
 Route::get('/test' , [TestController::class , 'index'] );
@@ -57,6 +58,7 @@ Route::group(
                 Route::get('exams/{exam}/students' ,[ ExamController::class , 'students' ] )->name('exams.students.index');
                 
                 Route::resource('exam_students', ExamStudentController::class );
+                Route::resource('dashboard_notifications', DashboardNotificationController::class );
 
 
                 Route::resource('groups', GroupController::class );
