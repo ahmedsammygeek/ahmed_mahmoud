@@ -10,7 +10,7 @@
 <span class="breadcrumb-item active"> عرض كافه الدروس  </span>
 @endsection
 
-@section('content')
+@section('page_content')
 @livewire('board.courses.units.list-all-unit-lessons' , ['course' => $course , 'unit' => $unit ] )
 @endsection
 

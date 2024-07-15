@@ -4,7 +4,7 @@
             <div class="card-body">
                 <div class="d-sm-flex align-items-sm-start">
                     <div class="form-control-feedback form-control-feedback-start flex-grow-1 mb-3 mb-sm-0">
-                        <input type="text" wire:model.live='search' class="form-control" placeholder="Search By Name">
+                        <input type="text" wire:model.live='search' class="form-control" placeholder="Search ">
                         <div class="form-control-feedback-icon">
                             <i class="ph-magnifying-glass"></i>
                         </div>
@@ -24,10 +24,10 @@
             <div class="table-responsive">
                 <table class="table text-nowrap text-center">
                     <thead>
-                     @if (count($units))
+                     @if (count($lessons))
                      <tr>
                         <th > @lang('courses.title') </th>
-                        <th > @lang('courses.lessons count') </th>
+                        <th > @lang('courses.link') </th>
                         <th > @lang('courses.status') </th>
                         <th class="text-center" style="width: 20px;"> @lang('dashboard.options') </th>
                     </tr>
@@ -35,16 +35,16 @@
                 </thead>
                 <tbody>
 
-                    @if (count($units))
-                    @foreach ($units as $unit)
+                    @if (count($lessons))
+                    @foreach ($lessons as $lesson)
                     <tr>
                         <td class="text-wrap">
-                            {{ $unit->title }}
+                            {{ $lesson->title }}
                         </td>
 
-                        <td> {{ $unit->lessons()->count() }} </td>
+                        <td> {{ $lesson->link }} </td>
                         <td>
-                            @switch($unit->is_active )
+                            @switch($lesson->is_active )
                             @case(1)
                             <span class="badge bg-success"> @lang('courses.active') </span>
                             @break
@@ -56,9 +56,9 @@
 
 
                         <td class="text-center">
-                            <a  href="{{ route('board.courses.units.show'  ,  ['course' => $course  , 'unit' => $unit ] ) }}"  class="btn btn-sm btn-primary  ">
+{{--                             <a  href="{{ route('board.courses.units.show'  ,  ['course' => $course  , 'unit' => $unit ] ) }}"  class="btn btn-sm btn-primary  ">
                                 <i class="icon-eye  "></i>
-                            </a>
+                            </a> --}}
                             <a  href="{{ route('board.courses.units.lessons.index'  ,  ['course' => $course  , 'unit' => $unit ] ) }}"  class="btn btn-sm btn-info  ">
                                 <i class="icon-video-camera "></i>
                             </a>
@@ -85,7 +85,7 @@
         </div>
 
         <div class="card-footer d-flex justify-content-end ">
-            {{ $units->links() }}
+            {{ $lessons->links() }}
         </div>
     </div>
 </div>

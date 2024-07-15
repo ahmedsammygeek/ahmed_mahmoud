@@ -9,24 +9,13 @@
                 <label class="col-form-label col-lg-2"> الفديو <span class="text-danger">*</span></label>
                 <div class="col-lg-10">
                     <select wire:model.live='video_type' name="video_type" class="form-control form-select" id="">
-                        <option value=""></option>
                         <option value="link"> @lang('courses.link') </option>
-                        <option value="upload"> @lang('courses.upload video') </option>
                     </select>
                 </div>
 
             </div>
 
 
-             <div class="row mb-3" wire:ignore >
-                <label class="col-form-label col-lg-2"> الفديو <span class="text-danger">*</span></label>
-                <div class="col-lg-10">
-                    <input type="file"  name='video' class="my-pond"  >
-                    @error('video')
-                    <p class='text-danger' > {{ $message }} </p>
-                    @enderror
-                </div>
-            </div>
 
 
             <div class="row mb-3">

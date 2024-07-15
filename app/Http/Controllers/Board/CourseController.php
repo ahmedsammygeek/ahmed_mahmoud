@@ -43,8 +43,8 @@ class CourseController extends Controller
     */
     public function show(Course $course)
     {
-        $course->load('grade' , 'user' , 'teachers.teacher'  , 'educationalSystems.educationalSystem' );
-        return view('board.courses.show' , compact('course' ) );
+        $course->load('grade' , 'user' , 'teacher'  , 'educationalSystems.educationalSystem' );
+    return view('board.courses.show' , compact('course' ) );
     }
 
     /**

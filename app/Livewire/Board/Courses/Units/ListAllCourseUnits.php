@@ -3,7 +3,7 @@
 namespace App\Livewire\Board\Courses\Units;
 
 use Livewire\Component;
-use App\Models\CourseUnit;
+use App\Models\Unit;
 use Livewire\WithPagination;
 use Livewire\WithoutUrlPagination;
 class ListAllCourseUnits extends Component
@@ -25,7 +25,7 @@ class ListAllCourseUnits extends Component
     public function deleteItem($item_id)
     {
 
-        $item = CourseUnit::find($item_id);
+        $item = Unit::find($item_id);
         if($item) {
             $item->delete();
             $this->dispatch('itemDeleted');
@@ -37,7 +37,7 @@ class ListAllCourseUnits extends Component
 
     public function render()
     {
-        $units = CourseUnit::where('course_id' , $this->course->id )
+        $units = Unit::where('course_id' , $this->course->id )
         ->when($this->search , function($query){
             $query->where('title->ar' , 'LIKE' , '%'.$this->search.'%' )->orWhere('title->en' ,  'LIKE' , '%'.$this->search.'%'  );
         })

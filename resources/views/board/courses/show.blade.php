@@ -133,13 +133,9 @@
 
 
                             <tr>
-                                <th class='col-md-3' > @lang('courses.teachers') </th>
+                                <th class='col-md-3' > @lang('courses.teacher') </th>
                                 <td class='col-md-9' >
-                                   <ul>
-                                       @foreach ($course->teachers as $teacher)
-                                          <li> {{ $teacher->teacher?->name }} </li>
-                                       @endforeach
-                                   </ul>
+                                   {{ $course->teacher?->name }}
                                 </td>
                             </tr>
 

@@ -29,7 +29,6 @@ class AddNewLesson extends Component
 
     public function render()
     {
-        // dd($this->course , $this->unit );
         return view('livewire.board.courses.units.lessons.add-new-lesson');
     }
 }

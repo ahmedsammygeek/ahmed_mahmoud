@@ -4,22 +4,22 @@ namespace App\Http\Controllers\Board;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{Course , CourseUnit};
+use App\Models\{Course , Unit};
 use App\Http\Requests\Board\Courses\Units\Lessons\{StoreLessonRequest , UpdateLessonRequest};
 class LessonController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Course $course  , Unit $unit)
     {
-        //
+        return view('board.lessons.index' , compact('unit' , 'course' ) );
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Course $course  , CourseUnit $unit)
+    public function create(Course $course  , Unit $unit)
     {
         return view('board.lessons.create' , compact('course' , 'unit' ) );
     }
@@ -29,7 +29,7 @@ class LessonController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        dd('error');
     }
 
     /**

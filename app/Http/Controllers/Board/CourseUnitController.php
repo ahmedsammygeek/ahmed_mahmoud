@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Board;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Course;
-use App\Models\CourseUnit;
+use App\Models\Unit;
 use App\Http\Requests\Board\Courses\Units\{StoreCourseUnitRequest , UpdateCourseUnitRequest};
 use App\Actions\Board\Courses\Units\{StoreUnitAction , UpdateUnitAction};
 class CourseUnitController extends Controller
@@ -38,7 +38,7 @@ class CourseUnitController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Course $course , CourseUnit $unit )
+    public function show(Course $course , Unit $unit )
     {
         return view('board.units.show' , compact('unit' , 'course' ) );
     }
@@ -46,7 +46,7 @@ class CourseUnitController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Course $course , CourseUnit $unit )
+    public function edit(Course $course , Unit $unit )
     {
         return view('board.units.edit' , compact('unit' , 'course' ) );
     }
@@ -54,7 +54,7 @@ class CourseUnitController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCourseUnitRequest $request, Course $course , CourseUnit $unit , UpdateUnitAction $action )
+    public function update(UpdateCourseUnitRequest $request, Course $course , Unit $unit , UpdateUnitAction $action )
     {
         $action->execute($request , $course , $unit );
         return redirect(route('board.courses.units.index' , $course ))->with('success' , trans('courses.updated successfully') );
