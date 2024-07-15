@@ -3,7 +3,7 @@
 namespace App\Actions\Board\Courses\Units;
 use Illuminate\Http\Request;
 use App\Models\Course;
-use App\Models\CourseUnit;
+use App\Models\Unit;
 class UpdateUnitAction
 {
     /**
@@ -16,7 +16,7 @@ class UpdateUnitAction
 
 
 
-    public function execute(Request $request ,Course $course , CourseUnit $unit  )
+    public function execute(Request $request ,Course $course , Unit $unit  )
     {
         $unit->course_id = $course->id;
         $unit
