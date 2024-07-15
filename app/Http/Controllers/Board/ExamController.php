@@ -4,12 +4,9 @@ namespace App\Http\Controllers\Board;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\Board\Exams\StoreExamRequest;
-
-use App\Actions\Board\Exams\StoreExamAction;
-
-
-use App\Models\Exam;
+use App\Http\Requests\Board\Exams\{StoreExamRequest , UpdateExamRequest} ;
+use App\Actions\Board\Exams\{StoreExamAction , UpdateExamAction };
+use App\Models\{Exam , Course };
 
 class ExamController extends Controller
 {
@@ -50,24 +47,26 @@ class ExamController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Exam $exam)
     {
-        //
+        $courses = Course::select('id' , 'title' )->get();
+        return view('board.exams.edit' , compact('exam') );
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateExamRequest $request, Exam $exam ,UpdateExamAction $action  )
     {
-        //
+        $action->execute($exam , $request->all());
+        return redirect(route('board.exams.index'))->with('success' , trans('exams.exam updated successfully') );
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function students(Exam $exam)
     {
-        //
+        return view('board.exams.students' , compact('exam') );
     }
 }

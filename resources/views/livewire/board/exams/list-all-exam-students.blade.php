@@ -1,8 +1,6 @@
 <div class="row">
     <div class="col-md-12">
-        <a href='{{ route('board.exams.create') }}' class='btn btn-primary mb-2' style="float: left;">  <i class="icon-plus3 me-2"></i>  
-            @lang('exams.add new exam')
-        </a>
+
         <a class='btn btn-primary mb-2 me-2' data-bs-toggle="collapse" data-bs-target="#filters" aria-expanded="true"  style="float: left;">  
             <i class="icon-filter4 me-2"></i> 
         </a>
@@ -18,18 +16,18 @@
                 <div class="dropdown ms-sm-3  mb-sm-0">
                     <select wire:model.change='course_id' class="form-select">
                         <option value=""> @lang('students.all courses') </option>
-                        @foreach ($courses as $course)
+                        {{-- @foreach ($courses as $course)
                         <option value="{{ $course->id }}"> {{ $course->title }} </option>
-                        @endforeach
+                        @endforeach --}}
                     </select>
                 </div>
             </div>
         </div>
     </div>
     <div class="col-md-12">
-        <div class="card">
+        <div class="card ">
             <div class="card-header bg-primary text-white d-sm-flex align-items-sm-center ">
-                <h5 class="mb-0"> @lang('exams.show all exams') </h5>
+                <h5 class="mb-0"> @lang('exams.show all exam students ') : {{ $exam->title }} </h5>
                 <div class="ms-sm-auto my-sm-auto">
                     <select wire:model.live='rows' class="form-select ">
                         <option value="15">15 @lang('dashboard.rows') </option>
@@ -45,11 +43,12 @@
                     <thead>
                         <tr>
                             <th> # </th>
-                            <th> @lang('exams.title') </th>
-                            <th> @lang('exams.course') </th>
-                            <th> @lang('exams.starts at') </th>
-                            <th> @lang('exams.ends at') </th>
-                            <th> @lang('exams.duration') </th>
+                            <th> @lang('exams.student') </th>
+                            <th> @lang('exams.started at') </th>
+                            <th> @lang('exams.ended at') </th>
+                            <th> @lang('exams.total degree') </th>
+                            <th> @lang('exams.is finished') </th>
+                            <th> @lang('exams.is marked') </th>
                             <th> @lang('exams.options') </th>
                         </tr>
                     </thead>
@@ -57,20 +56,36 @@
                         @php
                         $i =1
                         @endphp
-                        @foreach ($exams as $exam)
+                        @foreach ($exam_students as $exam_student)
                         <tr>
                             <td> {{ $i++ }} </td>
-                            <td> {{ $exam->title }} </td>
-                            <td> {{ $exam->course?->title }} </td>
-                            <td> {{ $exam->starts_at }} </td>
-                            <td> {{ $exam->ends_at }} </td>
-                            <td> {{ $exam->duration }} <span class='text-muted' > @lang('exams.minutes') </span> </td>
+                            <td> {{ $exam_student->student?->name }} </td>
+                            <td> {{ $exam_student->started_at }} </td>
+                            <td> {{ $exam_student->ended_at }} </td>
+                            <td> {{ $exam_student->total_degree }} </td>
+                            <td> 
+                                @switch($exam_student->is_finished)
+                                @case(0)
+                                <span class='badge bg-danger' > @lang('dashboard.no') </span>
+                                @break
+                                @case(1)
+                                <span class='badge bg-success' > @lang('dashboard.yes') </span>
+                                @break
+                                @endswitch
+                            </td>
+                             <td> 
+                                @switch($exam_student->is_marked)
+                                @case(0)
+                                <span class='badge bg-danger' > @lang('dashboard.no') </span>
+                                @break
+                                @case(1)
+                                <span class='badge bg-success' > @lang('dashboard.yes') </span>
+                                @break
+                                @endswitch
+                            </td>
                             <td>
-                                <a href='{{ route('board.exams.students.index' , $exam ) }}' class='btn btn-sm btn-primary ' title="@lang('exams.students')" >  <i class="icon-users4"></i>  </a>
-                                <a href='{{ route('board.exams.show' , $exam ) }}' class='btn btn-sm btn-primary ' title="@lang('dashboard.view')" >  <i class="icon-eye "></i>  </a>
 
-                                <a href='{{ route('board.exams.edit' , $exam ) }}' class='btn btn-sm btn-warning ' title="@lang('dashboard.edit')" >  <i class="icon-database-edit2 "></i>  </a>
-                                <a wire:click="$dispatch('deleteConfirmation', '{{ $exam->id }}')" class='btn btn-sm btn-danger  delete_item' title="@lang('dashboard.delete')" >  <i class="icon-trash "></i>  </a>
+                                <a href='{{ route('board.exam_students.show' , $exam_student->id ) }}' class='btn btn-sm btn-primary ' title="@lang('dashboard.view')" >  <i class="icon-eye "></i>  </a>
                             </td>
                         </tr>
                         @endforeach
@@ -82,7 +97,7 @@
 
                 </div>
 
-                {{ $exams->links() }}
+                {{ $exam_students->links() }}
             </div>
         </div>
     </div>

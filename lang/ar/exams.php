@@ -31,4 +31,11 @@ return array (
   'question limit' => 'عدد الاسلئه المتاحه للطلبه',
   'show exam details' => 'عرض تفاصيل الامتحان',
   'degree' => 'درجه',
+  'exam updated successfully' => 'تم التعديل بنجاح',
+  'edit exam details' => 'تعديل بيانات الامتحان',
+  'ended at' => 'وقت الانتهاء',
+  'is finished' => 'هل انهى الامتحان',
+  'is marked' => 'هل تم التصحيح',
+  'started at' => 'وقت البدايه',
+  'student' => 'الطالب',
 );

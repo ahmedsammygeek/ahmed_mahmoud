@@ -92,7 +92,7 @@ switch (request()->segment(3)) {
 				</li>
 				<li class="nav-item nav-item-submenu">
 					<a href="{{ route('board.students.index') }}" class="nav-link {{ $students }}">
-						<i class="icon-graduation2  "></i>
+						<i class="icon-users4"></i>
 						<span> @lang('students.students') </span>
 					</a>
 					<ul class="nav-group-sub collapse">
@@ -102,7 +102,7 @@ switch (request()->segment(3)) {
 				</li>
 				<li class="nav-item nav-item-submenu">
 					<a href="{{ route('board.groups.index') }}" class="nav-link {{ $groups }} ">
-						<i class="icon-graduation2  "></i>
+						<i class="icon-make-group "></i>
 						<span> @lang('groups.groups') </span>
 					</a>
 					<ul class="nav-group-sub collapse">
@@ -114,7 +114,7 @@ switch (request()->segment(3)) {
 
 				<li class="nav-item nav-item-submenu">
 					<a  href="{{ route('board.questions.index') }}"  class="nav-link {{ $questions }} "  >
-						<i class="icon-graduation2  "></i>
+						<i class="icon-question7 "></i>
 						<span> @lang('questions.questions') </span>
 					</a>
 					<ul class="nav-group-sub collapse">
@@ -127,7 +127,7 @@ switch (request()->segment(3)) {
 
 				<li class="nav-item nav-item-submenu">
 					<a  class="nav-link  {{ $exams }}">
-						<i class="icon-graduation2 "></i>
+						<i class="icon-compose "></i>
 						<span> @lang('exams.exams') </span>
 					</a>
 					<ul class="nav-group-sub collapse">

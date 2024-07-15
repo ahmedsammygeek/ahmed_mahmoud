@@ -17,4 +17,20 @@ class StudentExam extends Model
             'ended_at' => 'datetime',
         ];
     }
+
+
+    public function markedBy()
+    {
+        return $this->belongsTo(User::class , 'marked_by' );
+    }
+
+    public function student()
+    {
+        return $this->belongsTo(Student::class , 'student_id' );
+    }
+
+    public function exam()
+    {
+        return $this->belongsTo(Exam::class , 'exam_id' );
+    }
 }

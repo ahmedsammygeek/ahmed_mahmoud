@@ -31,4 +31,11 @@ return array (
   'question' => 'question',
   'total questions count' => 'total questions count',
   'students' => 'students',
+  'edit exam details' => 'edit exam details',
+  'exam updated successfully' => 'exam updated successfully',
+  'student' => 'Student',
+  'started at' => 'Started At',
+  'ended at' => 'ended at',
+  'is finished' => 'is finished ?',
+  'is marked' => 'is marked ?',
 );

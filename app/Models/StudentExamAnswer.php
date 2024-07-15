@@ -27,8 +27,13 @@ class StudentExamAnswer extends Model
         return $this->belongsTo(Exam::class , 'exam_id');
     }
 
-    public function ansswer()
+    public function answer()
     {
         return $this->belongsTo(QuestionAnswer::class , 'answer_id');
+    }
+
+    public function correct_answer()
+    {
+        return $this->belongsTo(QuestionAnswer::class , 'correct_answer_id');
     }
 }

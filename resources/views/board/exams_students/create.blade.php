@@ -3,7 +3,7 @@
 
 @section('breadcrumb')
 <a href="{{ route('board.exams.index') }}" class="breadcrumb-item"> @lang('exams.exams') </a>
-<span class="breadcrumb-item active">  @lang('exams.edit exam details')  </span>
+<span class="breadcrumb-item active">  @lang('exams.add new exam')  </span>
 @endsection
 
 @section('page_content')
@@ -12,10 +12,10 @@
 	<div class="col-md-12">
 		<div class="card">
 			<div class="card-header bg-primary text-white">
-				<h5 class="mb-0">  @lang('exams.edit exam details')  </h5>
+				<h5 class="mb-0">  @lang('exams.add new exam')  </h5>
 			</div>
 
-			@livewire('board.exams.edit-exam', ['exam' => $exam ] )
+			@livewire('board.exams.add-new-exam')
 
 		</div>
 	</div>
