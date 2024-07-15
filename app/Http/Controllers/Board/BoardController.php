@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Board;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Models\{Student , User , Course  , Group , Exam };
 class BoardController extends Controller
 {
     /**
@@ -12,7 +12,15 @@ class BoardController extends Controller
      */
     public function index()
     {
-        return view('board.index');
+
+        $students_count = Student::count();
+        $admins_count = User::where('type'  , 1)->count();
+        $teachers_count = User::where('type'  , 2)->count();
+        $courses_count = Course::count();
+        $groups_count = Course::count();
+        $exams_count = Course::count();
+
+        return view('board.index' , compact('students_count', 'admins_count' , 'teachers_count' , 'courses_count'  , 'groups_count' , 'exams_count') );
     }
 
     /**

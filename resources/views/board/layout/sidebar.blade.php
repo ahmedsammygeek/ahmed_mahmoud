@@ -1,11 +1,14 @@
 @php
-$groups = $home = $settings = $students = $dashboard_notifications = $questions = $exams = $users = $courses = $slides = '';
+$groups = $home = $settings = $students = $educational_systems = $grades = $dashboard_notifications = $questions = $exams = $users = $courses = $slides = '';
 
 
 
 switch (request()->segment(3)) {
 	case 'groups':
 	$groups = 'active';
+	break;
+	case 'educational_systems':
+	$educational_systems = 'active';
 	break;
 	case 'questions':
 	$questions = 'active';
@@ -27,6 +30,9 @@ switch (request()->segment(3)) {
 	break;
 	case 'slides':
 	$slides = 'active';
+	break;
+	case 'grades':
+	$grades = 'active';
 	break;
 	case 'settings':
 	$settings = 'active';
@@ -94,6 +100,29 @@ switch (request()->segment(3)) {
 						<li class="nav-item"><a href="{{ route('board.slides.index') }}" class="nav-link"> @lang('slides.show all slides') </a></li>
 					</ul>
 				</li>
+
+				<li class="nav-item nav-item-submenu">
+					<a href="{{ route('board.grades.index') }}" class="nav-link {{ $grades }}">
+						<i class="icon-graduation2  "></i>
+						<span> @lang('grades.grades') </span>
+					</a>
+					<ul class="nav-group-sub collapse">
+						<li class="nav-item"><a href="{{ route('board.grades.create') }}" class="nav-link "> @lang('grades.add new grade') </a></li>
+						<li class="nav-item"><a href="{{ route('board.grades.index') }}" class="nav-link"> @lang('grades.show all grades') </a></li>
+					</ul>
+				</li>
+
+				<li class="nav-item nav-item-submenu">
+					<a href="{{ route('board.educational_systems.index') }}" class="nav-link {{ $educational_systems }}">
+						<i class="icon-keyboard "></i>
+						<span> @lang('educational_systems.educational systems') </span>
+					</a>
+					<ul class="nav-group-sub collapse">
+						<li class="nav-item"><a href="{{ route('board.educational_systems.create') }}" class="nav-link "> @lang('educational_systems.add new educational system') </a></li>
+						<li class="nav-item"><a href="{{ route('board.educational_systems.index') }}" class="nav-link"> @lang('educational_systems.show all educational systems') </a></li>
+					</ul>
+				</li>
+
 				<li class="nav-item nav-item-submenu">
 					<a href="{{ route('board.courses.index') }}" class="nav-link {{ $courses }}">
 						<i class="icon-graduation2  "></i>
