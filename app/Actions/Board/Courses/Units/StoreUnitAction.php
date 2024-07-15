@@ -3,7 +3,7 @@
 namespace App\Actions\Board\Courses\Units;
 use Illuminate\Http\Request;
 use App\Models\Course;
-use App\Models\CourseUnit;
+use App\Models\Unit;
 use Auth;
 class StoreUnitAction
 {
@@ -20,7 +20,7 @@ class StoreUnitAction
     public function execute(Request $request , $course)
     {
 
-        $unit = new CourseUnit;
+        $unit = new Unit;
         $unit->user_id = Auth::id();
         $unit->course_id = $course->id;
         $unit
