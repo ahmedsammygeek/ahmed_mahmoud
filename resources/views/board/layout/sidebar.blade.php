@@ -1,5 +1,5 @@
 @php
-$groups = $home = $students = $dashboard_notifications = $questions = $exams = $users = $courses = $slides = '';
+$groups = $home = $settings = $students = $dashboard_notifications = $questions = $exams = $users = $courses = $slides = '';
 
 
 
@@ -27,6 +27,9 @@ switch (request()->segment(3)) {
 	break;
 	case 'slides':
 	$slides = 'active';
+	break;
+	case 'settings':
+	$settings = 'active';
 	break;
 	default:
 	$home = 'active';
@@ -70,6 +73,14 @@ switch (request()->segment(3)) {
 						<i class="ph-house"></i>
 						<span>
 							@lang('dashboard.home')
+						</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a href="{{ route('board.settings.edit') }}" class="nav-link {{ $settings }}">
+						<i class="icon-gear"></i>
+						<span>
+							@lang('settings.settings')
 						</span>
 					</a>
 				</li>

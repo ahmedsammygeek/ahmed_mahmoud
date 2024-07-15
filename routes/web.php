@@ -23,6 +23,8 @@ use App\Http\Controllers\Board\QuestionController;
 use App\Http\Controllers\Board\ExamController;
 use App\Http\Controllers\Board\ExamStudentController;
 use App\Http\Controllers\Board\DashboardNotificationController;
+use App\Http\Controllers\Board\SettingController;
+use App\Http\Controllers\Board\GradeController;
 
 
 Route::get('/test' , [TestController::class , 'index'] );
@@ -55,6 +57,7 @@ Route::group(
 
                 Route::resource('questions', QuestionController::class);
                 Route::resource('exams', ExamController::class );
+                Route::resource('grades', GradeController::class);
                 Route::get('exams/{exam}/students' ,[ ExamController::class , 'students' ] )->name('exams.students.index');
                 
                 Route::resource('exam_students', ExamStudentController::class );
@@ -64,7 +67,8 @@ Route::group(
                 Route::resource('groups', GroupController::class );
                 Route::get('groups/{group}/calendar' , [GroupController::class , 'calendar'])->name('groups.calendar');
 
-
+                Route::get('/settings'  , [SettingController::class , 'edit'] )->name('settings.edit');
+                Route::patch('/settings'  , [SettingController::class , 'update'] )->name('settings.update');
 
 
                 Route::post('proccess_video_uploads' , [UploadLessonVideoController::class , 'store'] )->name('proccess_video_uploads');
