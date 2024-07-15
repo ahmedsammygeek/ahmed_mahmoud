@@ -1,29 +1,6 @@
 <div class="row">
-    <div class="col-md-12">
 
-        <a class='btn btn-primary mb-2 me-2' data-bs-toggle="collapse" data-bs-target="#filters" aria-expanded="true"  style="float: left;">  
-            <i class="icon-filter4 me-2"></i> 
-        </a>
-    </div>
-    <div class="col-md-12 collapse" id='filters' wire:ignore.self >
-        <div class="card card-body">
 
-            <div class="d-sm-flex align-items-sm-start mt-2">
-
-                <div class="dropdown ms-sm-3  mb-sm-0">
-                    <input type="text" class='form-control' wire:model.live='search' >
-                </div>
-                <div class="dropdown ms-sm-3  mb-sm-0">
-                    <select wire:model.change='course_id' class="form-select">
-                        <option value=""> @lang('students.all courses') </option>
-                        {{-- @foreach ($courses as $course)
-                        <option value="{{ $course->id }}"> {{ $course->title }} </option>
-                        @endforeach --}}
-                    </select>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="col-md-12">
         <div class="card ">
             <div class="card-header bg-primary text-white d-sm-flex align-items-sm-center ">
@@ -39,6 +16,10 @@
                 </div>
             </div>
             <div class='card-body' >
+                <div class="dropdown ms-sm-3  mb-sm-0">
+                    <input type="text" class='form-control' wire:model.live='search' placeholder="@lang('dashboard.search sutdents')" >
+                </div>
+
                 <table  class='table  table-responsive table-striped table-xs text-center '>
                     <thead>
                         <tr>

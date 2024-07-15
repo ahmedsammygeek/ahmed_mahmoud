@@ -42,7 +42,12 @@ class ListAllExamStudents extends Component
         $exam_students = StudentExam::where('exam_id' , $this->exam->id )
         ->with(['student'])
         ->when($this->search , function($query){
-            $query->where('title->ar', 'LIKE' , '%'.$this->search.'%' )->orWhere('title->en', 'LIKE' , '%'.$this->search.'%');
+            $query->whereHas('student', function($query){
+                $query
+                ->where('name' , 'LIKE' , '%'.$this->search.'%' )
+                ->orWhere('mobile' , 'LIKE' , '%'.$this->search.'%' )
+                ->orWhere('guardian_mobile' , 'LIKE' , '%'.$this->search.'%' );
+            });
         })
         ->latest()
         ->paginate($this->rows);
