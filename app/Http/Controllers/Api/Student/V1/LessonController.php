@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Api\Student\V1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{Course , Lesson  , StudentLesson };
+use App\Models\{Course , Lesson  , StudentLesson  , Exam};
 use App\Traits\Api\GeneralResponse;
 use App\Http\Resources\Api\Student\V1\Lessons\LessonResource;
+use App\Http\Resources\Api\Student\V1\Courses\ExamResource;
 use Auth;
 class LessonController extends Controller
 {
@@ -88,6 +89,8 @@ class LessonController extends Controller
             $student_lesson = StudentLesson::where('student_id' , $student->id )->where('lesson_id' , $lesson->id )->first();
             $lesson['remains_views'] = $student_lesson ? $student_lesson->remains_views : 0;
             $data['lesson'] = new LessonResource($lesson);
+            $exams = Exam::get();
+            $data['lesson_quizzes'] = ExamResource::collection($exams) ;
             return $this->response(
                 data : $data , 
             );
