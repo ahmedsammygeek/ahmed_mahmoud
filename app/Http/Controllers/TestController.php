@@ -23,6 +23,9 @@ use App\Models\Question;
 use App\Models\Exam;
 use App\Models\StudentExam;
 use App\Models\StudentExamAnswer;
+use App\Models\Attendance;
+use App\Models\CourseStudent;
+use DB;
 use App\Notifications\WelcomeNotification;
 use App\Notifications\NewCourseLessonAddedNotification;
 class TestController extends Controller
@@ -32,44 +35,56 @@ class TestController extends Controller
      */
     public function index()
     {       
-        $n = 15;
 
 
-        foreach (range(1, 15) as $number) {
-    if(0 !== $number % 3 && 0 !== $number % 5) {
-        echo $number.'<br>';
-        continue;
-    }
 
-    if(0 === $number % 3) {
-        echo 'Fizz';
-    }
+        
 
-    if(0 === $number % 5) {
-        echo 'Buzz';
-    }
-
-    echo '<br>';
-}
+        $student = Student::with('courses')->find(15);
+        $student_course = CourseStudent::where('student_id', 15 )->where('course_id' , 1 )->first();
 
 
-        // for ($i=1; $i <= $n ; $i++) { 
-        //     $output = $i ;
-            
-        //     if ( (($i % 3) == 0 ) && (($i % 5) == 0 ) ) {
-        //         $output = 'FizzBuzz';
-        //     } else {
-        //         if ($i%3 == 0 ) {
-        //            $output = 'Fizz';
-        //         } elseif ($i%5 == 0 ) {
 
-        //             $output = 'Buzz';
-        //         } 
-        //     }
-        //     echo $output.'<br>';
-        // }
+        $course = Course::with(['sessions' => function($query) use($student_course)  {
+            $query
+            ->where('group_id' , $student_course->group_id )
+            ->whereDate('time_from' , '<=' , Carbon::today() )
+            ->leftJoin('attendances' , function($joinQuery){
+                $joinQuery
+                ->on( 'group_times.id'  , '=' , 'attendances.group_time_id' )
+                ->where('attendances.student_id' , '='  , 15 );
+            });
+            // ->where('student_id' , $student_course->student_id );
+            // ->whereHas('attendedStudents', function($query) use($student_course) {
+            //     $query->where('student_id' , $student_course->student_id );
+            // });
+        }])
+        ->find(1);
+
+        return $course;
+
+        dd();
+
+        $course_sessions = $course->sessions->pluck('id')->toArray();
+
+        // dd($course_sessions);
 
 
+        // $sessions = DB::table('group_times')
+        // ->whereIn('group_times.id' , $course_sessions )
+        // ->leftJoin('attendances' , function($joinQuery){
+        //     $joinQuery
+        //     ->on('group_times.id'  , '=' , 'attendances.group_time_id' )
+        //     ->where('attendances.student_id' , '='  , 15 );
+        // })
+        // ->get();
+
+        dd($sessions);
+
+        return $course;
+
+
+        // whereIn('id' , $student->courses()->pluck('course_id')->toArray() )->first();
 
 
 

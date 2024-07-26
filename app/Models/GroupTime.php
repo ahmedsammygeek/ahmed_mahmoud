@@ -10,6 +10,18 @@ class GroupTime extends Model
     use HasFactory;
     protected $fillable = ['user_id' , 'group_id' , 'time_from' , 'time_to' ];
 
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+    */
+    protected function casts(): array
+    {
+        return [
+            'time_from' => 'datetime',
+            'time_to' => 'datetime',
+        ];
+    }
 
     public function group()
     {
@@ -22,16 +34,11 @@ class GroupTime extends Model
     }
 
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
+    public function attendedStudents()
     {
-        return [
-            'time_from' => 'datetime',
-            'time_to' => 'datetime',
-        ];
+        return $this->hasMany(Attendance::class , 'group_time_id');
     }
+
+
+
 }

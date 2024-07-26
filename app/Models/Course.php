@@ -43,4 +43,19 @@ class Course extends Model
     {
         return $this->hasMany(CourseEducationalSystem::class);
     }
+
+    public function groups()
+    {
+        return $this->hasMany(Group::class , 'course_id');
+    }
+
+    public function students()
+    {
+        return $this->hasMany(CourseStudent::class , 'course_id' );
+    }
+
+    public function sessions()
+    {
+        return $this->hasManyThrough(GroupTime::class , Group::class);
+    }
 }

@@ -25,6 +25,8 @@ use App\Http\Controllers\Api\Student\V1\FAQController;
 use App\Http\Controllers\Api\Student\V1\FeebackController;
 use App\Http\Controllers\Api\Student\V1\StudentCourseController;
 use App\Http\Controllers\Api\Student\V1\SettingController;
+use App\Http\Controllers\Api\Student\V1\AttendanceController;
+use App\Http\Controllers\Api\Student\V1\PaymentController;
 
 Route::group(['prefix' => 'student/v1'], function() {
 
@@ -64,16 +66,14 @@ Route::group(['prefix' => 'student/v1'], function() {
             Route::get('exams/{exam}' , [ExamController::class , 'show'] );
             Route::get('exams/{exam}/result' , [ExamController::class , 'result'] );
             Route::post('exams/{exam}/answer' , [ExamController::class , 'answer'] );
-
-
             Route::get('notifications' , [NotificationController::class , 'index'] );
             Route::post('notifications' , [NotificationController::class , 'read'] );
             Route::post('feedback' , [FeebackController::class , 'store'] );
-
             Route::get('/my_courses/ongoing' , [StudentCourseController::class , 'on_going'] );
             Route::get('/my_courses/completed' , [StudentCourseController::class , 'completed'] );
-
-
+            Route::get('attendance' , [AttendanceController::class , 'index'] );
+            Route::get('payments'  , [PaymentController::class , 'index']);
+            
         });        
     });
 
