@@ -49,7 +49,7 @@ Route::group(['prefix' => 'student/v1'], function() {
         Route::post('/verification' , [PhoneVerificationController::class , 'index'] );
         Route::post('/verification/code/send' , [PhoneVerificationController::class , 'send_code'] );
         Route::get('/profile' , [ProfileController::class , 'index'] ); 
-        Route::group(['middleware' => 'phone_verification'], function() {
+        Route::group(['middleware' => 'phone_verification'  ], function() {
             Route::post('/logout' , [LogoutController::class , 'index'] ); 
             Route::patch('/profile' , [ProfileController::class , 'update'] ); 
             Route::delete('/profile' , [ProfileController::class , 'delete'] ); 

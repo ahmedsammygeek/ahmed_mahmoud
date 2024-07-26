@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Auth;
+use App\Models\Setting;
 class StudentMustVerifyHisPhoneNumberMiddleware
 {
     /**
@@ -16,17 +17,23 @@ class StudentMustVerifyHisPhoneNumberMiddleware
     public function handle(Request $request, Closure $next): Response
     {
 
-        $student = Auth::guard('student')->user();
-        if (!$student->phone_verified_at) {
-            
-            return response()->json([
-                'errors' => [] , 
-                'message' => trans('api.mobile phone must be verified') , 
-                'data' => (object)[] ,
-                'status' => 'error' ,  
-            ], 403);
+        $Setting = Setting::first();
 
+        if ($Setting->force_phone_verification == 1 ) {
+            $student = Auth::guard('student')->user();
+            if (!$student->phone_verified_at) {
+                
+                return response()->json([
+                    'errors' => [] , 
+                    'message' => trans('api.mobile phone must be verified') , 
+                    'data' => (object)[] ,
+                    'status' => 'error' ,  
+                ], 403);
+
+            }
         }
+
+
 
 
         return $next($request);
