@@ -17,6 +17,8 @@ class AddNewCourseToStudent extends Component
 
     public $student;
     public $allow = true;
+    public $purchase_price = 0;
+
 
 
 
@@ -24,6 +26,13 @@ class AddNewCourseToStudent extends Component
     public function groups()
     {
         return Group::where('course_id' , $this->course_id )->get();
+    }
+
+
+    public function updatedCourseId()
+    {
+        $course = Course::find($this->course_id);
+        $this->purchase_price = $course->price;
     }
 
     public function save()

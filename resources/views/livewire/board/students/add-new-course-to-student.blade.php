@@ -44,6 +44,17 @@
                         </div>
 
 
+                        <div class="row mb-3">
+                            <label class="col-form-label col-sm-3"> @lang('students.purchase_price') </label>
+                            <div class="col-sm-9">
+                                <input type="text" class='form-control' wire:model.live='purchase_price' >
+                                @error('course_id')
+                                <p class='is-invalid text-danger'> {{ $message }} </p>
+                                @enderror 
+                            </div>
+                        </div>
+
+
 
                         <div class="row mb-3">
                             <label class="col-form-label col-sm-3"> @lang('students.allow to view on app') </label>

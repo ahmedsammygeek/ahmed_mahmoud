@@ -16,6 +16,7 @@ class SettingResource extends JsonResource
     {
         return [
             'allow_virtual_apps' => (bool)$this->allow_virtual_apps ,
+            'force_phone_verification' => (bool)$this->force_phone_verification , 
         ];
     }
 }
