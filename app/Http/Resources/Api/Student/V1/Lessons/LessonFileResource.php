@@ -18,7 +18,8 @@ class LessonFileResource extends JsonResource
             'id' => $this->id , 
             'file' => Storage::url('lesson_files/'.$this->file) , 
             'name' => $this->file , 
-
+            'available_views_count' => 3 , 
+            'can_download' => true , 
         ];
     }
 }

@@ -36,7 +36,20 @@ class TestController extends Controller
     public function index()
     {       
 
-
+        // ['sessions' => function($query) use($student)  {
+        //     $query
+        //     ->where('group_id' , $student_course->courses()->where('course_id') )
+        //     ->whereDate('time_from' , '<=' , Carbon::today() )
+        //     ->leftJoin('attendances' , function($joinQuery){
+        //         $joinQuery
+        //         ->on( 'group_times.id'  , '=' , 'attendances.group_time_id' )
+        //         ->where('attendances.student_id' , '='  , 15 );
+        //     });
+        //     // ->where('student_id' , $student_course->student_id );
+        //     // ->whereHas('attendedStudents', function($query) use($student_course) {
+        //     //     $query->where('student_id' , $student_course->student_id );
+        //     // });
+        // }]
 
         
 
