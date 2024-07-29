@@ -90,7 +90,7 @@ class LessonController extends Controller
             $lesson['remains_views'] = $student_lesson ? $student_lesson->remains_views : 0;
             $data['lesson'] = new LessonResource($lesson);
             $exams = Exam::get();
-            $data['lesson_quizzes'] = ExamResource::collection($exams) ;
+            // $data['lesson_quizzes'] = ExamResource::collection($exams) ;
             return $this->response(
                 data : $data , 
             );
