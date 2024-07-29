@@ -73,6 +73,9 @@ Route::group(['prefix' => 'student/v1'], function() {
             Route::get('/my_courses/completed' , [StudentCourseController::class , 'completed'] );
             Route::get('attendance' , [AttendanceController::class , 'index'] );
             Route::get('payments'  , [PaymentController::class , 'index']);
+
+            Route::post('files/{lesson_file}/downloaded' , [LessonController::class , 'downloaded'] );
+            Route::post('files/{lesson_file}/viewed' , [LessonController::class , 'viewed'] );
             
         });        
     });

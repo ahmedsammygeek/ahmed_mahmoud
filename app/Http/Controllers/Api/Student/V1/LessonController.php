@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Student\V1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{Course , Lesson  , StudentLesson  , Exam};
+use App\Models\{Course , Lesson  , StudentLesson  , LessonFile , Exam};
 use App\Traits\Api\GeneralResponse;
 use App\Http\Resources\Api\Student\V1\Lessons\LessonResource;
 use App\Http\Resources\Api\Student\V1\Courses\ExamResource;
@@ -21,18 +21,18 @@ class LessonController extends Controller
         $student_lesson = StudentLesson::where('student_id' , $student->id )->where('lesson_id' , $lesson->id )->first();
 
         if ($student_lesson) {
-           $student_lesson->total_views_till_now = $student_lesson->total_views_till_now + 1;
-           $student_lesson->remains_views = $student_lesson->remains_views - 1;
-           $student_lesson->save();
-        }
+         $student_lesson->total_views_till_now = $student_lesson->total_views_till_now + 1;
+         $student_lesson->remains_views = $student_lesson->remains_views - 1;
+         $student_lesson->save();
+     }
 
-        return $this->response(
-            message : 'lesson marked as watched successfully'  , 
-        );
-        
-    }
+     return $this->response(
+        message : 'lesson marked as watched successfully'  , 
+    );
 
-    
+ }
+
+
     /**
      * Display the specified resource.
      */
@@ -101,9 +101,30 @@ class LessonController extends Controller
                 message : 'you have been exceeded the number of lesson views'  , 
             );
         }
-
-        
     }
 
+    public function viewed(LessonFile $lesson_file) {
+
+        $data = [
+            'available_views_count' => 2 , 
+        ];
+
+        return $this->response(
+            message : 'file viewed successfully'  , 
+            data : $data , 
+        );
+    }
+
+    public function downloaded(LessonFile $lesson_file) {
+
+        $data = [
+            'can_download' => true , 
+        ];
+
+        return $this->response(
+            message : 'file downloaded successfully'  , 
+            data : $data , 
+        );
+    }
 
 }
