@@ -23,6 +23,12 @@ class Question extends Model
      }
 
 
+     public function lesson()
+     {
+          return $this->belongsTo(Lesson::class , 'lesson_id' );
+     }
+
+
      public function answers()
      {
           return $this->hasMany(QuestionAnswer::class , 'question_id' );

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Board;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Course;
+use App\Models\Question;
 class QuestionController extends Controller
 {
     /**
@@ -29,15 +29,15 @@ class QuestionController extends Controller
     public function store(Request $request)
     {
 
-        dd($request->all());
+        
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Question $question)
     {
-        //
+        return view('board.questions.show' , compact('question') );
     }
 
     /**

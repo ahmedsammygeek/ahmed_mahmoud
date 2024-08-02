@@ -12,6 +12,7 @@ use App\Models\Question;
 use App\Models\QuestionAnswer;
 use Auth;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use App\Models\Lesson;
 class AddNewQuestion extends Component
 {
     use WithFileUploads , LivewireAlert ;
@@ -19,6 +20,7 @@ class AddNewQuestion extends Component
     public $question_type;
     public $answer_type;
     public $course_id;
+    public $lesson_id;
     public $degree;
 
     public $question_text_content_ar;
@@ -28,6 +30,13 @@ class AddNewQuestion extends Component
     public $answers_ar = [] ;
     public $answers_en = [] ;
 
+    #[Computed]
+    public function lessons()
+    {
+        return Lesson::whereHas('unit' , function($query){
+            $query->where('course_id' , $this->course_id );
+        })->get();
+    }
 
 
 
@@ -39,6 +48,7 @@ class AddNewQuestion extends Component
             'degree' => 'required',
             'answer_type' => 'required' , 
             'question_type' => 'required' , 
+            'lesson_id' => 'nullable' , 
             'question_text_content_ar' => 'required_if:question_type,1' , 
             'question_text_content_en' => 'required_if:question_type,1' , 
             'question_image_content' => 'required_if:question_type,2' , 
@@ -59,6 +69,7 @@ class AddNewQuestion extends Component
         $question->type = $this->question_type;
         $question->answer_type = $this->answer_type;
         $question->degree = $this->degree;
+        $question->lesson_id = $this->lesson_id;
         $question->is_active = 1;
         if ($this->question_type == 1 ) {
             $question->setTranslation('content' , 'en' , $this->question_text_content_ar );

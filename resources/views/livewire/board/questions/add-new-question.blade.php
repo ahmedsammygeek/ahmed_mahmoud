@@ -21,6 +21,21 @@
                 </div>
             </div>
 
+             <div class="row mb-3">
+                <label class="col-form-label col-lg-2"> @lang('questions.lesson') <span class="text-danger">*</span></label>
+                <div class="col-lg-10">
+                    <select name="lesson_id" wire:model.live='lesson_id'  class="form-control form-select" id="">
+                        <option value=""></option>
+                        @foreach ($this->lessons as $lesson)
+                        <option value="{{ $lesson->id }}"> {{ $lesson->content }} </option>
+                        @endforeach
+                    </select>
+                    @error('lesson_id')
+                    <p class='text-danger' > {{ $message }} </p>
+                    @enderror
+                </div>
+            </div>
+
             <div class="row mb-3">
                 <label class="col-form-label col-lg-2"> @lang('questions.degree') <span class="text-danger">*</span></label>
                 <div class="col-lg-10">
