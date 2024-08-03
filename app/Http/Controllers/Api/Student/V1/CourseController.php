@@ -20,21 +20,28 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $student = Auth::guard('student')->user();
 
-        $courses = Course::query()
-        ->where('grade_id' , $student->grade_id )
-        ->whereHas('educationalSystems' , function($query) use($student) {
-            $query->where('educational_system_id' , $student->educational_system_id );
-        })
-        ->get();
+        if (Auth::guard('student')->check()) {
+            $student = Auth::guard('student')->user();    
+            $courses = Course::query()
+            ->where('grade_id' , $student->grade_id )
+            ->whereHas('educationalSystems' , function($query) use($student) {
+                $query->where('educational_system_id' , $student->educational_system_id );
+            })
+            ->get();
+            $courses->map(function($course) use ($student) {
+                $course->dose_user_subscribed = CourseStudent::where('student_id' , $student->id )->where('course_id' , $course->id )
+                ->first() ? true : false ;
+                return $course;
+            });
 
-        $courses->map(function($course) use ($student) {
-            $course->dose_user_subscribed = CourseStudent::where('student_id' , $student->id )->where('course_id' , $course->id )
-            ->first() ? true : false ;
-            return $course;
-        });
-
+        } else {
+            $courses = Course::query()->get();
+            $courses->map(function($course)  {
+                $course->dose_user_subscribed = false ;
+                return $course;
+            });
+        }
 
         $data = [
             'courses' => CourseResource::collection($courses) , 
@@ -45,20 +52,29 @@ class CourseController extends Controller
         );
     }
 
-  
+
     /**
      * Display the specified resource.
      */
     public function show(Course $course)
-    {
-        $student = Auth::user();
-        $course['dose_user_subscribed'] = CourseStudent::where('student_id' , $student->id )->where('course_id' , $course->id )
+    {   
+        $is_user = false;
+        if (Auth::guard('student')->check()) {
+            $is_user = true;
+            $student = Auth::guard('student')->user();
+            $course['dose_user_subscribed'] = CourseStudent::where('student_id' , $student->id )->where('course_id' , $course->id )
             ->first() ? true : false ;
+        } else {
+            $course['dose_user_subscribed'] = false ;
+        }
+
+        
+        
 
         $exams = Exam::get();
         $data = [
             'course' => new CourseDetailsResource($course)  , 
-            'exams' => ExamResource::collection($exams) , 
+            'exams' => $is_user ?  ExamResource::collection($exams) : [] , 
         ];
 
         return $this->response(
@@ -67,5 +83,5 @@ class CourseController extends Controller
         
     }
 
-  
+
 }

@@ -35,14 +35,22 @@ class TeacherController extends Controller
      */
     public function show(Teacher $teacher)
     {
-        $student = Auth::guard('student')->user();
-
         $courses = Course::where('teacher_id' , $teacher->id )->get();
 
-        $courses->map(function($course) use ($student) {
-            $course->dose_user_subscribed = CourseStudent::where('student_id' , $student->id )->where('course_id'  , $course->id )->first() ? true : false ;
-            return $course;
-        });
+        if (Auth::guard('student')->check()) {
+            $student = Auth::guard('student')->user();
+            $courses->map(function($course) use ($student) {
+                $course->dose_user_subscribed = CourseStudent::where('student_id' , $student->id )->where('course_id'  , $course->id )->first() ? true : false ;
+                return $course;
+            });
+        } else {
+            $courses->map(function($course)  {
+                $course->dose_user_subscribed = false ;
+                return $course;
+            });
+        }
+
+        
 
         $data = [
             'teacher' => new TeacherDetailsResource($teacher)  , 

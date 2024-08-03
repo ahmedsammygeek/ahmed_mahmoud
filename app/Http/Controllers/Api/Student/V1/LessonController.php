@@ -64,18 +64,25 @@ class LessonController extends Controller
             );
         }
 
-        $student = Auth::guard('student')->user();
+        
 
         // $student_lesson = StudentLesson::where('student_id' , $student->id )->where('course_unit_lesson_id' , $lesson->id )->first();
 
         if ($lesson->is_free) {
-
             $lesson['remains_views'] =  10;
             $data['lesson'] = new LessonResource($lesson);
             return $this->response(
                 data : $data , 
             );
+        } else {
+            if (!Auth::guard('student')->check()) {
+                return $this->response(
+                    message : 'you need to purchase this course first to whach the lesson '  , 
+                );
+            }
         }
+
+        $student = Auth::guard('student')->user();
 
         $student_lesson = StudentLesson::where('student_id' , $student->id )->where('lesson_id' , $lesson->id )->first();
 
