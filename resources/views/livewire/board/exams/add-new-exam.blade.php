@@ -40,7 +40,7 @@
 
 
             <div class="row mb-3">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label class="col-form-label col-lg-12"> @lang('exams.duration') <span class="text-danger">*</span></label>
                     <div class="col-lg-12">
                         <input type="text" name="duration" value="{{ old('duration') }}" class="form-control @error('duration')  is-invalid @enderror"  >
@@ -50,7 +50,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label class="col-form-label col-lg-12"> @lang('exams.course') <span class="text-danger">*</span></label>
                     <div class="col-lg-12">
                         <select name="course_id" wire:model.live='course_id' class='form-control form-select select'>
@@ -64,6 +64,21 @@
                         @enderror
                     </div>
                 </div>
+                <div class="col-md-4">
+                    <label class="col-form-label col-lg-12"> @lang('exams.lesson') <span class="text-danger">*</span></label>
+                    <div class="col-lg-12">
+                        <select name="lesson_id" wire:model.live='lesson_id' class='form-control form-select select'>
+                            <option value=""></option>
+                            @foreach ($this->lessons as $lesson)
+                            <option value="{{ $lesson->id }}"> {{ $lesson->title }} </option>
+                            @endforeach
+                        </select>
+                        @error('lesson_id')
+                        <p class='text-danger' > {{ $message }} </p>
+                        @enderror
+                    </div>
+                </div>
+
             </div>
 
             <div class="row mb-3">
@@ -80,7 +95,7 @@
                     </div>
                 </div>
 
-               
+
                 <div class="col-lg-4">
                     <div class="mb-3">
                         <label class="form-check form-switch mt-4">
@@ -90,7 +105,7 @@
                     </div>
                 </div>
 
-                 <div class="col-lg-4">
+                <div class="col-lg-4">
                     <div class="mb-3">
                         <label class="form-check form-switch mt-4">
                             <input type="checkbox" value='1' class="form-check-input" name="can_user_re_exam" wire:model.live='can_user_re_exam' >
@@ -100,10 +115,16 @@
                 </div>
 
                 @if ($can_user_re_exam)
-                <div class="col-lg-4">
+                <div class="col-lg-3">
                     <div class="mb-3">
                         <label class="form-label"> @lang('exams.min degree to re-exam') </label>
                         <input type="number" name='min_degree_to_re_exam' class="form-control" required > 
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="mb-3">
+                        <label class="form-label"> @lang('exams.retry  count') </label>
+                        <input type="number" name='retry_count' class="form-control" required > 
                     </div>
                 </div>
                 @endif
@@ -131,8 +152,8 @@
     </div>
 
     <div class="card-footer d-flex justify-content-end">
-        <a  href='{{ route('board.groups.index') }}' class="btn btn-light" id="reset"> @lang('groups.cancel') </a>
-        <button type="submit" class="btn btn-primary ms-3"> @lang('groups.add') <i class="ph-paper-plane-tilt ms-2"></i></button>
+        <a  href='{{ route('board.exams.index') }}' class="btn btn-light" id="reset"> @lang('dashboard.cancel') </a>
+        <button type="submit" class="btn btn-primary ms-3"> @lang('dashboard.add') <i class="ph-paper-plane-tilt ms-2"></i></button>
     </div>
 </form>
 

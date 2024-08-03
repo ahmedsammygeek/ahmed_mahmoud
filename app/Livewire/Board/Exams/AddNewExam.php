@@ -3,7 +3,7 @@
 namespace App\Livewire\Board\Exams;
 
 use Livewire\Component;
-use App\Models\{Course , Question };
+use App\Models\{Course , Question , Lesson };
 
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On; 
@@ -20,6 +20,17 @@ class AddNewExam extends Component
     {
         return Question::where('course_id' , $this->course_id )->get();
     }
+
+
+    #[Computed]
+    public function lessons()
+    {
+        return Lesson::whereHas('unit' , function($query){
+            $query->where('course_id' , $this->course_id );
+        })->get();
+    }
+
+
 
     public function save()
     {

@@ -33,6 +33,8 @@ class StoreExamRequest extends FormRequest
             'can_user_re_exam' => 'nullable' , 
             'can_student_see_result' => 'nullable' , 
             'min_degree_to_re_exam' => 'nullable' , 
+            'retry_count' => 'nullable' , 
+            'lesson_id' => 'nullable' , 
         ];
     }
 }

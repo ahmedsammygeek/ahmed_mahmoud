@@ -18,14 +18,23 @@ class SearchController extends Controller
      */
     public function index(Request $request)
     {
-        $student = Auth::guard('student')->user();
-        $courses = Course::where('title->ar' , 'LIKE' , '%'.$request->keywords.'%' )->orWhere('title->ar' , 'LIKE' , '%'.$request->keywords.'%' )->get();
 
-        $courses->map(function($course) use ($student) {
-            $course->dose_user_subscribed = CourseStudent::where('student_id' , $student->id )->where('course_id' , $course->id )
-            ->first() ? true : false ;
-            return $course;
-        });
+        $courses = Course::where('title->ar' , 'LIKE' , '%'.$request->keywords.'%' )->orWhere('title->ar' , 'LIKE' , '%'.$request->keywords.'%' )->get();
+        if (Auth::guard('student')->check()) {
+            $student = Auth::guard('student')->user();
+
+            $courses->map(function($course) use ($student) {
+                $course->dose_user_subscribed = CourseStudent::where('student_id' , $student->id )->where('course_id' , $course->id )
+                ->first() ? true : false ;
+                return $course;
+            });
+        } else {
+            $courses->map(function($course)  {
+                $course->dose_user_subscribed = false ;
+                return $course;
+            });
+        }
+
 
 
 
@@ -43,5 +52,5 @@ class SearchController extends Controller
 
     }
 
-    
+
 }
