@@ -1,5 +1,5 @@
 @php
-$groups = $home = $settings = $students = $educational_systems = $grades = $dashboard_notifications = $questions = $exams = $users = $courses = $slides = '';
+$groups = $home = $settings = $teachers = $students = $educational_systems = $grades = $dashboard_notifications = $questions = $exams = $users = $courses = $slides = '';
 
 
 
@@ -15,6 +15,9 @@ switch (request()->segment(3)) {
 	break;
 	case 'exams':
 	$exams = 'active';
+	break;
+	case 'teachers':
+	$teachers = 'active';
 	break;
 	case 'students':
 	$students = 'active';
@@ -100,6 +103,18 @@ switch (request()->segment(3)) {
 						<li class="nav-item"><a href="{{ route('board.slides.index') }}" class="nav-link"> @lang('slides.show all slides') </a></li>
 					</ul>
 				</li>
+
+				<li class="nav-item nav-item-submenu">
+					<a href="{{ route('board.teachers.index') }}" class="nav-link {{ $teachers }}">
+						<i class="icon-images2"></i>
+						<span> @lang('teachers.teachers') </span>
+					</a>
+					<ul class="nav-group-sub collapse">
+						<li class="nav-item"><a href="{{ route('board.teachers.create') }}" class="nav-link "> @lang('teachers.add new teacher') </a></li>
+						<li class="nav-item"><a href="{{ route('board.teachers.index') }}" class="nav-link"> @lang('teachers.show all teachers') </a></li>
+					</ul>
+				</li>
+
 
 				<li class="nav-item nav-item-submenu">
 					<a href="{{ route('board.grades.index') }}" class="nav-link {{ $grades }}">

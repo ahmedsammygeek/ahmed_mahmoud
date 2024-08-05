@@ -47,17 +47,18 @@ class TeacherController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Teacher $teacher)
     {
-        //
+        return view('board.teachers.edit' , compact('teacher') );
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateTeacherRequest $request,Teacher $teacher , UpdateTeacherAction $action )
     {
-        //
+        $action->handle( $teacher ,  $request->all());
+        return redirect(route('board.teachers.index'))->with('success' , trans('board.added successfully') );
     }
 
     /**
