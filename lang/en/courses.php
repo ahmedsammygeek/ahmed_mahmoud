@@ -57,4 +57,6 @@ return array (
   'allow to watch course' => 'allow to watch course',
   'course lessons' => 'course lessons',
   'views' => 'views',
+  'allowed_views' => 'allowed views',
+  'is free' => 'is free',
 );

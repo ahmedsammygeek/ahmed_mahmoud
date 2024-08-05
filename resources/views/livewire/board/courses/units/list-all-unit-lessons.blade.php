@@ -27,8 +27,10 @@
                      @if (count($lessons))
                      <tr>
                         <th > @lang('courses.title') </th>
+                        <th > @lang('courses.allowed_views') </th>
                         <th > @lang('courses.link') </th>
                         <th > @lang('courses.status') </th>
+                        <th > @lang('courses.is free') </th>
                         <th class="text-center" style="width: 20px;"> @lang('dashboard.options') </th>
                     </tr>
                     @endif
@@ -42,7 +44,11 @@
                             {{ $lesson->title }}
                         </td>
 
-                        <td> {{ $lesson->link }} </td>
+                        <td class="text-wrap">
+                            {{ $lesson->allowed_views }}
+                        </td>
+
+                        <td> {{ $lesson->lesson_video_link }} </td>
                         <td>
                             @switch($lesson->is_active )
                             @case(1)
@@ -54,14 +60,25 @@
                             @endswitch
                         </td>
 
+                        <td>
+                            @switch($lesson->is_free )
+                            @case(1)
+                            <span class="badge bg-success"> @lang('dashboard.yes') </span>
+                            @break
+                            @case(0)
+                            <span class="badge bg-danger"> @lang('dashboard.no') </span>
+                            @break
+                            @endswitch
+                        </td>
+
 
                         <td class="text-center">
-{{--                             <a  href="{{ route('board.courses.units.show'  ,  ['course' => $course  , 'unit' => $unit ] ) }}"  class="btn btn-sm btn-primary  ">
+                            <a  href="{{ route('board.courses.units.lessons.show'  ,  ['course' => $course  , 'unit' => $unit , 'lesson' => $lesson  ] ) }}"  class="btn btn-sm btn-primary  ">
                                 <i class="icon-eye  "></i>
-                            </a> --}}
-                            <a  href="{{ route('board.courses.units.lessons.index'  ,  ['course' => $course  , 'unit' => $unit ] ) }}"  class="btn btn-sm btn-info  ">
-                                <i class="icon-video-camera "></i>
                             </a>
+{{--                             <a  href="{{ route('board.courses.units.lessons.index'  ,  ['course' => $course  , 'unit' => $unit ] ) }}"  class="btn btn-sm btn-info  ">
+                                <i class="icon-video-camera "></i>
+                            </a> --}}
                             <a href="{{ route('board.courses.units.edit'  ,  ['course' => $course  , 'unit' => $unit ] ) }}"  class="btn btn-sm btn-warning ">
                                 <i class="icon-database-edit2  "></i>
                             </a>

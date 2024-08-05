@@ -11,7 +11,7 @@
 <span class="breadcrumb-item active"> عرض بيانات الدرس  </span>
 @endsection
 
-@section('content')
+@section('page_content')
 
 <div class="row">
     <div class="col-md-12">
@@ -71,7 +71,7 @@
 
                             <tr class='row'>
                                 <th class='col-md-2'> رابط الدرس vimeo </th>
-                                <td class='col-md-10'> <a target="_blank" href="https://vimeo.com/{{ $lesson->vimeo_number }}"> https://vimeo.com/{{ $lesson->vimeo_number }} </a>  </td>
+                                <td class='col-md-10'> <a target="_blank" href="{{ $lesson->lesson_video_link }}"> {{ $lesson->lesson_video_link }} </a>  </td>
                             </tr>
 
 
@@ -106,7 +106,7 @@
                             <tr class='row'>
                                 <th class='col-md-2'> ملفات الدرس </th>
                                 <td class='col-md-10'>
-                                    @switch($lesson->is_free )
+                                    @switch($lesson->is_active )
                                     @case(1)
                                     <span class="badge bg-success"> نعم </span>
                                     @break
@@ -117,20 +117,14 @@
                                 </td>
                             </tr>
 
-                            <tr class='row'>
-                                <th class='col-md-2'> شاهد الدرس </th>
-                                <td class='col-md-10'>
-                                    <iframe src="https://player.vimeo.com/video/{{ $lesson->vimeo_number }}?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=281923" width="800" height="500" frameborder="0" allow="autoplay;" title="الدرس الأول"></iframe>
-                                </td>
-                            </tr>
-
+  
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
-    @livewire('board.courses.units.lessons.lesson-files' , ['lesson' => $lesson] )
+    {{-- @livewire('board.courses.units.lessons.lesson-files' , ['lesson' => $lesson] ) --}}
 </div>
 
 @endsection

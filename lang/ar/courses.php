@@ -57,4 +57,6 @@ return array (
   'teacher' => 'المدرس',
   'upload video' => 'رفع الفديو',
   'views' => 'المشاهدات',
+  'allowed_views' => 'المشاهدات المسموح بها',
+  'is free' => 'مجانى؟',
 );

@@ -1,4 +1,4 @@
-<form  method="POST" wire:submit="save" enctype="multipart/form-data" >
+<form  method="POST" action="{{ route('board.courses.units.lessons.store' ,  ['course' => $course  , 'unit' => $unit ] ) }}" enctype="multipart/form-data" >
     <div class="card-body">
         @csrf
 

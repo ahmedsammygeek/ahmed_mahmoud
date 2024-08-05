@@ -54,4 +54,6 @@ return array (
   'student updated successfully' => 'student updated successfully',
   'force headphons' => 'force headphons',
   'allow to view on app' => 'allow to view on app',
+  'paid' => 'paid',
+  'installment_months' => 'installment months',
 );

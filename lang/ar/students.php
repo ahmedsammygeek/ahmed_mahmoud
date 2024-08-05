@@ -54,4 +54,6 @@ return array (
   'student updated successfully' => 'تم تعديل بيانات الطالب بنجاح',
   'allow to view on app' => 'السماح بالمشاهده عبر الموبيل',
   'force headphons' => 'وجوب استعمال سماعات الاذن ؟',
+  'installment_months' => 'عدد اشهر الاقساط',
+  'paid' => 'المدفوع',
 );
