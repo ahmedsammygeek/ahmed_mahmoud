@@ -21,10 +21,15 @@ class Teacher extends Model
 
     public function courses()
     {
-        return $this->hasMany(CourseTeacher::class , 'teacher_id');
+        return $this->hasMany(Course::class , 'teacher_id');
     }
 
-    // suggested
+
+    public function user()
+    {
+        return $this->belongsTo(User::class , 'user_id');
+    }
+
 
 
     public function scopeSuggested($query) {

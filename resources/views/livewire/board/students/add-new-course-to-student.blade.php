@@ -31,13 +31,13 @@
                         <div class="row mb-3">
                             <label class="col-form-label col-sm-3"> @lang('students.group') </label>
                             <div class="col-sm-9">
-                                <select wire:model.live='group_id' class="form-select form-control @error('course_id') is-invalid @enderror " id="">
+                                <select wire:model.live='group_id' class="form-select form-control @error('group_id') is-invalid @enderror " id="">
                                     <option value=""></option>
                                     @foreach ($this->groups as $group)
                                     <option value="{{ $group->id }}"> {{ $group->name }} </option>
                                     @endforeach
                                 </select>
-                                @error('course_id')
+                                @error('group_id')
                                 <p class='is-invalid text-danger'> {{ $message }} </p>
                                 @enderror 
                             </div>
@@ -48,11 +48,37 @@
                             <label class="col-form-label col-sm-3"> @lang('students.purchase_price') </label>
                             <div class="col-sm-9">
                                 <input type="text" class='form-control' wire:model.live='purchase_price' >
-                                @error('course_id')
+                                @error('purchase_price')
                                 <p class='is-invalid text-danger'> {{ $message }} </p>
                                 @enderror 
                             </div>
                         </div>
+
+                        <div class="row mb-3">
+                            <label class="col-form-label col-sm-3"> @lang('students.paid') </label>
+                            <div class="col-sm-9">
+                                <input type="text" class='form-control' wire:model.live='paid' >
+                                @error('paid')
+                                <p class='is-invalid text-danger'> {{ $message }} </p>
+                                @enderror 
+                            </div>
+                        </div>
+
+                        @if ($paid < $purchase_price )
+                        <div class="row mb-3">
+                            <label class="col-form-label col-sm-3"> @lang('students.installment_months') </label>
+                            <div class="col-sm-9">
+                                <input type="text" class='form-control' wire:model.live='installment_months' >
+                                @error('installment_months')
+                                <p class='is-invalid text-danger'> {{ $message }} </p>
+                                @enderror 
+                                <span class="badge d-block bg-primary text-start mt-1">    قيمه القسط الواحد : {{ $this->single_installment }} </span>
+                            </div>
+
+                        </div>
+                        @endif
+
+                        
 
 
 

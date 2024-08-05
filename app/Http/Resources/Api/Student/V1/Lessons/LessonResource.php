@@ -4,7 +4,7 @@ namespace App\Http\Resources\Api\Student\V1\Lessons;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Models\Exam;
+
 use App\Http\Resources\Api\Student\V1\Exams\ExamResource;
 class LessonResource extends JsonResource
 {
@@ -15,7 +15,7 @@ class LessonResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $exams = Exam::get();
+
         return [
             'id' => $this->id , 
             'title' => $this->title , 
@@ -29,7 +29,8 @@ class LessonResource extends JsonResource
             'speak_user_phone' => true ,
             'lesson_mins_to_be_mark_as_viewed' => 10 ,
             'files' => LessonFileResource::collection($this->files) , 
-            'quizzes' =>  ExamResource::collection($exams)
+            'quizzes' =>  ExamResource::collection($this->exams)
+
         ];
     }
 }

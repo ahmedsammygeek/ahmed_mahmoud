@@ -13,13 +13,19 @@ class AddNewCourseToStudent extends Component
     #[Validate('required')]
     public $course_id;
 
+    #[Validate('required')]
     public $group_id;
 
-    public $student;
-    public $allow = true;
+    #[Validate('required')]
     public $purchase_price = 0;
 
+    #[Validate('required')]
+    public $paid ;
 
+    public $installment_months = 1;
+    public $allow = true;
+
+    public $student;
 
 
     #[Computed]
@@ -33,6 +39,13 @@ class AddNewCourseToStudent extends Component
     {
         $course = Course::find($this->course_id);
         $this->purchase_price = $course->price;
+    }
+
+
+    #[Computed]
+    public function single_installment()
+    {
+        return    ($this->purchase_price - $this->paid) / $this->installment_months   ;
     }
 
     public function save()

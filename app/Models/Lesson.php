@@ -28,6 +28,10 @@ class Lesson extends Model
         return $this->belongsTo(Unit::class);
     }
 
+    public function exams()
+    {
+        return $this->hasMany(Exam::class , 'lesson_id');
+    }
 
 
 }

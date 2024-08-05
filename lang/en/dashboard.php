@@ -37,4 +37,7 @@ return array (
   'courses count' => 'courses count',
   'groups count' => 'groups count',
   'exams count' => 'exams count',
+  'My profile' => 'My profile',
+  'Account settings' => 'Account settings',
+  'logout' => 'logout',
 );

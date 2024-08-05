@@ -37,4 +37,7 @@ return array (
   'students count' => 'عدد الطلبه',
   'courses count' => 'عدد الكورسات',
   'admins count' => 'عدد المشرفين',
+  'Account settings' => 'اعدادات الحساب',
+  'My profile' => 'الملف الشخصى',
+  'logout' => 'تسجيل الخروج',
 );

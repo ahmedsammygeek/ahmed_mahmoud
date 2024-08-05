@@ -34,7 +34,13 @@ class TestController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {       
+    {   
+
+
+
+        $course = Course::find(2);
+
+        dd($course->lessons()->pluck('lessons.id')->toArray());
 
         // ['sessions' => function($query) use($student)  {
         //     $query
@@ -108,7 +114,7 @@ class TestController extends Controller
 
         // dd($student);
 
-       
+
     }
 
     /**

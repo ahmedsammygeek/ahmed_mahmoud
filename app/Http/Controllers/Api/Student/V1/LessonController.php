@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Student\V1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{Course , Lesson  , StudentLesson  , LessonFile , Exam};
+use App\Models\{Course , Lesson  , StudentLesson  , LessonFile , StudentExam , Exam};
 use App\Traits\Api\GeneralResponse;
 use App\Http\Resources\Api\Student\V1\Lessons\LessonResource;
 use App\Http\Resources\Api\Student\V1\Courses\ExamResource;
@@ -21,16 +21,16 @@ class LessonController extends Controller
         $student_lesson = StudentLesson::where('student_id' , $student->id )->where('lesson_id' , $lesson->id )->first();
 
         if ($student_lesson) {
-         $student_lesson->total_views_till_now = $student_lesson->total_views_till_now + 1;
-         $student_lesson->remains_views = $student_lesson->remains_views - 1;
-         $student_lesson->save();
-     }
+           $student_lesson->total_views_till_now = $student_lesson->total_views_till_now + 1;
+           $student_lesson->remains_views = $student_lesson->remains_views - 1;
+           $student_lesson->save();
+       }
 
-     return $this->response(
+       return $this->response(
         message : 'lesson marked as watched successfully'  , 
     );
 
- }
+   }
 
 
     /**
@@ -84,6 +84,39 @@ class LessonController extends Controller
 
         $student = Auth::guard('student')->user();
 
+
+        // we need to check if the student take the exam or not
+        // we need to check if this the first lesson or not
+        if ($course->lessons()->first()?->id != $lesson->id ) {
+            $exam = Exam::where('lesson_id' , $lesson->id )->first();
+
+
+            if ($exam)  {
+
+                $student_exam = StudentExam::where('student_id' , $student->id )->where('exam_id', $exam->id )->where('is_finished' , 1 )->latest()->first();
+
+                if ($student_exam) {
+
+                    if (  $exam->pass_degree > (($student_exam->total_degree / $exam->total_degree ) * 100 )) {
+                        return $this->response(
+                            message : 'you did not passed the exam for the previous lesson please pass it first then you can watch this lesson '  , 
+                        );
+                    }
+
+                } else {
+                    return $this->response(
+                        message : 'you need to pass the previous lesson exams first to lock this lesson'  , 
+                    );
+                }
+
+            }
+
+        }
+
+
+
+
+
         $student_lesson = StudentLesson::where('student_id' , $student->id )->where('lesson_id' , $lesson->id )->first();
 
         if (!$student_lesson || ($student_lesson->allowed == 0) ) {
@@ -96,8 +129,7 @@ class LessonController extends Controller
             $student_lesson = StudentLesson::where('student_id' , $student->id )->where('lesson_id' , $lesson->id )->first();
             $lesson['remains_views'] = $student_lesson ? $student_lesson->remains_views : 0;
             $data['lesson'] = new LessonResource($lesson);
-            $exams = Exam::get();
-            // $data['lesson_quizzes'] = ExamResource::collection($exams) ;
+
             return $this->response(
                 data : $data , 
             );
