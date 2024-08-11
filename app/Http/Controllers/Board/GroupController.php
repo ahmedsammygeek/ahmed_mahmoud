@@ -82,7 +82,7 @@ class GroupController extends Controller
     public function calendar(Group $group)
     {
 
-        $times = GroupTime::select('id' , 'time_from' , 'time_to'  )->where('course_teacher_group_id' , $group->id )->get();
+        $times = GroupTime::select('id' , 'time_from' , 'time_to'  )->where('group_id' , $group->id )->get();
 
         $times = $times->map(function($time) use($group) {
             return [
