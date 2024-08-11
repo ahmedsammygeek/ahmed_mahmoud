@@ -8,6 +8,8 @@ use App\Models\{Course , Teacher , CourseStudent };
 
 use App\Traits\Api\GeneralResponse;
 use Auth;
+use Str;
+use DB;
 use App\Http\Resources\Api\Student\V1\Search\CourseResource;
 use App\Http\Resources\Api\Student\V1\Search\TeacherResource;
 class SearchController extends Controller
@@ -18,8 +20,10 @@ class SearchController extends Controller
      */
     public function index(Request $request)
     {
+        $keywords = Str::lower($request->keywords);
 
-        $courses = Course::where('title->ar' , 'LIKE' , '%'.$request->keywords.'%' )->orWhere('title->ar' , 'LIKE' , '%'.$request->keywords.'%' )->get();
+        $courses = Course::where('title' , 'like' , '%'.$keywords.'%' )
+        ->get();
         if (Auth::guard('student')->check()) {
             $student = Auth::guard('student')->user();
 
