@@ -26,8 +26,10 @@ use App\Models\StudentExamAnswer;
 use App\Models\Attendance;
 use App\Models\CourseStudent;
 use DB;
+use Mail;
 use App\Notifications\WelcomeNotification;
 use App\Notifications\NewCourseLessonAddedNotification;
+use App\Mail\MyTestEmail;
 class TestController extends Controller
 {
     /**
@@ -36,11 +38,16 @@ class TestController extends Controller
     public function index()
     {   
 
+         $name = "ahmed samir";
+
+    // The email sending is done using the to method on the Mail facade
+    Mail::to('ahmedsamigeek@gmail.com')->send(new MyTestEmail($name));
 
 
-        $course = Course::find(2);
 
-        dd($course->lessons()->pluck('lessons.id')->toArray());
+        // $course = Course::find(2);
+
+        // dd($course->lessons()->pluck('lessons.id')->toArray());
 
         // ['sessions' => function($query) use($student)  {
         //     $query
@@ -59,32 +66,32 @@ class TestController extends Controller
 
         
 
-        $student = Student::with('courses')->find(15);
-        $student_course = CourseStudent::where('student_id', 15 )->where('course_id' , 1 )->first();
+        // $student = Student::with('courses')->find(15);
+        // $student_course = CourseStudent::where('student_id', 15 )->where('course_id' , 1 )->first();
 
 
 
-        $course = Course::with(['sessions' => function($query) use($student_course)  {
-            $query
-            ->where('group_id' , $student_course->group_id )
-            ->whereDate('time_from' , '<=' , Carbon::today() )
-            ->leftJoin('attendances' , function($joinQuery){
-                $joinQuery
-                ->on( 'group_times.id'  , '=' , 'attendances.group_time_id' )
-                ->where('attendances.student_id' , '='  , 15 );
-            });
-            // ->where('student_id' , $student_course->student_id );
-            // ->whereHas('attendedStudents', function($query) use($student_course) {
-            //     $query->where('student_id' , $student_course->student_id );
-            // });
-        }])
-        ->find(1);
+        // $course = Course::with(['sessions' => function($query) use($student_course)  {
+        //     $query
+        //     ->where('group_id' , $student_course->group_id )
+        //     ->whereDate('time_from' , '<=' , Carbon::today() )
+        //     ->leftJoin('attendances' , function($joinQuery){
+        //         $joinQuery
+        //         ->on( 'group_times.id'  , '=' , 'attendances.group_time_id' )
+        //         ->where('attendances.student_id' , '='  , 15 );
+        //     });
+        //     // ->where('student_id' , $student_course->student_id );
+        //     // ->whereHas('attendedStudents', function($query) use($student_course) {
+        //     //     $query->where('student_id' , $student_course->student_id );
+        //     // });
+        // }])
+        // ->find(1);
 
-        return $course;
+        // return $course;
 
-        dd();
+        // dd();
 
-        $course_sessions = $course->sessions->pluck('id')->toArray();
+        // $course_sessions = $course->sessions->pluck('id')->toArray();
 
         // dd($course_sessions);
 
@@ -98,9 +105,9 @@ class TestController extends Controller
         // })
         // ->get();
 
-        dd($sessions);
+        // dd($sessions);
 
-        return $course;
+        // return $course;
 
 
         // whereIn('id' , $student->courses()->pluck('course_id')->toArray() )->first();

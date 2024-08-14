@@ -21,7 +21,7 @@
                 </div>
             </div>
 
-             <div class="row mb-3">
+            <div class="row mb-3">
                 <label class="col-form-label col-lg-2"> @lang('questions.lesson') <span class="text-danger">*</span></label>
                 <div class="col-lg-10">
                     <select name="lesson_id" wire:model.live='lesson_id'  class="form-control form-select" id="">
@@ -45,6 +45,20 @@
                     @enderror
                 </div>
             </div>
+
+
+            <div class="row mb-3">
+                <label class="col-form-label col-lg-2"> @lang('questions.calculators') <span class="text-danger">*</span></label>
+                <div class="col-lg-10">
+                    <div class="form-check form-switch  mb-2 center-block ">
+                        <input type="checkbox" wire:model.live='calculators' class="form-check-input" >
+                    </div>
+                </div>
+            </div>
+
+
+
+            
 
 
             <div class="row mb-3">
@@ -117,18 +131,20 @@
 
             @if ($answer_type == 1 )
             <div class="row mb-3">
-                <label class="col-form-label col-lg-2"> @lang('questions.choices') </label>
+                <label class="col-form-label col-lg-2"> @lang('questions.choices') <button class='btn btn-sm btn-primary add_more_choices' wire:click.prevent='addMoreChoices' > <i class='icon-plus3 me-2' ></i> </button> </label>
                 <div class="col-lg-10">
                     <div class="row">
 
+                        @for ($i = 0; $i < $choices_count ; $i++)
+                        @if ($i == 0 || $i == 1 )
                         <div class="row mb-3">
                             <div class="col-lg-12">
                                 <div class="input-group">
                                     <span class="input-group-text">
-                                        <input type="radio" class="form-check-input mt-0" value="0" name="correct_answer" wire:model.live='correct_answer' checked>
+                                        <input type="radio" class="form-check-input mt-0" value="{{ $i }}" name="correct_answer" wire:model.live='correct_answer' checked>
                                     </span>
-                                    <input type="text" name='answers_ar[]' wire:model.live='answers_ar.0' class="form-control" placeholder="@lang('questions.answer in arabic')">
-                                    <input type="text" name='answers_en[]' wire:model.live='answers_en.0' class="form-control" placeholder="@lang('questions.answer in english')">
+                                    <input type="text" name='answers_ar[]' wire:model.live='answers_ar.{{ $i }}' class="form-control" placeholder="@lang('questions.answer in arabic')">
+                                    <input type="text" name='answers_en[]' wire:model.live='answers_en.{{ $i }}' class="form-control" placeholder="@lang('questions.answer in english')">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -142,71 +158,37 @@
                                 @enderror
                             </div>
                         </div>
+                        @else 
                         <div class="row mb-3">
-                            <div class="col-lg-12">
-                                <div class="input-group">
-                                    <span class="input-group-text">
-                                        <input type="radio" class="form-check-input mt-0" value="1" name="correct_answer" wire:model.live='correct_answer' >
-                                    </span>
-                                    <input type="text" name='answers_ar[]' wire:model.live='answers_ar.1' class="form-control" placeholder="@lang('questions.answer in arabic')">
-                                    <input type="text" name='answers_en[]' wire:model.live='answers_en.1' class="form-control" placeholder="@lang('questions.answer in english')">
+                            <div class="col-md-11">
+                                <div class="col-lg-12">
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <input type="radio" class="form-check-input mt-0" value="{{ $i }}" name="correct_answer" wire:model.live='correct_answer' checked>
+                                        </span>
+                                        <input type="text" name='answers_ar[]' wire:model.live='answers_ar.{{ $i }}' class="form-control" placeholder="@lang('questions.answer in arabic')">
+                                        <input type="text" name='answers_en[]' wire:model.live='answers_en.{{ $i }}' class="form-control" placeholder="@lang('questions.answer in english')">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    @error("answers_ar")
+                                    <p class='text-danger' > {{ $message }} </p>
+                                    @enderror
+                                </div>
+                                <div class="col-md-6">
+                                    @error("answers_en")
+                                    <p class='text-danger' > {{ $message }} </p>
+                                    @enderror
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                @error("answers_ar")
-                                <p class='text-danger' > {{ $message }} </p>
-                                @enderror
-                            </div>
-                            <div class="col-md-6">
-                                @error("answers_en")
-                                <p class='text-danger' > {{ $message }} </p>
-                                @enderror
+                            <div class="col-md-1">
+                                <button class='btn btn-danger delete_row' > 
+                                    <i class='icon-trash '> </i>
+                                </button>
                             </div>
                         </div>
-
-                        <div class="row mb-3">
-                            <div class="col-lg-12">
-                                <div class="input-group">
-                                    <span class="input-group-text">
-                                        <input type="radio" class="form-check-input mt-0" value="2" name="correct_answer" wire:model.live='correct_answer' >
-                                    </span>
-                                    <input type="text" name='answers_ar[]' wire:model.live='answers_ar.2' class="form-control" placeholder="@lang('questions.answer in arabic')">
-                                    <input type="text" name='answers_en[]' wire:model.live='answers_en.2' class="form-control" placeholder="@lang('questions.answer in english')">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                @error("answers_ar")
-                                <p class='text-danger' > {{ $message }} </p>
-                                @enderror
-                            </div>
-                            <div class="col-md-6">
-                                @error("answers_en")
-                                <p class='text-danger' > {{ $message }} </p>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-lg-12">
-                                <div class="input-group">
-                                    <span class="input-group-text">
-                                        <input type="radio" class="form-check-input mt-0" value="3" name="correct_answer" wire:model.live='correct_answer' >
-                                    </span>
-                                    <input type="text" name='answers_ar[]' wire:model.live='answers_ar.3' class="form-control" placeholder="@lang('questions.answer in arabic')">
-                                    <input type="text" name='answers_en[]' wire:model.live='answers_en.3' class="form-control" placeholder="@lang('questions.answer in english')">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                @error("answers_ar")
-                                <p class='text-danger' > {{ $message }} </p>
-                                @enderror
-                            </div>
-                            <div class="col-md-6">
-                                @error("answers_en")
-                                <p class='text-danger' > {{ $message }} </p>
-                                @enderror
-                            </div>
-                        </div>
+                        @endif
+                        @endfor
                         
                     </div>
                 </div>
@@ -224,4 +206,22 @@
 </form>
 
 
+@section('scripts')
+
+<script>
+    $(function() {
+
+        $(document).on('click', 'button.add_more_choices', function(event) {
+            event.preventDefault();
+        });
+
+        $(document).on('click', 'button.delete_row', function(event) {
+            event.preventDefault();
+            $(this).parent().parent().remove();
+            Livewire.dispatch('decreas-choices-count' , {} );
+        });
+    });
+</script>
+
+@endsection
 

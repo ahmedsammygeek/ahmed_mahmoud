@@ -22,6 +22,8 @@ class AddNewQuestion extends Component
     public $course_id;
     public $lesson_id;
     public $degree;
+    public $calculators;
+    public $choices_count = 2;
 
     public $question_text_content_ar;
     public $question_text_content_en;
@@ -39,9 +41,24 @@ class AddNewQuestion extends Component
     }
 
 
+    
+
+    #[On('decreas-choices-count')]
+    public function decreasChoicesCount()
+    {
+        $this->choices_count--;
+    }
+
+
+    public function addMoreChoices() {
+
+        $this->choices_count++;
+    }
 
     public function save()
     {
+
+
 
         $rules = [
             'course_id' => 'required',
@@ -56,8 +73,8 @@ class AddNewQuestion extends Component
         ];
 
         if ($this->answer_type == 1 ) {
-            $rules['answers_ar'] = 'array|size:4|required_if:answer_type,1' ; 
-            $rules['answers_en'] = 'array|size:4|required_if:answer_type,1' ; 
+            $rules['answers_ar'] = 'array|min:2|required_if:answer_type,1' ; 
+            $rules['answers_en'] = 'array|min:2|required_if:answer_type,1' ; 
         }
 
         $this->validate($rules);
@@ -70,6 +87,7 @@ class AddNewQuestion extends Component
         $question->answer_type = $this->answer_type;
         $question->degree = $this->degree;
         $question->lesson_id = $this->lesson_id;
+        $question->is_calculators = $this->calculators ? 1 : 0 ;
         $question->is_active = 1;
         if ($this->question_type == 1 ) {
             $question->setTranslation('content' , 'en' , $this->question_text_content_ar );
