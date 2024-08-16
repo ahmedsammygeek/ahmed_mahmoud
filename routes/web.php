@@ -27,11 +27,10 @@ use App\Http\Controllers\Board\SettingController;
 use App\Http\Controllers\Board\GradeController;
 use App\Http\Controllers\Board\EducationalSystemController;
 use App\Http\Controllers\Board\TeacherController;
-
+use App\Http\Controllers\Board\ProfileController;
+use App\Http\Controllers\Board\PasswordController;
 
 Route::get('/test' , [TestController::class , 'index'] );
-
-
 
 Route::group(
     [
@@ -78,6 +77,15 @@ Route::group(
 
                 Route::post('proccess_video_uploads' , [UploadLessonVideoController::class , 'store'] )->name('proccess_video_uploads');
                 Route::patch('proccess_video_uploads' , [UploadLessonVideoController::class , 'store'] )->name('proccess_video_uploads');
+
+
+                Route::get('/profile/edit' , [ProfileController::class , 'edit'] )->name('profile.edit');
+                Route::patch('/profile' , [ProfileController::class , 'update'] )->name('profile.update');
+                Route::get('/logout' , [ProfileController::class , 'logout'] )->name('profile.logout');
+
+
+                Route::get('/password/edit' , [PasswordController::class , 'edit'] )->name('password.edit');
+                Route::patch('/password' , [PasswordController::class , 'update'] )->name('password.update');
 
             });
         });

@@ -41,4 +41,5 @@ return array (
   'Account settings' => 'Account settings',
   'logout' => 'logout',
   'activate' => 'activate',
+  'Edit password' => 'Edit password',
 );

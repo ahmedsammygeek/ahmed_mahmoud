@@ -30,10 +30,7 @@
 						العربيه
 					</a>
 					@endif
-
 				</li>
-
-
 			</ul>
 
 		{{-- 	<div class="navbar-collapse justify-content-center flex-lg-1 order-2 order-lg-1 collapse" id="navbar_search">
@@ -239,24 +236,24 @@
 				<li class="nav-item nav-item-dropdown-lg dropdown ms-lg-2">
 					<a href="#" class="navbar-nav-link align-items-center rounded-pill p-1" data-bs-toggle="dropdown">
 						<div class="status-indicator-container">
-							<img src="{{ asset('board_assets/images/demo/users/face11.jpg') }}" class="w-32px h-32px rounded-pill" alt="">
+							<img src="{{ Storage::url('users/'.Auth::user()->image) }}" class="w-32px h-32px rounded-pill" alt="">
 							<span class="status-indicator bg-success"></span>
 						</div>
 						<span class="d-none d-lg-inline-block mx-lg-2"> {{ Auth::user()->name }} </span>
 					</a>
 
 					<div class="dropdown-menu dropdown-menu-end">
-						<a href="#" class="dropdown-item">
+						<a href="{{ route('board.profile.edit') }}" class="dropdown-item">
 							<i class="ph-user-circle me-2"></i>
 							@lang('dashboard.My profile')
 						</a>
+						<a href="{{ route('board.password.edit') }}" class="dropdown-item">
+							<i class="ph-user-circle me-2"></i>
+							@lang('dashboard.Edit password')
+						</a>
 
 						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item">
-							<i class="ph-gear me-2"></i>
-							@lang('dashboard.Account settings')
-						</a>
-						<a href="#" class="dropdown-item">
+						<a href="{{ route('board.profile.logout') }}" class="dropdown-item">
 							<i class="ph-sign-out me-2"></i>
 							@lang('dashboard.logout')
 						</a>

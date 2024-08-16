@@ -41,4 +41,5 @@ return array (
   'My profile' => 'الملف الشخصى',
   'logout' => 'تسجيل الخروج',
   'activate' => 'تفعيل',
+  'Edit password' => 'تعديل كلمه المرور',
 );
