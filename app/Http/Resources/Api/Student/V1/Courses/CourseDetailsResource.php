@@ -26,7 +26,6 @@ class CourseDetailsResource extends JsonResource
             'students_count' => mt_rand(300 , 9000) , 
             'content' => $this->content , 
             'dose_user_subscribed' => $this->dose_user_subscribed , 
-            'user_progress' => 20 , 
             'teacher' => new CourseDetailsTeacherResource($this->teacher), 
             'units' => CourseUnitResource::collection($this->units) , 
             'contact_mobile' => '01014340346' , 
