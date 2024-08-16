@@ -74,7 +74,7 @@ class CourseController extends Controller
         $exams = Exam::where('course_id' , $course->id )->where('lesson_id' , null )->get();
         $data = [
             'course' => new CourseDetailsResource($course)  , 
-            'exams' =>  ExamResource::collection($exams)  , 
+            'exams' => $is_user ?  ExamResource::collection($exams) : [] , 
         ];
 
         return $this->response(
