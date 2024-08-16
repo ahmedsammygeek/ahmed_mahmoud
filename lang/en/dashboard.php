@@ -40,4 +40,5 @@ return array (
   'My profile' => 'My profile',
   'Account settings' => 'Account settings',
   'logout' => 'logout',
+  'activate' => 'activate',
 );

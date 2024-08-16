@@ -36,13 +36,7 @@ class TestController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {   
-
-         $name = "ahmed samir";
-
-    // The email sending is done using the to method on the Mail facade
-    Mail::to('ahmedsamigeek@gmail.com')->send(new MyTestEmail($name));
-
+    {  
 
 
         // $course = Course::find(2);

@@ -27,7 +27,7 @@
 							<div class="col-lg-10">
 								<label class="form-check form-switch">
 									<input type="checkbox" value='1' class="form-check-input" name="allow_virtual_apps" {{ $settings->allow_virtual_apps == 1 ? 'checked' : '' }} >
-									<span class="form-check-label"> @lang('dashboard.yes') </span>
+									<span class="form-check-label"> @lang('dashboard.activate') </span>
 								</label>
 							</div>
 						</div>
@@ -36,7 +36,16 @@
 							<div class="col-lg-10">
 								<label class="form-check form-switch">
 									<input type="checkbox" value='1' class="form-check-input" name="force_phone_verification" {{ $settings->force_phone_verification == 1 ? 'checked' : '' }} >
-									<span class="form-check-label"> @lang('dashboard.yes') </span>
+									<span class="form-check-label"> @lang('dashboard.activate') </span>
+								</label>
+							</div>
+						</div>
+						<div class="row mb-3">
+							<label class="col-lg-2 col-form-label pt-0"> @lang('settings.allow developer mode') </label>
+							<div class="col-lg-10">
+								<label class="form-check form-switch">
+									<input type="checkbox" value='1' class="form-check-input" name="allow_developer_mode" {{ $settings->allow_developer_mode == 1 ? 'checked' : '' }} >
+									<span class="form-check-label"> @lang('dashboard.activate') </span>
 								</label>
 							</div>
 						</div>

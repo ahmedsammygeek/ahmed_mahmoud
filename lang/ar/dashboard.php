@@ -40,4 +40,5 @@ return array (
   'Account settings' => 'اعدادات الحساب',
   'My profile' => 'الملف الشخصى',
   'logout' => 'تسجيل الخروج',
+  'activate' => 'تفعيل',
 );

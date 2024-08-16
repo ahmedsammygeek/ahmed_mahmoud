@@ -1,9 +1,9 @@
-@extends('board.layouts.master')
+@extends('board.layout.master')
 
 
 @section('breadcrumb')
-<a href="{{ route('board.brands.index') }}" class="breadcrumb-item"> العلامات التجاريه </a>
-<span class="breadcrumb-item active"> تعديل  العلامه التجاريه </span>
+<a href="{{ route('board.questions.index') }}" class="breadcrumb-item"> @lang('questions.questions') </a>
+<span class="breadcrumb-item active">  @lang('questions.edit question') </span>
 @endsection
 
 @section('page_content')
@@ -12,9 +12,9 @@
 	<div class="col-md-12">
 		<div class="card">
 			<div class="card-header bg-primary text-white">
-				<h5 class="mb-0"> تعديل  العلامه التجاريه </h5>
+				<h5 class="mb-0"> @lang('questions.edit question')  </h5>
 			</div>
-
+{{-- 
 			<form class="" method="POST" action="{{ route('board.brands.update' , $brand ) }}" enctype="multipart/form-data" >
 				<div class="card-body">
 					@csrf
@@ -78,7 +78,9 @@
 					<a  href='{{ route('board.brands.index') }}' class="btn btn-light" id="reset"> الغاء </a>
 					<button type="submit" class="btn btn-primary ms-3"> تعديل <i class="ph-paper-plane-tilt ms-2"></i></button>
 				</div>
-			</form>
+			</form> --}}
+
+			@livewire('board.questions.edit-question' , ['question' => $question ] )
 		</div>
 	</div>
 </div>
