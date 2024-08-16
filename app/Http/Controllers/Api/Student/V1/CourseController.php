@@ -69,6 +69,7 @@ class CourseController extends Controller
         // }
 
         
+        $course['dose_user_subscribed']  = false;
         
 
         $exams = Exam::where('course_id' , $course->id )->where('lesson_id' , null )->get();
