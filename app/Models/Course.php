@@ -5,10 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
-use Laravel\Scout\Searchable;
 class Course extends Model
 {
-    use HasFactory , HasTranslations , Searchable ;
+    use HasFactory , HasTranslations  ;
 
 
     public function toSearchableArray()
