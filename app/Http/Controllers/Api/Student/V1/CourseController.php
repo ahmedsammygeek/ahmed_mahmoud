@@ -58,15 +58,15 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {   
-        // $is_user = false;
-        // if (Auth::guard('student')->check()) {
-        //     $is_user = true;
-        //     $student = Auth::guard('student')->user();
-        //     $course['dose_user_subscribed'] = CourseStudent::where('student_id' , $student->id )->where('course_id' , $course->id )
-        //     ->first() ? true : false ;
-        // } else {
-        //     $course['dose_user_subscribed'] = false ;
-        // }
+        $is_user = false;
+        if (Auth::guard('student')->check()) {
+            $is_user = true;
+            $student = Auth::guard('student')->user();
+            $course['dose_user_subscribed'] = CourseStudent::where('student_id' , $student->id )->where('course_id' , $course->id )
+            ->first() ? true : false ;
+        } else {
+            $course['dose_user_subscribed'] = false ;
+        }
 
         
         
@@ -74,7 +74,7 @@ class CourseController extends Controller
         $exams = Exam::where('course_id' , $course->id )->where('lesson_id' , null )->get();
         $data = [
             'course' => new CourseDetailsResource($course)  , 
-            'exams' => ExamResource::collection($exams), 
+            'exams' => $is_user ?  ExamResource::collection($exams) : [] , 
         ];
 
         return $this->response(
