@@ -17,7 +17,6 @@ class SettingController extends Controller
     }
 
 
-
     public function update(Request $request) {
 
         $settings = Setting::first();
