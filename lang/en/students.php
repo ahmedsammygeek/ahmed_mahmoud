@@ -56,4 +56,6 @@ return array (
   'allow to view on app' => 'allow to view on app',
   'paid' => 'paid',
   'installment_months' => 'installment months',
+  'show phone on viedo' => 'show phone on viedo',
+  'speak user phone' => 'speak user phone',
 );

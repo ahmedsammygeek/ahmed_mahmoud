@@ -56,4 +56,6 @@ return array (
   'force headphons' => 'وجوب استعمال سماعات الاذن ؟',
   'installment_months' => 'عدد اشهر الاقساط',
   'paid' => 'المدفوع',
+  'speak user phone' => 'نطق رقم الطالب',
+  'show phone on viedo' => 'عرض رقم الطالب',
 );
