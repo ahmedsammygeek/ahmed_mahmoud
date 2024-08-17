@@ -30,7 +30,7 @@
                 <div class="col-lg-10">
                     <div class="input-group">
                         <span class="input-group-text"><i class="ph-calendar"></i></span>
-                        <input type="text" name='date' class="form-control daterange-time" value="03/18/2020 - 03/23/2020"> 
+                        <input type="text" name='date' wire:model.live='date' class="form-control daterange-time" > 
                     </div>
                 </div>
                 @error('date')
@@ -40,17 +40,16 @@
 
 
             <div class="row mb-3">
-                <div class="col-md-4">
-                    <label class="col-form-label col-lg-12"> @lang('exams.duration') <span class="text-danger">*</span></label>
+                <div class="col-md-3">
+                    <label class="col-form-label col-lg-12"> @lang('exams.type') <span class="text-danger">*</span></label>
                     <div class="col-lg-12">
-                        <input type="text" name="duration" value="{{ old('duration') }}" class="form-control @error('duration')  is-invalid @enderror"  >
-                        @error('duration')
-                        <p class='text-danger' > {{ $message }} </p>
-                        @enderror
+                        <select name="course_id" wire:model.live='type' class='form-control form-select select  @error('type')  is-invalid @enderror'>
+                            <option value="1"> @lang('exams.general exam') </option>
+                            <option value="2"> @lang('exams.lesson exam') </option>                        
+                        </select>
                     </div>
                 </div>
-
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <label class="col-form-label col-lg-12"> @lang('exams.course') <span class="text-danger">*</span></label>
                     <div class="col-lg-12">
                         <select name="course_id" wire:model.live='course_id' class='form-control form-select select'>
@@ -64,7 +63,9 @@
                         @enderror
                     </div>
                 </div>
-                <div class="col-md-4">
+
+                @if ($type == 2 )
+                <div class="col-md-3">
                     <label class="col-form-label col-lg-12"> @lang('exams.lesson') <span class="text-danger">*</span></label>
                     <div class="col-lg-12">
                         <select name="lesson_id" wire:model.live='lesson_id' class='form-control form-select select'>
@@ -78,10 +79,35 @@
                         @enderror
                     </div>
                 </div>
+                @endif
 
+                <div class="col-md-3">
+                    <label class="col-form-label col-lg-12"> @lang('exams.duration') <span class="text-danger">*</span></label>
+                    <div class="col-lg-12">
+                        <input type="time" name="duration" value="{{ old('duration') }}" class="form-control @error('duration')  is-invalid @enderror"  >
+                        @error('duration')
+                        <p class='text-danger' > {{ $message }} </p>
+                        @enderror
+                    </div>
+                </div>
             </div>
 
-            <div class="row mb-3">
+            <div class="row mb-3 ">
+                <div class="col-md-3">
+                    <label class="col-form-label col-lg-12"> @lang('exams.questions choosing type') <span class="text-danger">*</span></label>
+                    <div class="col-lg-12">
+                        <select name="questions_choosing_type" wire:model.live='questions_choosing_type' class='form-control form-select select'>
+                            <option value="1"> @lang('exams.choose by me') </option>
+                            <option value="2"> @lang('exams.random') </option>
+                        </select>
+                        @error('questions_choosing_type')
+                        <p class='text-danger' > {{ $message }} </p>
+                        @enderror
+                    </div>
+                </div>
+            </div>
+
+{{--             <div class="row mb-3">
                 <div class="col-lg-4">
                     <div class="mb-3">
                         <label class="form-label"> @lang('exams.questions limit to students') </label>
@@ -128,11 +154,12 @@
                     </div>
                 </div>
                 @endif
-            </div>
+            </div> --}}
 
 
             <div class="fw-bold border-bottom pb-2 mb-3"> @lang('exams.questions')  </div>
 
+            @if ($questions_choosing_type == 1 )
             <div class="row mb-3"  >
                 <label class="col-lg-2 col-form-label pt-0"> @lang('exams.questions') </label>
                 <div class="col-lg-10">
@@ -143,6 +170,30 @@
                     </select>
                 </div>
             </div>
+            @else 
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <table class='table table-responsive table-bordered' >
+                        <thead>
+                            <tr>
+                                <th> # </th>
+                                <th> @lang('exams.lesson') </th>
+                                <th> @lang('exams.questions count') </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($this->lessons as $one_lesson)
+                            <tr>
+                                <td> {{ $loop->index ++ }} </td>
+                                <td> {{ $one_lesson->title }} </td>
+                                <td> <input type="text" class='form-control' value='1' > </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            @endif
 
 
 

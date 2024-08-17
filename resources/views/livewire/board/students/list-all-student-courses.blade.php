@@ -25,6 +25,8 @@
                             <th> @lang('students.course') </th>
                             <th> @lang('students.group') </th>
                             <th> @lang('students.force headphons') </th>
+                            <th> @lang('students.show phone on viedo') </th>
+                            <th> @lang('students.speak user phone') </th>
                             <th> @lang('students.allow') </th>
                             <th> @lang('students.options') </th>
                         </tr>
@@ -56,6 +58,20 @@
                                 <span> {{ $student_course->not_allow_message }} </span>
                                 @endif
                             </td>
+
+                            <td class='center-block' >
+                                <div class="form-check form-switch  mb-2 center-block ">
+                                    <input type="checkbox" wire:click='show_phone_on_viedo({{ $student_course->id }})' class="form-check-input un_force_headphonse"  {{ $student_course->show_phone_on_viedo == 1 ? 'checked' : '' }} >
+                                </div>
+                            </td>
+
+
+                            <td class='center-block' >
+                               <div class="form-check form-switch  mb-2 center-block ">
+                                    <input type="checkbox" wire:click='speak_user_phone({{ $student_course->id }})' class="form-check-input un_force_headphonse"  {{ $student_course->speak_user_phone == 1 ? 'checked' : '' }} >
+                                </div>
+                            </td>
+
 
 
                             <td>

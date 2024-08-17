@@ -43,7 +43,38 @@ class ListAllStudentCourses extends Component
     }
 
 
-    
+    public function show_phone_on_viedo($student_course_id)
+    {
+        $student_course = CourseStudent::find($student_course_id);
+        if ($student_course) {
+            if ($student_course->show_phone_on_viedo == 1 ) {
+               $student_course->show_phone_on_viedo = 0;
+            } else {
+                $student_course->show_phone_on_viedo = 1;
+            }
+            $student_course->save();
+        }
+        $this->dispatch('changed');
+    }
+
+
+
+    public function speak_user_phone($student_course_id)
+    {
+        $student_course = CourseStudent::find($student_course_id);
+
+        if ($student_course) {
+            if ($student_course->speak_user_phone == 1 ) {
+               $student_course->speak_user_phone = 0;
+            } else {
+                $student_course->speak_user_phone = 1;
+            }
+            $student_course->save();
+        }
+        $this->dispatch('changed');
+    }
+
+
 
     public function force_headphone($student_course_id)
     {
