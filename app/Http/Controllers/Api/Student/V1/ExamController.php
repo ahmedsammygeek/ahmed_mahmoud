@@ -88,7 +88,7 @@ class ExamController extends Controller
         $student_exam->save();
 
 
-        dd($exam , $exam->questions()->pluck('question_id')->toArray() );
+        // dd($exam , $exam->questions()->pluck('question_id')->toArray() );
 
         foreach ($exam->questions as $question) {
             $StudentExamAnswer = new StudentExamAnswer;
