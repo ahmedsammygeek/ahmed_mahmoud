@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Student\V1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{Course , Lesson  , StudentLesson  , LessonFile , StudentExam , Exam};
+use App\Models\{Course , Lesson  , StudentLesson  , LessonFile , StudentExam , Exam , CourseStudent };
 use App\Traits\Api\GeneralResponse;
 use App\Http\Resources\Api\Student\V1\Lessons\LessonResource;
 use App\Http\Resources\Api\Student\V1\Courses\ExamResource;
@@ -70,6 +70,8 @@ class LessonController extends Controller
 
         if ($lesson->is_free) {
             $lesson['remains_views'] =  10;
+            $lesson['show_phone_on_viedo'] =  false;
+            $lesson['speak_user_phone'] =  false;
             $data['lesson'] = new LessonResource($lesson);
             return $this->response(
                 data : $data , 
@@ -126,8 +128,13 @@ class LessonController extends Controller
         }
 
         if ($student_lesson->remains_views > 0 ) {
+
+            $student_course = CourseStudent::where('student_id' , $student->id )->where('course_id' , $course->id )->first();
+
             $student_lesson = StudentLesson::where('student_id' , $student->id )->where('lesson_id' , $lesson->id )->first();
             $lesson['remains_views'] = $student_lesson ? $student_lesson->remains_views : 0;
+            $lesson['show_phone_on_viedo'] = $student_course ? (bool)$student_lesson->show_phone_on_viedo : false;
+            $lesson['speak_user_phone'] = $student_course ? (bool)$student_lesson->speak_user_phone : false;
             $data['lesson'] = new LessonResource($lesson);
 
             return $this->response(
