@@ -53,7 +53,7 @@ class ExamController extends Controller
 
         $user_exam = StudentExam::where('student_id' , $student->id )->where('exam_id'  , $exam->id )->latest()->first();
 
-        // dd($user_exam->started_at->diffInMinutes(Carbon::now()) > $exam->duration );
+
 
         if ($user_exam) {
 
@@ -66,7 +66,6 @@ class ExamController extends Controller
 
                 $student_exam_questions  = StudentExamAnswer::with('question')->where('exam_id' , $exam->id )->where('student_id' , $student->id )->where('student_exam_id' , $user_exam->id )->get();
 
-                // dd($student_exam_questions->pluck('question_id')->toArray());
                 $data['exam'] = new ExamResource($exam);
                 $data['exam_questions'] = ExamQuestionResource::collection($student_exam_questions);
                 $data['student_exam_id'] = $user_exam->id;
@@ -88,12 +87,10 @@ class ExamController extends Controller
         $student_exam->save();
 
 
-        // dd($exam , $exam->questions()->pluck('question_id')->toArray() );
-
         foreach ($exam->questions as $question) {
             $StudentExamAnswer = new StudentExamAnswer;
             $StudentExamAnswer->exam_id = $exam->id;
-            $StudentExamAnswer->question_id = $question->id;
+            $StudentExamAnswer->question_id = $question->question_id;
             $StudentExamAnswer->student_exam_id = $student_exam->id;
             $StudentExamAnswer->student_id = $student->id;
             $StudentExamAnswer->save();
