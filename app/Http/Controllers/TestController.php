@@ -39,9 +39,12 @@ class TestController extends Controller
     {  
 
 
-        // $course = Course::find(2);
+        $course = Course::find(1);
 
-        // dd($course->lessons()->pluck('lessons.id')->toArray());
+
+        dd($course->units);
+
+        dd($course->lessons()->pluck('lessons.id')->toArray());
 
         // ['sessions' => function($query) use($student)  {
         //     $query

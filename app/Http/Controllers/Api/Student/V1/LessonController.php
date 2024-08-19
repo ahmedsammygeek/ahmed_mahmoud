@@ -21,16 +21,16 @@ class LessonController extends Controller
         $student_lesson = StudentLesson::where('student_id' , $student->id )->where('lesson_id' , $lesson->id )->first();
 
         if ($student_lesson) {
-           $student_lesson->total_views_till_now = $student_lesson->total_views_till_now + 1;
-           $student_lesson->remains_views = $student_lesson->remains_views - 1;
-           $student_lesson->save();
-       }
+         $student_lesson->total_views_till_now = $student_lesson->total_views_till_now + 1;
+         $student_lesson->remains_views = $student_lesson->remains_views - 1;
+         $student_lesson->save();
+     }
 
-       return $this->response(
+     return $this->response(
         message : 'lesson marked as watched successfully'  , 
     );
 
-   }
+ }
 
 
     /**
@@ -70,8 +70,15 @@ class LessonController extends Controller
 
         if ($lesson->is_free) {
             $lesson['remains_views'] =  10;
-            $lesson['show_phone_on_viedo'] =  false;
-            $lesson['speak_user_phone'] =  false;
+            if (Auth::guard('student')->check()) {
+                $student_course = CourseStudent::where('student_id' , $student->id )->where('course_id' , $course->id )->first();
+
+                $lesson['show_phone_on_viedo'] =  $student_course ? (bool)$student_course->show_phone_on_viedo :   false;
+                $lesson['speak_user_phone'] =  $student_course ? (bool)$student_course->speak_user_phone :   false;
+            } else {
+                $lesson['show_phone_on_viedo'] =  false;
+                $lesson['speak_user_phone'] =  false;
+            }
             $data['lesson'] = new LessonResource($lesson);
             return $this->response(
                 data : $data , 
@@ -132,7 +139,7 @@ class LessonController extends Controller
             $student_course = CourseStudent::where('student_id' , $student->id )->where('course_id' , $course->id )->first();
 
             $student_lesson = StudentLesson::where('student_id' , $student->id )->where('lesson_id' , $lesson->id )->first();
-            $lesson['remains_views'] = $student_lesson ? $student_lesson->remains_views : 0;
+            $lesson['remains_views'] = $student_lesson ? $student_lesson->remains_views : 10;
             $lesson['show_phone_on_viedo'] = $student_course ? (bool)$student_lesson->show_phone_on_viedo : false;
             $lesson['speak_user_phone'] = $student_course ? (bool)$student_lesson->speak_user_phone : false;
             $data['lesson'] = new LessonResource($lesson);

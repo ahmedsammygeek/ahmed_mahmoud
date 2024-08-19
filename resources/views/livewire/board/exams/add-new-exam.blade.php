@@ -107,7 +107,7 @@
                 </div>
             </div>
 
-{{--             <div class="row mb-3">
+            <div class="row mb-3">
                 <div class="col-lg-4">
                     <div class="mb-3">
                         <label class="form-label"> @lang('exams.questions limit to students') </label>
@@ -154,7 +154,7 @@
                     </div>
                 </div>
                 @endif
-            </div> --}}
+            </div>
 
 
             <div class="fw-bold border-bottom pb-2 mb-3"> @lang('exams.questions')  </div>

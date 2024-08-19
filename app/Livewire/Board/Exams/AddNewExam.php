@@ -17,8 +17,14 @@ class AddNewExam extends Component
     public $selected_qestions = [];
     public $can_user_re_exam = 0;
     public $type;
-    public $questions_choosing_type = 1 ;
+    public $questions_choosing_type = 2 ;
+    public $exam_date;
 
+
+    // public function mount()
+    // {
+    //     $this->exam_date = Carbon::now();
+    // }
 
     #[Computed]
     public function questions()
@@ -30,13 +36,19 @@ class AddNewExam extends Component
     }
 
 
-    public function mount()
-    {
-        $this->date = Carbon::now();
-    }
+
 
     #[Computed]
     public function lessons()
+    {
+        return Lesson::whereHas('unit' , function($query){
+            $query->where('course_id' , $this->course_id );
+        })->get();
+    }
+
+
+    #[Computed]
+    public function lessons_for_random()
     {
         return Lesson::whereHas('unit' , function($query){
             $query->where('course_id' , $this->course_id );
