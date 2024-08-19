@@ -79,9 +79,11 @@ class LessonController extends Controller
 
                 $lesson['show_phone_on_viedo'] =  $student_course ? (bool)$student_course->show_phone_on_viedo :   false;
                 $lesson['speak_user_phone'] =  $student_course ? (bool)$student_course->speak_user_phone :   false;
+                $lesson['show_phone_on_viedo_ervery'] = 2;
             } else {
                 $lesson['show_phone_on_viedo'] =  false;
                 $lesson['speak_user_phone'] =  false;
+                $lesson['show_phone_on_viedo_ervery'] = 100000;
             }
             $data['lesson'] = new LessonResource($lesson);
             return $this->response(
@@ -146,6 +148,7 @@ class LessonController extends Controller
             $lesson['remains_views'] = $student_lesson ? $student_lesson->remains_views : 10;
             $lesson['show_phone_on_viedo'] = $student_course ? (bool)$student_lesson->show_phone_on_viedo : false;
             $lesson['speak_user_phone'] = $student_course ? (bool)$student_lesson->speak_user_phone : false;
+            $lesson['show_phone_on_viedo_ervery'] = 2;
             $data['lesson'] = new LessonResource($lesson);
 
             return $this->response(

@@ -29,6 +29,7 @@ class LessonResource extends JsonResource
             // 'speak_user_phone' =>  true  $this->speak_user_phone  ? (bool)$this->speak_user_phone : false ,
             'show_phone_on_viedo' =>  true ,
             'speak_user_phone' =>  true  ,
+            'show_phone_on_viedo_ervery' => $this->show_phone_on_viedo_ervery ? $this->show_phone_on_viedo_ervery : 1000;
             'lesson_mins_to_be_mark_as_viewed' => 10 ,
             'files' => LessonFileResource::collection($this->files) , 
             'quizzes' =>  ExamResource::collection($this->exams)
