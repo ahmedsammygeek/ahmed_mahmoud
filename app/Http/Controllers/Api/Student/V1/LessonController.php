@@ -71,6 +71,10 @@ class LessonController extends Controller
         if ($lesson->is_free) {
             $lesson['remains_views'] =  10;
             if (Auth::guard('student')->check()) {
+
+                
+        $student = Auth::guard('student')->user();
+
                 $student_course = CourseStudent::where('student_id' , $student->id )->where('course_id' , $course->id )->first();
 
                 $lesson['show_phone_on_viedo'] =  $student_course ? (bool)$student_course->show_phone_on_viedo :   false;
