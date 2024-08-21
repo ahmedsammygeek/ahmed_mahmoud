@@ -56,7 +56,7 @@
                                         <div class="mb-3">
                                             <label class="form-label"> الاسم </label>
                                             <div class="form-control-feedback form-control-feedback-start">
-                                                <input type="text" class="form-control" placeholder="JohnDoe">
+                                                <input type="text" class="form-control" placeholder="الاسم">
                                                 <div class="form-control-feedback-icon">
                                                     <i class="ph-user-circle text-muted"></i>
                                                 </div>
@@ -66,7 +66,7 @@
                                         <div class="mb-3">
                                             <label class="form-label"> رقم الموبيل </label>
                                             <div class="form-control-feedback form-control-feedback-start">
-                                                <input type="text" class="form-control" placeholder="JohnDoe">
+                                                <input type="text" class="form-control" placeholder="رقم الموبيل">
                                                 <div class="form-control-feedback-icon">
                                                     <i class="ph-user-circle text-muted"></i>
                                                 </div>
@@ -76,7 +76,7 @@
                                         <div class="mb-3">
                                             <label class="form-label"> عنوان الرساله </label>
                                             <div class="form-control-feedback form-control-feedback-start">
-                                                <input type="text" class="form-control" placeholder="JohnDoe">
+                                                <input type="text" class="form-control" placeholder="عنوان الموضوع">
                                                 <div class="form-control-feedback-icon">
                                                     <i class="ph-user-circle text-muted"></i>
                                                 </div>
