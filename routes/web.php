@@ -29,8 +29,10 @@ use App\Http\Controllers\Board\EducationalSystemController;
 use App\Http\Controllers\Board\TeacherController;
 use App\Http\Controllers\Board\ProfileController;
 use App\Http\Controllers\Board\PasswordController;
+use App\Http\Controllers\ContactUsController;
 
 Route::get('/test' , [TestController::class , 'index'] );
+Route::get('/contact' , [ContactUsController::class , 'index'] );
 
 Route::group(
     [
