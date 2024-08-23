@@ -10,6 +10,7 @@ use Hash;
 use App\Models\Student;
 use App\Traits\Api\GeneralResponse;
 use App\Http\Resources\Api\Student\V1\Auth\StudentResource;
+use Log;
 class LoginController extends Controller
 {
     use GeneralResponse;
@@ -18,6 +19,8 @@ class LoginController extends Controller
      */
     public function index(LoginRequest $request)
     {
+
+        Log::info($request->all());
 
         $student = Student::where('mobile', $request['mobile'])->first();
         if(!$student || !Hash::check($request['password'],$student->password)){
