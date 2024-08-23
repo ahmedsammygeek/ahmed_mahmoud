@@ -25,11 +25,11 @@ class LoginRequest extends FormRequest
         return [
             'mobile' => 'required' , 
             'password' => 'required' , 
-            'device_name' => 'required' , 
-            'device_platform' => 'required' , 
-            'device_serial_number' => 'required' , 
-            'device_brand' => 'required' , 
-            'firebase_fcm' => 'required'
+            'device_name' => 'nullable' , 
+            'device_platform' => 'nullable' , 
+            'device_serial_number' => 'nullable' , 
+            'device_brand' => 'nullable' , 
+            'firebase_fcm' => 'nullable'
         ];
     }
 }

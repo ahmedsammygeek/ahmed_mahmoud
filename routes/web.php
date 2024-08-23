@@ -32,7 +32,8 @@ use App\Http\Controllers\Board\PasswordController;
 use App\Http\Controllers\ContactUsController;
 
 Route::get('/test' , [TestController::class , 'index'] );
-Route::get('/contact' , [ContactUsController::class , 'index'] );
+Route::get('/contact' , [ContactUsController::class , 'index'] )->name('contact.index');
+Route::post('/contact' , [ContactUsController::class , 'index'] )->name('contact.send');
 
 Route::group(
     [
