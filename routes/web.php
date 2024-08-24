@@ -30,10 +30,13 @@ use App\Http\Controllers\Board\TeacherController;
 use App\Http\Controllers\Board\ProfileController;
 use App\Http\Controllers\Board\PasswordController;
 use App\Http\Controllers\ContactUsController;
+use App\Http\Controllers\ApplicationController;
 
 Route::get('/test' , [TestController::class , 'index'] );
 Route::get('/contact' , [ContactUsController::class , 'index'] )->name('contact.index');
-Route::post('/contact' , [ContactUsController::class , 'index'] )->name('contact.send');
+Route::post('/contact' , [ContactUsController::class , 'store'] )->name('contact.send');
+Route::get('/application' , [ApplicationController::class , 'index'] )->name('application.index');
+Route::post('/application' , [ApplicationController::class , 'store'] )->name('application.send');
 
 Route::group(
     [

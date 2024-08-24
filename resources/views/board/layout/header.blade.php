@@ -8,8 +8,8 @@
 
 			<div class="navbar-brand flex-1 flex-lg-0">
 				<a href="{{ route('board.index') }}" class="d-inline-flex align-items-center">
-					<img src="{{ asset('board_assets/images/logo_icon.svg') }}" alt="">
-					<img src="{{ asset('board_assets/images/logo_text_light.svg') }}" class="d-none d-sm-inline-block h-16px ms-3" alt="">
+					<img src="{{ asset('board_assets/am_academy_logo.jpeg') }}" alt="">
+
 				</a>
 			</div>
 
