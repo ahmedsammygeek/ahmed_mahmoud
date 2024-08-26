@@ -112,6 +112,10 @@
 											</td>
 										</tr>
 										<tr>
+											<th> @lang('students.code') </th>
+											<td> {{ $student->code }} </td>
+										</tr>
+										<tr>
 											<th> @lang('students.name') </th>
 											<td> {{ $student->name }} </td>
 										</tr>

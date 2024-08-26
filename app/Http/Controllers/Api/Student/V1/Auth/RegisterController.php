@@ -28,6 +28,7 @@ class RegisterController extends Controller
         $student->firebase_fcm = $request->firebase_fcm;
         $student->mobile_serial_number = $request->mobile_serial_number;
         $student->app_platform = $request->app_platform;
+        $student->code = time().mt_rand(100 ,  1000);
         $student->save();
 
         $code = new PhoneVerificationCode;

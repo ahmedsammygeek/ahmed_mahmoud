@@ -28,6 +28,7 @@ class StoreStudentAction
         $student->is_banned =  0 ;
         $student->student_type = $data['student_type'];
         $student->user_id = Auth::id();
+        $student->code = time().mt_rand(100 ,  1000);
         $student->save();
         return $student;
     }
