@@ -7,4 +7,5 @@ return array (
   'allow virtual apps' => 'allow virtual apps',
   'force phone verification' => 'force phone verification',
   'allow developer mode' => 'allow developer mode',
+  'application form status' => 'application form status',
 );

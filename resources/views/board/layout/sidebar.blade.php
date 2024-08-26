@@ -1,5 +1,5 @@
 @php
-$groups = $home = $settings = $teachers = $students = $educational_systems = $grades = $dashboard_notifications = $questions = $exams = $users = $courses = $slides = '';
+$groups = $home = $settings = $teachers = $payments = $students = $educational_systems = $installments = $grades = $dashboard_notifications = $questions = $exams = $users = $courses = $slides = '';
 
 
 
@@ -39,6 +39,12 @@ switch (request()->segment(3)) {
 	break;
 	case 'settings':
 	$settings = 'active';
+	break;
+	case 'installments':
+	$installments = 'active';
+	break;
+	case 'payments':
+	$payments = 'active';
 	break;
 	default:
 	$home = 'active';
@@ -207,16 +213,16 @@ switch (request()->segment(3)) {
 				
 
 				<li class="nav-item">
-					<a href="" class="nav-link ">
-						<i class="ph-house"></i>
+					<a href="{{ route('board.payments.index') }}" class="nav-link ">
+						<i class="ph-money "></i>
 						<span>
 							@lang('dashboard.payments')
 						</span>
 					</a>
 				</li>
 				<li class="nav-item">
-					<a href="" class="nav-link ">
-						<i class="ph-house"></i>
+					<a href="{{ route('board.installments.index') }}" class="nav-link {{ $installments }} ">
+						<i class="ph-currency-circle-dollar "></i>
 						<span>
 							@lang('dashboard.installments')
 						</span>

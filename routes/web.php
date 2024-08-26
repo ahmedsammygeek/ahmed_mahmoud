@@ -29,14 +29,17 @@ use App\Http\Controllers\Board\EducationalSystemController;
 use App\Http\Controllers\Board\TeacherController;
 use App\Http\Controllers\Board\ProfileController;
 use App\Http\Controllers\Board\PasswordController;
+use App\Http\Controllers\Board\UserInstallmentController;
+use App\Http\Controllers\Board\InstallmentController;
+use App\Http\Controllers\Board\PaymentController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\ApplicationController;
 
 Route::get('/test' , [TestController::class , 'index'] );
 Route::get('/contact' , [ContactUsController::class , 'index'] )->name('contact.index');
 Route::post('/contact' , [ContactUsController::class , 'store'] )->name('contact.send');
-Route::get('/application' , [ApplicationController::class , 'index'] )->name('application.index');
-Route::post('/application' , [ApplicationController::class , 'store'] )->name('application.send');
+Route::get('/application_form' , [ApplicationController::class , 'index'] )->name('application_form.index');
+Route::post('/application_form' , [ApplicationController::class , 'store'] )->name('application_form.store');
 
 Route::group(
     [
@@ -61,6 +64,9 @@ Route::group(
                 Route::resource('courses.units.lessons', LessonController::class);
                 Route::resource('students.courses' , StudentCourseController::class);
                 Route::resource('students.courses.lessons', StudentLessonController::class);
+                Route::resource('students.installments', UserInstallmentController::class);
+                Route::resource('installments', InstallmentController::class);
+                Route::resource('payments', PaymentController::class);
 
                 Route::resource('questions', QuestionController::class);
                 Route::resource('exams', ExamController::class );

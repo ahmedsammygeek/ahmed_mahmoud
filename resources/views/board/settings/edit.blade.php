@@ -49,6 +49,15 @@
 								</label>
 							</div>
 						</div>
+						<div class="row mb-3">
+							<label class="col-lg-2 col-form-label pt-0"> @lang('settings.application form status') </label>
+							<div class="col-lg-10">
+								<label class="form-check form-switch">
+									<input type="checkbox" value='1' class="form-check-input" name="application_form_status" {{ $settings->application_form_status == 1 ? 'checked' : '' }} >
+									<span class="form-check-label"> @lang('dashboard.activate') </span>
+								</label>
+							</div>
+						</div>
 					</div>
 				</div>
 

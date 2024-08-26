@@ -7,4 +7,5 @@ return array (
   'settings' => 'اعددادت',
   'force phone verification' => 'يجب تفعيل رقم الموبيل',
   'allow developer mode' => 'السماح باعدادات المطورين',
+  'application form status' => 'رابط تسجيل الطلاب',
 );

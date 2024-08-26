@@ -3,9 +3,10 @@
 namespace App\Livewire\Board\Students;
 
 use Livewire\Component;
-use App\Models\{Course , CourseStudent , Group , StudentLesson };
+use App\Models\{Course , CourseStudent , Group , StudentLesson , StudentInstallment , StudentPayment };
 use Livewire\Attributes\Computed;
 use Auth;
+use Carbon\Carbon;
 use Livewire\Attributes\Validate; 
 class AddNewCourseToStudent extends Component
 {
@@ -74,6 +75,35 @@ class AddNewCourseToStudent extends Component
                 ]);
             }
             $this->student->lessons()->saveMany($student_lessons);
+        }
+
+
+        $student_payment = new StudentPayment;
+        $student_payment->student_id = $this->student->id;
+        $student_payment->user_id = Auth::id();
+        $student_payment->course_id = $this->course_id;
+        $student_payment->type = 1; // for purchases
+        $student_payment->amount = $this->paid;
+        $student_payment->save();
+
+        if ($this->paid != $this->purchase_price ) {
+            // then we need to add installments
+            $installment_amount = (($this->purchase_price - $this->paid ) / $this->installment_months);
+
+            for ($i=0; $i < $this->installment_months ; $i++) { 
+                $student_installment = new StudentInstallment;
+                $student_installment->user_id = Auth::id();
+                $student_installment->student_id = $this->student->id;
+                $student_installment->course_id = $this->course_id ;
+                $student_installment->amount = $installment_amount;
+                $student_installment->due_date = Carbon::now()->addMonths(($i +1));
+                $student_installment->is_paid = 0;
+                $student_installment->student_payment_id = null;
+                $student_installment->change_to_paid_by = null;
+                $student_installment->save();
+            }
+
+
         }
         $this->dispatch('studentAddedToCourse');
         $this->dispatch('studentAddedToCourse')->to(ListAllStudentCourses::class);

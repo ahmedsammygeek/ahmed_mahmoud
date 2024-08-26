@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Board;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
-class ApplicationController extends Controller
+use App\Models\StudentInstallment;
+class InstallmentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('application_form');
+        return view('board.installments.index');
     }
 
     /**
@@ -33,9 +34,10 @@ class ApplicationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(StudentInstallment $installment)
     {
-        //
+        $installment->load('user' , 'student' , 'course' , 'ChangeToPaidBy'  );
+        return view('board.installments.show' , compact('installment') );
     }
 
     /**

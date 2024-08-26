@@ -23,6 +23,7 @@ class SettingController extends Controller
         $settings->allow_virtual_apps = $request->filled('allow_virtual_apps') ? 1 : 0;
         $settings->force_phone_verification = $request->filled('force_phone_verification') ? 1 : 0;
         $settings->allow_developer_mode = $request->filled('allow_developer_mode') ? 1 : 0;
+        $settings->application_form_status = $request->filled('application_form_status') ? 1 : 0;
         $settings->save();
 
         return redirect()->back()->with('success' , trans('dashboard.updated successfully'));
