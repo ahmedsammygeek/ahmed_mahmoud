@@ -3,7 +3,7 @@
 
 @section('breadcrumb')
 <a href="{{ route('board.students.index') }}" class="breadcrumb-item"> @lang('students.students') </a>
-<span class="breadcrumb-item active"> @lang('students.show student details') </span>
+<span class="breadcrumb-item active"> @lang('students.show student installments') </span>
 @endsection
 
 @section('page_content')
@@ -20,7 +20,7 @@
 			</li>
 
 			<li class="nav-item me-1">
-				<a href="{{ route('board.students.courses.index', $student ) }}" class="navbar-nav-link navbar-nav-link-icon rounded active" >
+				<a href="{{ route('board.students.courses.index', $student ) }}" class="navbar-nav-link navbar-nav-link-icon rounded" >
 					<div class="d-flex align-items-center mx-lg-1">
 						<i class="ph-calendar"></i>
 						<span class="d-none d-lg-inline-block ms-2">
@@ -40,7 +40,7 @@
 				</a>
 			</li>
 			<li class="nav-item me-1">
-				<a  href="{{ route('board.students.installments.index' , $student ) }}"  class="navbar-nav-link navbar-nav-link-icon rounded" >
+				<a  href="{{ route('board.students.installments.index', $student ) }}" class="navbar-nav-link navbar-nav-link-icon rounded " >
 					<div class="d-flex align-items-center mx-lg-1">
 						<i class="ph-calendar"></i>
 						<span class="d-none d-lg-inline-block ms-2">
@@ -50,7 +50,7 @@
 				</a>
 			</li>
 			<li class="nav-item me-1">
-				<a href="{{ route('board.students.payments.index' , $student ) }}" class="navbar-nav-link navbar-nav-link-icon rounded">
+				<a href="{{ route('board.students.payments.index', $student ) }}" class="navbar-nav-link navbar-nav-link-icon rounded active">
 					<div class="d-flex align-items-center mx-lg-1">
 						<i class="ph-calendar"></i>
 						<span class="d-none d-lg-inline-block ms-2">
@@ -79,31 +79,16 @@
 
 <!-- Content area -->
 <div class="content">
-
-	<!-- Inner container -->
 	<div class="d-flex align-items-stretch align-items-lg-start flex-column flex-lg-row">
-
-		<!-- Left content -->
 		<div class="tab-content flex-fill order-2 order-lg-1">
 			<div class="tab-pane fade active show " id="student_details">
-
 				<div class="row">
-					@livewire('board.students.list-all-student-courses' , ['student' => $student] )
+					@livewire('board.students.list-all-student-payments' , ['student' => $student] )
 				</div>
-
-
 			</div>
-
 		</div>
-		<!-- /left content -->
-
-
-
-
 	</div>
-	<!-- /inner container -->
-
 </div>
-<!-- /content area -->
+
 @endsection
 

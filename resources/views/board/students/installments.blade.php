@@ -14,7 +14,7 @@
 				<a href="{{ route('board.students.show' , $student ) }}" class="navbar-nav-link navbar-nav-link-icon rounded" >
 					<div class="d-flex align-items-center mx-lg-1">
 						<i class="ph-activity"></i>
-						<span class="d-none d-lg-inline-block ms-2"> @lang('students.student installments') </span>
+						<span class="d-none d-lg-inline-block ms-2"> @lang('students.student details') </span>
 					</div>
 				</a>
 			</li>
@@ -50,7 +50,7 @@
 				</a>
 			</li>
 			<li class="nav-item me-1">
-				<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded">
+				<a href="{{ route('board.students.payments.index', $student ) }}" class="navbar-nav-link navbar-nav-link-icon rounded">
 					<div class="d-flex align-items-center mx-lg-1">
 						<i class="ph-calendar"></i>
 						<span class="d-none d-lg-inline-block ms-2">

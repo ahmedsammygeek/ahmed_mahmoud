@@ -11,7 +11,7 @@
 	<div class="container-fluid">
 		<ul class="nav navbar-nav flex-row flex-fill">
 			<li class="nav-item me-1">
-				<a href="{{ route('board.students.show' , $student ) }}" class="navbar-nav-link navbar-nav-link-icon active rounded" >
+				<a href="{{ route('board.students.show' , $student ) }}" class="navbar-nav-link navbar-nav-link-icon  rounded active" >
 					<div class="d-flex align-items-center mx-lg-1">
 						<i class="ph-activity"></i>
 						<span class="d-none d-lg-inline-block ms-2"> @lang('students.student details') </span>
@@ -40,7 +40,7 @@
 				</a>
 			</li>
 			<li class="nav-item me-1">
-				<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded" >
+				<a href="{{ route('board.students.installments.index' , $student ) }}" class="navbar-nav-link navbar-nav-link-icon rounded" >
 					<div class="d-flex align-items-center mx-lg-1">
 						<i class="ph-calendar"></i>
 						<span class="d-none d-lg-inline-block ms-2">
@@ -50,7 +50,7 @@
 				</a>
 			</li>
 			<li class="nav-item me-1">
-				<a href="#schedule" class="navbar-nav-link navbar-nav-link-icon rounded">
+				<a href="{{ route('board.students.payments.index' , $student ) }}" class="navbar-nav-link navbar-nav-link-icon rounded">
 					<div class="d-flex align-items-center mx-lg-1">
 						<i class="ph-calendar"></i>
 						<span class="d-none d-lg-inline-block ms-2">
