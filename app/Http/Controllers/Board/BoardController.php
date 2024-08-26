@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Board;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{Student , User , Course  , Group , Exam };
+use App\Models\{Student , User , Course  , Group , Exam , StudentInstallment };
+use Carbon\Carbon;
 class BoardController extends Controller
 {
     /**
@@ -19,8 +20,9 @@ class BoardController extends Controller
         $courses_count = Course::count();
         $groups_count = Course::count();
         $exams_count = Course::count();
+        $due_date_installments_count = StudentInstallment::where('is_paid'  , 0 )->whereDate('due_date' , '<=' , Carbon::today() )->count();
 
-        return view('board.index' , compact('students_count', 'admins_count' , 'teachers_count' , 'courses_count'  , 'groups_count' , 'exams_count') );
+        return view('board.index' , compact('students_count', 'admins_count' , 'teachers_count' , 'courses_count'  , 'groups_count' , 'exams_count' , 'due_date_installments_count' ) );
     }
 
     /**

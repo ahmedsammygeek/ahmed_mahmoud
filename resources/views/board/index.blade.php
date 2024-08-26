@@ -9,7 +9,6 @@
 <div class="row">
 	<legend> احصائيات عامه للمشروع </legend>
 
-
 	<div class="col-sm-6 col-xl-3">
 		<div class="card card-body bg-success text-white">
 			<a href="{{ route('board.students.index') }}" style="text-decoration: none; color: inherit;">
@@ -23,10 +22,6 @@
 			</a>
 		</div>
 	</div>
-
-
-
-
 
 	<div class="col-sm-6 col-xl-3">
 		<div class="card card-body bg-info text-white">
@@ -98,14 +93,13 @@
 			</a>
 		</div>
 	</div> 
-
-
 </div>
+
 @endsection
 
 
 @section('scripts')
-{{-- <script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script> --}}
+
 <script src="{{ asset('board_assets/js/counterup.min.js') }}"></script>
 
 <script >
