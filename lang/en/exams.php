@@ -49,4 +49,12 @@ return array (
   'show all exam students ' => 'show all exam students',
   'lesson' => 'lesson',
   'retry  count' => 'retry count',
+  'type' => 'type',
+  'lesson exam' => 'lesson exam',
+  'questions choosing type' => 'questions choosing type',
+  'random' => 'random',
+  'questions count' => 'questions count',
+  'show all student exams' => 'show all student exams',
+  'started_at' => 'started at',
+  'marked_by' => 'marked by',
 );
