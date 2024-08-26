@@ -17,7 +17,7 @@ class AddNewExam extends Component
     public $selected_qestions = [];
     public $can_user_re_exam = 0;
     public $type;
-    public $questions_choosing_type = 2 ;
+    public $questions_choosing_type = 1 ;
     public $exam_date;
 
 

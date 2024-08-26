@@ -21,7 +21,7 @@ class StoreExamAction
         $exam->user_id = Auth::id();
         $exam->course_id = $data['course_id'];
         $exam->duration = $data['duration'];
-        $exam->lesson_id = $data['lesson_id'];
+        $exam->lesson_id = array_key_exists('lesson_id' ,  $data ) ? $data['lesson_id'] : null ;
         $exam->retry_count = $data['retry_count'];
         $exam->question_limit = $data['question_limit'];
         $exam->starts_at = new Carbon($dates[0]) ;

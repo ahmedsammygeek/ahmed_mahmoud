@@ -84,7 +84,7 @@
                 <div class="col-md-3">
                     <label class="col-form-label col-lg-12"> @lang('exams.duration') <span class="text-danger">*</span></label>
                     <div class="col-lg-12">
-                        <input type="time" name="duration" value="{{ old('duration') }}" class="form-control @error('duration')  is-invalid @enderror"  >
+                        <input type="number" name="duration" value="{{ old('duration') }}" class="form-control @error('duration')  is-invalid @enderror"  >
                         @error('duration')
                         <p class='text-danger' > {{ $message }} </p>
                         @enderror
@@ -116,7 +116,7 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="mb-3">
-                        <label class="form-label"> @lang('exams.student pass degree') </label>
+                        <label class="form-label"> نسبه النجاح فى الامتحان </label>
                         <input type="number" name='pass_degree' class="form-control" required >
                     </div>
                 </div>
@@ -141,26 +141,35 @@
                 </div>
 
                 @if ($can_user_re_exam)
-                <div class="col-lg-3">
-                    <div class="mb-3">
-                        <label class="form-label"> @lang('exams.min degree to re-exam') </label>
-                        <input type="number" name='min_degree_to_re_exam' class="form-control" required > 
-                    </div>
-                </div>
+
                 <div class="col-lg-3">
                     <div class="mb-3">
                         <label class="form-label"> @lang('exams.retry  count') </label>
                         <input type="number" name='retry_count' class="form-control" required > 
                     </div>
                 </div>
+
+                <div class="col-lg-3">
+                    <label class="col-form-label col-lg-12"> الامتحان بنفس الاسئله <span class="text-danger">*</span></label>
+                    <div class="col-lg-12">
+                        <select name="retry_same_exam_questions" wire:model.live='retry_same_exam_questions' class='form-control form-select select'>
+                            <option value="1"> @lang('exams.yes') </option>
+                            <option value="2"> @lang('exams.no') </option>
+                        </select>
+                        @error('retry_same_exam_questions')
+                        <p class='text-danger' > {{ $message }} </p>
+                        @enderror
+                    </div>
+                </div>
+
                 @endif
             </div>
 
 
             <div class="fw-bold border-bottom pb-2 mb-3"> @lang('exams.questions')  </div>
 
-            @if ($questions_choosing_type == 1 )
-            <div class="row mb-3"  >
+
+            <div class="row mb-3" wire:ignore.self >
                 <label class="col-lg-2 col-form-label pt-0"> @lang('exams.questions') </label>
                 <div class="col-lg-10">
                     <select name="questions[]" wire:model.live='selected_qestions' multiple class="form-control listbox-basic">
@@ -170,6 +179,9 @@
                     </select>
                 </div>
             </div>
+
+           {{--  @if ($questions_choosing_type == 1 )
+            
             @else 
             <div class="row mb-3">
                 <div class="col-md-12">
@@ -193,7 +205,7 @@
                     </table>
                 </div>
             </div>
-            @endif
+            @endif --}}
 
 
 
