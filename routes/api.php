@@ -76,6 +76,9 @@ Route::group(['prefix' => 'student/v1'], function() {
 
             Route::post('files/{lesson_file}/downloaded' , [LessonController::class , 'downloaded'] );
             Route::post('files/{lesson_file}/viewed' , [LessonController::class , 'viewed'] );
+
+
+            Route::post('courses/{course}/subscribe' ,[CourseController::class , 'subscribe']  );
             
         });        
     });

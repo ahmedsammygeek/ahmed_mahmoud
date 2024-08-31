@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\Student\V1;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Traits\Api\GeneralResponse;
-use App\Models\{Course , CourseStudent  , Exam};
+use App\Models\{Course , CourseStudent  , Exam , Group , StudentLesson };
 use App\Http\Resources\Api\Student\V1\Courses\CourseResource;
 use Auth;
 use App\Http\Resources\Api\Student\V1\Courses\CourseDetailsResource;
@@ -80,6 +80,51 @@ class CourseController extends Controller
         return $this->response(
             data : $data , 
         );
+    }
+
+    public function subscribe(Course $course)
+    {
+        $student = Auth::guard('student')->user();
+
+        $student_course = CourseStudent::where([
+            ['course_id' , '=' , $course->id ] , 
+            ['student_id' , '=' , $student->id ]
+        ])->first();
+
+
+        if ($student_course) {
+            return $this->response(
+                status : false , 
+                message : 'انت مشترك بالفع فى هذاف الكورس'
+            );
+        }
+
+        $student_course = new CourseStudent;
+        $student_course->user_id = Auth::id();
+        $student_course->student_id = $student->id;
+        $student_course->course_id = $course->id;
+        // $student_course->group_id =  $group_id;
+        $student_course->save();
+
+
+        $course_lessons = $course->lessons()->pluck('lessons.id')->toArray();
+        $student_lessons = [];
+        foreach ($course_lessons as $course_lesson) {
+            $student_lessons[] = new StudentLesson([
+                'lesson_id' => $course_lesson , 
+                'user_id' => null, 
+                'student_id' => $student->id , 
+                'allowed_views' => $course->default_view_number , 
+                'remains_views' => $course->default_view_number , 
+                'total_views_till_now' => 0  ,
+            ]);
+        }
+        $student->lessons()->saveMany($student_lessons);
+
+
+            return $this->response(
+                message : 'تم الاشتراك بنجاح فى الكورس'
+            );
         
     }
 
