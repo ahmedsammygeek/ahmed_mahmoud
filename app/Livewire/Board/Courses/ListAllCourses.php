@@ -3,7 +3,7 @@
 namespace App\Livewire\Board\Courses;
 
 use Livewire\Component;
-use App\Models\Course;
+use App\Models\{Course, CourseStudent };
 use Livewire\WithPagination;
 use Livewire\WithoutUrlPagination;
 use Storage;
@@ -26,10 +26,13 @@ class ListAllCourses extends Component
     public function deleteItem($itemId)
     {
 
-        $slide = Slide::find($itemId);
-        if($slide) {
-            Storage::delete(['slides/'.$slide->image]);
-            $slide->delete();
+        $course = Course::find($itemId);
+        if($course) {
+            Storage::delete(['slides/'.$course->image]);
+            $course->delete();
+
+            CourseStudent::where('course_id' , $course->id )->delete();
+
             $this->dispatch('itemDeleted');
         }
     }
