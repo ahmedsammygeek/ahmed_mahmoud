@@ -28,7 +28,7 @@ use App\Http\Controllers\Api\Student\V1\SettingController;
 use App\Http\Controllers\Api\Student\V1\AttendanceController;
 use App\Http\Controllers\Api\Student\V1\PaymentController;
 
-Route::group(['prefix' => 'student/v1'], function() {
+Route::group(['prefix' => 'student/v1'  , 'middleware' => ['locale'] ], function() {
 
     Route::post('/register' , [RegisterController::class , 'index'] );    
     Route::post('/login' , [LoginController::class , 'index'] );   
