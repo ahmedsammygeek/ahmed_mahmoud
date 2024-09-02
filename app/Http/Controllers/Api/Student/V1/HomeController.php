@@ -10,6 +10,7 @@ use App\Http\Resources\Api\Student\Home\TeacherResource;
 
 use App\Models\{Slide  , Teacher  , CourseStudent ,  Course};
 use Auth;
+use Log;
 use App\Http\Resources\Api\Student\V1\Home\{StudentCourseResource , StudentSuggestedCourseResource };
 class HomeController extends Controller
 {
@@ -17,9 +18,11 @@ class HomeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-
+  
+        Log::info($request->all());
+        Log::info($request->header());
         $is_user = false;
         if (Auth::guard('student')->check()) {
             $is_user = true;
