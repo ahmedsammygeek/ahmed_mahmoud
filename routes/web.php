@@ -34,6 +34,7 @@ use App\Http\Controllers\Board\InstallmentController;
 use App\Http\Controllers\Board\PaymentController;
 use App\Http\Controllers\Board\StudentPaymentController;
 use App\Http\Controllers\Board\StudentExamController;
+use App\Http\Controllers\Board\StudentFinancialReportController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\ApplicationController;
 
@@ -69,6 +70,7 @@ Route::group(
                 Route::resource('students.installments', UserInstallmentController::class);
                 Route::resource('students.payments', StudentPaymentController::class);
                 Route::resource('students.exams', StudentExamController::class);
+                Route::resource('students.financial_reports', StudentFinancialReportController::class);
 
                 Route::resource('installments', InstallmentController::class);
                 Route::resource('payments', PaymentController::class);

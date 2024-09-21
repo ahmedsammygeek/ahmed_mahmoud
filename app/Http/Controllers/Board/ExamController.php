@@ -29,8 +29,10 @@ class ExamController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request , StoreExamAction $action )
+    public function store(StoreExamRequest $request , StoreExamAction $action )
     {
+        
+
         $action->execute($request->all());
         return redirect(route('board.exams.index'))->with('success' , trans('exams.exam added successfully ') );
     }

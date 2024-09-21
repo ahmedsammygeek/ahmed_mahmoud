@@ -69,6 +69,10 @@
                                     <i class="icon-eye "></i>  
                                 </a>
 
+                                <a class='btn btn-sm btn-danger delete_item ' title='حذف' data-item_id="{{ $payment->id }}"  >  
+                                    <i class="icon-trash "></i>  
+                                </a>
+
                             </td>
                         </tr>
                         @endforeach
@@ -111,10 +115,21 @@
                 timer: 1500
             });
         });
-        Livewire.on('deleted' , () => {
 
+        Livewire.on('deleted' , () => {
             swalInit.fire({
                 text: "@lang('dashboard.deleted successfully')" ,
+                icon: 'success',
+                toast: true,
+                showConfirmButton: false,
+                position: 'top-start' , 
+                timer: 1500
+            });
+        });
+
+        Livewire.on('paymentDeleted' , () => {
+            swalInit.fire({
+                text: "@lang('dashboard.payment successfully')" ,
                 icon: 'success',
                 toast: true,
                 showConfirmButton: false,
@@ -190,7 +205,7 @@
                 }
             }).then(function(result) {
                 if(result.value) {
-                    Livewire.dispatch('deleteStudentCourse' , {item_id} );
+                    Livewire.dispatch('delete-payment' , {item_id} );
                 }
             });        
         });

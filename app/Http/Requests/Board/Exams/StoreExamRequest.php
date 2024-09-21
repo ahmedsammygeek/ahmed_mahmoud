@@ -22,7 +22,8 @@ class StoreExamRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'questions' => 'required|array|min:5' , 
+            'students' => 'nullable|array', 
+            'questions' => 'required|array' , 
             'course_id' => 'required' , 
             'pass_degree' => 'required' , 
             'title_ar' => 'required' , 

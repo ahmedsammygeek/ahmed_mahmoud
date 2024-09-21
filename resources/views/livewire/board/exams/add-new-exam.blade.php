@@ -40,7 +40,7 @@
 
 
             <div class="row mb-3">
-                <div class="col-md-3">
+               {{--  <div class="col-md-3">
                     <label class="col-form-label col-lg-12"> @lang('exams.type') <span class="text-danger">*</span></label>
                     <div class="col-lg-12">
                         <select name="course_id" wire:model.live='type' class='form-control form-select select  @error('type')  is-invalid @enderror'>
@@ -49,37 +49,9 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <label class="col-form-label col-lg-12"> @lang('exams.course') <span class="text-danger">*</span></label>
-                    <div class="col-lg-12">
-                        <select name="course_id" wire:model.live='course_id' class='form-control form-select select'>
-                            <option value=""></option>
-                            @foreach ($courses as $course)
-                            <option value="{{ $course->id }}"> {{ $course->title }} </option>
-                            @endforeach
-                        </select>
-                        @error('course_id')
-                        <p class='text-danger' > {{ $message }} </p>
-                        @enderror
-                    </div>
-                </div>
+                --}}
 
-                @if ($type == 2 )
-                <div class="col-md-3">
-                    <label class="col-form-label col-lg-12"> @lang('exams.lesson') <span class="text-danger">*</span></label>
-                    <div class="col-lg-12">
-                        <select name="lesson_id" wire:model.live='lesson_id' class='form-control form-select select'>
-                            <option value=""></option>
-                            @foreach ($this->lessons as $lesson)
-                            <option value="{{ $lesson->id }}"> {{ $lesson->title }} </option>
-                            @endforeach
-                        </select>
-                        @error('lesson_id')
-                        <p class='text-danger' > {{ $message }} </p>
-                        @enderror
-                    </div>
-                </div>
-                @endif
+
 
                 <div class="col-md-3">
                     <label class="col-form-label col-lg-12"> @lang('exams.duration') <span class="text-danger">*</span></label>
@@ -92,7 +64,7 @@
                 </div>
             </div>
 
-            <div class="row mb-3 ">
+{{--             <div class="row mb-3 ">
                 <div class="col-md-3">
                     <label class="col-form-label col-lg-12"> @lang('exams.questions choosing type') <span class="text-danger">*</span></label>
                     <div class="col-lg-12">
@@ -106,7 +78,7 @@
                     </div>
                 </div>
             </div>
-
+            --}}
             <div class="row mb-3">
                 <div class="col-lg-4">
                     <div class="mb-3">
@@ -169,44 +141,126 @@
             <div class="fw-bold border-bottom pb-2 mb-3"> @lang('exams.questions')  </div>
 
 
-            <div class="row mb-3" wire:ignore.self >
-                <label class="col-lg-2 col-form-label pt-0"> @lang('exams.questions') </label>
-                <div class="col-lg-10">
-                    <select name="questions[]" wire:model.live='selected_qestions' multiple class="form-control listbox-basic">
-                        @foreach ($this->questions as $question)
-                        <option value="{{ $question->id }}"> {{ $question->getTranslation('content' , 'ar' ) }} </option>
-                        @endforeach
-                    </select>
+            <div class="row mb-3"  >
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="col-form-label col-lg-12"> @lang('exams.course') <span class="text-danger">*</span></label>
+                                <div class="col-lg-12">
+                                    <select name="course_id" wire:model.live='course_id' class='form-control form-select select'>
+                                        <option value=""></option>
+                                        @foreach ($courses as $course)
+                                        <option value="{{ $course->id }}"> {{ $course->title }} </option>
+                                        @endforeach
+                                    </select>
+                                    @error('course_id')
+                                    <p class='text-danger' > {{ $message }} </p>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="col-form-label col-lg-12"> @lang('exams.lesson') <span class="text-danger">*</span></label>
+                                <div class="col-lg-12">
+                                    <select name="lesson_id" wire:model.live='lesson_id' class='form-control form-select select'>
+                                        <option value=""></option>
+                                        @foreach ($this->lessons as $lesson)
+                                        <option value="{{ $lesson->id }}"> {{ $lesson->title }} </option>
+                                        @endforeach
+                                    </select>
+                                    @error('lesson_id')
+                                    <p class='text-danger' > {{ $message }} </p>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 mt-2">
+                                <input type="search" name="search" wire:model.live='search'  class="form-control"placeholder='البحث داخل الاسئله'  >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="col-md-12">
+                            <table class='table table-xs table-responsive table-bordered' >
+                                <thead class='text-center bg-dark  text-white'>
+                                    <tr>
+                                        <th  > @lang('exams.questions') </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($questions as $question)
+                                    <tr>
+                                        <td> 
+                                            <div class="form-check">
+                                                <input name="questions[]" wire:model.live='selected_qestions' value="{{ $question->id }}" type="checkbox" class="form-check-input" id="cc_ls_c{{ $question->id }}"  >
+                                                <label class="ms-2" for="dc_ls_c{{ $question->id }}">
+                                                    <ul class='list-inline ' >
+                                                        <li>  {{ $question->content }}  </li>
+                                                        @foreach ($question->answers as $answer)
+                                                        <li class='list-inline-item {{ $answer->is_correct_answer ? 'text-success' : 'text-danger' }} '> 
+                                                            {{ $answer->content }} 
+                                                        </li>
+                                                        @endforeach
+                                                    </ul>
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="pagination hstack gap-3">
+                            {{ $questions->links() }}
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-           {{--  @if ($questions_choosing_type == 1 )
-            
-            @else 
-            <div class="row mb-3">
-                <div class="col-md-12">
-                    <table class='table table-responsive table-bordered' >
-                        <thead>
-                            <tr>
-                                <th> # </th>
-                                <th> @lang('exams.lesson') </th>
-                                <th> @lang('exams.questions count') </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($this->lessons as $one_lesson)
-                            <tr>
-                                <td> {{ $loop->index ++ }} </td>
-                                <td> {{ $one_lesson->title }} </td>
-                                <td> <input type="text" class='form-control' value='1' > </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                <div class="fw-bold border-bottom pb-2 mb-3"> @lang('students.students')  </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-12 mt-2">
+                                <input type="search"  wire:model.live='search_students'  class="form-control"placeholder='البحث داخل الصلاب'  >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="col-md-12">
+                            <table class='table table-xs table-responsive table-bordered' >
+                                <thead class='text-center bg-dark  text-white'>
+                                    <tr>
+                                        <th  > @lang('exams.question') </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($this->students as $student)
+                                    <tr>
+                                        <td> 
+                                            <div class="form-check">
+                                                <input name="students[]" wire:model.live='selected_students' value="{{ $student->id }}" type="checkbox" class="form-check-input" id="cc_ls_c{{ $student->id }}"  >
+                                                <label class="ms-2" for="dc_ls_c{{ $student->id }}">
+                                                    {{ $student->name }} -- {{ $student->mobile }}
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="pagination hstack gap-3">
+                            {{ $this->students->links() }}
+                        </div>
+                    </div>
                 </div>
-            </div>
-            @endif --}}
 
+            </div>
 
 
 
@@ -233,13 +287,13 @@
 <script>
     $(function() {
 
-        Livewire.hook('morph.added', ({ el }) => {
-            // $(el).find('input[name="from[]"]').timepicker({});
-            // $(el).find('input[name="to[]"]').timepicker({});
+        // Livewire.hook('morph.added', ({ el }) => {
+        //     // $(el).find('input[name="from[]"]').timepicker({});
+        //     // $(el).find('input[name="to[]"]').timepicker({});
 
-            const listboxBasicElement = document.querySelector(".listbox-basic");
-            const listboxBasic = new DualListbox(listboxBasicElement);
-        })
+        //     const listboxBasicElement = document.querySelector(".listbox-basic");
+        //     const listboxBasic = new DualListbox(listboxBasicElement);
+        // })
 
 
 

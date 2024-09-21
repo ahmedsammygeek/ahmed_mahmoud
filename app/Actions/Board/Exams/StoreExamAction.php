@@ -1,9 +1,7 @@
 <?php
 
 namespace App\Actions\Board\Exams;
-use App\Models\Exam;
-use App\Models\Question;
-use App\Models\ExamQuestion;
+use App\Models\{ExamQuestion  , StudentExam , Exam , Question };
 use Auth;
 use Carbon\Carbon;
 
@@ -14,7 +12,6 @@ class StoreExamAction
     public function execute($data)
     {
         $dates =  explode(' - ', $data['date']);
-
         $exam = new Exam;
         $exam->setTranslation('title' , 'ar' , $data['title_ar'] );
         $exam->setTranslation('title' , 'en' , $data['title_en'] );
@@ -45,8 +42,22 @@ class StoreExamAction
                 'question_id' => $question , 
             ]);
         }
-
         $exam->questions()->saveMany($exam_questions);
+
+
+        if (array_key_exists('students', $data)) {
+            
+            foreach ($data['students'] as $student_id) {
+                $student_exam = new StudentExam;
+                $student_exam->student_id = $student_id;
+                $student_exam->exam_id = $exam->id;
+                $student_exam->started_at = null;
+                $student_exam->ended_at = null;
+                $student_exam->total_degree = 0;
+                $student_exam->is_finished = 0;
+                $student_exam->save();
+            }
+        }
 
     }
 

@@ -42,6 +42,7 @@ class TestController extends Controller
 
 
 
+        dd(Hash::make(12345678));
         
 
         dd('done');

@@ -31,6 +31,7 @@ class AddNewQuestion extends Component
     public $correct_answer;
     public $answers_ar = [] ;
     public $answers_en = [] ;
+    public $image_answers = [] ;
 
     #[Computed]
     public function lessons()
