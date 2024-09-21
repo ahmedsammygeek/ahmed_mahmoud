@@ -11,7 +11,7 @@
 	<link href="{{ asset('board_assets/fonts/inter/inter.css') }}" rel="stylesheet" type="text/css">
 	<link href="{{ asset('board_assets/icons/phosphor/styles.min.css') }}" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="{{ asset('board_assets/icons/icomoon/styles.min.css') }}">
-		<script src="{{ asset('board_assets/js/vendor/notifications/noty.min.js') }}"></script>
+	<script src="{{ asset('board_assets/js/vendor/notifications/noty.min.js') }}"></script>
 	@livewireStyles
 	@yield('styles')
 	@stack('styles')
@@ -31,6 +31,15 @@
 	@else
 	<link href="{{ asset('assets/css/ltr/all.min.css') }}" id="stylesheet" rel="stylesheet" type="text/css">
 	@endif
+
+	<style>
+		@media print {
+
+			.printarea { visibility: visible; }
+			.noprintarea { visibility: hidden; }
+		}
+
+	</style>
 
 
 	<script src="{{ asset('board_assets/js/bootstrap/bootstrap.bundle.min.js') }}"></script>
@@ -58,7 +67,7 @@
 			<div class="content-inner">
 
 				<!-- Page header -->
-				<div class="page-header page-header-light shadow no- ">
+				<div class="page-header page-header-light shadow noprintarea ">
 					<div class="page-header-content d-lg-flex">
 						<div class="d-flex">
 							<h4 class="page-title mb-0">
@@ -70,7 +79,7 @@
 							</a>
 						</div>
 
-		
+
 					</div>
 
 					<div class="page-header-content d-lg-flex border-top">
@@ -124,7 +133,7 @@
 			</button>
 		</div>
 
-	
+
 	</div>
 	<!-- /notifications -->
 
@@ -133,7 +142,7 @@
 	@yield('scripts')
 	@stack('scripts')
 	@include('board.layout.messages')
-	  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-	  <x-livewire-alert::scripts />
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<x-livewire-alert::scripts />
 </body>
 </html>

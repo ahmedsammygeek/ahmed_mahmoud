@@ -52,7 +52,7 @@ switch (request()->segment(3)) {
 }
 @endphp
 
-<div class="sidebar sidebar-dark sidebar-main sidebar-expand-lg">
+<div class="sidebar sidebar-dark sidebar-main sidebar-expand-lg noprintarea">
 
 	<!-- Sidebar content -->
 	<div class="sidebar-content">

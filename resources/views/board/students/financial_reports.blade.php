@@ -50,7 +50,7 @@
 				</a>
 			</li>
 			<li class="nav-item me-1">
-				<a href="{{ route('board.students.payments.index', $student ) }}" class="navbar-nav-link navbar-nav-link-icon rounded active">
+				<a href="{{ route('board.students.payments.index', $student ) }}" class="navbar-nav-link navbar-nav-link-icon rounded ">
 					<div class="d-flex align-items-center mx-lg-1">
 						<i class="ph-calendar"></i>
 						<span class="d-none d-lg-inline-block ms-2">
@@ -60,10 +60,10 @@
 				</a>
 			</li>
 			<li class="nav-item me-1">
-				<a href="#settings" class="navbar-nav-link navbar-nav-link-icon rounded" >
+				<a href="{{ route('board.students.financial_reports.index' , $student ) }}" class="navbar-nav-link navbar-nav-link-icon rounded active" >
 					<div class="d-flex align-items-center mx-lg-1">
 						<i class="ph-gear"></i>
-						<span class="d-none d-lg-inline-block ms-2">Settings</span>
+						<span class="d-none d-lg-inline-block ms-2"> تقارير الماليه للطالب </span>
 					</div>
 				</a>
 			</li>
@@ -83,7 +83,7 @@
 		<div class="tab-content flex-fill order-2 order-lg-1">
 			<div class="tab-pane fade active show " id="student_details">
 				<div class="row">
-					<div class="card">
+					<div class="card printarea">
 						<div class="card-header d-flex align-items-center py-0">
 							<h5 class="py-3 mb-0"> تقرير مدفوعات الطاب </h5>
 							<div class="d-inline-flex ms-auto">
