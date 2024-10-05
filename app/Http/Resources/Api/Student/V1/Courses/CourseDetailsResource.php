@@ -30,6 +30,11 @@ class CourseDetailsResource extends JsonResource
             'teacher' => new CourseDetailsTeacherResource($this->teacher), 
             'units' => CourseUnitResource::collection($this->units) , 
             'contact_mobile' => '01014340346' , 
+            'paid_amount' => 200 , 
+            'remains' => 100 , 
+            'due_date' => '2024-011-08' , 
+            'remains_days' => 14 , 
+            'show_course_payments' => true ,  
         ]; 
     }
 }
