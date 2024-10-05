@@ -30,6 +30,7 @@ class LessonResource extends JsonResource
             'speak_user_phone' =>  true  ,
             'show_phone_on_viedo_ervery' => 2 , 
             'lesson_mins_to_be_mark_as_viewed' => 10 ,
+            'force_headphone' => true , 
             'files' => LessonFileResource::collection($this->files) , 
             'quizzes' =>  ExamResource::collection($this->exams)
 
