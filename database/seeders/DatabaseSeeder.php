@@ -23,7 +23,9 @@ class DatabaseSeeder extends Seeder
             // QuestionSeeder::class , 
             // QuestionAnswerSeeder::class , 
             // SplashSeeder::class , 
-            FAQSeeder::class , 
+            // FAQSeeder::class , 
+            // UniversitySeeder::class , 
+            FacultySeeder::class
         ]);
         // User::factory(10)->create();
 

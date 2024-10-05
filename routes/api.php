@@ -27,6 +27,7 @@ use App\Http\Controllers\Api\Student\V1\StudentCourseController;
 use App\Http\Controllers\Api\Student\V1\SettingController;
 use App\Http\Controllers\Api\Student\V1\AttendanceController;
 use App\Http\Controllers\Api\Student\V1\PaymentController;
+use App\Http\Controllers\Api\Student\V1\UniversityController;
 
 Route::group(['prefix' => 'student/v1'  , 'middleware' => ['locale'] ], function() {
 
@@ -53,6 +54,7 @@ Route::group(['prefix' => 'student/v1'  , 'middleware' => ['locale'] ], function
     Route::get('/courses/{course}' , [CourseController::class , 'show'] );
     Route::get('/courses/{course}/lessons/{lesson}' , [LessonController::class , 'show'] );
     Route::get('/logo' , [SettingController::class , 'logo'] );
+    Route::get('/universities' , [UniversityController::class , 'index'] );
 
 
     Route::group(['middleware' => ['auth:student']  ], function() {
