@@ -8,9 +8,9 @@ use App\Traits\Api\GeneralResponse;
 use App\Http\Resources\Api\Student\Home\SlideResource;
 use App\Http\Resources\Api\Student\Home\TeacherResource;
 
-use App\Models\{Slide  , Teacher  , CourseStudent ,  Course};
+use App\Models\{Slide  , Teacher  , CourseStudent ,  Course  , Announcement };
 use Auth;
-use App\Http\Resources\Api\Student\V1\Home\{StudentCourseResource , StudentSuggestedCourseResource };
+use App\Http\Resources\Api\Student\V1\Home\{StudentCourseResource , StudentSuggestedCourseResource , AnnouncementResource };
 class HomeController extends Controller
 {
     use GeneralResponse;
@@ -40,12 +40,14 @@ class HomeController extends Controller
 
         $slides = Slide::active()->latest()->get();
         $teachers = Teacher::suggested()->get();
+        $announcements = Announcement::where('is_active' , 1 )->get();
 
         $data = [
             'slides' => SlideResource::collection($slides) , 
             'teachers' => TeacherResource::collection($teachers) , 
             'my_courses' => $is_user ? StudentCourseResource::collection($student_courses) : [] , 
             'suggested_courses' => StudentSuggestedCourseResource::collection($suggested_courses) , 
+            'announcements' => AnnouncementResource::collection( $announcements ) , 
         ];
 
         return $this->response(
