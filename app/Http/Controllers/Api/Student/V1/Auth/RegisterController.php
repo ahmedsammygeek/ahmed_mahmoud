@@ -19,6 +19,7 @@ class RegisterController extends Controller
     {
         $student = new Student;
         $student->name = $request->name;
+        $student->type = $request->type;
         $student->password = $request->password;
         $student->mobile = $request->mobile;
         $student->guardian_mobile = $request->guardian_mobile;

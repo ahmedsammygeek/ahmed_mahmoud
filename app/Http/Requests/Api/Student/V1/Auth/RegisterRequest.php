@@ -27,12 +27,16 @@ class RegisterRequest extends FormRequest
             'password' => 'required|min:8|confirmed' , 
             'mobile' => 'required|unique:students,mobile' , 
             'guardian_mobile' => 'required|unique:students,guardian_mobile' , 
-            'grade' => 'required' , 
-            'educational_system_id' => 'required' , 
+            'grade' => 'required_if:type,1' , 
+            'educational_system_id' => 'required_if:type,1' , 
             'app_language' => 'required' , 
             'firebase_fcm' => 'required' , 
             'mobile_serial_number' => 'required' , 
             'app_platform' => 'required' , 
+            'type' => 'required' , 
+            'faculty_id' => 'required_if:type,2',
+            'university_id' => 'required_if:type,2',
+            'level_id' => 'required_if:type,2',
         ];
     }
 }
