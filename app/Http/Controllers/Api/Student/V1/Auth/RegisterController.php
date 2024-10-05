@@ -29,6 +29,9 @@ class RegisterController extends Controller
         $student->firebase_fcm = $request->firebase_fcm;
         $student->mobile_serial_number = $request->mobile_serial_number;
         $student->app_platform = $request->app_platform;
+        $student->faculty_id = $request->faculty_id;
+        $student->university_id = $request->university_id;
+        $student->level_id = $request->level_id;
         $student->code = time().mt_rand(100 ,  1000);
         $student->save();
 
