@@ -71,4 +71,21 @@ class Student extends Authenticatable
         return $this->hasMany(StudentPayment::class);
     }
 
+    public function university()
+    {
+        return $this->belongsTo(University::class , 'university_id');
+    }
+
+
+    public function faculty()
+    {
+        return $this->belongsTo(Faculty::class , 'faculty_id');
+    }
+
+
+    public function facultyLevel()
+    {
+        return $this->belongsTo(FacultyLevel::class , 'faculty_level_id');
+    }
+
 }

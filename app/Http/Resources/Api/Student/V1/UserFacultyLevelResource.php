@@ -5,7 +5,7 @@ namespace App\Http\Resources\Api\Student\V1;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class FacultyResource extends JsonResource
+class UserFacultyLevelResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,7 +16,7 @@ class FacultyResource extends JsonResource
     {
         return [
             'id' => $this->id , 
-            'name' => $this->name
+            'name' => $this->name ,
         ];
     }
 }

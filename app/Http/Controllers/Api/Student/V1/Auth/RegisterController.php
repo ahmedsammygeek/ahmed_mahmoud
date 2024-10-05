@@ -23,16 +23,22 @@ class RegisterController extends Controller
         $student->password = $request->password;
         $student->mobile = $request->mobile;
         $student->guardian_mobile = $request->guardian_mobile;
-        $student->grade_id = $request->grade;
-        $student->educational_system_id = $request->educational_system_id;
         $student->app_language = $request->app_language;
         $student->firebase_fcm = $request->firebase_fcm;
         $student->mobile_serial_number = $request->mobile_serial_number;
         $student->app_platform = $request->app_platform;
-        $student->faculty_id = $request->faculty_id;
-        $student->university_id = $request->university_id;
-        $student->level_id = $request->level_id;
         $student->code = time().mt_rand(100 ,  1000);
+        if ($request->type == 1 ) {
+            $student->grade_id = $request->grade;
+            $student->educational_system_id = $request->educational_system_id;
+        }
+
+        if ($request->type == 2 ) {
+            $student->faculty_id = $request->faculty_id;
+            $student->university_id = $request->university_id;
+            $student->faculty_level_id = $request->faculty_level_id;
+        }
+
         $student->save();
 
         $code = new PhoneVerificationCode;

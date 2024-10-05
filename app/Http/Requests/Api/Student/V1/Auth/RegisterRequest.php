@@ -36,7 +36,7 @@ class RegisterRequest extends FormRequest
             'type' => 'required' , 
             'faculty_id' => 'required_if:type,2',
             'university_id' => 'required_if:type,2',
-            'level_id' => 'required_if:type,2',
+            'faculty_level_id' => 'required_if:type,2',
         ];
     }
 }
