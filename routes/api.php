@@ -52,6 +52,7 @@ Route::group(['prefix' => 'student/v1'  , 'middleware' => ['locale'] ], function
     Route::get('/courses' , [CourseController::class , 'index'] );
     Route::get('/courses/{course}' , [CourseController::class , 'show'] );
     Route::get('/courses/{course}/lessons/{lesson}' , [LessonController::class , 'show'] );
+    Route::get('/logo' , [SettingController::class , 'logo'] );
 
 
     Route::group(['middleware' => ['auth:student']  ], function() {
