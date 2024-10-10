@@ -36,9 +36,22 @@ class ProfileController extends Controller
             $student->profile_picture = basename($request->file('image')->store('students'));
         }
 
-        $student->grade_id = $request->grade;
-        $student->educational_system_id = $request->educational_system_id;
+
         $student->name = $request->name;
+        $student->type = $request->type;
+        $student->mobile = $request->mobile;
+        
+        if ($request->type == 1 ) {
+            $student->grade_id = $request->grade;
+            $student->educational_system_id = $request->educational_system_id;
+            $student->guardian_mobile = $request->guardian_mobile;
+        }
+
+        if ($request->type == 2 ) {
+            $student->faculty_id = $request->faculty_id;
+            $student->university_id = $request->university_id;
+            $student->faculty_level_id = $request->faculty_level_id;
+        }
         $student->save();
 
         $data = [

@@ -23,10 +23,15 @@ class UpdateProfileRequest extends FormRequest
     {
         return [
             'profile_picture' => 'nullable|image' , 
-            'educational_system_id' => 'required' , 
-            'grade' => 'required' , 
             'name' => 'required' , 
             'mobile' => 'required|phone:mobile,EG|unique:students,mobile,'.Auth::guard('student')->id() , 
+            'type' => 'required' , 
+            'faculty_id' => 'required_if:type,2',
+            'university_id' => 'required_if:type,2',
+            'faculty_level_id' => 'required_if:type,2',
+            'grade' => 'required_if:type,1' , 
+            'educational_system_id' => 'required_if:type,1' , 
+            'guardian_mobile' => 'required_if:type,1' , 
         ];
     }
 }
