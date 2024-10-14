@@ -34,6 +34,9 @@ use App\Http\Controllers\Board\InstallmentController;
 use App\Http\Controllers\Board\PaymentController;
 use App\Http\Controllers\Board\StudentPaymentController;
 use App\Http\Controllers\Board\StudentExamController;
+use App\Http\Controllers\Board\UniversityController;
+use App\Http\Controllers\Board\FacultyController;
+use App\Http\Controllers\Board\FacultyLevelController;
 use App\Http\Controllers\Board\StudentFinancialReportController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\ApplicationController;
@@ -63,6 +66,10 @@ Route::group(
                 Route::resource('cities', CityController::class);
                 Route::resource('students', StudentController::class );
                 Route::resource('courses', CourseController::class );
+                Route::resource('universities', UniversityController::class );
+                Route::resource('faculties', FacultyController::class );
+                Route::resource('faculty_levels', FacultyLevelController::class );
+
                 Route::resource('courses.units', CourseUnitController::class );
                 Route::resource('courses.units.lessons', LessonController::class);
                 Route::resource('students.courses' , StudentCourseController::class);

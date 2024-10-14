@@ -1,5 +1,5 @@
 @php
-$groups = $home = $settings = $teachers = $payments = $students = $educational_systems = $installments = $grades = $dashboard_notifications = $questions = $exams = $users = $courses = $slides = '';
+$groups = $home = $settings = $teachers = $payments = $students = $educational_systems = $installments = $grades = $dashboard_notifications = $questions = $exams = $users = $courses = $slides = $faculties = $universities = $faculty_levels = '';
 
 
 
@@ -45,6 +45,15 @@ switch (request()->segment(3)) {
 	break;
 	case 'payments':
 	$payments = 'active';
+	break;
+	case 'universities':
+	$universities = 'active';
+	break;
+	case 'faculties':
+	$faculties = 'active';
+	break;
+	case 'faculty_levels':
+	$faculty_levels = 'active';
 	break;
 	default:
 	$home = 'active';
@@ -107,6 +116,38 @@ switch (request()->segment(3)) {
 					<ul class="nav-group-sub collapse">
 						<li class="nav-item"><a href="{{ route('board.slides.create') }}" class="nav-link "> @lang('slides.add new slide') </a></li>
 						<li class="nav-item"><a href="{{ route('board.slides.index') }}" class="nav-link"> @lang('slides.show all slides') </a></li>
+					</ul>
+				</li>
+				<li class="nav-item nav-item-submenu">
+					<a href="{{ route('board.faculties.index') }}" class="nav-link {{ $faculties }}">
+						<i class="icon-city "></i>
+						<span> @lang('faculties.faculties') </span>
+					</a>
+					<ul class="nav-group-sub collapse">
+						<li class="nav-item"><a href="{{ route('board.faculties.create') }}" class="nav-link "> @lang('faculties.add new faculty') </a></li>
+						<li class="nav-item"><a href="{{ route('board.faculties.index') }}" class="nav-link"> @lang('faculties.show all faculties') </a></li>
+					</ul>
+				</li>
+
+				<li class="nav-item nav-item-submenu">
+					<a href="{{ route('board.faculty_levels.index') }}" class="nav-link {{ $faculty_levels }}">
+						<i class="icon-quotes-right2 "></i>
+						<span> @lang('faculty_levels.faculty_levels') </span>
+					</a>
+					<ul class="nav-group-sub collapse">
+						<li class="nav-item"><a href="{{ route('board.faculty_levels.create') }}" class="nav-link "> @lang('faculty_levels.add new level') </a></li>
+						<li class="nav-item"><a href="{{ route('board.faculty_levels.index') }}" class="nav-link"> @lang('faculty_levels.show all faculty levels') </a></li>
+					</ul>
+				</li>
+
+				<li class="nav-item nav-item-submenu">
+					<a href="{{ route('board.universities.index') }}" class="nav-link {{ $universities }}">
+						<i class="icon-office"></i>
+						<span> @lang('universities.universities') </span>
+					</a>
+					<ul class="nav-group-sub collapse">
+						<li class="nav-item"><a href="{{ route('board.universities.create') }}" class="nav-link "> @lang('universities.add new university') </a></li>
+						<li class="nav-item"><a href="{{ route('board.universities.index') }}" class="nav-link"> @lang('universities.show all universities') </a></li>
 					</ul>
 				</li>
 

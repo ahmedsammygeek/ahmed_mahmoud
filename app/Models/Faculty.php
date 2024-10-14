@@ -16,13 +16,9 @@ class Faculty extends Model
         return $this->belongsTo(User::class);
     }
 
-
-
     public function levels()
     {
         return $this->hasMany(FacultyLevel::class);
     }
-
-
     
 }

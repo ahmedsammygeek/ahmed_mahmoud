@@ -58,6 +58,30 @@
 								</label>
 							</div>
 						</div>
+						<div class="row mb-3">
+							<label class="col-lg-2 col-form-label pt-0"> عدد المشاهدات التلقائى </label>
+							<div class="col-lg-10">
+								<input type="number" value='{{ $settings->default_views_number }}' class="form-control" name="default_views_number"  >
+							</div>
+						</div>
+						<div class="row mb-3">
+							<label class="col-lg-2 col-form-label pt-0"> عدد الدقائق لحساب المشاده </label>
+							<div class="col-lg-10">
+								<input type="number" value='{{ $settings->default_seen_mints }}' class="form-control" name="default_seen_mints"  >
+							</div>
+						</div>
+						<div class="row mb-3">
+							<label class="col-lg-2 col-form-label pt-0"> @lang('settings.logo') </label>
+							<div class="col-lg-10">
+								<input type="file" value='1' class="form-control" name="logo"  >
+							</div>
+						</div>
+						<div class="row mb-3">
+							<label class="col-lg-2 col-form-label pt-0"> @lang('settings.current logo') </label>
+							<div class="col-lg-10">
+								<img src="{{ Storage::url('settings/'.$settings->logo) }}" alt="">
+							</div>
+						</div>
 					</div>
 				</div>
 
