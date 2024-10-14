@@ -132,7 +132,18 @@
 
 
 
-
+                    <div class="row mb-3 ">
+                        <div class="col-md-12">
+                            <label class="col-form-label col-lg-12"> عدد المشاهدات للدرس     </label>
+                            <div class="col-lg-12">
+                                <input type="number" name="default_view_number" value='{{ $course->default_view_number }}' class="form-control @error('default_view_number')  is-invalid @enderror" required
+                                placeholder=''>
+                                @error('default_view_number')
+                                <p class='text-danger'> {{ $message }} </p>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="row mb-3">
                         <div class="col-md-4">

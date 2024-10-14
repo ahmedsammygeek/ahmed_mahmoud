@@ -33,6 +33,7 @@ class StoreCourseAction
         $course->suggest_course = $request->filled('show_in_home') ? 1 : 0;
         $course->user_id = Auth::id();
         $course->teacher_id = $request->teacher_id;
+        $course->default_view_number = $request->default_view_number;
         $course->save();
 
         

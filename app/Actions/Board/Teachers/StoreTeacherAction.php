@@ -17,6 +17,7 @@ class StoreTeacherAction
         $teacher->name = $data['name'];
         $teacher->mobile = $data['mobile'];
         $teacher->bio = $data['bio'];
+        $teacher->default_views_number = $data['default_views_number'];
         $teacher->show_in_suggested_in_app = array_key_exists('show_in_suggested_in_app', $data) ? 1 : 0 ;
         $teacher->image = basename($data['image']->store('teachers'));
         $teacher->type = 2;

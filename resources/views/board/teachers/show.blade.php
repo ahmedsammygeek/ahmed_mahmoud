@@ -64,6 +64,16 @@
 											</td>
 										</tr>
 										<tr>
+											<th> عدد المشاهدات التلقائى للدرس </th>
+											<td> 
+												@if ($teacher->default_views_number)
+												{{  $teacher->default_views_number }} مشاهده للدرس
+												@else
+												لم يتم تحديد اى مشاهدات تلقائيه بعد
+												@endif
+											</td>
+										</tr>
+										<tr>
 											<th>  @lang('teachers.is banned') </th>
 											<td> 
 												@if ($teacher->is_banned)

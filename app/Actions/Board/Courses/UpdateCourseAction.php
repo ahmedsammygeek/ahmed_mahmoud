@@ -29,6 +29,7 @@ class UpdateCourseAction
         ->setTranslation('content', 'en', $request->content_en );
         $course->price = $request->price;
         $course->grade_id = $request->grade;
+        $course->default_view_number = $request->default_view_number;
         $course->is_active = $request->filled('active') ? 1 : 0;
         $course->suggest_course = $request->filled('show_in_home') ? 1 : 0;
         $course->teacher_id = $request->teacher_id;

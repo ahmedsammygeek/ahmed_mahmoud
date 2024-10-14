@@ -74,6 +74,19 @@
                             </div>
                         </div>
 
+
+                        <div class="row mb-3">
+							<label class="col-form-label col-lg-2"> عدد المشاهدات التلقائى للدرس <span class="text-danger">*</span></label>
+							<div class="col-lg-10">
+								<input type="number" name="default_views_number" value="{{ $teacher->default_views_number }}" class="form-control @error('default_views_number')  is-invalid @enderror" placeholder="">
+								@error('default_views_number')
+								<p class='text-danger' > {{ $message }} </p>
+								@enderror
+							</div>
+						</div>
+
+
+
                         <div class="row mb-3">
 							<label class="col-form-label col-lg-2"> @lang('teachers.image') </label>
 							<div class="col-lg-10">

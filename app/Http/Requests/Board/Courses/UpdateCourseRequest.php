@@ -31,6 +31,8 @@ class UpdateCourseRequest extends FormRequest
             'teacher_id' => 'required' , 
             'educational_system_id' => 'required' , 
             'grade' => 'required' , 
+            'default_view_number' => 'nullable' , 
+            
         ];
     }
 }

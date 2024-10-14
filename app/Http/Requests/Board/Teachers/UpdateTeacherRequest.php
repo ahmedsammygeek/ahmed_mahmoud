@@ -28,6 +28,8 @@ class UpdateTeacherRequest extends FormRequest
             'mobile' => 'required' , 
             'bio' => 'required' , 
             'show_in_suggested_in_app' => 'nullable' , 
+            'default_views_number' => 'nullable' , 
+            
         ];
     }
 }
