@@ -27,8 +27,8 @@ class LibraryController extends Controller
                 $query->whereHas('lessons' , function($query) use($student) {
                     $query->whereHas('files' , function($query) use($student) {
                         $query->whereHas('views' , function($query)  use($student) {
-                             $query->whereIn('lesson_file_id' , $student->LessonsFilesViews()->pluck('lesson_file_id')->toArray() );
-                        });
+                         $query->whereIn('lesson_file_id' , $student->LessonsFilesViews()->pluck('lesson_file_id')->toArray() );
+                     });
                     });
                 });
             });
@@ -41,34 +41,9 @@ class LibraryController extends Controller
             'courses' => CourseResource::collection($courses) , 
         ];
 
-
         return $this->response(
             data : $data ,
         );
-
-
-        // whereHas('students', function($query) use($student) {
-        //     $query
-        //     ->where('student_id', $student->id )
-
-        // })->get();
-        
-        // $files = LessonFileView::where('student_id' , $student->id )->whereHas('LessonFile' , function($query) use($student) {
-        //     $query->whereHas('lesson' , function($query) use($student) {
-        //         $query->whereHas('unit' , function($query) use($student) {
-        //             $query->whereHas('course' , function($query) use($student) {
-        //                 $query->whereIn('id' , $student->courses()->pluck('course_id')->toArray() );
-        //             });
-        //         });
-        //     });
-        // })->pluck('courses.id')->toArray();
-
-
-        return $courses;
-
-        return $files;
-
-
     }
 
     /**
@@ -76,7 +51,7 @@ class LibraryController extends Controller
      */
     public function show_lesson(Course $course)
     {
-        
+
         $student = Auth::guard('student')->user();
 
         // we need to check if this user has this course or not 
@@ -87,7 +62,7 @@ class LibraryController extends Controller
         ])->first();
 
         if (!$student_course) {
-            
+
             return $this->response(
                 status : 'error' , 
                 message : 'you do not has this course in your profile'
@@ -96,7 +71,7 @@ class LibraryController extends Controller
 
 
         if ($student_course->allow == 0 ) {
-            
+
             return $this->response(
                 status : 'error' , 
                 message :  $student_course->disable_reason ? $student_course->disable_reason : 'تم ايقاف هذا الكورس لك..تواصل مع الدعم' 
@@ -136,7 +111,7 @@ class LibraryController extends Controller
         ])->first();
 
         if (!$student_course) {
-            
+
             return $this->response(
                 status : 'error' , 
                 message : 'you do not has this course in your profile'
@@ -144,7 +119,7 @@ class LibraryController extends Controller
         }
 
         if ($student_course->allow == 0 ) {
-            
+
             return $this->response(
                 status : 'error' , 
                 message :  $student_course->disable_reason ? $student_course->disable_reason : 'تم ايقاف هذا الكورس لك..تواصل مع الدعم' 
@@ -190,7 +165,7 @@ class LibraryController extends Controller
         ])->first();
 
         if (!$student_course) {
-            
+
             return $this->response(
                 status : 'error' , 
                 message : 'you do not has this course in your profile'
@@ -198,7 +173,7 @@ class LibraryController extends Controller
         }
 
         if ($student_course->allow == 0 ) {
-            
+
             return $this->response(
                 status : 'error' , 
                 message :  $student_course->disable_reason ? $student_course->disable_reason : 'تم ايقاف هذا الكورس لك..تواصل مع الدعم' 
@@ -208,7 +183,7 @@ class LibraryController extends Controller
         $lesson_file_view = LessonFileView::where('lesson_file_id' , $file->id )->where('student_id' , $student->id )->first();
 
         if (!$lesson_file_view) {
-           return $this->response(
+            return $this->response(
                 status : 'error' , 
                 message :  'غير مصرح لك بمشاهده هذا الملف' , 
                 statusCode : 404
@@ -216,14 +191,14 @@ class LibraryController extends Controller
         }
 
         if (!$lesson_file_view->is_allowed) {
-           return $this->response(
+            return $this->response(
                 status : 'error' , 
                 message :  'غير مسموح لك  بمشاهده هذا الملف' , 
             );
         }
 
         if (!$lesson_file_view->allowed_views_number) {
-           return $this->response(
+            return $this->response(
                 status : 'error' , 
                 message :  'تم انتهاء عدد مشاهدات الملف' , 
             );
@@ -238,7 +213,7 @@ class LibraryController extends Controller
 
             data : $data , 
         );
-        
+
     }
 
 
@@ -254,7 +229,7 @@ class LibraryController extends Controller
         ])->first();
 
         if (!$student_course) {
-            
+
             return $this->response(
                 status : 'error' , 
                 message : 'you do not has this course in your profile'
@@ -262,7 +237,7 @@ class LibraryController extends Controller
         }
 
         if ($student_course->allow == 0 ) {
-            
+
             return $this->response(
                 status : 'error' , 
                 message :  $student_course->disable_reason ? $student_course->disable_reason : 'تم ايقاف هذا الكورس لك..تواصل مع الدعم' 
@@ -272,7 +247,7 @@ class LibraryController extends Controller
         $lesson_file_view = LessonFileView::where('lesson_file_id' , $file->id )->where('student_id' , $student->id )->first();
 
         if (!$lesson_file_view) {
-           return $this->response(
+            return $this->response(
                 status : 'error' , 
                 message :  'غير مصرح لك بمشاهده هذا الملف' , 
                 statusCode : 404
@@ -280,14 +255,14 @@ class LibraryController extends Controller
         }
 
         if (!$lesson_file_view->is_allowed) {
-           return $this->response(
+            return $this->response(
                 status : 'error' , 
                 message :  'غير مسموح لك  بمشاهده هذا الملف' , 
             );
         }
 
         if (!$lesson_file_view->allowed_downloads_number) {
-           return $this->response(
+            return $this->response(
                 status : 'error' , 
                 message :  'تم انتهاء عدد التحميلات الملف' , 
             );
@@ -302,6 +277,67 @@ class LibraryController extends Controller
 
             data : $data , 
         );
+    }
+
+
+    public function markFileAsViewed(Course $course  , Lesson $lesson  , LessonFile $file )
+    {
+        $student = Auth::guard('student')->user();
+
+        // we need to check if this user has this course or not 
+
+        $lesson_file_view = LessonFileView::where([
+            ['student_id' , '=' , $student->id ] , 
+            ['lesson_file_id' , '=' , $file->id ]
+        ])->first();
+
+        if (!$lesson_file_view) {
+
+            return $this->response(
+                status : 'error' , 
+                message : 'you do not has this file in your library'
+            );
+        }
+
+
+        $lesson_file_view->increment('total_views_till_now' , 1 );
+        $lesson_file_view->decrement('allowed_views_number' , 1 );
+
+        return $this->response(
+            message : 'تمت احتساب المشاهدهه بنجاح'
+        );
+
+
+    }
+
+    public function markFileAsDownloaded(Course $course  , Lesson $lesson  , LessonFile $file )
+    {
+        $student = Auth::guard('student')->user();
+
+        // we need to check if this user has this course or not 
+
+        $lesson_file_view = LessonFileView::where([
+            ['student_id' , '=' , $student->id ] , 
+            ['lesson_file_id' , '=' , $file->id ]
+        ])->first();
+
+        if (!$lesson_file_view) {
+
+            return $this->response(
+                status : 'error' , 
+                message : 'you do not has this file in your library'
+            );
+        }
+
+
+        $lesson_file_view->increment('total_downloads_till_now' , 1 );
+        $lesson_file_view->decrement('allowed_downloads_number' , 1 );
+
+        return $this->response(
+            message : 'تمت احتساب التحميل بنجاح'
+        );
+
+
     }
 
 }

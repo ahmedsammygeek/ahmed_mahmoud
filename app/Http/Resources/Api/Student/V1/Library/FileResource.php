@@ -5,6 +5,7 @@ namespace App\Http\Resources\Api\Student\V1\Library;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Storage;
+use Number;
 class FileResource extends JsonResource
 {
     /**
@@ -24,6 +25,7 @@ class FileResource extends JsonResource
             'force_water_mark' => $this->force_water_mark == 1 ? true : false , 
             'water_mark_text' => (string)$this->water_mark_text , 
             'path' => Storage::url('lesson_files/'.$this->lessonFile?->file), 
+            'file_size' => Number::fileSize(Storage::size('lesson_files/'.$this->lessonFile?->file)), 
             
         ];
     }

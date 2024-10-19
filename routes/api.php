@@ -85,6 +85,10 @@ Route::group(['prefix' => 'student/v1'  , 'middleware' => ['locale'] ], function
             Route::get('/library/{course}/lessons/{lesson}/files' , [LibraryController::class , 'show_files'] );
             Route::get('/library/{course}/lessons/{lesson}/files/{file}/view' , [LibraryController::class , 'show_file'] );
             Route::get('/library/{course}/lessons/{lesson}/files/{file}/download' , [LibraryController::class , 'download_file'] );
+
+            Route::get('/library/{course}/lessons/{lesson}/files/{file}/viewed' , [LibraryController::class , 'markFileAsViewed'] );
+            Route::get('/library/{course}/lessons/{lesson}/files/{file}/downloaded' , [LibraryController::class , 'markFileAsDownloaded'] );
+
             
         });        
     });
