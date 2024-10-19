@@ -88,4 +88,10 @@ class Student extends Authenticatable
         return $this->belongsTo(FacultyLevel::class , 'faculty_level_id');
     }
 
+
+    public function LessonsFilesViews()
+    {
+        return $this->hasMany(LessonFileView::class , 'student_id');
+    }
+
 }

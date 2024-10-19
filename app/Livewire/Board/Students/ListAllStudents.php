@@ -12,7 +12,7 @@ class ListAllStudents extends Component
 
     use WithPagination  ;
     protected $paginationTheme = 'bootstrap';
-    public $rows = 2;
+    public $rows = 15;
     public $student_type;
     public $search;
     public $grade_id;

@@ -70,7 +70,7 @@
                 <h5 class="mb-0"> @lang('students.show all students') </h5>
                 <div class="ms-sm-auto my-sm-auto">
                     <select wire:model.live='rows' class="form-select ">
-                        <option value="2">2 @lang('dashboard.rows') </option>
+                        {{-- <option value="2">2 @lang('dashboard.rows') </option> --}}
                         <option value="15">15 @lang('dashboard.rows') </option>
                         <option value="30">30 @lang('dashboard.rows') </option>
                         <option value="50">50 @lang('dashboard.rows') </option>

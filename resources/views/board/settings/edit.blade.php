@@ -59,6 +59,15 @@
 							</div>
 						</div>
 						<div class="row mb-3">
+							<label class="col-lg-2 col-form-label pt-0"> يجب وضع رقم الوالدين </label>
+							<div class="col-lg-10">
+								<label class="form-check form-switch">
+									<input type="checkbox" value='1' class="form-check-input" name="force_guardian_mobile" {{ $settings->force_guardian_mobile == 1 ? 'checked' : '' }} >
+									<span class="form-check-label"> @lang('dashboard.activate') </span>
+								</label>
+							</div>
+						</div>
+						<div class="row mb-3">
 							<label class="col-lg-2 col-form-label pt-0"> عدد المشاهدات التلقائى </label>
 							<div class="col-lg-10">
 								<input type="number" value='{{ $settings->default_views_number }}' class="form-control" name="default_views_number"  >

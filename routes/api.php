@@ -28,6 +28,7 @@ use App\Http\Controllers\Api\Student\V1\SettingController;
 use App\Http\Controllers\Api\Student\V1\AttendanceController;
 use App\Http\Controllers\Api\Student\V1\PaymentController;
 use App\Http\Controllers\Api\Student\V1\UniversityController;
+use App\Http\Controllers\Api\Student\V1\LibraryController;
 
 Route::group(['prefix' => 'student/v1'  , 'middleware' => ['locale'] ], function() {
 
@@ -76,12 +77,14 @@ Route::group(['prefix' => 'student/v1'  , 'middleware' => ['locale'] ], function
             Route::get('/my_courses/completed' , [StudentCourseController::class , 'completed'] );
             Route::get('attendance' , [AttendanceController::class , 'index'] );
             Route::get('payments'  , [PaymentController::class , 'index']);
-
             Route::post('files/{lesson_file}/downloaded' , [LessonController::class , 'downloaded'] );
             Route::post('files/{lesson_file}/viewed' , [LessonController::class , 'viewed'] );
-
-
             Route::post('courses/{course}/subscribe' ,[CourseController::class , 'subscribe']  );
+            Route::get('/library' , [LibraryController::class , 'index'] );
+            Route::get('/library/{course}/lessons' , [LibraryController::class , 'show_lesson'] );
+            Route::get('/library/{course}/lessons/{lesson}/files' , [LibraryController::class , 'show_files'] );
+            Route::get('/library/{course}/lessons/{lesson}/files/{file}/view' , [LibraryController::class , 'show_file'] );
+            Route::get('/library/{course}/lessons/{lesson}/files/{file}/download' , [LibraryController::class , 'download_file'] );
             
         });        
     });

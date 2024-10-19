@@ -20,7 +20,7 @@ class Lesson extends Model
 
     public function files() {
 
-        return $this->hasMany(LessonFile::class , 'course_unit_lesson_id');
+        return $this->hasMany(LessonFile::class , 'lesson_id');
     }
 
     public function  unit()
