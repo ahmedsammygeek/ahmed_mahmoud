@@ -56,4 +56,14 @@ class HomeController extends Controller
             data : $data , 
         );
     }
+
+
+    public function markAnnouncementAsDownloaded(Announcement $announcement)
+    {
+        
+
+        return $this->response(
+            message : 'تمت المشاهده بنجاح' , 
+        );
+    }
 }
