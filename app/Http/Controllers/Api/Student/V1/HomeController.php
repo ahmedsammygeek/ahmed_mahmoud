@@ -20,7 +20,6 @@ class HomeController extends Controller
     public function index(Request $request)
     {
 
-        // dd(Auth::guard('student')->id());
         $is_user = false;
         if (Auth::guard('student')->check()) {
             $is_user = true;

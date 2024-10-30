@@ -19,6 +19,7 @@ class SettingResource extends JsonResource
             'force_phone_verification' => (bool)$this->force_phone_verification , 
             'allow_developer_mode' => (bool)$this->allow_developer_mode , 
             'allow_payments_view' => false , 
+            'force_guardian_mobile' => (bool) $this->force_guardian_mobile , 
         ];
     }
 }
