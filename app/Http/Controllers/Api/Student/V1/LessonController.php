@@ -21,16 +21,16 @@ class LessonController extends Controller
         $student_lesson = StudentLesson::where('student_id' , $student->id )->where('lesson_id' , $lesson->id )->first();
 
         if ($student_lesson) {
-         $student_lesson->total_views_till_now = $student_lesson->total_views_till_now + 1;
-         $student_lesson->remains_views = $student_lesson->remains_views - 1;
-         $student_lesson->save();
-     }
+            $student_lesson->total_views_till_now = $student_lesson->total_views_till_now + 1;
+            $student_lesson->remains_views = $student_lesson->remains_views - 1;
+            $student_lesson->save();
+        }
 
-     return $this->response(
-        message : 'lesson marked as watched successfully'  , 
-    );
+        return $this->response(
+            message : 'lesson marked as watched successfully'  , 
+        );
 
- }
+    }
 
 
     /**
@@ -72,8 +72,8 @@ class LessonController extends Controller
             $lesson['remains_views'] =  10;
             if (Auth::guard('student')->check()) {
 
-                
-        $student = Auth::guard('student')->user();
+
+                $student = Auth::guard('student')->user();
 
                 $student_course = CourseStudent::where('student_id' , $student->id )->where('course_id' , $course->id )->first();
 
