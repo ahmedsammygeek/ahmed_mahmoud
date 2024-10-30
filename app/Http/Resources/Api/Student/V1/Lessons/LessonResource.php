@@ -36,7 +36,7 @@ class LessonResource extends JsonResource
             'speak_user_phone' => $student_course ? (boolean)$student_course->speak_user_phone : true ,
             'show_phone_on_viedo_ervery' => $settings->show_phone_on_viedo_ervery , 
             'lesson_mins_to_be_mark_as_viewed' => $settings->default_seen_mints ,
-            'force_headphone' =>  $student_course ? $student_course->force_headphones : true , 
+            'force_headphone' =>  $student_course ? (boolean)$student_course->force_headphones : true , 
             'files' => LessonFileResource::collection($this->files) , 
             'quizzes' =>  ExamResource::collection($this->exams)
 
