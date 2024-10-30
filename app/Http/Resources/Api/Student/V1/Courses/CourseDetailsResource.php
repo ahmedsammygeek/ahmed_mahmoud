@@ -29,7 +29,7 @@ class CourseDetailsResource extends JsonResource
             'user_progress' => 20 , 
             'teacher' => new CourseDetailsTeacherResource($this->teacher), 
             'units' => CourseUnitResource::collection($this->units) , 
-            'contact_mobile' => '01014340346' , 
+            'contact_mobile' =>  $this->contact_mobile  , 
             'paid_amount' => 200 , 
             'remains' => 100 , 
             'due_date' => '2024-011-08' , 

@@ -32,6 +32,7 @@ class UpdateCourseRequest extends FormRequest
             'educational_system_id' => 'required' , 
             'grade' => 'required' , 
             'default_view_number' => 'nullable' , 
+            'contact_mobile' => 'required' , 
             
         ];
     }
