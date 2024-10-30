@@ -23,7 +23,7 @@ class CourseDetailsResource extends JsonResource
             'price' => $this->price , 
             'total_mins' => mt_rand(20 , 180) , 
             'rate' => 4.9 , 
-            'students_count' => mt_rand(300 , 9000) , 
+            'students_count' => $this->students->count() , 
             'content' => $this->content , 
             'dose_user_subscribed' => $this->dose_user_subscribed , 
             'user_progress' => 20 , 
