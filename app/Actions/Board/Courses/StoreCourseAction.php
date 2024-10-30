@@ -34,6 +34,7 @@ class StoreCourseAction
         $course->user_id = Auth::id();
         $course->teacher_id = $request->teacher_id;
         $course->default_view_number = $request->default_view_number;
+        $course->contact_mobile = $request->contact_mobile;
         $course->save();
 
         

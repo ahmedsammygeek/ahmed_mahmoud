@@ -33,6 +33,7 @@ class UpdateCourseAction
         $course->is_active = $request->filled('active') ? 1 : 0;
         $course->suggest_course = $request->filled('show_in_home') ? 1 : 0;
         $course->teacher_id = $request->teacher_id;
+        $course->contact_mobile = $request->contact_mobile;
         $course->save();
 
         
