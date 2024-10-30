@@ -21,7 +21,7 @@ class CourseDetailsResource extends JsonResource
             'title' => $this->title , 
             'image' => Storage::url('courses/'.$this->image) , 
             'price' => $this->price , 
-            'total_mins' => mt_rand(20 , 180) , 
+            'total_mins' => $this->lessons()->sum('lesson_mins') , 
             'rate' => 4.9 , 
             'students_count' => $this->students->count() , 
             'content' => $this->content , 
