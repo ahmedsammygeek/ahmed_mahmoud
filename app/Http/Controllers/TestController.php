@@ -26,6 +26,7 @@ use App\Models\StudentExam;
 use App\Models\StudentExamAnswer;
 use App\Models\Attendance;
 use App\Models\CourseStudent;
+use App\Models\Announcement;
 use DB;
 use Mail;
 use App\Notifications\WelcomeNotification;
@@ -39,6 +40,36 @@ class TestController extends Controller
      */
     public function index()
     {  
+
+        $student = Student::find(36);
+
+        $announcements = Announcement::with('publishedForStudents')
+        ->whereDoesntHave('views' , function($query) use($student) {
+            $query->where('student_id' , $student->id );
+        })->where('is_active' , 1 )->get();
+
+
+        // foreach ($announcements as $announcement) {
+        //     dd( $announcement  ,  $announcement->publishedForStudents);
+        // }
+
+
+
+        $announcements->filter( function($announcement) use($student) {
+            if ($announcement->publish_for == 2 ) {
+
+                $students_who_whatched_this_annoncemnt_ids = $announcement->publishedForStudents()->pluck('student_id')->toArray();
+
+                if (!in_array($student->id, $students_who_whatched_this_annoncemnt_ids)) {
+                    return $announcement;
+                }
+            }
+        });
+
+
+        dd($announcements);
+
+
 
 
         $course = Course::find(2);
