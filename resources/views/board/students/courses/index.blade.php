@@ -80,28 +80,7 @@
 <!-- Content area -->
 <div class="content">
 
-	<!-- Inner container -->
-	<div class="d-flex align-items-stretch align-items-lg-start flex-column flex-lg-row">
-
-		<!-- Left content -->
-		<div class="tab-content flex-fill order-2 order-lg-1">
-			<div class="tab-pane fade active show " id="student_details">
-
-				<div class="row">
-					@livewire('board.students.list-all-student-courses' , ['student' => $student] )
-				</div>
-
-
-			</div>
-
-		</div>
-		<!-- /left content -->
-
-
-
-
-	</div>
-	<!-- /inner container -->
+	@livewire('board.students.list-all-student-courses' , ['student' => $student] )
 
 </div>
 <!-- /content area -->

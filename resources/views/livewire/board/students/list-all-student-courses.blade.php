@@ -17,27 +17,24 @@
                     </select>
                 </div>
             </div>
-            <div class='card-body' >
-                <table  class='table  table-responsive table-striped table-xs text-center '>
+           <table  class='table  table-responsive table-striped table-xs text-center '>
                     <thead>
                         <tr>
-                            <th> # </th>
                             <th> @lang('students.course') </th>
                             <th> @lang('students.group') </th>
                             <th> @lang('students.force headphons') </th>
                             <th> @lang('students.show phone on viedo') </th>
                             <th> @lang('students.speak user phone') </th>
+                            <th> @lang('students.force face detection') </th>
                             <th> @lang('students.allow') </th>
                             <th> @lang('students.options') </th>
                         </tr>
                     </thead>
                     <tbody class='text-center center-block' >
-                        @php
-                        $i =1
-                        @endphp
+
                         @foreach ($student_courses as $student_course)
                         <tr>
-                            <td> {{ $i++ }} </td>
+
                             
                             <td>
                                 {{ $student_course?->course?->title }}
@@ -72,6 +69,12 @@
                                 </div>
                             </td>
 
+                            <td class='center-block' >
+                                <div class="form-check form-switch  mb-2 center-block ">
+                                    <input type="checkbox" wire:click='force_face_detecting({{ $student_course->id }})' class="form-check-input force_face_detecting"  {{ $student_course->force_face_detecting == 1 ? 'checked' : '' }} >
+                                </div>
+                            </td>
+
 
 
                             <td>
@@ -87,16 +90,15 @@
                                 @endif
                             </td>
                             <td>
-                                <a class='btn btn-sm btn-primary' title='الدروس' href="{{ route('board.students.courses.lessons.index' , [ 'student' => $student , 'course' => $student_course->course_id ] ) }}"   >  <i class="icon-video-camera2"></i>  </a>
-                                <a class='btn btn-sm btn-primary ' title='مشاهده' href="{{ route('board.students.courses.show' , ['student' => $student_course->student_id , 'course' => $student_course->course_id ] ) }}" >  <i class="icon-eye "></i>  </a>
-                                <a class='btn btn-sm btn-warning ' title='تعديل' href="{{ route('board.students.courses.edit' , ['student' => $student_course->student_id , 'course' => $student_course->course_id ] ) }}" >  <i class="icon-database-edit2 "></i>  </a>
-                                <a data-item_id='{{ $student_course->id }}' class='btn btn-sm btn-danger  delete_item' title='حذف' >  <i class="icon-trash "></i>  </a>
+                                <a class='btn btn-sm btn-primary ' title='الدروس' href="{{ route('board.students.courses.lessons.index' , [ 'student' => $student , 'course' => $student_course->course_id ] ) }}"   >  <i class="icon-video-camera2"></i>  </a>
+                                <a class='btn btn-sm btn-primary  ' title='مشاهده' href="{{ route('board.students.courses.show' , ['student' => $student_course->student_id , 'course' => $student_course->course_id ] ) }}" >  <i class="icon-eye "></i>  </a>
+                                <a class='btn btn-sm btn-warning  ' title='تعديل' href="{{ route('board.students.courses.edit' , ['student' => $student_course->student_id , 'course' => $student_course->course_id ] ) }}" >  <i class="icon-database-edit2 "></i>  </a>
+                                <a data-item_id='{{ $student_course->id }}' class='btn btn-xs btn-danger btn-xs  delete_item' title='حذف' >  <i class="icon-trash "></i>  </a>
                             </td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
-            </div>
             <div class="card-footer d-sm-flex justify-content-sm-between flex-sm-wrap py-sm-2">
 
                 {{ $student_courses->links() }}

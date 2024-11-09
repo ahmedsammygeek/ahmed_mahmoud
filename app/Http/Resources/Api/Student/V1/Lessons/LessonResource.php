@@ -22,7 +22,6 @@ class LessonResource extends JsonResource
 
 
         return [
-            // 'student_course' => $student_course , 
             'id' => $this->id , 
             'title' => $this->title , 
             'content' => $this->content , 
@@ -37,6 +36,7 @@ class LessonResource extends JsonResource
             'show_phone_on_viedo_ervery' => $settings->show_phone_on_viedo_ervery , 
             'lesson_mins_to_be_mark_as_viewed' => $settings->default_seen_mints ,
             'force_headphone' =>  $student_course ? (boolean)$student_course->force_headphones : true , 
+            'force_face_detecting' =>  $student_course ? (boolean)$student_course->force_face_detecting : true , 
             'files' => LessonFileResource::collection($this->files) , 
             'quizzes' =>  ExamResource::collection($this->exams)
 
