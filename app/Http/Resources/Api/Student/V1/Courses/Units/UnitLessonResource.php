@@ -18,11 +18,6 @@ class UnitLessonResource extends JsonResource
             'id' => $this->id , 
             'title' => $this->title , 
             'content' => $this->content , 
-            'is_free' => $this->is_free == 1 ? true : false , 
-            'lesson_mins' => $this->lesson_mins , 
-            'lesson_video_link' => $this->lesson_video_link , 
-            'lesson_video_driver' => $this->lesson_video_driver, 
-
         ];
     }
 }

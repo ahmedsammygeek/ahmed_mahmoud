@@ -5,12 +5,17 @@ namespace App\Http\Controllers\Api\Student\V1;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Traits\Api\GeneralResponse;
-use App\Models\{Course , CourseStudent  , Exam , Group , StudentLesson };
+use App\Models\{Course , CourseStudent  , Exam , Group , StudentLesson , Unit };
 use App\Http\Resources\Api\Student\V1\Courses\CourseResource;
 use Auth;
 use App\Http\Resources\Api\Student\V1\Courses\CourseDetailsResource;
 use App\Http\Resources\Api\Student\V1\Courses\ExamResource;
+use App\Http\Resources\Api\Student\V1\Courses\CourseUnitResource;
+use App\Http\Resources\Api\Student\V1\Courses\Units\UnitLessonResource;
 
+// CourseResource
+// CourseUnitResource
+// UnitLessonResource
 class CourseController extends Controller
 {
     use GeneralResponse;
@@ -67,14 +72,55 @@ class CourseController extends Controller
         } else {
             $course['dose_user_subscribed'] = false ;
         }
-
-        
-        
-
         $exams = Exam::where('course_id' , $course->id )->where('lesson_id' , null )->get();
         $data = [
             'course' => new CourseDetailsResource($course)  , 
             'exams' => $is_user ?  ExamResource::collection($exams) : [] , 
+        ];
+        return $this->response(
+            data : $data , 
+        );
+    }
+
+
+    public function units(Course $course)
+    {
+        $is_user = false;
+        if (Auth::guard('student')->check()) {
+            $is_user = true;
+            $student = Auth::guard('student')->user();
+            $course['dose_user_subscribed'] = CourseStudent::where('student_id' , $student->id )->where('course_id' , $course->id )
+            ->first() ? true : false ;
+        } else {
+            $course['dose_user_subscribed'] = false ;
+        }
+
+        $data = [
+            'course' => new CourseResource($course)  , 
+            'units' => CourseUnitResource::collection($course->units) , 
+        ];
+
+        return $this->response(
+            data : $data , 
+        );
+    }
+
+    public function unit_lessons(Course $course , Unit $unit)
+    {
+        $is_user = false;
+        if (Auth::guard('student')->check()) {
+            $is_user = true;
+            $student = Auth::guard('student')->user();
+            $course['dose_user_subscribed'] = CourseStudent::where('student_id' , $student->id )->where('course_id' , $course->id )
+            ->first() ? true : false ;
+        } else {
+            $course['dose_user_subscribed'] = false ;
+        }
+
+        $data = [
+            'course' => new CourseResource($course)  , 
+            'unit' => new CourseUnitResource($unit) , 
+            'lessons' => UnitLessonResource::collection($unit->lessons), 
         ];
 
         return $this->response(
@@ -122,10 +168,10 @@ class CourseController extends Controller
         $student->lessons()->saveMany($student_lessons);
 
 
-            return $this->response(
-                message : 'تم الاشتراك بنجاح فى الكورس'
-            );
-        
+        return $this->response(
+            message : 'تم الاشتراك بنجاح فى الكورس'
+        );
+
     }
 
 

@@ -4,11 +4,15 @@ namespace App\Http\Controllers\Api\Student\V1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{Course , Lesson  , StudentLesson  , LessonFile , StudentExam , Exam , CourseStudent };
+use App\Models\{Course , Lesson  , StudentLesson  , LessonFile  , Unit , StudentExam , Exam , CourseStudent };
 use App\Traits\Api\GeneralResponse;
 use App\Http\Resources\Api\Student\V1\Lessons\LessonResource;
 use App\Http\Resources\Api\Student\V1\Courses\ExamResource;
 use Auth;
+use App\Http\Resources\Api\Student\V1\Courses\CourseResource;
+use App\Http\Resources\Api\Student\V1\Courses\CourseUnitResource;
+use App\Http\Resources\Api\Student\V1\Courses\Units\UnitLessonResource;
+use App\Http\Resources\Api\Student\V1\Courses\Units\Lessons\VideoResource;
 class LessonController extends Controller
 {
 
@@ -33,12 +37,39 @@ class LessonController extends Controller
     }
 
 
+    public function show(Course $course , Unit $unit ,  Lesson $lesson )
+    {
+
+        $is_user = false;
+        if (Auth::guard('student')->check()) {
+            $is_user = true;
+            $student = Auth::guard('student')->user();
+            $course['dose_user_subscribed'] = CourseStudent::where('student_id' , $student->id )->where('course_id' , $course->id )
+            ->first() ? true : false ;
+        } else {
+            $course['dose_user_subscribed'] = false ;
+        }
+
+        $data = [
+            'course' => new CourseResource($course)  , 
+            'unit' => new CourseUnitResource($unit) , 
+            'lesson' => new UnitLessonResource($lesson), 
+            'videos' => VideoResource::collection($lesson->videos) , 
+        ];
+
+
+        return $this->response(
+            data : $data , 
+        );
+        
+    }
+
+
     /**
      * Display the specified resource.
      */
-    public function show(Course $course , Lesson $lesson )
+    public function show_video(Course $course , Unit $unit ,  Lesson $lesson )
     {
-
 
         // we need first to check if this lesson related to this course or not
 

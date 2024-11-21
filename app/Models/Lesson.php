@@ -34,4 +34,10 @@ class Lesson extends Model
     }
 
 
+    public function videos()
+    {
+        return $this->hasMany(LessonVideo::class , 'lesson_id');
+    }
+
+
 }

@@ -53,7 +53,9 @@ Route::group(['prefix' => 'student/v1'  , 'middleware' => ['locale'] ], function
     Route::get('/teachers/{teacher}' , [TeacherController::class , 'show'] ); 
     Route::get('/courses' , [CourseController::class , 'index'] );
     Route::get('/courses/{course}' , [CourseController::class , 'show'] );
-    Route::get('/courses/{course}/lessons/{lesson}' , [LessonController::class , 'show'] );
+    Route::get('/courses/{course}/units' , [CourseController::class , 'units'] ); // new
+    Route::get('/courses/{course}/units/{unit}/lessons' , [CourseController::class , 'unit_lessons'] ); // new
+    Route::get('/courses/{course}/units/{unit}/lessons/{lesson}/videos' , [LessonController::class , 'show'] );
     Route::get('/logo' , [SettingController::class , 'logo'] );
     Route::get('/universities' , [UniversityController::class , 'index'] );
 

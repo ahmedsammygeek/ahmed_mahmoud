@@ -26,7 +26,9 @@ use App\Models\StudentExam;
 use App\Models\StudentExamAnswer;
 use App\Models\Attendance;
 use App\Models\CourseStudent;
+use App\Models\LessonVideo;
 use App\Models\Announcement;
+use App\Models\Lesson;
 use DB;
 use Mail;
 use App\Notifications\WelcomeNotification;
@@ -40,6 +42,47 @@ class TestController extends Controller
      */
     public function index()
     {  
+
+        dd('ff');
+
+
+        // $lessons = Lesson::get();
+
+        // foreach ($lessons as $lesson) {
+
+        //     $video1 = new LessonVideo;
+        //     $video1->setTranslation('title' , 'ar' , 'الفديو الاول' );
+        //     $video1->setTranslation('title' , 'en' , 'first video' );
+        //     $video1->user_id = $lesson->user_id;
+        //     $video1->lesson_id = $lesson->id;
+        //     $video1->is_active = $lesson->is_active;
+        //     $video1->allowed_views = $lesson->allowed_views;
+        //     $video1->lesson_mins = $lesson->lesson_mins;
+        //     $video1->lesson_video_link = $lesson->lesson_video_link;
+        //     $video1->lesson_video_driver = $lesson->lesson_video_driver;
+        //     $video1->is_free = $lesson->is_free;
+        //     $video1->video_id = $lesson->video_id;
+        //     $video1->save();
+
+
+
+        //     $video2 = new LessonVideo;
+        //     $video2->setTranslation('title' , 'ar' , 'الفديو الاول' );
+        //     $video2->setTranslation('title' , 'en' , 'first video' );
+        //     $video2->user_id = $lesson->user_id;
+        //     $video2->lesson_id = $lesson->id;
+        //     $video2->is_active = $lesson->is_active;
+        //     $video2->allowed_views = $lesson->allowed_views;
+        //     $video2->lesson_mins = $lesson->lesson_mins;
+        //     $video2->lesson_video_link = $lesson->lesson_video_link;
+        //     $video2->lesson_video_driver = $lesson->lesson_video_driver;
+        //     $video2->is_free = $lesson->is_free;
+        //     $video2->video_id = $lesson->video_id;
+        //     $video2->save();
+        // }
+
+
+        dd('ff');
 
         $student = Student::find(36);
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\Api\Student\V1\Lessons;
+namespace App\Http\Resources\Api\Student\V1\Courses\Units\Lessons;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -8,7 +8,7 @@ use App\Http\Resources\Api\Student\V1\Exams\ExamResource;
 use App\Http\Resources\Api\Student\V1\Library\LessonFileResource;
 use Auth;
 use App\Models\{CourseStudent , Setting };
-class LessonResource extends JsonResource
+class VideoResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -20,6 +20,7 @@ class LessonResource extends JsonResource
         $settings = Setting::first();
         $student = Auth::guard('student')->user();
         $student_course = CourseStudent::where('student_id' , $student->id )->where('course_id' , $this->unit?->course_id )->latest()->first();
+
 
 
         return [
@@ -38,9 +39,8 @@ class LessonResource extends JsonResource
             'lesson_mins_to_be_mark_as_viewed' => $settings->default_seen_mints ,
             'force_headphone' =>  $student_course ? (boolean)$student_course->force_headphones : true , 
             'force_face_detecting' =>  $student_course ? (boolean)$student_course->force_face_detecting : true , 
-            'files' => LessonFileResource::collection($this->files) , 
-            'quizzes' =>  ExamResource::collection($this->exams)
-
+            // 'files' => LessonFileResource::collection($this->files) , 
+            // 'quizzes' =>  ExamResource::collection($this->exams)
         ];
     }
 }

@@ -17,7 +17,7 @@ class CourseUnitResource extends JsonResource
         return [
             'id' => $this->id , 
             'title' => $this->title , 
-            'lessons' => UnitLessonResource::collection($this->lessons)
+            // 'lessons' => UnitLessonResource::collection($this->lessons)
         ];
     }
 }
