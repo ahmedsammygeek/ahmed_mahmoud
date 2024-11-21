@@ -56,6 +56,8 @@ Route::group(['prefix' => 'student/v1'  , 'middleware' => ['locale'] ], function
     Route::get('/courses/{course}/units' , [CourseController::class , 'units'] ); // new
     Route::get('/courses/{course}/units/{unit}/lessons' , [CourseController::class , 'unit_lessons'] ); // new
     Route::get('/courses/{course}/units/{unit}/lessons/{lesson}/videos' , [LessonController::class , 'show'] );
+    Route::get('/courses/{course}/units/{unit}/lessons/{lesson}/videos/{video}' , [LessonController::class , 'show_video'] );
+
     Route::get('/logo' , [SettingController::class , 'logo'] );
     Route::get('/universities' , [UniversityController::class , 'index'] );
 

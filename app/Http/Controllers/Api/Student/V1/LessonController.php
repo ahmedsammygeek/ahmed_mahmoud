@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Student\V1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{Course , Lesson  , StudentLesson  , LessonFile  , Unit , StudentExam , Exam , CourseStudent };
+use App\Models\{Course , Lesson  , StudentLesson  , LessonFile  , LessonVideo , Unit , StudentExam , Exam , CourseStudent };
 use App\Traits\Api\GeneralResponse;
 use App\Http\Resources\Api\Student\V1\Lessons\LessonResource;
 use App\Http\Resources\Api\Student\V1\Courses\ExamResource;
@@ -68,8 +68,10 @@ class LessonController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show_video(Course $course , Unit $unit ,  Lesson $lesson )
+    public function show_video(Course $course , Unit $unit ,  Lesson $lesson  , LessonVideo $video)
     {
+
+        // dd(Auth::guard('student')->id());
 
         // we need first to check if this lesson related to this course or not
 
@@ -146,15 +148,12 @@ class LessonController extends Controller
                             message : 'you did not passed the exam for the previous lesson please pass it first then you can watch this lesson '  , 
                         );
                     }
-
                 } else {
                     return $this->response(
                         message : 'you need to pass the previous lesson exams first to lock this lesson'  , 
                     );
                 }
-
             }
-
         }
 
 
