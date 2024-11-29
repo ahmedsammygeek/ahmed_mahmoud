@@ -39,7 +39,8 @@ class LessonController extends Controller
 
     public function show(Course $course , Unit $unit ,  Lesson $lesson )
     {
-
+        // dd('ff');
+        
         $is_user = false;
         if (Auth::guard('student')->check()) {
             $is_user = true;
@@ -70,7 +71,6 @@ class LessonController extends Controller
      */
     public function show_video(Course $course , Unit $unit ,  Lesson $lesson  , LessonVideo $video)
     {
-
         // dd(Auth::guard('student')->id());
 
         // we need first to check if this lesson related to this course or not

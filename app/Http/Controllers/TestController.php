@@ -43,6 +43,9 @@ class TestController extends Controller
     public function index()
     {  
 
+
+        dd(Hash::make(90909090));
+
         dd('ff');
 
 
