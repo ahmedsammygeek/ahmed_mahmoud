@@ -173,10 +173,11 @@ class LessonController extends Controller
             $student_course = CourseStudent::where('student_id' , $student->id )->where('course_id' , $course->id )->first();
 
             $student_lesson = StudentLesson::where('student_id' , $student->id )->where('lesson_id' , $lesson->id )->first();
-            $lesson['remains_views'] = $student_lesson ? $student_lesson->remains_views : 10;
-            $lesson['show_phone_on_viedo'] = $student_course ? (bool)$student_lesson->show_phone_on_viedo : false;
-            $lesson['speak_user_phone'] = $student_course ? (bool)$student_lesson->speak_user_phone : false;
+            // $lesson['remains_views'] = $student_lesson ? $student_lesson->remains_views : 10;
+            // $lesson['show_phone_on_viedo'] = $student_course ? (bool)$student_lesson->show_phone_on_viedo : false;
+            // $lesson['speak_user_phone'] = $student_course ? (bool)$student_lesson->speak_user_phone : false;
             $data['lesson'] = new LessonResource($lesson);
+            $data['video'] = new VideoResource($video);
 
             return $this->response(
                 data : $data , 
