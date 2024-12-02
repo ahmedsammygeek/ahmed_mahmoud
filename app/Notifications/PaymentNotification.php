@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Storage;
-class WelcomeNotification extends Notification
+class PaymentNotification extends Notification
 {
     use Queueable;
 
@@ -29,8 +29,6 @@ class WelcomeNotification extends Notification
         return ['database'];
     }
 
-
-
     /**
      * Get the array representation of the notification.
      *
@@ -39,12 +37,12 @@ class WelcomeNotification extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'content' => 'welcome in our app' , 
-            'type' => 'text' ,
-            'course_id' => null , 
-            'lesson_id' => null , 
-            'video_id' => null , 
+            'content' => 'يجب تسديد المبلغ امتبقى لمضان عدم اغلاق الكورس ' , 
+            'type' => 'payment' ,
+            'course_id' => 17 , 
             'exam_id' => null , 
+            'lesson_id' => null , 
+            'video_id' => null ,
             'image' => Storage::url('notifications/notifications.webp') , 
         ];
     }

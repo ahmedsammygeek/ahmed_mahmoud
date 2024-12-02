@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Storage;
-class WelcomeNotification extends Notification
+class NewVideoAddedNotification extends Notification
 {
     use Queueable;
 
@@ -30,7 +30,6 @@ class WelcomeNotification extends Notification
     }
 
 
-
     /**
      * Get the array representation of the notification.
      *
@@ -38,12 +37,12 @@ class WelcomeNotification extends Notification
      */
     public function toArray(object $notifiable): array
     {
-        return [
-            'content' => 'welcome in our app' , 
-            'type' => 'text' ,
-            'course_id' => null , 
-            'lesson_id' => null , 
-            'video_id' => null , 
+       return [
+            'content' => 'a new video has been  added to your course , course name' , 
+            'type' => 'new_video' ,
+            'course_id' => 17 , 
+            'lesson_id' => 52 , 
+            'video_id' => 103 , 
             'exam_id' => null , 
             'image' => Storage::url('notifications/notifications.webp') , 
         ];

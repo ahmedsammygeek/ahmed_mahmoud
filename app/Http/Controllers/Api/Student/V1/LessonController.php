@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Student\V1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{Course , Lesson  , StudentLesson  , LessonFile  , LessonVideo , Unit , StudentExam , Exam , CourseStudent };
+use App\Models\{Course , Lesson  , StudentLesson  , LessonFile   , LessonVideo , Unit , StudentExam , Exam , CourseStudent };
 use App\Traits\Api\GeneralResponse;
 use App\Http\Resources\Api\Student\V1\Lessons\LessonResource;
 use App\Http\Resources\Api\Student\V1\Courses\ExamResource;
@@ -13,13 +13,14 @@ use App\Http\Resources\Api\Student\V1\Courses\CourseResource;
 use App\Http\Resources\Api\Student\V1\Courses\CourseUnitResource;
 use App\Http\Resources\Api\Student\V1\Courses\Units\UnitLessonResource;
 use App\Http\Resources\Api\Student\V1\Courses\Units\Lessons\VideoResource;
+use App\Http\Resources\Api\Student\V1\Lessons\LessonFileResource;
 class LessonController extends Controller
 {
 
     use GeneralResponse;
 
 
-    public function watched(Course $course , Lesson $lesson )
+    public function watched(Course $course , Lesson $lesson , LessonVideo $video )
     {
         $student = Auth::guard('student')->user();
         $student_lesson = StudentLesson::where('student_id' , $student->id )->where('lesson_id' , $lesson->id )->first();
@@ -31,7 +32,7 @@ class LessonController extends Controller
         }
 
         return $this->response(
-            message : 'lesson marked as watched successfully'  , 
+            message : 'video marked as watched successfully'  , 
         );
 
     }
@@ -171,13 +172,8 @@ class LessonController extends Controller
         if ($student_lesson->remains_views > 0 ) {
 
             $student_course = CourseStudent::where('student_id' , $student->id )->where('course_id' , $course->id )->first();
-
-            $student_lesson = StudentLesson::where('student_id' , $student->id )->where('lesson_id' , $lesson->id )->first();
-            // $lesson['remains_views'] = $student_lesson ? $student_lesson->remains_views : 10;
-            // $lesson['show_phone_on_viedo'] = $student_course ? (bool)$student_lesson->show_phone_on_viedo : false;
-            // $lesson['speak_user_phone'] = $student_course ? (bool)$student_lesson->speak_user_phone : false;
-            $data['lesson'] = new LessonResource($lesson);
             $data['video'] = new VideoResource($video);
+            $data['files'] = LessonFileResource::collection($lesson->files);
 
             return $this->response(
                 data : $data , 

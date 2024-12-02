@@ -32,9 +32,15 @@ use App\Models\Lesson;
 use DB;
 use Mail;
 use App\Notifications\WelcomeNotification;
-use App\Notifications\NewCourseLessonAddedNotification;
+// use App\Notifications\NewCourseLessonAddedNotification;
 use App\Mail\MyTestEmail;
 use Foodics\OAuth2\Client\Provider\Foodics;
+
+use App\Notifications\NewCourseLessonAddedNotification;
+use App\Notifications\NewVideoAddedNotification;
+use App\Notifications\NewCourseAddedNotification;
+use App\Notifications\PaymentNotification;
+use App\Notifications\ExamNotification;
 class TestController extends Controller
 {
     /**
@@ -44,9 +50,23 @@ class TestController extends Controller
     {  
 
 
-        dd(Hash::make(90909090));
+        $student = Student::find(1);
 
-        dd('ff');
+
+        // $student->notify(new WelcomeNotification);
+        $student->notify(new NewCourseLessonAddedNotification);
+        $student->notify(new NewVideoAddedNotification);
+        $student->notify(new NewCourseAddedNotification);
+        $student->notify(new PaymentNotification);
+        $student->notify(new ExamNotification);
+
+
+        dd($student);
+
+
+        // dd(Hash::make(90909090));
+
+        // dd('ff');
 
 
         // $lessons = Lesson::get();

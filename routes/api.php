@@ -70,7 +70,7 @@ Route::group(['prefix' => 'student/v1'  , 'middleware' => ['locale'] ], function
             Route::post('/logout' , [LogoutController::class , 'index'] ); 
             Route::patch('/profile' , [ProfileController::class , 'update'] ); 
             Route::delete('/profile' , [ProfileController::class , 'delete'] ); 
-            Route::post('/courses/{course}/lessons/{lesson}/watched' , [LessonController::class , 'watched'] ); 
+            Route::post('/courses/{course}/lessons/{lesson}/videos/{video}/watched' , [LessonController::class , 'watched'] ); 
             Route::get('exams/{exam}' , [ExamController::class , 'show'] );
             Route::get('exams/{exam}/result' , [ExamController::class , 'result'] );
             Route::post('exams/{exam}/answer' , [ExamController::class , 'answer'] );
