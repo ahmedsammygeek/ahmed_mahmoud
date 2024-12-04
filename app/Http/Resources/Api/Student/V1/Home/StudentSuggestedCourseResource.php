@@ -20,9 +20,9 @@ class StudentSuggestedCourseResource extends JsonResource
             'image' => Storage::url('courses/'.$this->image) , 
             'total_mins' => mt_rand(20 , 140 ) , 
             'price' => $this->price , 
-            'allowed' => false , 
+            'allowed' => $this->allowed , 
             'dose_user_subscribed' => false , 
-            'not_allow_message' => null
+            'not_allow_message' => $this->not_allow_message
         ];
     }
 }

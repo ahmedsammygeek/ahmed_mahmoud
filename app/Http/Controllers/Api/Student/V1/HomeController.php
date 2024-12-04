@@ -58,11 +58,6 @@ class HomeController extends Controller
             $announcements = [];
         }
 
-        // dd($is_user);
-
-        // dd($announcements);
-
-
         $slides = Slide::active()->latest()->get();
         $teachers = Teacher::suggested()->get();
 

@@ -23,7 +23,7 @@ class StudentCourseResource extends JsonResource
             'allowed' => (bool)$this->allow , 
             'force_headphones' => (bool)$this->force_headphones , 
             'dose_user_subscribed' => true , 
-            'not_allow_message' => $this->not_allow_message
+            'not_allow_message' => (string)$this->not_allow_message
         ];
     }
 }

@@ -28,13 +28,18 @@ class SearchController extends Controller
             $student = Auth::guard('student')->user();
 
             $courses->map(function($course) use ($student) {
-                $course->dose_user_subscribed = CourseStudent::where('student_id' , $student->id )->where('course_id' , $course->id )
-                ->first() ? true : false ;
+                $course_student = CourseStudent::where('student_id' , $student->id )->where('course_id' , $course->id )
+                ->first();
+                $course->dose_user_subscribed = $course_student ? true : false ;
+            $course->allowed = $course_student ? (bool)$course_student->allow : true ;
+            $course->not_allow_message = $course_student ? (bool)$course_student->disable_reason : '';
                 return $course;
             });
         } else {
             $courses->map(function($course)  {
                 $course->dose_user_subscribed = false ;
+                $course->allowed = true ;
+                $course->not_allow_message = '' ;
                 return $course;
             });
         }

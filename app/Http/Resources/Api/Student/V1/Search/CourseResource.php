@@ -23,7 +23,9 @@ class CourseResource extends JsonResource
             'total_mins' => mt_rand(70  , 190) , 
             'rate' => 4.9 , 
             'students_count' => mt_rand(300 , 9000) , 
-            'dose_user_subscribed' => $this->dose_user_subscribed
+            'dose_user_subscribed' => $this->dose_user_subscribed, 
+            'allowed' => $this->allowed , 
+            'not_allow_message' => $this->not_allow_message , 
         ];
     }
 }
