@@ -28,6 +28,8 @@ class UpdateStudentRequest extends FormRequest
             'grade' => 'required' , 
             'educational_system_id' => 'required' ,
             'student_type' => 'required' , 
+            'is_banned' => 'nullable' , 
+            'banning_message' => 'nullable' , 
         ];
     }
 }

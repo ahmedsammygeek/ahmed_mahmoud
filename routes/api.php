@@ -30,7 +30,7 @@ use App\Http\Controllers\Api\Student\V1\PaymentController;
 use App\Http\Controllers\Api\Student\V1\UniversityController;
 use App\Http\Controllers\Api\Student\V1\LibraryController;
 
-Route::group(['prefix' => 'student/v1'  , 'middleware' => ['locale'] ], function() {
+Route::group(['prefix' => 'student/v1'  , 'middleware' => ['locale' , 'check_if_blocked' ] ], function() {
 
     Route::post('/register' , [RegisterController::class , 'index'] );    
     Route::post('/login' , [LoginController::class , 'index'] );   

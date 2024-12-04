@@ -18,6 +18,7 @@ class StoreStudentAction
 
     public function execute($data)
     {
+
         $student = new Student;
         $student->name = $data['name'];
         $student->password = array_key_exists('password' , $data ) ? $data['password'] : null ;
@@ -29,6 +30,7 @@ class StoreStudentAction
         $student->student_type = $data['student_type'];
         $student->user_id = Auth::id();
         $student->code = time().mt_rand(100 ,  1000);
+        $student->is_banned = array_key_exists('is_banned', $data) ? 1 : 0;
         $student->save();
         return $student;
     }

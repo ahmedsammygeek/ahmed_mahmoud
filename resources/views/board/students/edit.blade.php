@@ -88,6 +88,22 @@
 								@enderror
 							</div>
 						</div>
+
+						<div class="row mb-3">
+                            <label class="col-lg-2 col-form-label "> حظر الطالبب </label>
+                            <div class="col-lg-10">
+                                <label class="form-check form-switch">
+                                    <input type="checkbox" value='1' class="form-check-input" name="is_banned"  @checked($student->is_banned) >
+                                    <span class="form-check-label"> نعم </span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-lg-2 col-form-label "> رساله الحظر </label>
+                            <div class="col-lg-10">
+                                <input type="text" name="banning_message" value="{{ $student->banning_message }}" class="form-control @error('banning_message')  is-invalid @enderror" required placeholder="">
+                            </div>
+                        </div>
 					</div>
 				</div>
 

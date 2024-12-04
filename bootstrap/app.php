@@ -24,7 +24,8 @@ return Application::configure(basePath: dirname(__DIR__))
         'localeSessionRedirect'   => \Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect::class,
         'localeCookieRedirect'    => \Mcamara\LaravelLocalization\Middleware\LocaleCookieRedirect::class,
         'localeViewPath'          => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath::class , 
-        'locale' =>  \App\Http\Middleware\SetLocalMiddleware::class
+        'locale' =>  \App\Http\Middleware\SetLocalMiddleware::class , 
+        'check_if_blocked' =>  \App\Http\Middleware\redirectIfBlockedMiddleware::class , 
     ]);
 })
 ->withExceptions(function (Exceptions $exceptions) {

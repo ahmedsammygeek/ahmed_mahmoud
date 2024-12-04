@@ -17,6 +17,8 @@ class UpdateStudentAction
         $student->mobile = $data['mobile'];
         $student->guardian_mobile = $data['guardian_mobile'];
         $student->student_type = $data['student_type'];
+        $student->banning_message = $data['banning_message'];
+        $student->is_banned = array_key_exists('is_banned', $data) ? 1 : 0;
         $student->save();
         return $student;
     }
