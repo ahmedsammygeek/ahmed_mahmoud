@@ -20,7 +20,7 @@ class VideoResource extends JsonResource
         $settings = Setting::first();
         $student = Auth::guard('student')->user();
         if ($student) {
-            $student_course = CourseStudent::where('student_id' , $student->id )->where('course_id' , $this->unit?->course_id )->latest()->first();
+            $student_course = CourseStudent::where('student_id' , $student->id )->where('course_id' , $this->lesson?->unit?->course_id )->latest()->first();
         } else {
             $student_course = null;
         }
