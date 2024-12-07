@@ -163,6 +163,8 @@ class LessonController extends Controller
 
         $student_lesson = StudentLesson::where('student_id' , $student->id )->where('lesson_id' , $lesson->id )->first();
 
+        // dd($student_lesson , $student->id , $lesson->id );
+
         if (!$student_lesson || ($student_lesson->allowed == 0) ) {
             return $this->response(
                 message : 'you had been prevented to watch this lesson'  , 

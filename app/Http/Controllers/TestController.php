@@ -50,23 +50,135 @@ class TestController extends Controller
     {  
 
 
-        $student = Student::find(1);
+
+        // $courses = Course::get();
+
+        // foreach ($courses as $course) {
+        //     $unit = $course->units()->first();
+        //     $lesson = new Lesson;
+        //     $lesson->user_id = 1;
+        //     $lesson->unit_id = $unit->id;
+        //     $lesson->setTranslation('title' , 'ar' , 'درس جديد مجانى للتجربه');
+        //     $lesson->setTranslation('title' , 'en' , 'new lesson for testing');
+        //     $lesson->is_active = 1;
+        //     $lesson->allowed_views = 40;
+        //     $lesson->save();
+        //     $video = new LessonVideo;
+        //     $video->lesson_id = $lesson->id;
+        //     $video->setTranslation('title' , 'ar' , 'فديو جديد للتجربه' );
+        //     $video->setTranslation('title' , 'en' , 'new video for test' );
+        //     $video->user_id = 1;
+        //     $video->allowed_views = 40;
+        //     $video->lesson_mins = 26;
+        //     $video->lesson_video_driver = 'youtube';
+        //     $video->video_id = 'QWcm6dvt8j0';
+        //     $video->lesson_video_link = 'https://www.youtube.com/watch?v=QWcm6dvt8j0';
+        //     $video->is_free = 1;
+        //     $video->is_active = 1;
+        //     $video->save();
+        // }
+
+
+
+        // $students = CourseStudent::whereIn('course_id' , [5])->pluck('student_id')->toArray();
+
+
+
+
+        // foreach ($students as $student) {
+
+        //     $new_view = new StudentLesson;
+        //     $new_view->student_id = $student;
+        //     $new_view->lesson_id = 37 ;
+        //     $new_view->user_id = 1;
+        //     $new_view->allowed = 1;
+        //     $new_view->total_views_till_now = 0;
+        //     $new_view->allowed_views = 40;
+        //     $new_view->remains_views = 40;
+        //     $new_view->save();
+        // }
+
+
+        // $students = CourseStudent::whereIn('course_id' , [4])->pluck('student_id')->toArray();
+        // foreach ($students as $student) {
+
+        //     $new_view = new StudentLesson;
+        //     $new_view->student_id = $student;
+        //     $new_view->lesson_id = 28 ;
+        //     $new_view->user_id = 1;
+        //     $new_view->allowed = 1;
+        //     $new_view->total_views_till_now = 0;
+        //     $new_view->allowed_views = 40;
+        //     $new_view->remains_views = 40;
+        //     $new_view->save();
+
+        // }
+
+
+        // $students = CourseStudent::whereIn('course_id' , [3])->pluck('student_id')->toArray();
+        // foreach ($students as $student) {
+
+        //     $new_view = new StudentLesson;
+        //     $new_view->student_id = $student;
+        //     $new_view->lesson_id = 19 ;
+        //     $new_view->user_id = 1;
+        //     $new_view->allowed = 1;
+        //     $new_view->total_views_till_now = 0;
+        //     $new_view->allowed_views = 40;
+        //     $new_view->remains_views = 40;
+        //     $new_view->save();
+
+        // }
+
+        // $students = CourseStudent::whereIn('course_id' , [2])->pluck('student_id')->toArray();
+        // foreach ($students as $student) {
+
+        //     $new_view = new StudentLesson;
+        //     $new_view->student_id = $student;
+        //     $new_view->lesson_id = 10 ;
+        //     $new_view->user_id = 1;
+        //     $new_view->allowed = 1;
+        //     $new_view->total_views_till_now = 0;
+        //     $new_view->allowed_views = 40;
+        //     $new_view->remains_views = 40;
+        //     $new_view->save();
+
+        // }
+
+        // $students = CourseStudent::whereIn('course_id' , [1])->pluck('student_id')->toArray();
+        // foreach ($students as $student) {
+
+        //     $new_view = new StudentLesson;
+        //     $new_view->student_id = $student;
+        //     $new_view->lesson_id = 1 ;
+        //     $new_view->user_id = 1;
+        //     $new_view->allowed = 1;
+        //     $new_view->total_views_till_now = 0;
+        //     $new_view->allowed_views = 40;
+        //     $new_view->remains_views = 40;
+        //     $new_view->save();
+
+        // }
+
+
+
+        // $student = Student::find(1);
 
 
         // $student->notify(new WelcomeNotification);
-        $student->notify(new NewCourseLessonAddedNotification);
-        $student->notify(new NewVideoAddedNotification);
-        $student->notify(new NewCourseAddedNotification);
-        $student->notify(new PaymentNotification);
-        $student->notify(new ExamNotification);
+        // $student->notify(new NewCourseLessonAddedNotification);
+        // $student->notify(new NewVideoAddedNotification);
+        // $student->notify(new NewCourseAddedNotification);
+        // $student->notify(new PaymentNotification);
+        // $student->notify(new ExamNotification);
 
 
-        dd($student);
+        // dd($student);
 
 
         // dd(Hash::make(90909090));
 
-        // dd('ff');
+        dd('ff');
 
 
         // $lessons = Lesson::get();
@@ -105,14 +217,14 @@ class TestController extends Controller
         // }
 
 
-        dd('ff');
+        // dd('ff');
 
-        $student = Student::find(36);
+        // $student = Student::find(36);
 
-        $announcements = Announcement::with('publishedForStudents')
-        ->whereDoesntHave('views' , function($query) use($student) {
-            $query->where('student_id' , $student->id );
-        })->where('is_active' , 1 )->get();
+        // $announcements = Announcement::with('publishedForStudents')
+        // ->whereDoesntHave('views' , function($query) use($student) {
+        //     $query->where('student_id' , $student->id );
+        // })->where('is_active' , 1 )->get();
 
 
         // foreach ($announcements as $announcement) {
