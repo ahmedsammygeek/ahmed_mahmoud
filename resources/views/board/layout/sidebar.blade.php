@@ -203,6 +203,10 @@ switch (request()->segment(3)) {
 					<ul class="nav-group-sub collapse">
 						<li class="nav-item"><a href="{{ route('board.students.create') }}" class="nav-link "> @lang('students.add new student') </a></li>
 						<li class="nav-item"><a href="{{ route('board.students.index') }}" class="nav-link"> @lang('students.show all students') </a></li>
+
+						<li class="nav-item"><a href="{{ route('board.students.courses.create') }}" class="nav-link"> 
+							add courses
+						 </a></li>
 					</ul>
 				</li>
 				<li class="nav-item nav-item-submenu">

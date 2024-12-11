@@ -52,7 +52,7 @@ class Student extends Authenticatable
 
     public function courses()
     {
-        return $this->hasMany(CourseStudent::class , 'student_id');
+        return $this->hasMany(CourseStudent::class , 'course_id');
     }
 
     public function groups()
@@ -63,6 +63,12 @@ class Student extends Authenticatable
     public function lessons()
     {
         return $this->hasMany(StudentLesson::class , 'student_id');
+    }
+
+
+    public function units()
+    {
+        return $this->hasMany(StudentUnit::class , 'student_id');
     }
 
 

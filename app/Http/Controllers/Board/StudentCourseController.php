@@ -48,4 +48,10 @@ class StudentCourseController extends Controller
         return redirect()->back()->with('success' , trans('courses.updated successfully' ) );
     }
 
+
+    public function create()  {
+        
+        return view('board.students.courses.create');
+    }
+
 }

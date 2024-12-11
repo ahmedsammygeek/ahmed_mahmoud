@@ -3,7 +3,7 @@
 namespace App\Livewire\Board\Students;
 
 use Livewire\Component;
-use App\Models\{Course , CourseStudent , Group , StudentLesson , StudentInstallment , StudentPayment };
+use App\Models\{Course , CourseStudent , Unit  , StudentUnit , Group , StudentLesson , StudentInstallment , StudentPayment };
 use Livewire\Attributes\Computed;
 use Auth;
 use Carbon\Carbon;
@@ -23,6 +23,11 @@ class AddNewCourseToStudent extends Component
     #[Validate('required')]
     public $paid ;
 
+    #[Validate('required')]
+    public $student_units ;
+
+
+
     public $installment_months = 1;
     public $allow = true;
 
@@ -33,6 +38,13 @@ class AddNewCourseToStudent extends Component
     public function groups()
     {
         return Group::where('course_id' , $this->course_id )->get();
+    }
+
+
+    #[Computed]
+    public function units()
+    {
+        return Unit::where('course_id' , $this->course_id )->get();
     }
 
 
@@ -52,6 +64,9 @@ class AddNewCourseToStudent extends Component
     public function save()
     {
         $this->validate(); 
+
+        $user_id = Auth::id();
+
         $student_course = new CourseStudent;
         $student_course->user_id = Auth::id();
         $student_course->student_id = $this->student->id;
@@ -59,10 +74,24 @@ class AddNewCourseToStudent extends Component
         $student_course->group_id = $this->group_id;
         $student_course->save();
 
+        // not we need to add units to user
+
+        $student_units = [];
+        foreach ($this->student_units as $student_unit) {
+            
+            $student_units[] = new StudentUnit([
+                'student_id' => $this->student->id , 
+                'user_id' => Auth::id() , 
+                'unit_id' => $student_unit , 
+                'is_allowed' => 1 , 
+            ]);
+        }
+
+        $this->student->units()->saveMany($student_units);
+
         if ($this->allow) {
             $course = Course::find($this->course_id);
-            $course_lessons = $course->lessons()->pluck('lessons.id')->toArray();
-            $user_id = Auth::id();
+            $course_lessons = $course->lessons()->whereIn('lessons.unit_id' , $this->student_units )->pluck('lessons.id')->toArray();
             $student_lessons = [];
             foreach ($course_lessons as $course_lesson) {
                 $student_lessons[] = new StudentLesson([

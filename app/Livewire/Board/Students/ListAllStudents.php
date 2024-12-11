@@ -89,9 +89,7 @@ class ListAllStudents extends Component
         })
         ->when($this->course_id , function($query){
             $query->whereHas('courses' , function($query){
-                $query->whereHas('CourseTeacher' , function($query){
-                    $query->where('course_id' , $this->course_id );
-                });
+                $query->where('course_id' , $this->course_id );
             });
         })
         ->when($this->teacher_id , function($query){

@@ -69,7 +69,6 @@ Route::group(
                 Route::resource('universities', UniversityController::class );
                 Route::resource('faculties', FacultyController::class );
                 Route::resource('faculty_levels', FacultyLevelController::class );
-
                 Route::resource('courses.units', CourseUnitController::class );
                 Route::resource('courses.units.lessons', LessonController::class);
                 Route::resource('students.courses' , StudentCourseController::class);
@@ -78,9 +77,10 @@ Route::group(
                 Route::resource('students.payments', StudentPaymentController::class);
                 Route::resource('students.exams', StudentExamController::class);
                 Route::resource('students.financial_reports', StudentFinancialReportController::class);
-
                 Route::resource('installments', InstallmentController::class);
                 Route::resource('payments', PaymentController::class);
+
+                Route::get('/students/courses/create' , [StudentCourseController::class , 'create'] )->name('students.courses.create');
 
                 Route::resource('questions', QuestionController::class);
                 Route::resource('exams', ExamController::class );

@@ -24,4 +24,5 @@
     <td>
         <input type="text" class='form-control'  wire:model.live='remains_views' >
     </td>
+    
 </tr>

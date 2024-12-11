@@ -29,6 +29,22 @@
                         </div>
 
                         <div class="row mb-3">
+                            <label class="col-form-label col-sm-3"> الاجزاء </label>
+                            <div class="col-sm-9">
+                                <select wire:model.live='student_units' multiple="multiple" class="form-select form-control @error('student_units') is-invalid @enderror " id="">
+                                    <option value=""></option>
+                                    @foreach ($this->units as $unit)
+                                    <option value="{{ $unit->id }}"> {{ $unit->title }} </option>
+                                    @endforeach
+                                </select>
+                                @error('student_units')
+                                <p class='is-invalid text-danger'> {{ $message }} </p>
+                                @enderror 
+                            </div>
+                        </div>
+
+
+                        <div class="row mb-3">
                             <label class="col-form-label col-sm-3"> @lang('students.group') </label>
                             <div class="col-sm-9">
                                 <select wire:model.live='group_id' class="form-select form-control @error('group_id') is-invalid @enderror " id="">
