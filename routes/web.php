@@ -38,6 +38,11 @@ use App\Http\Controllers\Board\UniversityController;
 use App\Http\Controllers\Board\FacultyController;
 use App\Http\Controllers\Board\FacultyLevelController;
 use App\Http\Controllers\Board\StudentFinancialReportController;
+use App\Http\Controllers\Board\VideoController;
+use App\Http\Controllers\Board\StudentTrashController;
+use App\Http\Controllers\Board\CourseTrashController;
+use App\Http\Controllers\Board\LessonTrashController;
+use App\Http\Controllers\Board\StudentCourseTrashController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\ApplicationController;
 
@@ -79,8 +84,14 @@ Route::group(
                 Route::resource('students.financial_reports', StudentFinancialReportController::class);
                 Route::resource('installments', InstallmentController::class);
                 Route::resource('payments', PaymentController::class);
+                Route::resource('videos', VideoController::class);
 
                 Route::get('/students/courses/create' , [StudentCourseController::class , 'create'] )->name('students.courses.create');
+                Route::get('/students/courses/allow/units' , [StudentCourseController::class , 'allow_units'] )->name('students.courses.allow.units');
+
+                Route::get('/students/courses/remove' , [StudentCourseController::class , 'remove'] )->name('students.courses.remove');
+
+                Route::get('/students/courses/allow/lessons' , [StudentCourseController::class , 'allow_lessons'] )->name('students.courses.allow.lessons');
 
                 Route::resource('questions', QuestionController::class);
                 Route::resource('exams', ExamController::class );
@@ -97,12 +108,12 @@ Route::group(
                 Route::resource('groups', GroupController::class );
                 Route::get('groups/{group}/calendar' , [GroupController::class , 'calendar'])->name('groups.calendar');
 
-                Route::get('/settings'  , [SettingController::class , 'edit'] )->name('settings.edit');
-                Route::patch('/settings'  , [SettingController::class , 'update'] )->name('settings.update');
+                Route::get('/settings' , [SettingController::class , 'edit'] )->name('settings.edit');
+                Route::patch('/settings' , [SettingController::class , 'update'] )->name('settings.update');
 
 
-                Route::post('proccess_video_uploads' , [UploadLessonVideoController::class , 'store'] )->name('proccess_video_uploads');
-                Route::patch('proccess_video_uploads' , [UploadLessonVideoController::class , 'store'] )->name('proccess_video_uploads');
+                Route::post('proccess_video_uploads', [UploadLessonVideoController::class , 'store'])->name('proccess_video_uploads');
+                Route::patch('proccess_video_uploads', [UploadLessonVideoController::class , 'store'])->name('proccess_video_uploads');
 
 
                 Route::get('/profile/edit' , [ProfileController::class , 'edit'] )->name('profile.edit');
@@ -112,6 +123,22 @@ Route::group(
 
                 Route::get('/password/edit' , [PasswordController::class , 'edit'] )->name('password.edit');
                 Route::patch('/password' , [PasswordController::class , 'update'] )->name('password.update');
+
+
+
+                Route::group(['prefix' => 'trash'], function() {
+                    
+                    Route::get('/students' , [StudentTrashController::class , 'index'])->name('trashed.students');
+                    Route::get('/courses' , [CourseTrashController::class , 'index'])->name('trashed.courses');
+                    Route::get('/lessons' , [LessonTrashController::class , 'index'])->name('trashed.lessons');
+                    Route::get('/students_courses' , [StudentCourseTrashController::class , 'index'])->name('trashed.students_courses');
+                    // Route::get('/videos' , [CourseTrashController::class , 'index'])->name('trashed.videos');
+                    // Route::get('/units' , [CourseTrashController::class , 'index'])->name('trashed.units');
+                    // Route::get('/questions' , [CourseTrashController::class , 'index'])->name('trashed.questions');
+                    // Route::get('/units' , [CourseTrashController::class , 'index'])->name('trashed.units');
+
+
+                });
 
             });
         });

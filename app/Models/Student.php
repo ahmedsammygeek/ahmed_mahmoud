@@ -100,4 +100,10 @@ class Student extends Authenticatable
         return $this->hasMany(LessonFileView::class , 'student_id');
     }
 
+
+    public function deletedBy()
+    {
+        return $this->belongsTo(User::class , 'deleted_by');
+    }
+
 }

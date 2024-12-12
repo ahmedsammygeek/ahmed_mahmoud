@@ -1,5 +1,5 @@
 @php
-$groups = $home = $settings = $teachers = $payments = $students = $educational_systems = $installments = $grades = $dashboard_notifications = $questions = $exams = $users = $courses = $slides = $faculties = $universities = $faculty_levels = '';
+$groups = $home = $settings = $teachers = $payments = $students = $educational_systems = $installments = $grades = $dashboard_notifications = $questions = $videos = $exams = $users = $courses = $slides = $faculties = $universities = $faculty_levels = '';
 
 
 
@@ -54,6 +54,9 @@ switch (request()->segment(3)) {
 	break;
 	case 'faculty_levels':
 	$faculty_levels = 'active';
+	break;
+	case 'videos':
+	$videos = 'active';
 	break;
 	default:
 	$home = 'active';
@@ -196,6 +199,16 @@ switch (request()->segment(3)) {
 					</ul>
 				</li>
 				<li class="nav-item nav-item-submenu">
+					<a href="{{ route('board.videos.index') }}" class="nav-link {{ $videos }}">
+						<i class="icon-graduation2  "></i>
+						<span> @lang('videos.videos') </span>
+					</a>
+					<ul class="nav-group-sub collapse">
+						<li class="nav-item"><a href="{{ route('board.videos.create') }}" class="nav-link "> @lang('videos.add new video') </a></li>
+						<li class="nav-item"><a href="{{ route('board.videos.index') }}" class="nav-link"> @lang('videos.show all videos') </a></li>
+					</ul>
+				</li>
+				<li class="nav-item nav-item-submenu">
 					<a href="{{ route('board.students.index') }}" class="nav-link {{ $students }}">
 						<i class="icon-users4"></i>
 						<span> @lang('students.students') </span>
@@ -206,6 +219,14 @@ switch (request()->segment(3)) {
 
 						<li class="nav-item"><a href="{{ route('board.students.courses.create') }}" class="nav-link"> 
 							add courses
+						 </a></li>
+
+						 <li class="nav-item"><a href="{{ route('board.students.courses.allow.units') }}" class="nav-link"> 
+							disable & allow courses
+						 </a></li>
+
+						 <li class="nav-item"><a href="{{ route('board.students.courses.remove') }}" class="nav-link"> 
+							delete from courses 
 						 </a></li>
 					</ul>
 				</li>

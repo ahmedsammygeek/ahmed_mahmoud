@@ -54,4 +54,20 @@ class StudentCourseController extends Controller
         return view('board.students.courses.create');
     }
 
+    public function allow_units()  {
+        
+        return view('board.students.courses.allow_units');
+    }
+
+
+    public function allow_lessons()  {
+        
+        return view('board.students.courses.allow_lessons');
+    }
+
+    public function remove()  {
+        
+        return view('board.students.courses.remove');
+    }
+
 }

@@ -58,4 +58,10 @@ return array (
   'installment_months' => 'installment months',
   'show phone on viedo' => 'show phone on viedo',
   'speak user phone' => 'speak user phone',
+  'show student installments' => 'show student installments',
+  'student installments' => 'student installments',
+  'show student exams' => 'show student exams',
+  'code' => 'code',
+  'reason' => 'reason',
+  'force face detection' => 'face detection',
 );

@@ -90,7 +90,7 @@
                         <div class="row mb-3">
 							<label class="col-form-label col-lg-2"> @lang('teachers.image') </label>
 							<div class="col-lg-10">
-								<img class="" src="{{ Storage::url('teachers/'.$teacher->image) }}" alt="">
+								<img class="img-responsive img-thumbnail" src="{{ Storage::url('teachers/'.$teacher->image) }}" alt="">
 							</div>
 						</div>
 

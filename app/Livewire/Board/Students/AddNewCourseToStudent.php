@@ -29,7 +29,10 @@ class AddNewCourseToStudent extends Component
 
 
     public $installment_months = 1;
-    public $allow = true;
+            public $in_office = true;
+            public $office_library = true;
+            public $online_library = true;
+            public $allow = true;
 
     public $student;
 
@@ -72,6 +75,10 @@ class AddNewCourseToStudent extends Component
         $student_course->student_id = $this->student->id;
         $student_course->course_id = $this->course_id;
         $student_course->group_id = $this->group_id;
+        $student_course->in_office = $this->in_office;
+        $student_course->office_library = $this->office_library;
+        $student_course->online_library = $this->online_library;
+        $student_course->is_online = $this->allow;
         $student_course->save();
 
         // not we need to add units to user

@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 class Lesson extends Model
 {
-    use HasFactory , HasTranslations ;
+    use HasFactory , HasTranslations , SoftDeletes ;
 
     public $translatable = ['title' , 'content' ];
 
@@ -37,6 +37,11 @@ class Lesson extends Model
     public function videos()
     {
         return $this->hasMany(LessonVideo::class , 'lesson_id');
+    }
+
+    public function deletedBy()
+    {
+        return $this->belongsTo(User::class , 'deleted_by');
     }
 
 

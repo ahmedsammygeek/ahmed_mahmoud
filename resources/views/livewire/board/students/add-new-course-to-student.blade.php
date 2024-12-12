@@ -106,6 +106,30 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row mb-3">
+                            <label class="col-form-label col-sm-3"> حضور المقر فقط </label>
+                            <div class="col-sm-9">
+                                <div class="form-check form-switch  mb-2 center-block ">
+                                    <input type="checkbox" class="form-check-input" id="sc_lss_c" wire:model.live='in_office' checked>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-form-label col-sm-3"> الاشتراك فى الورق من المقر </label>
+                            <div class="col-sm-9">
+                                <div class="form-check form-switch  mb-2 center-block ">
+                                    <input type="checkbox" class="form-check-input" id="sc_lss_c" wire:model.live='office_library' checked>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-form-label col-sm-3"> المكتبه الاكترونيه </label>
+                            <div class="col-sm-9">
+                                <div class="form-check form-switch  mb-2 center-block ">
+                                    <input type="checkbox" class="form-check-input" id="sc_lss_c" wire:model.live='online_library' checked>
+                                </div>
+                            </div>
+                        </div>
 
 
 

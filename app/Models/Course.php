@@ -5,9 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
+use Illuminate\Database\Eloquent\SoftDeletes;
 class Course extends Model
 {
-    use HasFactory , HasTranslations  ;
+    use HasFactory , HasTranslations , SoftDeletes  ;
 
 
     public function toSearchableArray()
@@ -68,5 +69,10 @@ class Course extends Model
     public function sessions()
     {
         return $this->hasManyThrough(GroupTime::class , Group::class);
+    }
+
+    public function deletedBy()
+    {
+        return $this->belongsTo(User::class , 'deleted_by');
     }
 }
