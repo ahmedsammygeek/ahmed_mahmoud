@@ -1,5 +1,5 @@
 @php
-$groups = $home = $settings = $teachers = $payments = $students = $educational_systems = $installments = $grades = $dashboard_notifications = $questions = $videos = $exams = $users = $courses = $slides = $faculties = $universities = $faculty_levels = '';
+$groups = $home = $settings = $teachers = $payments = $students = $educational_systems = $installments = $grades = $dashboard_notifications = $questions = $videos = $trash = $exams = $users = $courses = $slides = $faculties = $universities = $faculty_levels = '';
 
 
 
@@ -57,6 +57,9 @@ switch (request()->segment(3)) {
 	break;
 	case 'videos':
 	$videos = 'active';
+	break;
+	case 'trash':
+	$trash = 'active';
 	break;
 	default:
 	$home = 'active';
@@ -293,6 +296,23 @@ switch (request()->segment(3)) {
 							@lang('dashboard.installments')
 						</span>
 					</a>
+				</li>
+
+				<li class="nav-item nav-item-submenu">
+					<a  class="nav-link {{ $trash }} ">
+						<i class="icon-trash "></i>
+						<span>
+							@lang('dashboard.trash.index')
+						</span>
+					</a>
+
+					<ul class="nav-group-sub collapse">
+						<li class="nav-item"><a href="{{ route('board.trashed.students') }}" class="nav-link "> @lang('trash.students') </a></li>
+						<li class="nav-item"><a href="{{ route('board.trashed.courses') }}" class="nav-link"> @lang('trash.courses') </a></li>
+						<li class="nav-item"><a href="{{ route('board.trashed.lessons') }}" class="nav-link"> @lang('trash.lessons') </a></li>
+						<li class="nav-item"><a href="{{ route('board.trashed.students_courses') }}" class="nav-link"> @lang('trash.students_courses') </a></li>
+					</ul>
+
 				</li>
 
 			</ul>

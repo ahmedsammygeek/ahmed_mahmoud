@@ -128,6 +128,7 @@ Route::group(
 
                 Route::group(['prefix' => 'trash'], function() {
                     
+                    Route::get('/students' , [StudentTrashController::class , 'index'])->name('trash.index');
                     Route::get('/students' , [StudentTrashController::class , 'index'])->name('trashed.students');
                     Route::get('/courses' , [CourseTrashController::class , 'index'])->name('trashed.courses');
                     Route::get('/lessons' , [LessonTrashController::class , 'index'])->name('trashed.lessons');
