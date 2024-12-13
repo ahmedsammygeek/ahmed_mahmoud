@@ -1,4 +1,4 @@
-@extends('board.layouts.master')
+@extends('board.layout.master')
 
 
 @section('breadcrumb')

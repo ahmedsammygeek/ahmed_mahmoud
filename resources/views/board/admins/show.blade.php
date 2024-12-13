@@ -1,4 +1,4 @@
-@extends('board.layouts.master')
+@extends('board.layout.master')
 
 
 @section('breadcrumb')
@@ -24,6 +24,11 @@
 						</tr>
 
 						<tr>
+							<th> تم الاضافه بواسطه </th>
+							<td>  {{ $admin->user?->name }} </td>
+						</tr>
+
+						<tr>
 							<th> الاسم </th>
 							<td> {{ $admin->name }} </td>
 						</tr>
@@ -34,9 +39,18 @@
 						</tr>
 
 						<tr>
-							<th> الصوره الشخصيه الحاليه </th>
-							<td> <img class='img-responsive img-thumbnail' src="{{ Storage::url('users/'.$admin->image) }}" alt=""> </td>
-						</tr>
+											<th> السماح بالدخول للسستم </th>
+											<td> 
+												@if ($admin->is_banned)
+												<span class="badge bg-danger"> لا </span>
+												<br>
+												<span> {{ $admin->banning_message }} </span>
+												@else
+												<span class="badge bg-primary"> نعم </span>
+												@endif
+											</td>
+										</tr>
+
 					</tbody>
 				</table>
 			</div>

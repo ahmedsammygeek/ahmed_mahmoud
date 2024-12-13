@@ -39,6 +39,7 @@ use App\Http\Controllers\Board\FacultyController;
 use App\Http\Controllers\Board\FacultyLevelController;
 use App\Http\Controllers\Board\StudentFinancialReportController;
 use App\Http\Controllers\Board\VideoController;
+use App\Http\Controllers\Board\AnnouncementController;
 use App\Http\Controllers\Board\StudentTrashController;
 use App\Http\Controllers\Board\CourseTrashController;
 use App\Http\Controllers\Board\LessonTrashController;
@@ -85,6 +86,7 @@ Route::group(
                 Route::resource('installments', InstallmentController::class);
                 Route::resource('payments', PaymentController::class);
                 Route::resource('videos', VideoController::class);
+                Route::resource('announcements', AnnouncementController::class);
 
                 Route::get('/students/courses/create' , [StudentCourseController::class , 'create'] )->name('students.courses.create');
                 Route::get('/students/courses/allow/units' , [StudentCourseController::class , 'allow_units'] )->name('students.courses.allow.units');
@@ -101,7 +103,7 @@ Route::group(
                 
                 Route::resource('exam_students', ExamStudentController::class );
                 Route::resource('dashboard_notifications', DashboardNotificationController::class );
-                Route::resource('admins', DashboardNotificationController::class );
+                // Route::resource('admins', DashboardNotificationController::class );
                 Route::resource('teachers', TeacherController::class );
 
 

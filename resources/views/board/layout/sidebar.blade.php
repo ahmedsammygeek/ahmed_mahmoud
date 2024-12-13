@@ -1,11 +1,14 @@
 @php
-$groups = $home = $settings = $teachers = $payments = $students = $educational_systems = $installments = $grades = $dashboard_notifications = $questions = $videos = $trash = $exams = $users = $courses = $slides = $faculties = $universities = $faculty_levels = '';
+$groups = $admins = $home = $settings = $teachers = $payments = $students = $educational_systems = $installments = $grades = $dashboard_notifications  = $announcements = $questions = $videos = $trash = $exams = $users = $courses = $slides = $faculties = $universities = $faculty_levels = '';
 
 
 
 switch (request()->segment(3)) {
 	case 'groups':
 	$groups = 'active';
+	break;
+	case 'announcements':
+	$announcements = 'active';
 	break;
 	case 'educational_systems':
 	$educational_systems = 'active';
@@ -27,6 +30,9 @@ switch (request()->segment(3)) {
 	break;
 	case 'courses':
 	$courses = 'active';
+	break;
+	case 'admins':
+	$admins = 'active';
 	break;
 	case 'dashboard_notifications':
 	$dashboard_notifications = 'active';
@@ -114,6 +120,17 @@ switch (request()->segment(3)) {
 						</span>
 					</a>
 				</li>
+				<li class="nav-item nav-item-submenu">
+					<a href="{{ route('board.admins.index') }}" class="nav-link {{ $admins }}">
+						<i class="icon-users4"></i>
+						<span> @lang('admins.admins') </span>
+					</a>
+					<ul class="nav-group-sub collapse">
+						<li class="nav-item"><a href="{{ route('board.admins.create') }}" class="nav-link "> @lang('admins.add new admin') </a></li>
+						<li class="nav-item"><a href="{{ route('board.admins.index') }}" class="nav-link"> @lang('admins.show all admins') </a></li>
+					</ul>
+				</li>
+
 				<li class="nav-item nav-item-submenu">
 					<a href="{{ route('board.slides.index') }}" class="nav-link {{ $slides }}">
 						<i class="icon-images2"></i>
@@ -278,6 +295,18 @@ switch (request()->segment(3)) {
 						<li class="nav-item"><a href="{{ route('board.dashboard_notifications.index') }}" class="nav-link"> @lang('dashboard_notifications.show all notifications') </a></li>
 					</ul>
 				</li>
+
+				<li class="nav-item nav-item-submenu">
+					<a  class="nav-link  {{ $announcements }}">
+						<i class="icon-bell2 "></i>
+						<span> @lang('announcements.announcements') </span>
+					</a>
+					<ul class="nav-group-sub collapse">
+						<li class="nav-item"><a href="{{ route('board.announcements.create') }}" class="nav-link "> @lang('announcements.send new announcement') </a></li>
+						<li class="nav-item"><a href="{{ route('board.announcements.index') }}" class="nav-link"> @lang('announcements.show all announcements') </a></li>
+					</ul>
+				</li>
+
 
 				
 
