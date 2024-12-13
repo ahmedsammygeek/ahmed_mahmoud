@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-12">
         <a href='{{ route('board.admins.create') }}' class='btn btn-primary mb-2' style="float: left;">  <i class="icon-plus3 me-2"></i>  
-            @lang('admins.add new teacher')
+            @lang('admins.add new admin')
         </a>
 
     </div>
