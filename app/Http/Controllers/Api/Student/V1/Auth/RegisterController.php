@@ -9,6 +9,7 @@ use App\Models\Student;
 use App\Models\PhoneVerificationCode;
 use App\Traits\Api\GeneralResponse;
 use App\Http\Resources\Api\Student\V1\Auth\StudentResource;
+use Log;
 class RegisterController extends Controller
 {
     use GeneralResponse;
@@ -17,6 +18,7 @@ class RegisterController extends Controller
      */
     public function index(RegisterRequest $request)
     {
+        Log::info($request->all());
         $student = new Student;
         $student->name = $request->name;
         $student->type = $request->type;
