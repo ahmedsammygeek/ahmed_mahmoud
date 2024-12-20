@@ -49,6 +49,13 @@ class TestController extends Controller
     public function index()
     {  
 
+        $student = Student::find(55);
+
+        dd($student->tokens()->delete() );
+
+        // $user = Student::find();
+        // dd(auth::user()->tokens);
+        // dd(PersonalAccessToken::find(Auth::id(1)));
 
 
         // $courses = Course::get();

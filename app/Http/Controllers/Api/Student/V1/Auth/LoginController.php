@@ -24,20 +24,50 @@ class LoginController extends Controller
 
         $student = Student::where('mobile', $request['mobile'])->first();
         if(!$student || !Hash::check($request['password'],$student->password)){
-            
             return $this->response(
                 status : 'error' ,
                 statusCode : 401 , 
                 message  : trans('api.mobile ,  password is wrong ')
             );
-
         }
 
 
+        // dd($student->tokens()->first());
+
+        if ($student->tokens()->first()) {
+            return $this->response(
+                statusCode : 403 ,
+                message : trans('api.you have an active session indeed')
+            );
+        }
+
+        if ($student->unique_device_id == null && $student->mobile_serial_number == null ) {
+            return $this->generateToken($student , $request);
+        }
+
+
+        if (($request->device_serial_number == $student->mobile_serial_number) || ($request->unique_device_id == $student->unique_device_id) ) {   
+            return $this->generateToken($student , $request);
+        }
+
+        dd('3333');
+        
+
+        return $this->response(
+                statusCode : 403 ,
+                message : trans('api.you have an active session indeed 44')
+            );
+        
+    }
+
+    public function generateToken($student , $request)
+    {
+
         $student->firebase_fcm = $request->firebase_fcm;
+        $student->unique_device_id = $request->unique_device_id;
+        $student->mobile_serial_number = $request->mobile_serial_number;
         $student->save();
-
-
+        
         $data = [
             'user' => new StudentResource($student) , 
             'token' => $student->createToken($student->id)->plainTextToken
@@ -49,6 +79,5 @@ class LoginController extends Controller
             message : trans('api.logined in successfully')
         );
     }
-
 
 }

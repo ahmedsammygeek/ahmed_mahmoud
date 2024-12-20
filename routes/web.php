@@ -44,6 +44,7 @@ use App\Http\Controllers\Board\StudentTrashController;
 use App\Http\Controllers\Board\CourseTrashController;
 use App\Http\Controllers\Board\LessonTrashController;
 use App\Http\Controllers\Board\StudentCourseTrashController;
+use App\Http\Controllers\Board\StudentDeviceController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\ApplicationController;
 
@@ -94,6 +95,9 @@ Route::group(
                 Route::get('/students/courses/remove' , [StudentCourseController::class , 'remove'] )->name('students.courses.remove');
 
                 Route::get('/students/courses/allow/lessons' , [StudentCourseController::class , 'allow_lessons'] )->name('students.courses.allow.lessons');
+
+
+                Route::get('/students/devices/manipluate'  , [StudentDeviceController::class , 'index'])->name('students.devices.manipluate');
 
                 Route::resource('questions', QuestionController::class);
                 Route::resource('exams', ExamController::class );
