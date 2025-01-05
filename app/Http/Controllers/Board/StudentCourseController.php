@@ -43,6 +43,13 @@ class StudentCourseController extends Controller
         $student_course->group_id = $request->group_id;
         $student_course->allow = $request->filled('allow')  ? 1 : 0;
         $student_course->force_headphones = $request->filled('force_headphones')  ? 1 : 0;
+        $student_course->allow = $request->filled('allow')  ? 1 : 0;
+        $student_course->in_office = $request->filled('in_office')  ? 1 : 0;
+        $student_course->show_phone_on_viedo = $request->filled('show_phone_on_viedo')  ? 1 : 0;
+        $student_course->speak_user_phone = $request->filled('speak_user_phone')  ? 1 : 0;
+        $student_course->force_face_detecting = $request->filled('force_face_detecting')  ? 1 : 0;
+        $student_course->office_library = $request->filled('office_library')  ? 1 : 0;
+        $student_course->online_library = $request->filled('online_library')  ? 1 : 0;
         $student_course->save();
 
         return redirect()->back()->with('success' , trans('courses.updated successfully' ) );

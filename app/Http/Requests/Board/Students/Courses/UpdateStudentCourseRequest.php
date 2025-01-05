@@ -25,6 +25,12 @@ class UpdateStudentCourseRequest extends FormRequest
             'group_id' => 'required' , 
             'force_headphones' => 'nullable', 
             'allow' => 'nullable', 
+            'in_office' => 'nullable', 
+            'show_phone_on_viedo' => 'nullable', 
+            'speak_user_phone' => 'nullable', 
+            'force_face_detecting' => 'nullable', 
+            'office_library' => 'nullable', 
+            'online_library' => 'nullable', 
         ];
     }
 }

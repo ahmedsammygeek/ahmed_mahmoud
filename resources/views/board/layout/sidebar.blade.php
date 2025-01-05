@@ -283,6 +283,18 @@ switch (request()->segment(3)) {
 							</a>
 						</li>
 
+						<li class="nav-item">
+							<a href="{{ route('board.students.devices.manipluate') }}" class="nav-link"> 
+								units manipluate 
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a href="{{ route('board.students.devices.manipluate') }}" class="nav-link"> 
+								views increase  manipluate 
+							</a>
+						</li>
+
 					</ul>
 				</li>
 				<li class="nav-item nav-item-submenu">

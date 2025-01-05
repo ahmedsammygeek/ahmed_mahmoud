@@ -125,7 +125,7 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label class="col-form-label col-sm-3"> حضور المقر فقط </label>
+                            <label class="col-form-label col-sm-3"> حضور المقر  </label>
                             <div class="col-sm-9">
                                 <div class="form-check form-switch  mb-2 center-block ">
                                     <input type="checkbox" class="form-check-input" id="sc_lss_c" wire:model.live='in_office' checked>
