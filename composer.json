@@ -19,6 +19,7 @@
         "livewire/livewire": "^3.5",
         "mcamara/laravel-localization": "^2.0",
         "propaganistas/laravel-phone": "^5.3",
+        "saasscaleup/laravel-log-alarm": "^1.0",
         "spatie/image": "^3.6",
         "spatie/laravel-permission": "^6.10",
         "spatie/laravel-translatable": "^6.7"

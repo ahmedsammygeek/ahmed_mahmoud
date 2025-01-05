@@ -45,6 +45,7 @@ use App\Http\Controllers\Board\CourseTrashController;
 use App\Http\Controllers\Board\LessonTrashController;
 use App\Http\Controllers\Board\StudentCourseTrashController;
 use App\Http\Controllers\Board\StudentDeviceController;
+use App\Http\Controllers\Board\SplashController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\ApplicationController;
 
@@ -88,6 +89,7 @@ Route::group(
                 Route::resource('payments', PaymentController::class);
                 Route::resource('videos', VideoController::class);
                 Route::resource('announcements', AnnouncementController::class);
+                Route::resource('splashes', SplashController::class);
 
                 Route::get('/students/courses/create' , [StudentCourseController::class , 'create'] )->name('students.courses.create');
                 Route::get('/students/courses/allow/units' , [StudentCourseController::class , 'allow_units'] )->name('students.courses.allow.units');

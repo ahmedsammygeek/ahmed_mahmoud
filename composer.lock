@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c5a6743e239eb6be3d79a22fc2e11966",
+    "content-hash": "9ddd424fdbcd96837cd263edbd131afd",
     "packages": [
         {
             "name": "alaouy/youtube",
@@ -1589,12 +1589,12 @@
             "type": "library",
             "extra": {
                 "laravel": {
-                    "providers": [
-                        "Jantinnerezo\\LivewireAlert\\LivewireAlertServiceProvider"
-                    ],
                     "aliases": {
                         "LivewireAlert": "Jantinnerezo\\LivewireAlert\\LivewireAlertFacade"
-                    }
+                    },
+                    "providers": [
+                        "Jantinnerezo\\LivewireAlert\\LivewireAlertServiceProvider"
+                    ]
                 }
             },
             "autoload": {
@@ -4183,6 +4183,85 @@
                 "source": "https://github.com/Riimu/Kit-PHPEncoder/tree/v2.4.2"
             },
             "time": "2022-12-10T18:12:25+00:00"
+        },
+        {
+            "name": "saasscaleup/laravel-log-alarm",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/saasscaleup/laravel-log-alarm.git",
+                "reference": "4bc5c6e4c3ca4191212945abe1004180f5d9bb7e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/saasscaleup/laravel-log-alarm/zipball/4bc5c6e4c3ca4191212945abe1004180f5d9bb7e",
+                "reference": "4bc5c6e4c3ca4191212945abe1004180f5d9bb7e",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Saasscaleup\\LogAlarm\\LogAlarmServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Saasscaleup\\LogAlarm\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Scale-Up SaaS",
+                    "email": "saasscaleup@gmail.com"
+                }
+            ],
+            "description": "Laravel log Alarm help you to set up alarm when errors occur in your system and send you a notification via Slack and email",
+            "homepage": "https://github.com/saasscaleup/laravel-log-alarm",
+            "keywords": [
+                "Laravel-Alert",
+                "alarm",
+                "alert",
+                "email",
+                "error",
+                "laravel",
+                "laravel alarm",
+                "laravel-email",
+                "laravel-error",
+                "laravel-log",
+                "laravel-monitoring",
+                "laravel-notification",
+                "laravel-slack",
+                "log",
+                "logging",
+                "monitoring",
+                "notification",
+                "slack"
+            ],
+            "support": {
+                "issues": "https://github.com/saasscaleup/laravel-log-alarm/issues",
+                "source": "https://github.com/saasscaleup/laravel-log-alarm/tree/v1.0.2"
+            },
+            "funding": [
+                {
+                    "url": "https://buymeacoffee.com/scaleupsaas",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/saasscaleup",
+                    "type": "github"
+                },
+                {
+                    "url": "https://ko-fi.com/scaleupsaas",
+                    "type": "ko_fi"
+                }
+            ],
+            "time": "2024-07-10T02:25:09+00:00"
         },
         {
             "name": "spatie/image",

@@ -11,7 +11,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
-                <form wire:submit="save" class="form-horizontal">
+
                     <div class="modal-body">
                         <div class="row mb-3">
                             <label class="col-form-label col-sm-3"> @lang('students.course') </label>
@@ -81,17 +81,35 @@
                         </div>
 
                         @if ($paid < $purchase_price )
-                        <div class="row mb-3">
-                            <label class="col-form-label col-sm-3"> @lang('students.installment_months') </label>
-                            <div class="col-sm-9">
-                                <input type="text" class='form-control' wire:model.live='installment_months' >
-                                @error('installment_months')
-                                <p class='is-invalid text-danger'> {{ $message }} </p>
-                                @enderror 
-                                <span class="badge d-block bg-primary text-start mt-1">    قيمه القسط الواحد : {{ $this->single_installment }} </span>
-                            </div>
-
-                        </div>
+                        <span class="badge d-block bg-primary text-start mt-1"> المبلغ المتبقى : {{ $purchase_price - $paid }} </span>
+                        <table class='table table-bordered table-condensed mt-2'>
+                            <thead>
+                                <tr>
+                                    <th>المبلغ <button wire:click='addMoreInstallments()' class='btn btn-sm btn-primary'> <i class="icon-plus3"></i> </button> </th>
+                                    <th>تاريخ الاستحقاق</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for ($i = 0; $i < $installment_months_count ; $i++)
+                                    <tr class='installments'>
+                                    <td>
+                                        <input type="number"wire:model.live='installment_amounts.{{ $i }}'  class="form-control">
+                                        @error("installment_amounts.{{ $i }}")
+                                        <p class="text-danger"> {{ $message }} </p>
+                                        @enderror
+                                    </td>
+                                    <td>
+                                        <input type="date" wire:model.live='installment_months.{{ $i }}' class="form-control">
+                                        @error("installment_months.{{ $i }}")
+                                        <p class="text-danger"> {{ $message }} </p>
+                                        @enderror
+                                    </td>
+                                    <td> <button class='btn btn-danger btn-sm delete_row'> <i class='icon-trash'> </i>  </button> </td>
+                                </tr>
+                                @endfor
+                            </tbody>
+                        </table>
                         @endif
 
                         
@@ -137,9 +155,9 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-link" data-bs-dismiss="modal"> @lang('dashboard.cancel') </button>
-                        <button type="submit" class="btn btn-primary"> @lang('dashboard.add') </button>
+                        <button wire:click='save' class="btn btn-primary"> @lang('dashboard.add') </button>
                     </div>
-                </form>
+             
             </div>
         </div>
     </div>
@@ -169,8 +187,23 @@
             position: 'top-start' , 
             timer: 1500
         });
-
-
     });
+
+
+    // $(document).on('click', 'button.add_more_installments', function(event) {
+    //     event.preventDefault();
+    //     $(document).find('tr.installments').last().after(`<tr class='installments'>
+    //                                 <td><input type="number" class="form-control"></td>
+    //                                 <td><input type="date" class="form-control"></td>
+    //         <td> <button class='btn btn-danger btn-sm delete_row'> <i class='icon-trash'> </i>  </button> </td>
+    //         </tr>`);
+    // });
+
+
+    $(document).on('click', 'button.delete_row', function(event) {
+        event.preventDefault();
+        $(this).parent().parent().remove();
+    });
+
 </script>
 @endpush

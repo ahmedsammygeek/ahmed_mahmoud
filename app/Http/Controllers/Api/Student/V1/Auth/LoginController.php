@@ -31,6 +31,7 @@ class LoginController extends Controller
             );
         }
 
+        Auth::guard('student')->logout();
 
         // dd($student->tokens()->first());
 
