@@ -1,5 +1,5 @@
 @php
-$groups = $admins = $home = $settings = $teachers = $payments = $students = $educational_systems = $installments = $grades = $dashboard_notifications  = $announcements = $questions = $videos = $trash = $exams = $users = $courses = $slides = $faculties = $universities = $faculty_levels = '';
+$groups = $admins = $home = $settings = $teachers = $payments = $students = $educational_systems = $installments = $grades = $dashboard_notifications  = $announcements = $questions = $videos = $trash = $exams = $users = $courses = $slides = $faculties = $universities = $faculty_levels = $splashes = '';
 
 
 
@@ -9,6 +9,9 @@ switch (request()->segment(3)) {
 	break;
 	case 'announcements':
 	$announcements = 'active';
+	break;
+	case 'splashes':
+	$splashes = 'active';
 	break;
 	case 'educational_systems':
 	$educational_systems = 'active';
@@ -139,6 +142,16 @@ switch (request()->segment(3)) {
 					<ul class="nav-group-sub collapse">
 						<li class="nav-item"><a href="{{ route('board.slides.create') }}" class="nav-link "> @lang('slides.add new slide') </a></li>
 						<li class="nav-item"><a href="{{ route('board.slides.index') }}" class="nav-link"> @lang('slides.show all slides') </a></li>
+					</ul>
+				</li>
+				<li class="nav-item nav-item-submenu">
+					<a href="{{ route('board.splashes.index') }}" class="nav-link {{ $splashes }}">
+						<i class="icon-images2"></i>
+						<span> @lang('splashes.splashes') </span>
+					</a>
+					<ul class="nav-group-sub collapse">
+						<li class="nav-item"><a href="{{ route('board.splashes.create') }}" class="nav-link "> @lang('splashes.add new splash') </a></li>
+						<li class="nav-item"><a href="{{ route('board.splashes.index') }}" class="nav-link"> @lang('splashes.show all splashes') </a></li>
 					</ul>
 				</li>
 				<li class="nav-item nav-item-submenu">
