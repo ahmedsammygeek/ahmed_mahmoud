@@ -31,7 +31,7 @@ class LoginController extends Controller
             );
         }
 
-        Auth::guard('student')->logout();
+        // Auth::guard('student')->logout();
 
         // dd($student->tokens()->first());
 
@@ -51,12 +51,12 @@ class LoginController extends Controller
             return $this->generateToken($student , $request);
         }
 
-        dd('3333');
+        
         
 
         return $this->response(
                 statusCode : 403 ,
-                message : trans('api.you have an active session indeed 44')
+                message : trans('api.you have an active session indeed')
             );
         
     }
