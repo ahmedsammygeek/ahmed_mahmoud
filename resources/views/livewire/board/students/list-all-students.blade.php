@@ -121,6 +121,7 @@
                     <td> {{ $student->educationalSystem?->name }} </td>
                     <td>
                         <a href='{{ route('board.students.show' , $student ) }}' class='btn btn-sm btn-primary ' title="@lang('dashboard.view')" >  <i class="icon-eye "></i>  </a>
+                        <a wire:click="$dispatchTo('board.students.change-student-password' ,  'open-modal' , { student_id: {{ $student->id }} } )"  class='btn btn-info btn-sm ' > <i class='icon-key '> </i>  </a>
                         <a href='{{ route('board.students.edit' , $student ) }}' class='btn btn-sm btn-warning ' title="@lang('dashboard.edit')" >  <i class="icon-database-edit2 "></i>  </a>
                         <a wire:click="$dispatch('deleteConfirmation', '{{ $student->id }}')" class='btn btn-sm btn-danger  delete_item' title="@lang('dashboard.delete')" >  <i class="icon-trash "></i>  </a>
                     </td>
@@ -137,6 +138,7 @@
         </div>
     </div>
 </div>
+@livewire('board.students.change-student-password')
 </div>
 
 
