@@ -11,7 +11,7 @@
         <div class="card card-body">
 
             <div class="d-sm-flex align-items-sm-start mt-2">
-                <div class="dropdown ms-sm-3  mb-sm-0">
+                {{-- <div class="dropdown ms-sm-3  mb-sm-0">
                     <select wire:model.change='grade_id' class="form-select">
                         <option value=""> @lang('students.all grades') </option>
                         @foreach ($grades as $grade)
@@ -27,15 +27,7 @@
                         <option value="{{ $system->id }}"> {{ $system->name }} </option>
                         @endforeach
                     </select>
-                </div>
-                <div class="dropdown ms-sm-3  mb-sm-0">
-                    <select wire:model.change='course_id' class="form-select">
-                        <option value=""> @lang('students.all courses') </option>
-                        @foreach ($this->courses as $course)
-                        <option value="{{ $course->id }}"> {{ $course->title }} </option>
-                        @endforeach
-                    </select>
-                </div>
+                </div> --}}
                 <div class="dropdown ms-sm-3  mb-sm-0">
                     <select wire:model.change='teacher_id' class="form-select">
                         <option value=""> @lang('students.all teachers') </option>
@@ -43,8 +35,40 @@
                         <option value="{{ $teacher->id }}"> {{ $teacher->name }} </option>
                         @endforeach
                     </select>
+                    {{ $teacher_id }}
                 </div>
-                 <div class="dropdown ms-sm-3  mb-sm-0">
+                <div class="dropdown ms-sm-4  mb-sm-0"  >
+                    <select wire:model.change='course_id' class="form-select-lg form-select">
+                        <option value=""> @lang('students.all courses') </option>
+                        @foreach ($this->courses as $course)
+                        <option value="{{ $course->id }}"> {{ $course->title }} </option>
+                        @endforeach
+                    </select>
+                    {{ $course_id }}
+                </div>
+
+                <div class="dropdown ms-sm-4  mb-sm-0"  >
+                    <select wire:model.change='unit_id' class="form-select-lg form-select ">
+                        <option value=""> @lang('students.all units') </option>
+                        @foreach ($this->units as $unit)
+                        <option value="{{ $unit->id }}"> {{ $unit->title }} </option>
+                        @endforeach
+                    </select>
+                    {{ $unit_id }}
+                </div>
+                <div class="dropdown ms-sm-4  mb-sm-0"  >
+                    <select wire:model.change='lesson_id' class="form-select-lg form-select ">
+                        <option value=""> @lang('students.all lessons') </option>
+                        @foreach ($this->lessons as $lesson)
+                        <option value="{{ $lesson->id }}"> {{ $lesson->title }} </option>
+                        @endforeach
+                    </select>
+                    {{ $lesson_id }}
+                </div>
+
+
+                
+                <div class="dropdown ms-sm-3  mb-sm-0">
                     <select wire:model.change='student_type' class="form-select">
                         <option value=""> @lang('students.all students') </option>
                         <option value="1"> @lang('students.only center students') </option>
@@ -92,7 +116,7 @@
         <div wire:loading> 
             <div class="card-overlay card-overlay-fadeout">
                 <span class="ph-spinner spinner"></span>
-                جارى التحقق من المواعيد برجاء الانتظار
+                جارى ترتيب الدروس
             </div>
         </div>
         <table  class='table  table-responsive table-striped table-xs text-center '>
@@ -103,24 +127,26 @@
                     <th> @lang('videos.lesson') </th>
                     <th> @lang('videos.link') </th>
                     <th> @lang('videos.mintes') </th>
+                    <th> @lang('videos.sorting') </th>
                     <th> @lang('videos.added_by') </th>
                     <th> @lang('videos.options') </th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody wire:sortable="updateVideoOrder">
                 @php
                 $i =1
                 @endphp
                 @foreach ($videos as $video)
-                <tr>
+                <tr wire:sortable.item="{{ $video->id }}" wire:key="video-{{ $video->id }}">
                     <td> {{ $i++ }} </td>
                     <td> {{ $video->title }} </td>
                     <td> {{ $video->lesson?->title }} </td>
                     <td> <a target="_blank" href="{{ $video->lesson_video_link }}"> <i class='icon-youtube '>  </i> </a> </td>
                     <td> {{ $video->lesson_mins }} <span class="text-muted"> دقيقه </span> </td>
+                    <td> {{ $video->sorting }} </td>
                     <td> {{ $video->user?->name }} </td>
                     <td>
-                        <a href='{{ route('board.videos.show' , $video ) }}' class='btn btn-sm btn-primary ' title="@lang('dashboard.view')" >  <i class="icon-eye "></i>  </a>
+                        <a class='btn btn-sm btn-info ' title="@lang('dashboard.view')" >  <i class="icon-grab "></i>  </a>
                         
                         <a href='{{ route('board.videos.show' , $video ) }}' class='btn btn-sm btn-primary ' title="@lang('dashboard.view')" >  <i class="icon-eye "></i>  </a>
                         <a href='{{ route('board.videos.edit' , $video ) }}' class='btn btn-sm btn-warning ' title="@lang('dashboard.edit')" >  <i class="icon-database-edit2 "></i>  </a>
@@ -146,12 +172,28 @@
 @section('scripts')
 <script src="{{ asset('board_assets/js/vendor/notifications/sweet_alert.min.js') }}"></script>
 <script src="{{ asset('board_assets/demo/pages/extra_sweetalert.js') }}"></script>
-<script src="{{ asset('board_assets/js/vendor/media/glightbox.min.js') }}"></script>
-<script src="{{ asset('board_assets/demo/pages/gallery_library.js') }}"></script>
+{{-- <script src="{{ asset('board_assets/js/vendor/forms/selects/select2.min.js') }}"></script> --}}
+{{-- <script src="{{ asset('board_assets/assets/demo/pages/form_select2.js') }}"></script> --}}
+<script src="https://cdn.jsdelivr.net/gh/livewire/sortable@v1.x.x/dist/livewire-sortable.js"></script>
 
 
 <script>
     $(function() {
+
+  
+
+        // $('.select2').select2();
+
+        // document.addEventListener("livewire:initialized", () => {
+
+            // alert('ff');
+            // $(".select2").select2()
+            // .on("select2:select", function () {
+            //     const values = $(this).val();
+            //     console.log(values);
+            //     @this.set("course_id", values);
+            // });
+        // });
 
 
         Livewire.on('itemDeleted', () =>  {

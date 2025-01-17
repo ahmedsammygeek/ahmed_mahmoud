@@ -54,9 +54,7 @@ class ListAllStudents extends Component
             $query->where('grade_id' , $this->grade_id );
         })
         ->when($this->teacher_id , function($query){
-            $query->whereHas('teachers' , function($query){
-                $query->where('teacher_id' , $this->teacher_id );
-            });
+            $query->where('teacher_id' , $this->teacher_id );
         })
         ->select('title' , 'id')->get();
     }
@@ -64,11 +62,7 @@ class ListAllStudents extends Component
     #[Computed]
     public function teachers()
     {
-        return Teacher::when($this->course_id , function($query){
-            $query->whereHas('courses' , function($query){
-                $query->where('course_id' , $this->course_id);
-            });
-        })->select('name' , 'id')->get();
+        return Teacher::select('name' , 'id')->get();
     }
 
     public function render()
@@ -93,10 +87,8 @@ class ListAllStudents extends Component
             });
         })
         ->when($this->teacher_id , function($query){
-            $query->whereHas('courses' , function($query){
-                $query->whereHas('CourseTeacher' , function($query){
-                    $query->where('teacher_id' , $this->teacher_id );
-                });
+            $query->whereHas('courses.course' , function($query){
+                $query->where('teacher_id' , $this->teacher_id );
             });
         })
         ->when($this->student_type, function($query){

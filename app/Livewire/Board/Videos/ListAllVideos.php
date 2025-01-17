@@ -3,7 +3,7 @@
 namespace App\Livewire\Board\Videos;
 
 use Livewire\Component;
-use App\Models\{Student , Grade , EducationalSystem , Course , Teacher , LessonVideo };
+use App\Models\{Student , Grade , EducationalSystem , Course  , Unit , Lesson , Teacher , LessonVideo };
 use Livewire\WithPagination;
 use Livewire\Attributes\Computed;
 use Storage;
@@ -19,6 +19,8 @@ class ListAllVideos extends Component
     public $educational_system_id;
     public $course_id;
     public $teacher_id;
+    public $unit_id;
+    public $lesson_id;
     public $grades;
     public $systems;
     public $is_active = 'all';
@@ -41,6 +43,17 @@ class ListAllVideos extends Component
     }
 
 
+    public function updateVideoOrder($items)
+    {
+        foreach ($items as $item) {
+            $video = LessonVideo::find($item['value']);
+            if ($video) {
+                $video->sorting = $item['order'];
+                $video->save();
+            }
+        }
+    }
+
     public function mount() {
 
         $this->grades = Grade::select('name', 'id' )->get();
@@ -48,28 +61,42 @@ class ListAllVideos extends Component
     }
 
     #[Computed]
+    public function teachers()
+    {
+        return Teacher::select('name' , 'id')->get();
+    }
+
+
+    #[Computed]
     public function courses()
     {
-        return Course::when($this->grade_id , function($query){
-            $query->where('grade_id' , $this->grade_id );
-        })
-        ->when($this->teacher_id , function($query){
-            $query->whereHas('teachers' , function($query){
-                $query->where('teacher_id' , $this->teacher_id );
-            });
+        return Course::when($this->teacher_id , function($query){
+            $query->where('teacher_id' , $this->teacher_id );
         })
         ->select('title' , 'id')->get();
     }
 
     #[Computed]
-    public function teachers()
+    public function units()
     {
-        return Teacher::when($this->course_id , function($query){
-            $query->whereHas('courses' , function($query){
-                $query->where('course_id' , $this->course_id);
-            });
-        })->select('name' , 'id')->get();
+        return Unit::when($this->course_id , function($query){
+            $query->where('course_id' , $this->course_id );
+        })
+        ->select('title' , 'id')->get();
     }
+
+
+    #[Computed]
+    public function lessons()
+    {
+        return Lesson::when($this->unit_id , function($query){
+            $query->where('unit_id' , $this->unit_id );
+        })
+        ->select('title' , 'id')->get();
+    }
+
+
+
 
     public function render()
     {
@@ -86,11 +113,22 @@ class ListAllVideos extends Component
         // ->when($this->educational_system_id , function($query){
         //     $query->where('educational_system_id' , $this->educational_system_id );
         // })
-        // ->when($this->course_id , function($query){
-        //     $query->whereHas('courses' , function($query){
-        //         $query->where('course_id' , $this->course_id );
-        //     });
-        // })
+        ->when($this->course_id , function($query){
+            $query->whereHas('lesson' , function($query){
+                $query->whereHas('unit'  , function($query){
+                    $query->where('course_id' , $this->course_id );
+                });
+            });
+        })
+        ->when($this->unit_id , function($query){
+            $query->whereHas('lesson' , function($query){
+                $query->where('unit_id' , $this->unit_id );
+            });
+        })
+
+        ->when($this->lesson_id , function($query){
+            $query->where('lesson_id' , $this->lesson_id );
+        })
         // ->when($this->teacher_id , function($query){
         //     $query->whereHas('courses' , function($query){
         //         $query->whereHas('CourseTeacher' , function($query){
@@ -101,7 +139,7 @@ class ListAllVideos extends Component
         // ->when($this->student_type, function($query){
         //     $query->where('student_type' , $this->student_type);
         // })
-        ->latest()
+        ->orderBy('sorting' , 'ASC' )
         ->paginate($this->rows);
 
         return view('livewire.board.videos.list-all-videos' , compact('videos') );
