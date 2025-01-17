@@ -117,10 +117,11 @@ class CourseController extends Controller
             $course['dose_user_subscribed'] = false ;
         }
 
+        $lessons = $unit->lessons()->orderBy('sorting' , 'ASC' )->get();
         $data = [
             'course' => new CourseResource($course)  , 
             'unit' => new CourseUnitResource($unit) , 
-            'lessons' => UnitLessonResource::collection($unit->lessons), 
+            'lessons' => UnitLessonResource::collection($lessons), 
         ];
 
         return $this->response(

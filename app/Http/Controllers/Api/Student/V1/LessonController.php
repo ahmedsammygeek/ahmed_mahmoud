@@ -52,11 +52,12 @@ class LessonController extends Controller
             $course['dose_user_subscribed'] = false ;
         }
 
+        $videos = $lesson->videos()->orderBy('sorting' , 'ASC' )->get();
         $data = [
             'course' => new CourseResource($course)  , 
             'unit' => new CourseUnitResource($unit) , 
             'lesson' => new UnitLessonResource($lesson), 
-            'videos' => VideoResource::collection($lesson->videos) , 
+            'videos' => VideoResource::collection($videos) , 
         ];
 
 
