@@ -35,7 +35,7 @@ class ListAllVideos extends Component
 
     public function deleteItem($itemId)
     {
-        $item = Student::find($itemId);
+        $item = LessonVideo::find($itemId);
         if($item) {
             $item->delete();
             $this->dispatch('itemDeleted');
