@@ -104,9 +104,34 @@ switch (request()->segment(3)) {
 
 				<!-- Main -->
 				<li class="nav-item-header pt-0">
-					<div class="text-uppercase fs-sm lh-sm opacity-50 sidebar-resize-hide">Main</div>
+					<div class="text-uppercase fs-sm lh-sm opacity-50 sidebar-resize-hide"> @lang('board.Main') </div>
 					<i class="ph-dots-three sidebar-resize-show"></i>
 				</li>
+				<li class="nav-item">
+					@if (LaravelLocalization::getCurrentLocale() == 'ar' )
+					<a href="{{ LaravelLocalization::getLocalizedURL('en') }}" class="nav-link " >
+						<i class="icon-clear-formatting"></i>
+						<span>
+							English
+						</span>
+					</a>
+					@else 
+					<a href="{{ LaravelLocalization::getLocalizedURL('ar') }}" class="nav-link " >
+						<i class="icon-clear-formatting"></i>
+						<span>
+							العربيه
+						</span>
+					</a>
+					@endif
+
+					{{-- <a href="{{ route('board.index') }}" class="nav-link ">
+						<i class="icon-clear-formatting"></i>
+						<span>
+							@lang('dashboard.home')
+						</span>
+					</a> --}}
+				</li>
+
 				<li class="nav-item">
 					<a href="{{ route('board.index') }}" class="nav-link {{ $home }}">
 						<i class="ph-house"></i>

@@ -20,17 +20,7 @@
 					</a>
 				</li>
 
-				<li class="nav-item nav-item-dropdown-lg dropdown">
-					@if (LaravelLocalization::getCurrentLocale() == 'ar' )
-					<a href="{{ LaravelLocalization::getLocalizedURL('en') }}" class="navbar-nav-link navbar-nav-link-icon rounded-pill" >
-						English
-					</a>
-					@else 
-					<a href="{{ LaravelLocalization::getLocalizedURL('ar') }}" class="navbar-nav-link navbar-nav-link-icon rounded-pill" >
-						العربيه
-					</a>
-					@endif
-				</li>
+
 			</ul>
 
 		{{-- 	<div class="navbar-collapse justify-content-center flex-lg-1 order-2 order-lg-1 collapse" id="navbar_search">

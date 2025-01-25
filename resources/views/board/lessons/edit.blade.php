@@ -9,18 +9,18 @@
 <span class="breadcrumb-item active"> تعديل بيانات الدرس </span>
 @endsection
 
-@section('content')
+@section('page_content')
 <div class="row">
 	<div class="col-md-12">
 		<a href="{{ route('board.courses.units.show' , ['course' => $course , 'unit' => $unit ] ) }}" class="btn btn-primary mb-2" style="float: left;margin-left:10px;">
-            <span style='margin-left:10px' > العوده الى الوحده  </span>  <i class="icon-arrow-left7"></i>
-        </a>
-        <a href="{{ route('board.courses.show' , $course ) }}" class="btn btn-primary mb-2" style="float: left; margin-left:10px;">
-            <span style='margin-left:10px' > العوده الى الكورس </span>  <i class="icon-arrow-left7"></i>
-        </a>
-        <a href='{{ route('board.courses.index'  ) }}' class="btn btn-primary mb-2" style="float: left;margin-left:  20px;">
-            <span style='margin-left:10px' > العوده الى الكورسات </span> <i class="icon-arrow-left7 "></i>
-        </a>
+			<span style='margin-left:10px' > العوده الى الوحده  </span>  <i class="icon-arrow-left7"></i>
+		</a>
+		<a href="{{ route('board.courses.show' , $course ) }}" class="btn btn-primary mb-2" style="float: left; margin-left:10px;">
+			<span style='margin-left:10px' > العوده الى الكورس </span>  <i class="icon-arrow-left7"></i>
+		</a>
+		<a href='{{ route('board.courses.index'  ) }}' class="btn btn-primary mb-2" style="float: left;margin-left:  20px;">
+			<span style='margin-left:10px' > العوده الى الكورسات </span> <i class="icon-arrow-left7 "></i>
+		</a>
 
 	</div>
 
@@ -36,24 +36,6 @@
 					@method('PATCH')
 					<div class="mb-4">
 						<div class="fw-bold border-bottom pb-2 mb-3"> بيانات  الدرس </div>
-
-						<div class="row mb-3">
-							<label class="col-form-label col-lg-2"> الفديو الحالى </label>
-							<div class="col-lg-10">
-								<iframe src="https://player.vimeo.com/video/{{ $lesson->vimeo_number }}" width="100%" height="500" title="{{ $lesson->title }}"></iframe>
-							</div>
-						</div>
-
-
-						<div class="row mb-3">
-							<label class="col-form-label col-lg-2"> اختر الفديو جديد </label>
-							<div class="col-lg-10">
-								<input type="file" name="video"  class="form-control @error('video')  is-invalid @enderror"  >
-								@error('video')
-								<p class='text-danger' > {{ $message }} </p>
-								@enderror
-							</div>
-						</div>
 
 
 						<div class="row mb-3">
@@ -80,7 +62,7 @@
 						<div class="row mb-3">
 							<label class="col-form-label col-lg-2"> شرح الدرس بالعربيه <span class="text-danger">*</span></label>
 							<div class="col-lg-10">
-								<textarea name="description_ar" class='form-control ' cols="30" rows="10"> {{ $lesson->getTranslation('description' ,'ar') }} </textarea>
+								<textarea name="description_ar" class='form-control ' cols="30" rows="10"> {{ $lesson->getTranslation('content' ,'ar') }} </textarea>
 								@error('description_ar')
 								<p class='text-danger' > {{ $message }} </p>
 								@enderror
@@ -91,12 +73,23 @@
 						<div class="row mb-3">
 							<label class="col-form-label col-lg-2"> شرح الدرس بالانجليزيه <span class="text-danger">*</span></label>
 							<div class="col-lg-10">
-								<textarea name="description_en" class='form-control ' cols="30" rows="10"> {{ $lesson->getTranslation('description' ,'en') }} </textarea>
+								<textarea name="description_en" class='form-control ' cols="30" rows="10"> {{ $lesson->getTranslation('content' ,'en') }} </textarea>
 								@error('description_en')
 								<p class='text-danger' > {{ $message }} </p>
 								@enderror
 							</div>
 						</div>
+
+						<div class="row mb-3">
+							<label class="col-form-label col-lg-2">  عدد مرات المشاهده المسموح بها </label>
+							<div class="col-lg-10">
+								<input type="text" name="allowed_views" value="{{ $lesson->allowed_views }}" class="form-control @error('allowed_views')  is-invalid @enderror" required >
+								@error('allowed_views')
+								<p class='text-danger' > {{ $message }} </p>
+								@enderror
+							</div>
+						</div>
+
 
 						<div class="row mb-3">
 							<label class="col-lg-2 col-form-label pt-0"> درس مجانى  </label>
@@ -164,17 +157,17 @@
 
 
 		FilePond.setOptions({
-        server: {
-            url: "{{ route('board.proccess_video_uploads') }}",
-            headers: {
-                'X-CSRF-TOKEN': "{{ @csrf_token() }}",
-            }
-        }
-    });
+			server: {
+				url: "{{ route('board.proccess_video_uploads') }}",
+				headers: {
+					'X-CSRF-TOKEN': "{{ @csrf_token() }}",
+				}
+			}
+		});
 
     // Create the FilePond instance
 
-    FilePond.create(document.querySelector('input[name="video"]'));
+		FilePond.create(document.querySelector('input[name="video"]'));
 
 
 

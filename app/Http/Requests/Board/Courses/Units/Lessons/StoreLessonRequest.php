@@ -22,8 +22,7 @@ class StoreLessonRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'video_type' => 'required' , 
-            'video_link' => 'required' , 
+
             'title_ar' => 'required' , 
             'title_en' => 'required' , 
             'description_ar' => 'required' , 

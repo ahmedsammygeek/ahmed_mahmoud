@@ -79,7 +79,7 @@
 {{--                             <a  href="{{ route('board.courses.units.lessons.index'  ,  ['course' => $course  , 'unit' => $unit ] ) }}"  class="btn btn-sm btn-info  ">
                                 <i class="icon-video-camera "></i>
                             </a> --}}
-                            <a href="{{ route('board.courses.units.edit'  ,  ['course' => $course  , 'unit' => $unit ] ) }}"  class="btn btn-sm btn-warning ">
+                            <a href="{{ route('board.courses.units.lessons.edit'  ,  ['course' => $course  , 'unit' => $unit , 'lesson' => $lesson ] ) }}"  class="btn btn-sm btn-warning ">
                                 <i class="icon-database-edit2  "></i>
                             </a>
                             <a data-item_id='{{ $unit->id }}' class="btn btn-danger btn-sm delete_item">

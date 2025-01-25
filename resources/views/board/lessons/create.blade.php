@@ -35,34 +35,6 @@
 
         <div class="mb-4">
             <div class="fw-bold border-bottom pb-2 mb-3"> بيانات  الدرس </div>
-
-            <div class="row mb-3">
-                <label class="col-form-label col-lg-2"> الفديو <span class="text-danger">*</span></label>
-                <div class="col-lg-10">
-                    <select wire:model.live='video_type' name="video_type" class="form-control form-select" id="">
-                        <option value="link"> @lang('courses.link') </option>
-                    </select>
-                </div>
-
-            </div>
-
-
-
-
-            <div class="row mb-3">
-                <label class="col-form-label col-lg-2"> رابط الفديو <span class="text-danger">*</span></label>
-                <div class="col-lg-10">
-                    <input type="text" name="video_link" value="{{ old('video_link') }}" class="form-control @error('video_link')  is-invalid @enderror" required >
-                    @error('video_link')
-                    <p class='text-danger' > {{ $message }} </p>
-                    @enderror
-                </div>
-            </div>
-
-
-
-
-
             <div class="row mb-3">
                 <label class="col-form-label col-lg-2"> عنوان الدرس بالعربيه <span class="text-danger">*</span></label>
                 <div class="col-lg-10">
@@ -72,7 +44,6 @@
                     @enderror
                 </div>
             </div>
-
 
             <div class="row mb-3">
                 <label class="col-form-label col-lg-2"> عنوان الدرس بالانجليزيه <span class="text-danger">*</span></label>
