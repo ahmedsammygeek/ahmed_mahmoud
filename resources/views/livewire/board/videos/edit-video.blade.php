@@ -59,7 +59,7 @@
                     <label class="col-form-label col-lg-2"> الفديو <span class="text-danger">*</span></label>
                     <div class="col-lg-10">
                         <select wire:model.live='video_type' name="video_type" class="form-control form-select" id="">
-                            <option value="link"> @lang('courses.link') </option>
+                            <option value="youtube"> @lang('courses.link') </option>
                         </select>
                     </div>
                 </div>
