@@ -27,28 +27,29 @@
                      @if (count($lessons))
                      <tr>
                         <th > @lang('courses.title') </th>
+                        <th > @lang('courses.sorting') </th>
                         <th > @lang('courses.allowed_views') </th>
-                        <th > @lang('courses.link') </th>
                         <th > @lang('courses.status') </th>
                         <th > @lang('courses.is free') </th>
                         <th class="text-center" style="width: 20px;"> @lang('dashboard.options') </th>
                     </tr>
                     @endif
                 </thead>
-                <tbody>
+                <tbody wire:sortable="updateLessonOrder">
 
                     @if (count($lessons))
                     @foreach ($lessons as $lesson)
-                    <tr>
+                    <tr  wire:sortable.item="{{ $lesson->id }}" wire:key="lesson-{{ $lesson->id }}" >
                         <td class="text-wrap">
                             {{ $lesson->title }}
+                        </td>
+                        <td class="text-wrap">
+                            {{ $lesson->sorting }}
                         </td>
 
                         <td class="text-wrap">
                             {{ $lesson->allowed_views }}
                         </td>
-
-                        <td> {{ $lesson->lesson_video_link }} </td>
                         <td>
                             @switch($lesson->is_active )
                             @case(1)
@@ -73,6 +74,7 @@
 
 
                         <td class="text-center">
+                            <a class='btn btn-sm btn-info ' title="@lang('dashboard.view')" >  <i class="icon-grab "></i>  </a>
                             <a  href="{{ route('board.courses.units.lessons.show'  ,  ['course' => $course  , 'unit' => $unit , 'lesson' => $lesson  ] ) }}"  class="btn btn-sm btn-primary  ">
                                 <i class="icon-eye  "></i>
                             </a>
@@ -113,6 +115,7 @@
 <script src="{{ asset('board_assets/js/vendor/media/glightbox.min.js') }}"></script>
 <script src="{{ asset('board_assets/js/vendor/notifications/sweet_alert.min.js') }}"></script>
 <script src="{{ asset('board_assets/demo/pages/gallery.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/gh/livewire/sortable@v1.x.x/dist/livewire-sortable.js"></script>
 <script>
     $(function() {
 
