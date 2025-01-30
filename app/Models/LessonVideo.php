@@ -17,6 +17,10 @@ class LessonVideo extends Model
         return $this->belongsTo(User::class , 'user_id');
     }
 
+    public function files()
+    {
+        return $this->hasMany(LessonFile::class , 'video_id');
+    }
 
 
     public function lesson()

@@ -40,7 +40,7 @@ class LessonController extends Controller
 
     public function show(Course $course , Unit $unit ,  Lesson $lesson )
     {
-        // dd('ff');
+ 
         
         $is_user = false;
         if (Auth::guard('student')->check()) {
@@ -73,7 +73,6 @@ class LessonController extends Controller
      */
     public function show_video(Course $course , Unit $unit ,  Lesson $lesson  , LessonVideo $video)
     {
-        // dd(Auth::guard('student')->id());
 
         // we need first to check if this lesson related to this course or not
 
@@ -176,7 +175,7 @@ class LessonController extends Controller
 
             $student_course = CourseStudent::where('student_id' , $student->id )->where('course_id' , $course->id )->first();
             $data['video'] = new VideoResource($video);
-            $data['files'] = LessonFileResource::collection($lesson->files);
+            $data['files'] = LessonFileResource::collection($video->files);
 
             return $this->response(
                 data : $data , 
