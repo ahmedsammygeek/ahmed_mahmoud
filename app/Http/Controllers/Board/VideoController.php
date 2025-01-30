@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Board\Videos\{StoreVideoRequest , UpdateVideoRequest};
 use Alaouy\Youtube\Facades\Youtube;
-use App\Models\LessonVideo;
+use App\Models\{LessonVideo , LessonFile};
 use DateInterval;
 use Auth;
 class VideoController extends Controller
@@ -52,6 +52,23 @@ class VideoController extends Controller
         $video->setTranslation('content' , 'en' , $request->description_en );
         $video->save();
 
+
+        if ($request->hasFile('files')) {
+            $lesson_files = [];
+            $user_id = Auth::id();
+            for ($i=0; $i < count($request->file('files')) ; $i++) { 
+                $lesson_files[] = new LessonFile([
+                    'lesson_id' => $video->lesson_id,
+                    'video_id' => $video->id , 
+                    'name' => $request->file('files.'.$i)->getClientOriginalName() , 
+                    'file' => basename($request->file('files.'.$i)->store('lesson_files')) , 
+                    'user_id' => $user_id  ,
+                    'download_allowed_number' => 10  ,  
+                ]);
+            }
+            $video->lesson?->files()->saveMany($lesson_files);
+        }
+
         return redirect(route('board.videos.index'))->with('success' , 'تم الاضافه بنجاح');
     }
 
@@ -94,6 +111,24 @@ class VideoController extends Controller
         $video->setTranslation('content' , 'ar' , $request->description_ar );
         $video->setTranslation('content' , 'en' , $request->description_en );
         $video->save();
+
+
+        if ($request->hasFile('files')) {
+            $lesson_files = [];
+            $user_id = Auth::id();
+            for ($i=0; $i < count($request->file('files')) ; $i++) { 
+                $lesson_files[] = new LessonFile([
+                    'lesson_id' => $video->lesson_id,
+                    'video_id' => $video->id , 
+                    'name' => $request->file('files.'.$i)->getClientOriginalName() , 
+                    'file' => basename($request->file('files.'.$i)->store('lesson_files')) , 
+                    'user_id' => $user_id  ,
+                    'download_allowed_number' => 10  ,  
+                ]);
+            }
+            $video->lesson?->files()->saveMany($lesson_files);
+        }
+
 
         return redirect(route('board.videos.index'))->with('success' , 'تم التعديل بنجاح');
     }

@@ -27,7 +27,7 @@ class UpdateLessonRequest extends FormRequest
             'description_en' => 'required' , 
             'description_ar' => 'required' , 
             'files' => 'nullable' , 
-            'files.*' => 'pdf' , 
+            'files.*' => 'mimes:pdf' , 
             'is_free' => 'nullable' , 
             'is_active' => 'nullable' , 
         ];

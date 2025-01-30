@@ -38,6 +38,7 @@ class StoreVideoRequest extends FormRequest
             'is_free' => 'nullable' , 
             'is_active' => 'nullable' , 
             'files' => 'nullable' , 
+            'files.*' => 'mimes:pdf' , 
         ];
     }
 }

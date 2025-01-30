@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Board;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{Course , Unit , Lesson , LessonVideo , StudentLesson , CourseStudent};
+use App\Models\{Course , Unit , Lesson , LessonVideo , LessonFile , StudentLesson , CourseStudent};
 
 use App\Http\Requests\Board\Courses\Units\Lessons\{StoreLessonRequest , UpdateLessonRequest};
 use Auth;
@@ -61,6 +61,22 @@ class LessonController extends Controller
             }
         }
 
+        if ($request->hasFile('files')) {
+            $lesson_files = [];
+            $user_id = Auth::id();
+            for ($i=0; $i < count($request->file('files')) ; $i++) { 
+                $lesson_files[] = new LessonFile([
+                    'lesson_id' => $lesson->id,
+                    'name' => $request->file('files.'.$i)->getClientOriginalName() , 
+                    'file' => basename($request->file('files.'.$i)->store('lesson_files')) , 
+                    'user_id' => $user_id  ,
+                    'download_allowed_number' => 10  ,  
+                ]);
+            }
+            $lesson->files()->saveMany($lesson_files);
+        }
+
+
         return redirect(route('board.courses.units.lessons.index'  ,  ['course' => $course  , 'unit' => $unit ] ))->with('success' , trans('board.added successfully') );
     }
 
@@ -93,6 +109,22 @@ class LessonController extends Controller
         $lesson->is_active = $request->filled('is_active') ? 1 : 0;
         $lesson->is_free = $request->filled('is_free') ? 1 : 0;
         $lesson->save();
+
+
+        if ($request->hasFile('files')) {
+            $lesson_files = [];
+            $user_id = Auth::id();
+            for ($i=0; $i < count($request->file('files')) ; $i++) { 
+                $lesson_files[] = new LessonFile([
+                    'lesson_id' => $lesson->id,
+                    'name' => $request->file('files.'.$i)->getClientOriginalName() , 
+                    'file' => basename($request->file('files.'.$i)->store('lesson_files')) , 
+                    'user_id' => $user_id  ,
+                    'download_allowed_number' => 10  ,  
+                ]);
+            }
+            $lesson->files()->saveMany($lesson_files);
+        }
 
         return redirect(route('board.courses.units.lessons.index'  ,  ['course' => $course  , 'unit' => $unit ] ))->with('success' , trans('board.updated successfully') );
     }

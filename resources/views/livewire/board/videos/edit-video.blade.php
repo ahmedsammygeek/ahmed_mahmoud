@@ -155,7 +155,7 @@
                         @error('files.*')
                         <p class='text-danger' > {{ $message }} </p>
                         @enderror
-                        <p class="text-info"> الملفات المسموح بها هيا doc docx  ,pdf , zip , rar , png , jpg , jpeg ,  </p>
+                        <p class="text-info"> الملفات المسموح بها هيا pdf  </p>
                     </div>
                 </div>
 
