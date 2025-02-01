@@ -3,8 +3,11 @@
 namespace App\Actions\Board\Teachers;
 
 use App\Models\Teacher;
+use App\Models\User;
 use Auth;
 use Hash;
+use Spatie\Permission\Models\Permission;
+
 class UpdateTeacherAction
 {
     public function handle( $teacher ,  $data)
@@ -22,5 +25,12 @@ class UpdateTeacherAction
             $teacher->image = basename($data['image']->store('teachers'));
         }
         $teacher->save();
+
+        $user = User::find($teacher->id);
+        foreach ($data['permissions'] as $one_permission) {
+            $permission = Permission::firstOrCreate(['name' => $one_permission , 'guard_name' => 'web' ]);
+            $user->givePermissionTo($permission);
+        }
+
     }
 }
