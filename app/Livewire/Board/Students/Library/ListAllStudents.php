@@ -3,7 +3,7 @@
 namespace App\Livewire\Board\Students\Library;
 
 use Livewire\Component;
-use App\Models\{Student , Grade  , StudentInstallment , Unit , StudentUnit , StudentPayment , StudentLesson , CourseStudent ,  Group , EducationalSystem , Course , Teacher };
+use App\Models\{Student , Grade  , StudentInstallment , Unit  , Lesson , LessonFileView, StudentUnit , StudentPayment , StudentLesson , CourseStudent ,  Group , EducationalSystem , Course , Teacher };
 use Livewire\WithPagination;
 use Livewire\Attributes\Computed;
 use Storage;
@@ -77,17 +77,7 @@ class ListAllStudents extends Component
     }
 
 
-    public function updatedCourseId()
-    {
-        $course = Course::find($this->course_id);
-        $this->purchase_price = $course->price;
-    }
 
-        #[Computed]
-    public function single_installment()
-    {
-        return    ($this->purchase_price - $this->paid) / $this->installment_months   ;
-    }
 
 
     public function addStudnetsToCourses()
@@ -111,7 +101,6 @@ class ListAllStudents extends Component
 
             $student_units = [];
             foreach ($this->student_units as $student_unit) {
-
                 $student_units[] = new StudentUnit([
                     'student_id' => $selectedStudent , 
                     'user_id' => Auth::id() , 
@@ -121,6 +110,7 @@ class ListAllStudents extends Component
             }
 
             $student->units()->saveMany($student_units);
+
             $course = Course::find($this->selected_course_id );
             $course_lessons = $course->lessons()->whereIn('lessons.unit_id' , $this->student_units )->pluck('lessons.id')->toArray();
             $student_lessons = [];
@@ -134,37 +124,33 @@ class ListAllStudents extends Component
                     'total_views_till_now' => 0  ,
                 ]);
             }
-
-
             $student->lessons()->saveMany($student_lessons);
-
-            $student_payment = new StudentPayment;
-            $student_payment->student_id = $selectedStudent;
-            $student_payment->user_id = Auth::id();
-            $student_payment->course_id = $this->selected_course_id;
-            $student_payment->type = 1; 
-            $student_payment->amount = $this->paid;
-            $student_payment->save();
-
-            if ($this->paid != $this->purchase_price ) {
-            // then we need to add installments
-                $installment_amount = (($this->purchase_price - $this->paid ) / $this->installment_months);
-
-                for ($i=0; $i < $this->installment_months ; $i++) { 
-                    $student_installment = new StudentInstallment;
-                    $student_installment->user_id = Auth::id();
-                    $student_installment->student_id = $selectedStudent;
-                    $student_installment->course_id = $this->selected_course_id;
-                    $student_installment->amount = $installment_amount;
-                    $student_installment->due_date = Carbon::now()->addMonths(($i +1));
-                    $student_installment->is_paid = 0;
-                    $student_installment->student_payment_id = null;
-                    $student_installment->change_to_paid_by = null;
-                    $student_installment->save();
-                }
-
-
+            $lesson_student_files = [];
+            foreach ($course_lessons as $course_lesson) {
+                $lesson = Lesson::find($course_lesson);
+                foreach ($lesson->files as $lesson_file) {
+                    $lesson_student_files[] = [
+                        'student_id' => $selectedStudent , 
+                        'lesson_file_id' => $lesson_file->id , 
+                        'user_id' => $user_id, 
+                        'total_views_till_now' => 0  ,
+                        'total_downloads_till_now' => 0 , 
+                        'allowed_views_number' => 20 , 
+                        'allowed_downloads_number' => 20 , 
+                        'force_water_mark' => 1 , 
+                        'water_mark_text' => 't3leem' , 
+                        'is_allowed' => 1 , 
+                        'created_at' => Carbon::now() , 
+                        'updated_at' => Carbon::now() , 
+                    ];
+                }  
             }
+
+
+
+
+            LessonFileView::insert($lesson_student_files);
+
             $this->dispatch('studentAddedToCourse');
         }
 
@@ -184,9 +170,8 @@ class ListAllStudents extends Component
             $query->where('grade_id' , $this->grade_id );
         })
         ->when($this->teacher_id , function($query){
-            $query->whereHas('teachers' , function($query){
-                $query->where('teacher_id' , $this->teacher_id );
-            });
+            $query->where('teacher_id' , $this->teacher_id );
+
         })
         ->select('title' , 'id')->get();
     }
@@ -220,9 +205,7 @@ class ListAllStudents extends Component
         })
         ->when($this->teacher_id , function($query){
             $query->whereHas('courses' , function($query){
-                $query->whereHas('CourseTeacher' , function($query){
-                    $query->where('teacher_id' , $this->teacher_id );
-                });
+                $query->where('teacher_id' , $this->teacher_id );
             });
         })
         ->when($this->student_type, function($query){

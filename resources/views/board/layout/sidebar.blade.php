@@ -332,6 +332,11 @@ switch (request()->segment(3)) {
 								@lang('library.add new file') 
 							</a>
 						</li>
+						<li class="nav-item">
+							<a href="{{ route('board.library.students') }}" class="nav-link "> 
+								@lang('library.assgin students') 
+							</a>
+						</li>
 {{-- 
 						<li class="nav-item">
 							<a href="{{ route('board.students.index') }}" class="nav-link"> 
