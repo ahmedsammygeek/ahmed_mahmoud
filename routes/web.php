@@ -65,7 +65,7 @@ Route::group(
         Route::group(['prefix' => 'Board' , 'as' => 'board.' ], function() {
             Route::get('/login' , [AdminLoginController::class , 'form'] )->name('login.form');
             Route::post('/login' , [AdminLoginController::class , 'login'] )->name('login');
-            Route::group(['middleware' => ['admin'] ], function() {
+            Route::group(['middleware' => ['admin' , 'check_if_admin_blocked' ] ], function() {
                 Route::get('/' , [BoardController::class , 'index'] )->name('index');
                 Route::resource('admins', AdminController::class);
                 Route::resource('categories', CategoryController::class);
