@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Board;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\Board\Library\StoreFileRequest;
+use App\Http\Requests\Board\Library\{StoreFileRequest , UpdateFileRequest};
 use App\Models\{ Lesson ,  LessonVideo , LessonFile , Course , CourseStudent , LessonFileView};
 
 use Auth;
@@ -36,7 +36,6 @@ class LibraryController extends Controller
         $video = LessonVideo::find($request->video_id);
         $course_students = CourseStudent::where('course_id' , $request->course_id )->pluck('student_id')->toArray();
 
-        // dd($course_students , $request->file('files') );
         
         $lesson_files = [];
         $file_students = [];
@@ -76,6 +75,8 @@ class LibraryController extends Controller
         }
 
         LessonFileView::insert($file_students);
+
+        return redirect(route('board.library.index'))->with('success' , trans('library.file added successfully') );
     }
 
     /**
@@ -89,17 +90,22 @@ class LibraryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(LessonFile $library)
     {
-        //
+
+        return view('board.library.edit' , compact('library'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateFileRequest $request, LessonFile $library)
     {
-        //
+        $library->lesson_id = $request->lesson_id;
+        $library->video_id = $request->video_id;
+        $library->save();
+
+        return redirect(route('board.library.index'))->with('success' , trans('library.file updated successfully') );
     }
 
     /**

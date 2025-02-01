@@ -5,15 +5,22 @@ namespace App\Livewire\Board\Library;
 use Livewire\Component;
 use App\Models\{Course , Unit , Lesson , LessonVideo};
 use Livewire\Attributes\Computed;
-class AddNewFile extends Component
+class EditFile extends Component
 {
 
-
+    public $lesson_file;
     public $course_id;
     public $unit_id;
     public $lesson_id;
     public $video_id;
 
+    public function mount()
+    {
+        $this->video_id = $this->lesson_file->video_id ;
+        $this->course_id = $this->lesson_file->lesson?->unit?->course_id ;
+        $this->unit_id = $this->lesson_file->lesson?->unit_id ;
+        $this->lesson_id = $this->lesson_file->lesson_id ;
+    }
 
     #[Computed]
     public function courses()
@@ -44,6 +51,6 @@ class AddNewFile extends Component
 
     public function render()
     {
-        return view('livewire.board.library.add-new-file');
+        return view('livewire.board.library.edit-file');
     }
 }
