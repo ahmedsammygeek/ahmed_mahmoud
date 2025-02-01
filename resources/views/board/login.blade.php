@@ -55,18 +55,18 @@
 											<img src="{{ asset('assets/images/logo_icon.svg') }}" class="h-48px" alt="">
 										</div>
 										<h5 class="mb-0"> {{ trans('board.login to adminpanel') }}</h5>
-										<span class="d-block text-muted"> {{ trans('board.enter email and password') }} </span>
+										<span class="d-block text-muted"> {{ trans('board.enter mobile and password') }} </span>
 									</div>
 
 									<div class="mb-3">
-										<label class="form-label"> البريد الاكترونى </label>
+										<label class="form-label"> رقم الموبيل </label>
 										<div class="form-control-feedback form-control-feedback-start">
-											<input type="email" name='email' value='{{ old('email') }}' class="form-control @error('email') is-invalid @enderror " placeholder="john@doe.com" >
+											<input type="text" name='mobile' value='{{ old('mobile') }}' class="form-control @error('mobile') is-invalid @enderror " placeholder="01000000000" >
 											<div class="form-control-feedback-icon">
 												<i class="ph-user-circle text-muted"></i>
 											</div>
 										</div>
-										@error('email')
+										@error('mobile')
 										<div class="text-danger lead"> {{ $message }} </div>
 										@enderror
 									</div>
