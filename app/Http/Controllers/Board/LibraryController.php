@@ -1,0 +1,112 @@
+<?php
+
+namespace App\Http\Controllers\Board;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Http\Requests\Board\Library\StoreFileRequest;
+use App\Models\{ Lesson ,  LessonVideo , LessonFile , Course , CourseStudent , LessonFileView};
+
+use Auth;
+use Carbon\Carbon;
+class LibraryController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        return view('board.library.index');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return view('board.library.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(StoreFileRequest $request)
+    {
+        $lesson = Lesson::find($request->lesson_id);
+        $video = LessonVideo::find($request->video_id);
+        $course_students = CourseStudent::where('course_id' , $request->course_id )->pluck('student_id')->toArray();
+
+        // dd($course_students , $request->file('files') );
+        
+        $lesson_files = [];
+        $file_students = [];
+
+        $user_id = Auth::id();
+        for ($i=0; $i < count($request->file('files')) ; $i++) { 
+            $lesson_files[] = new LessonFile([
+                'video_id' => $video ? $request->video_id : null , 
+                'lesson_id' => $lesson->id,
+                'name' => $request->file('files.'.$i)->getClientOriginalName() , 
+                'file' => basename($request->file('files.'.$i)->store('lesson_files')) , 
+                'user_id' => $user_id  ,
+                'size' => $request->file('files.'.$i)->getSize() , 
+                'download_allowed_number' => $request->download_allowed_number   ,  
+            ]);
+        }
+
+        $saved_lesson_files =  $lesson->files()->saveMany($lesson_files);
+
+
+        foreach ($saved_lesson_files as $saved_lesson_file) {
+            foreach ($course_students as $course_student) {
+                $file_students[] = [
+                    'student_id' => $course_student , 
+                    'lesson_file_id' => $saved_lesson_file->id , 
+                    'total_views_till_now' => 0 , 
+                    'total_downloads_till_now' => 0 , 
+                    'allowed_views_number' => $request->allowed_views_number , 
+                    'allowed_downloads_number' => $request->download_allowed_number , 
+                    'force_water_mark' => $request->filled('force_water_mark') ? 1 : 0 , 
+                    'water_mark_text' => 't3leem' , 
+                    'user_id' => $user_id , 
+                    'created_at' => Carbon::now() , 
+                    'updated_at' => Carbon::now() , 
+                ];
+            }
+        }
+
+        LessonFileView::insert($file_students);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
+    }
+}

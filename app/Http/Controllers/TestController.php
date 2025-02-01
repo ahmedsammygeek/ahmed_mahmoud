@@ -29,6 +29,7 @@ use App\Models\CourseStudent;
 use App\Models\LessonVideo;
 use App\Models\Announcement;
 use App\Models\Lesson;
+// use App\Models\LessonFile;
 use DB;
 use Mail;
 use App\Notifications\WelcomeNotification;
@@ -48,6 +49,16 @@ class TestController extends Controller
      */
     public function index()
     {  
+
+        $files = LessonFile::get();
+
+
+        foreach ($files as $file) {
+            
+            $file->size = mt_rand(0 , 10000);
+            $file->save();
+        }
+
 
         $student = Student::find(55);
 

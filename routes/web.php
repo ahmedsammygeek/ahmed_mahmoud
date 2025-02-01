@@ -46,6 +46,7 @@ use App\Http\Controllers\Board\LessonTrashController;
 use App\Http\Controllers\Board\StudentCourseTrashController;
 use App\Http\Controllers\Board\StudentDeviceController;
 use App\Http\Controllers\Board\SplashController;
+use App\Http\Controllers\Board\LibraryController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\ApplicationController;
 
@@ -131,7 +132,7 @@ Route::group(
 
                 Route::get('/password/edit' , [PasswordController::class , 'edit'] )->name('password.edit');
                 Route::patch('/password' , [PasswordController::class , 'update'] )->name('password.update');
-
+                Route::resource('library', LibraryController::class );
 
 
                 Route::group(['prefix' => 'trash'], function() {

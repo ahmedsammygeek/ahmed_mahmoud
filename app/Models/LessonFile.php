@@ -10,7 +10,7 @@ class LessonFile extends Model
     use HasFactory;
 
 
-    protected $fillable = ['lesson_id' , 'video_id' , 'user_id' , 'file' , 'download_allowed_number' , 'name' ];
+    protected $fillable = ['lesson_id' , 'video_id' , 'user_id'  , 'size' , 'file' , 'download_allowed_number' , 'name' ];
 
 
     public function user()
