@@ -47,6 +47,7 @@ use App\Http\Controllers\Board\StudentCourseTrashController;
 use App\Http\Controllers\Board\StudentDeviceController;
 use App\Http\Controllers\Board\SplashController;
 use App\Http\Controllers\Board\LibraryController;
+use App\Http\Controllers\Board\StudentVideoViewsController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\ApplicationController;
 
@@ -99,6 +100,11 @@ Route::group(
 
                 Route::get('/students/courses/allow/lessons' , [StudentCourseController::class , 'allow_lessons'] )->name('students.courses.allow.lessons');
 
+                Route::get('/students/courses/allow/lessons' , [StudentCourseController::class , 'allow_lessons'] )->name('students.courses.allow.lessons');
+
+
+                Route::get('/students_videos' , [StudentVideoViewsController::class , 'index'] )->name('students.videos');
+
 
                 Route::get('/students/devices/manipluate'  , [StudentDeviceController::class , 'index'])->name('students.devices.manipluate');
 
@@ -132,11 +138,13 @@ Route::group(
 
                 Route::get('/password/edit' , [PasswordController::class , 'edit'] )->name('password.edit');
                 Route::patch('/password' , [PasswordController::class , 'update'] )->name('password.update');
+                Route::get('library/assgin_students' , [LibraryController::class , 'assgin_students'] )->name('library.students');
+
                 Route::resource('library', LibraryController::class );
 
 
                 Route::group(['prefix' => 'trash'], function() {
-                    
+
                     Route::get('/students' , [StudentTrashController::class , 'index'])->name('trash.index');
                     Route::get('/students' , [StudentTrashController::class , 'index'])->name('trashed.students');
                     Route::get('/courses' , [CourseTrashController::class , 'index'])->name('trashed.courses');
@@ -151,16 +159,16 @@ Route::group(
                 });
 
             });
-        });
+});
 
 
 
 
-        Livewire::setUpdateRoute(function ($handle) {
-            return Route::post('/livewire/update', $handle);
-        });
-        
-    });
+Livewire::setUpdateRoute(function ($handle) {
+    return Route::post('/livewire/update', $handle);
+});
+
+});
 
 
 

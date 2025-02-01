@@ -111,8 +111,8 @@ class LibraryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function assgin_students()
     {
-        //
+        return view('board.library.students');
     }
 }

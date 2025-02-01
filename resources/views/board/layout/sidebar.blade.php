@@ -1,5 +1,5 @@
 @php
-$groups = $admins = $home = $settings = $teachers = $payments = $students = $educational_systems = $installments = $grades = $dashboard_notifications  = $announcements = $questions = $videos = $trash = $exams = $users = $courses = $slides = $faculties = $universities = $faculty_levels = $splashes = '';
+$groups = $admins = $home = $settings = $teachers = $payments = $students = $educational_systems = $installments = $grades = $dashboard_notifications  = $announcements = $questions = $videos = $trash = $exams = $users = $courses = $slides = $faculties = $universities = $faculty_levels  = $library = $splashes = '';
 
 
 
@@ -26,6 +26,7 @@ switch (request()->segment(3)) {
 	$teachers = 'active';
 	break;
 	case 'students':
+	case 'students_videos':
 	$students = 'active';
 	break;
 	case 'users':
@@ -69,6 +70,9 @@ switch (request()->segment(3)) {
 	break;
 	case 'trash':
 	$trash = 'active';
+	break;
+	case 'library':
+	$library = 'active';
 	break;
 	default:
 	$home = 'active';
@@ -308,6 +312,57 @@ switch (request()->segment(3)) {
 							</a>
 						</li>
 
+
+						<li class="nav-item">
+							<a href="{{ route('board.students.videos') }}" class="nav-link"> 
+								views  manipluate 
+							</a>
+						</li>
+
+					</ul>
+				</li>
+				<li class="nav-item nav-item-submenu">
+					<a href="{{ route('board.library.index') }}" class="nav-link {{ $library }}">
+						<i class="icon-file-pdf "></i>
+						<span> @lang('library.library') </span>
+					</a>
+					<ul class="nav-group-sub collapse">
+						<li class="nav-item">
+							<a href="{{ route('board.library.create') }}" class="nav-link "> 
+								@lang('library.add new file') 
+							</a>
+						</li>
+{{-- 
+						<li class="nav-item">
+							<a href="{{ route('board.students.index') }}" class="nav-link"> 
+								@lang('students.show all students')
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a href="{{ route('board.students.courses.create') }}" class="nav-link"> 
+								add courses
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a href="{{ route('board.students.courses.allow.units') }}" class="nav-link"> 
+								disable & allow courses
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a href="{{ route('board.students.courses.remove') }}" class="nav-link"> 
+								delete from courses 
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a href="{{ route('board.students.devices.manipluate') }}" class="nav-link"> 
+								students devices manipluate 
+							</a>
+						</li>
+
 						<li class="nav-item">
 							<a href="{{ route('board.students.devices.manipluate') }}" class="nav-link"> 
 								units manipluate 
@@ -319,7 +374,7 @@ switch (request()->segment(3)) {
 								views increase  manipluate 
 							</a>
 						</li>
-
+ --}}
 					</ul>
 				</li>
 				<li class="nav-item nav-item-submenu">
