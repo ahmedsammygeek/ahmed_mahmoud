@@ -28,46 +28,46 @@ class AllowCoursesToStudents extends Component
     public $disable_reason;
     public $is_active = 'all';
     public $selectedStudents = [];
+    public $selectAll  = false ;
 
     protected $listeners = ['deleteItem' , 'itemDeleted' => '$refresh'  ];  
 
 
+    public function allowCourses()
+    {
+        foreach ($this->selectedStudents as $selectedStudent) {
 
-        public function allowCourses()
-        {
-            foreach ($this->selectedStudents as $selectedStudent) {
-               
-               $student_course = CourseStudent::where('course_id' , $this->selected_course_id )
-               ->where('student_id' , $selectedStudent )
-               ->first();
+            $student_course = CourseStudent::where('course_id' , $this->selected_course_id )
+            ->where('student_id' , $selectedStudent )
+            ->first();
 
-               if ($student_course) {
-                   $student_course->allow = 1;
-                   $student_course->disable_reason = null;
-                   $student_course->save();
-               }
+            if ($student_course) {
+                $student_course->allow = 1;
+                $student_course->disable_reason = null;
+                $student_course->save();
             }
-            $this->selected_course_id = null;
-            $this->dispatch('courseAllowededToStudents');
-        }  
-
-        public function disableCourses()
-        {
-            foreach ($this->selectedStudents as $selectedStudent) {
-               
-               $student_course = CourseStudent::where('course_id' , $this->selected_course_id )
-               ->where('student_id' , $selectedStudent )
-               ->first();
-
-               if ($student_course) {
-                   $student_course->allow = 0;
-                   $student_course->disable_reason = $this->disable_reason;
-                   $student_course->save();
-               }
-            }
-
-            $this->dispatch('courseDisabldToStudents');
         }
+        $this->selected_course_id = null;
+        $this->dispatch('courseAllowededToStudents');
+    }  
+
+    public function disableCourses()
+    {
+        foreach ($this->selectedStudents as $selectedStudent) {
+
+            $student_course = CourseStudent::where('course_id' , $this->selected_course_id )
+            ->where('student_id' , $selectedStudent )
+            ->first();
+
+            if ($student_course) {
+                $student_course->allow = 0;
+                $student_course->disable_reason = $this->disable_reason;
+                $student_course->save();
+            }
+        }
+
+        $this->dispatch('courseDisabldToStudents');
+    }
 
 
     public function updated()
@@ -84,6 +84,20 @@ class AllowCoursesToStudents extends Component
         }
     }
 
+
+    public function selectAllStudents()
+    {
+        $this->selectAll = !$this->selectAll;
+
+        if ($this->selectAll) {
+            $this->selectedStudents = $this->generateQuery()->pluck('id')->toArray();
+        } else {
+            $this->selectedStudents = [];
+        }
+
+        
+    }
+
     #[Computed]
     public function groups()
     {
@@ -98,17 +112,6 @@ class AllowCoursesToStudents extends Component
     }
 
 
-    public function updatedCourseId()
-    {
-        $course = Course::find($this->course_id);
-        $this->purchase_price = $course->price;
-    }
-
-        #[Computed]
-    public function single_installment()
-    {
-        return    ($this->purchase_price - $this->paid) / $this->installment_months   ;
-    }
 
 
     public function addStudnetsToCourses()
@@ -205,9 +208,7 @@ class AllowCoursesToStudents extends Component
             $query->where('grade_id' , $this->grade_id );
         })
         ->when($this->teacher_id , function($query){
-            $query->whereHas('teachers' , function($query){
-                $query->where('teacher_id' , $this->teacher_id );
-            });
+            $query->where('teacher_id' , $this->teacher_id );
         })
         ->select('title' , 'id')->get();
     }
@@ -215,16 +216,14 @@ class AllowCoursesToStudents extends Component
     #[Computed]
     public function teachers()
     {
-        return Teacher::when($this->course_id , function($query){
-            $query->whereHas('courses' , function($query){
-                $query->where('course_id' , $this->course_id);
-            });
-        })->select('name' , 'id')->get();
+        return Teacher::select('name' , 'id')->get();
     }
 
-    public function render()
+
+
+    public function generateQuery()
     {
-        $students = Student::query()
+        return  Student::query()
         ->with(['grade' , 'educationalSystem' ])
         ->when($this->search , function($query){
             $query
@@ -245,15 +244,20 @@ class AllowCoursesToStudents extends Component
         })
         ->when($this->teacher_id , function($query){
             $query->whereHas('courses' , function($query){
-                $query->whereHas('CourseTeacher' , function($query){
+                $query->whereHas('course' , function($query){
                     $query->where('teacher_id' , $this->teacher_id );
                 });
             });
         })
         ->when($this->student_type, function($query){
             $query->where('student_type' , $this->student_type);
-        })
-        ->latest()
+        });
+    }
+
+
+    public function render()
+    {
+        $students =  $this->generateQuery()->latest()
         ->paginate($this->rows);
 
         return view('livewire.board.students.courses.allow-courses-to-students' , compact('students') );

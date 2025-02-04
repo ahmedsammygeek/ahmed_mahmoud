@@ -90,7 +90,11 @@
         <table  class='table  table-responsive table-striped table-xs text-center '>
             <thead>
                 <tr>
-                    <th> # </th>
+                    <th> 
+                         <div class="form-check form-check-reverse mb-2">
+                            <input  type="checkbox" class='form-check-input'  wire:click='selectAllStudents' id='ddsdsd' >
+                        </div> 
+                    </th>
                     <th> @lang('students.name') </th>
                     <th> @lang('students.mobile') </th>
                     <th> @lang('students.guardian mobile') </th>
@@ -104,10 +108,10 @@
                 $i =1
                 @endphp
                 @foreach ($students as $student)
-                <tr>
+                <tr id='student-{{ $student->id }}'>
                     <td>
                         <div class="form-check form-check-reverse mb-2">
-                            <input  type="checkbox" class="form-check-input" wire:model='selectedStudents.{{ $student->id }}' value="{{ $student->id }}"  >
+                            <input  type="checkbox" class="form-check-input"  wire:model.live='selectedStudents' value="{{ $student->id }}"  >
                         </div>
                     </td>
                     <td> {{ $student->name }} </td>
@@ -221,7 +225,7 @@
 <script src="{{ asset('board_assets/demo/pages/extra_sweetalert.js') }}"></script>
 <script src="{{ asset('board_assets/js/vendor/media/glightbox.min.js') }}"></script>
 <script src="{{ asset('board_assets/demo/pages/gallery_library.js') }}"></script>
-<script src="//unpkg.com/alpinejs" defer></script>
+
 
 <script>
     $(function() {

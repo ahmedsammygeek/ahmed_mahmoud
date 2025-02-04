@@ -3,42 +3,61 @@
 namespace App\Livewire\Board\Students\Videos;
 
 use Livewire\Component;
-use App\Models\{Student , Grade  , StudentInstallment , Unit , StudentUnit , StudentPayment , StudentLesson , CourseStudent ,  Group , EducationalSystem , Course , Teacher , Lesson };
+use App\Models\{Student , Grade  , StudentInstallment , Unit , StudentUnit , StudentPayment , StudentLesson , CourseStudent ,  Group , EducationalSystem , Course , Teacher, LessonVideo , Lesson };
 use Livewire\WithPagination;
 use Livewire\Attributes\Computed;
 use Storage;
 use Auth;
 use Carbon\Carbon;
 use Livewire\Attributes\Validate;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 class ListAllStudents extends Component
 {
 
-    use WithPagination  ;
+    use WithPagination  , LivewireAlert ;
     protected $paginationTheme = 'bootstrap';
     public $rows = 15;
 
     public $search;
     public $grade_id;
-    public $lesson_id = [];
+
     public $educational_system_id;
     public $course_id;
     public $teacher_id;
     public $unit_id;
     public $grades;
     public $systems;
+    public $allowed_views;
+    public $lesson_id;
     public $is_active = 'all';
     public $selectedStudents = [];
-
-    protected $listeners = ['deleteItem' , 'itemDeleted' => '$refresh' , 'allStudentshasBeenSelected' => '$refresh'];  
-
-
-    #[Validate('required')]
-    public $allowed_views ;
+    public $selectedVideos = [];
+    public $selectAll = false ;
+    public $selectAllVideos = true ;
 
 
-    public function updated()
+    protected $listeners = ['deleteItem' , 'openViewsModal' , 'itemDeleted' => '$refresh' , 'allStudentshasBeenSelected' => '$refresh'];  
+
+
+
+    public function resetAllFilters()
     {
-        $this->resetPage();
+        $this->educational_system_id = null;
+        $this->course_id = null;
+        $this->teacher_id = null;
+        $this->grade_id = null;
+        $this->search = null;
+
+    }
+
+    public function SelectAllVideosddddd()
+    {
+        $this->selectAllVideos = !$this->selectAllVideos;
+        if ($this->selectAllVideos) {
+            $this->selectedVideos = LessonVideo::whereIn('lesson_id' , $this->lessons()->pluck('id')->toArray() )->pluck('id')->toArray();
+        } else {
+            $this->selectedVideos = [];
+        }
     }
 
     public function deleteItem($itemId)
@@ -49,7 +68,6 @@ class ListAllStudents extends Component
             $this->dispatch('itemDeleted');
         }
     }
-
 
     #[Computed]
     public function teachers()
@@ -65,9 +83,7 @@ class ListAllStudents extends Component
         })
         ->when($this->teacher_id , function($query){
             $query->where('teacher_id' , $this->teacher_id );
-
-        })
-        ->select('title' , 'id')->get();
+        })->select('title' , 'id')->get();
     }
 
 
@@ -91,23 +107,31 @@ class ListAllStudents extends Component
         return Lesson::where('unit_id' , $this->unit_id )->get();
     }
 
-    public function selecteAllStudents() {
+    public function selectAllStudents() {
 
-        $students_ids =   $this->selectedStudents = $this->generateQuery()->pluck('id')->toArray();
-        $new_array = [];
-        foreach ($students_ids as $students_id) {
-            $new_array[$students_id] = true; 
+        $this->selectAll = !$this->selectAll;
+        if ($this->selectAll) {
+            $this->selectedStudents =  $this->generateQuery()->pluck('id')->toArray()  ;
+        } else {
+            $this->selectedStudents =  []  ;
         }
-        $this->selectedStudents = $new_array;
-        $this->dispatch('allStudentshasBeenSelected');
     }
 
 
+    public function openViewsModal()
+    {
+        if (!$this->course_id) {
+            $this->dispatch('close-add-views-modal');
+            $this->alert('error' , 'choose course first please' );
+            return ;
+        }
+
+        $this->dispatch('open-add-views-modal');
+    }
+
     public function addStudnetsToCourses()
     {   
-
         $this->validate();
-        
         if ($this->lesson_id) {
             foreach ($this->lesson_id as $one_lesson_id) {
                 $students = StudentLesson::whereIn('student_id' ,  array_keys($this->selectedStudents) )
@@ -141,6 +165,13 @@ class ListAllStudents extends Component
         $this->grades = Grade::select('name', 'id' )->get();
         $this->systems = EducationalSystem::select('name', 'id' )->get();
         $this->selectedCourses = Course::select('id' , 'title')->get();
+
+        // $this->selectAllVideos = !$this->selectAllVideos;
+        if ($this->selectAllVideos) {
+            $this->selectAllVideos = LessonVideo::whereIn('lesson_id' , $this->lessons()->pluck('id')->toArray() )->pluck('id')->toArray();
+        } else {
+            $this->selectAllVideos = [];
+        }
     }
 
 
@@ -163,6 +194,11 @@ class ListAllStudents extends Component
         ->when($this->course_id , function($query){
             $query->whereHas('courses' , function($query){
                 $query->where('course_id' , $this->course_id );
+            });
+        })
+        ->when($this->unit_id , function($query){
+            $query->whereHas('units' , function($query){
+                $query->where('unit_id' , $this->unit_id );
             });
         })
         ->when($this->teacher_id , function($query){

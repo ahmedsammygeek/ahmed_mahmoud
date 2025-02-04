@@ -7,7 +7,6 @@
     </div>
     <div class="col-md-12 collapse" id='filters' wire:ignore.self >
         <div class="card card-body">
-
             <div class="d-sm-flex align-items-sm-start mt-2">
                 <div class="dropdown ms-sm-3  mb-sm-0">
                     <select wire:model.change='grade_id' class="form-select">
@@ -50,28 +49,16 @@
                         @endforeach
                     </select>
                 </div>
-
                 <div class="dropdown ms-sm-3  mb-sm-0">
-                    <select wire:model.change='lesson_id' class="form-select" multiple="multiple" > 
-                        <option value=""> @lang('students.all lessons') </option>
-                        @foreach ($this->lessons as $lesson)
-                        <option value="{{ $lesson->id }}"> {{ $lesson->title }} </option>
-                        @endforeach
-                    </select>
-                </div>
-{{--                 
-                <div class="dropdown ms-sm-3  mb-sm-0">
-                    <select wire:model.change='student_type' class="form-select">
-                        <option value=""> @lang('students.all students') </option>
-                        <option value="1"> @lang('students.only center students') </option>
-                        <option value="2"> @lang('students.only online students') </option>
-                    </select>
-                </div> --}}
-                <div class="dropdown ms-sm-3  mb-sm-0">
-                    <button  data-bs-toggle="modal" data-bs-target="#add_new_course_to_student_modal"  class="btn btn-primary "> increas views </button>
+                    <button wire:click='resetAllFilters' class="btn btn-primary "> @lang('board.reset filters') </button>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="col-md-11 mt-2 mb-2">
+        @if (count($selectedStudents))
+        <button class="btn btn-primary btn-sm pull-left" wire:click='openViewsModal' > <i class="icon-indent-increase  me-2"></i> inceares views </button>
+        @endif
     </div>
     <div class="col-md-12">
         <div class="card">
@@ -97,18 +84,13 @@
                 </div>
             </div>
         </div>
-        <div wire:loading> 
-            <div class="card-overlay card-overlay-fadeout">
-                <span class="ph-spinner spinner"></span>
-                جارى التحقق من المواعيد برجاء الانتظار
-            </div>
-        </div>
+
         <table  class='table  table-responsive table-striped table-xs text-center '>
             <thead>
                 <tr>
                     <th>
                         <div class="form-check form-check-reverse mb-2">
-                            <input  type="checkbox" class="form-check-input" wire:click='selecteAllStudents' >
+                            <input  type="checkbox" class='form-check-input'  wire:click='selectAllStudents' id='ddsdsd' >
                         </div> 
                     </th>
                     <th> @lang('students.name') </th>
@@ -124,11 +106,9 @@
                 $i =1
                 @endphp
                 @foreach ($students as $student)
-                <tr>
+                <tr id='student-{{ $student->id }}' >
                     <td>
-                        <div class="form-check form-check-reverse mb-2">
-                            <input type="checkbox" class="form-check-input" wire:model.live='selectedStudents.{{ $student->id }}' value="{{ $student->id }}"  >
-                        </div>
+                        <input type="checkbox"  class='form-check-input'  wire:model.live='selectedStudents' value="{{ $student->id }}" >
                     </td>
                     <td> {{ $student->name }} </td>
                     <td> {{ $student->mobile }} </td>
@@ -165,6 +145,35 @@
             <form wire:submit="addStudnetsToCourses" class="form-horizontal">
                 <div class="modal-body">
 
+                    <div class="row mb-3">
+                        <label class="col-form-label col-sm-3"> @lang('students.videos') </label>
+                        <div class="col-sm-9" >
+                            <select wire:model.live='selectedVideos'  class="form-select" multiple> 
+                                @foreach ($this->lessons as $lesson)
+                                <optgroup label="{{ $lesson->title }}">
+                                    @foreach ($lesson->videos as $video)
+                                    <option value="{{ $video->id }}"> {{ $video->title }} -- {{ $video->id }}</option>
+                                    @endforeach
+                                </optgroup>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-3">
+                        <label class="col-form-label col-sm-3"> @lang('students.videos') </label>
+                        <div class="col-sm-9" >
+                            <div class="form-check form-check-reverse mb-2">
+                                <label for="">
+                                    <input  type="checkbox" class='form-check-input' wire:click='SelectAllVideosddddd'  id='ddsdsd4545' >
+                                    @lang('videos.select all videos')
+                                </label>
+                            </div> 
+                        </div>
+                    </div>
+
+
 
                     <div class="row mb-3">
                         <label class="col-form-label col-sm-3"> @lang('students.views') </label>
@@ -195,11 +204,21 @@
 <script src="{{ asset('board_assets/demo/pages/extra_sweetalert.js') }}"></script>
 <script src="{{ asset('board_assets/js/vendor/media/glightbox.min.js') }}"></script>
 <script src="{{ asset('board_assets/demo/pages/gallery_library.js') }}"></script>
-<script src="//unpkg.com/alpinejs" defer></script>
+<script src="{{ asset('board_assets/js/vendor/forms/selects/bootstrap_multiselect.js') }}"></script>
+<script src="{{ asset('board_assets/demo/pages/form_multiselect.js') }}"></script>
 
 <script>
     $(function() {
 
+
+
+
+        Livewire.on('open-add-views-modal' , () => {
+            $(document).find('#add_new_course_to_student_modal').modal('show');
+        });
+        Livewire.on('close-add-views-modal' , () => {
+            $(document).find('#add_new_course_to_student_modal').modal('hide');
+        });
 
 
         Livewire.on('studentAddedToCourse' , () => {
@@ -212,8 +231,6 @@
                 position: 'top-start' , 
                 timer: 1500
             });
-
-
         });
 
 
@@ -227,6 +244,9 @@
                 timer: 1500
             });
         });
+
+
+
 
         const swalInit = swal.mixin({
             buttonsStyling: false,
