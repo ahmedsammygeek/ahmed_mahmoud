@@ -81,12 +81,12 @@
                 </div>
             </div>
         </div>
-        <div wire:loading> 
+{{--         <div wire:loading> 
             <div class="card-overlay card-overlay-fadeout">
                 <span class="ph-spinner spinner"></span>
                 جارى التحقق من المواعيد برجاء الانتظار
             </div>
-        </div>
+        </div> --}}
         <table  class='table  table-responsive table-striped table-xs text-center '>
             <thead>
                 <tr>
@@ -151,13 +151,13 @@
                     <div class="row mb-3">
                         <label class="col-form-label col-sm-3"> @lang('students.course') </label>
                         <div class="col-sm-9">
-                            <select wire:model.live='selected_course_id' class="form-select form-control @error('course_id') is-invalid @enderror " id="">
+                            <select wire:model.live='selected_course_id' class="form-select form-control @error('selected_course_id') is-invalid @enderror " id="">
                                 <option value=""></option>
                                 @foreach ($selectedCourses as $selectedCourse)
-                                <option value="{{ $selectedCourse->id }}"> {{ $selectedCourse->title }} </option>
+                                <option value="{{ $selectedCourse->id }}"> {{ $selectedCourse->title }} -- {{ $selectedCourse->id }} </option>
                                 @endforeach
                             </select>
-                            @error('course_id')
+                            @error('selected_course_id')
                             <p class='is-invalid text-danger'> {{ $message }} </p>
                             @enderror 
                         </div>
@@ -188,7 +188,7 @@
                             <select wire:model.live='selected_course_id' class="form-select form-control @error('course_id') is-invalid @enderror " id="">
                                 <option value=""></option>
                                 @foreach ($selectedCourses as $selectedCourse)
-                                <option value="{{ $selectedCourse->id }}"> {{ $selectedCourse->title }} </option>
+                                <option value="{{ $selectedCourse->id }}"> {{ $selectedCourse->title }} -- {{ $selectedCourse->id }} </option>
                                 @endforeach
                             </select>
                             @error('course_id')

@@ -40,8 +40,8 @@ class LessonController extends Controller
 
     public function show(Course $course , Unit $unit ,  Lesson $lesson )
     {
- 
-        
+
+        // dd('ff');
         $is_user = false;
         if (Auth::guard('student')->check()) {
             $is_user = true;
@@ -73,6 +73,10 @@ class LessonController extends Controller
      */
     public function show_video(Course $course , Unit $unit ,  Lesson $lesson  , LessonVideo $video)
     {
+
+        // $student = Auth::guard('student')->user();
+
+            // dd($student);
 
         // we need first to check if this lesson related to this course or not
 
@@ -130,6 +134,19 @@ class LessonController extends Controller
         }
 
         $student = Auth::guard('student')->user();
+
+
+
+        $course_student = CourseStudent::where('course_id' , $course->id )
+        ->where('student_id' , $student->id )->first();
+
+        if ($course_student->allow == 0 ) {
+            return $this->response(
+                status : 'error' , 
+                message : 'you have been prevented from this course becourse : '.$course_student->disable_reason  , 
+            );
+        }
+
 
 
         // we need to check if the student take the exam or not
