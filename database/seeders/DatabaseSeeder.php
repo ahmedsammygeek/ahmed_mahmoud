@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
     {
 
         $this->call([
+            PermissionSeeder::class , 
             // EducationalSystemSeeder::class , 
             // CourseSeeder::class , 
             // GradeSeeder::class ,
@@ -26,7 +27,7 @@ class DatabaseSeeder extends Seeder
             // FAQSeeder::class , 
             // UniversitySeeder::class , 
             // FacultySeeder::class
-            AnnouncementSeeder::class, 
+            // AnnouncementSeeder::class, 
         ]);
         // User::factory(10)->create();
 

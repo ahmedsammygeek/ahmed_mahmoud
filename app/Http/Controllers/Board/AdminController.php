@@ -9,6 +9,7 @@ use App\Http\Requests\Board\Admins\UpdateAdminRequest;
 use Hash;
 use Auth;
 use App\Models\User;
+use Spatie\Permission\Models\Permission;
 class AdminController extends Controller
 {
     /**
@@ -24,7 +25,9 @@ class AdminController extends Controller
      */
     public function create()
     {
-        return view('board.admins.create');
+        $permissions = Permission::get()->groupBy('group_name');
+
+        return view('board.admins.create' , compact('permissions'));
     }
 
     /**

@@ -42,27 +42,55 @@ use App\Notifications\NewVideoAddedNotification;
 use App\Notifications\NewCourseAddedNotification;
 use App\Notifications\PaymentNotification;
 use App\Notifications\ExamNotification;
+use Spatie\Permission\Models\Permission;
+
 class TestController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
-    {  
+    {   
 
-        $files = LessonFile::get();
+        $permissions = Permission::all();
 
+        foreach ($permissions as $permission) {
 
-        foreach ($files as $file) {
+            // dd(strpos( $permission->name  ,  'admins'));
             
-            $file->size = mt_rand(0 , 10000);
-            $file->save();
+            if (strpos( $permission->name  ,  'announcements')) {
+                $permission->group_name = 'announcements';
+                $permission->save();
+            }
         }
 
+        dd($permissions);
 
-        $student = Student::find(55);
 
-        dd($student->tokens()->delete() );
+        $users = User::where('type' , 2 )->get();
+
+        foreach ($users as $user) {
+            
+            $user->password = 90909090;
+            $user->save();
+        }
+
+        dd('ff');
+
+
+        // $files = LessonFile::get();
+
+
+        // foreach ($files as $file) {
+            
+        //     $file->size = mt_rand(0 , 10000);
+        //     $file->save();
+        // }
+
+
+        // $student = Student::find(55);
+
+        // dd($student->tokens()->delete() );
 
         // $user = Student::find();
         // dd(auth::user()->tokens);
@@ -196,7 +224,6 @@ class TestController extends Controller
 
         // dd(Hash::make(90909090));
 
-        dd('ff');
 
 
         // $lessons = Lesson::get();

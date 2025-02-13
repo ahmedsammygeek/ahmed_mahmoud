@@ -22,7 +22,7 @@
                 </div>
             </div>
             <div class='card-body' >
-             <div class="d-sm-flex align-items-sm-start">
+               <div class="d-sm-flex align-items-sm-start">
                 <div class="form-control-feedback form-control-feedback-start flex-grow-1 mb-3 mb-sm-0">
                     <input type="text" wire:model.live.debounce.500ms='search' class="form-control" placeholder="search admins">
                     <div class="form-control-feedback-icon">
@@ -61,12 +61,12 @@
 
                     <td>
                         @if ($admin->is_banned)
-                                                <span class="badge bg-danger"> لا </span>
-                                                <br>
-                                                <span> {{ $admin->banning_message }} </span>
-                                                @else
-                                                <span class="badge bg-primary"> نعم </span>
-                                                @endif
+                        <span class="badge bg-danger"> لا </span>
+                        <br>
+                        <span> {{ $admin->banning_message }} </span>
+                        @else
+                        <span class="badge bg-primary"> نعم </span>
+                        @endif
                     </td>
 
                     <td>

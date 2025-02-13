@@ -31,9 +31,9 @@ class CourseDetailsResource extends JsonResource
             'teacher' => new CourseDetailsTeacherResource($this->teacher), 
             'units' => CourseUnitResource::collection($this->units) , 
             'contact_mobile' =>  $this->contact_mobile  , 
-            'paid_amount' => 200 , 
-            'remains' => 100 , 
-            'due_date' => '2024-011-08' , 
+            'paid_amount' => 0 , 
+            'remains' => 0 , 
+            'due_date' => null , 
             'remains_days' => 14 , 
             'show_course_payments' => false ,  
         ]; 
