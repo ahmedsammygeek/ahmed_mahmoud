@@ -12,7 +12,7 @@ class ListAllSlides extends Component
 
     use WithPagination , WithoutUrlPagination ;
     protected $paginationTheme = 'bootstrap';
-    public $rows = 2 ;
+    public $rows ;
     public $is_active = 'all';
 
     protected $listeners = ['deleteItem' , 'itemDeleted' => '$refresh' ];  
@@ -25,7 +25,6 @@ class ListAllSlides extends Component
 
     public function deleteItem($itemId)
     {
-        // dd($itemId);
         $slide = Slide::find($itemId);
         if($slide) {
             Storage::delete(['slides/'.$slide->image]);

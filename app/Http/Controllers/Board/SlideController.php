@@ -6,9 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Board\Slides\StoreSlideRequest;
 use App\Http\Requests\Board\Slides\UpdateSlideRequest;
+use Gate;
 use Auth;
 use App\Models\Slide;
-
 use App\Actions\Board\SlideActions\StoreSlideAction;
 use App\Actions\Board\SlideActions\UpdateSlideAction;
 class SlideController extends Controller
@@ -18,6 +18,8 @@ class SlideController extends Controller
      */
     public function index()
     {
+
+        Gate::authorize('list all slides');
         return view('board.slides.index');
     }
 
@@ -26,6 +28,7 @@ class SlideController extends Controller
      */
     public function create()
     {
+        Gate::authorize('add new slide');
         return view('board.slides.create');
     }
 
@@ -34,9 +37,8 @@ class SlideController extends Controller
      */
     public function store(StoreSlideRequest $request , StoreSlideAction $action )
     {
-        
+        Gate::authorize('add new slide');
         $action->execute($request);
-
         return redirect(route('board.slides.index'))->with('success' , trans('slides.slide addedd successfully') );
     }
 
@@ -45,6 +47,8 @@ class SlideController extends Controller
      */
     public function show(Slide $slide)
     {
+
+        Gate::authorize('show slides details');
         $slide->load('user');
         return view('board.slides.show' , compact('slide'));
     }
@@ -54,6 +58,7 @@ class SlideController extends Controller
      */
     public function edit(Slide $slide)
     {
+        Gate::authorize('edit slide details');
         return view('board.slides.edit' , compact('slide') );
     }
 
@@ -62,6 +67,7 @@ class SlideController extends Controller
      */
     public function update(UpdateSlideRequest $request, Slide $slide , UpdateSlideAction $action )
     {
+        Gate::authorize('edit slide details');
         $action->execute($request  , $slide );
         return redirect(route('board.slides.index'))->with('success' , trans('dashboard.updated successfully') );
     }

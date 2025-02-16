@@ -59,7 +59,9 @@ class AdminController extends Controller
      */
     public function edit(User $admin)
     {
-        return view('board.admins.edit' , compact('admin') );
+        $permissions = Permission::get()->groupBy('group_name');
+        $user_permissions = $admin->permissions()->pluck('name')->toArray();
+        return view('board.admins.edit' , compact('admin' , 'permissions' , 'user_permissions') );
     }
 
     /**
@@ -74,6 +76,11 @@ class AdminController extends Controller
         }
         $admin->is_banned = $request->filled('active')  ? 0 : 1;
         $admin->save();
+
+        $admin->syncPermissions($request->permissions);
+
+
+
         return redirect(route('board.admins.index'))->with('success' , 'تم تعديل بينات المشرف بنجاح');
     }
 

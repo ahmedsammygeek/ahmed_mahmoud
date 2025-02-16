@@ -1,8 +1,10 @@
 <div class="row">
     <div class="col-md-12">
-        <a href='{{ route('board.slides.create') }}' class='btn btn-primary mb-2' style="float: left;">  <i class="icon-plus3 me-2"></i>  
+        @can('add new slide')
+            <a href='{{ route('board.slides.create') }}' class='btn btn-primary mb-2' style="float: left;">  <i class="icon-plus3 me-2"></i>  
             @lang('slides.add new slide')
         </a>
+        @endcan
     </div>
     <div class="col-md-12">
         <div class="card">
@@ -10,7 +12,6 @@
                 <h5 class="mb-0"> @lang('slides.show all slides') </h5>
                 <div class="ms-sm-auto my-sm-auto">
                     <select wire:model.live='rows' class="form-select ">
-                        <option value="2">2 @lang('dashboard.rows') </option>
                         <option value="15">15 @lang('dashboard.rows') </option>
                         <option value="30">30 @lang('dashboard.rows') </option>
                         <option value="50">50 @lang('dashboard.rows') </option>
@@ -59,9 +60,18 @@
                                 
                             </td>
                             <td>
-                                <a href='{{ route('board.slides.show' , $slide ) }}' class='btn btn-sm btn-primary ' title='مشاهده' >  <i class="icon-eye "></i>  </a>
-                                <a href='{{ route('board.slides.edit' , $slide ) }}' class='btn btn-sm btn-warning ' title='تعديل' >  <i class="icon-database-edit2 "></i>  </a>
-                                <a wire:click="$dispatch('deleteConfirmation', '{{ $slide->id }}')" class='btn btn-sm btn-danger  delete_item' title='حذف' >  <i class="icon-trash "></i>  </a>
+                                @can('show slides details')
+                                    <a href='{{ route('board.slides.show' , $slide ) }}' class='btn btn-sm btn-primary ' title='مشاهده' >  <i class="icon-eye "></i>  </a>
+                                @endcan
+
+                                @can('edit slide details')
+                                     <a href='{{ route('board.slides.edit' , $slide ) }}' class='btn btn-sm btn-warning ' title='تعديل' >  <i class="icon-database-edit2 "></i>  </a>
+                                @endcan
+                                
+                               
+                                @can('delete slide')
+                                    <a wire:click="$dispatch('deleteConfirmation', '{{ $slide->id }}')" class='btn btn-sm btn-danger  delete_item' title='حذف' >  <i class="icon-trash "></i>  </a>
+                                @endcan
                             </td>
                         </tr>
                         @endforeach

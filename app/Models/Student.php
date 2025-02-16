@@ -9,9 +9,24 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\Scopes\StudentScope;
+
+// [ScopedBy([StudentScope::class])]
 class Student extends Authenticatable
 {
     use  Notifiable , HasApiTokens , SoftDeletes ;
+
+
+
+    /**
+     * The "booted" method of the model.
+     */
+    protected static function booted(): void
+    {
+        static::addGlobalScope(new StudentScope);
+    }
+
+
     
     /**
      * Get the attributes that should be cast.

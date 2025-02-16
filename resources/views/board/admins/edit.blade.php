@@ -69,6 +69,32 @@
 								</label>
 							</div>
 						</div>
+
+						<div class="row mb-3">
+							<label class="col-lg-2 col-form-label pt-0"> @lang('admins.permissions') </label>
+							<div class="col-lg-10">
+								<div class="row">
+
+
+
+									@foreach ($permissions as $permission)
+									<div class="col-md-4">
+										<label for="" class='mb-2'> @lang('admins.'.$permission->first()?->group_name) </label>
+										@foreach ($permission as $one_permission)
+										<div class="d-flex align-items-center mb-2">
+											<input  type="checkbox" name="permissions[]" value="{{ $one_permission->name }}" id="dc_ls_u1{{ $one_permission->id }}" {{ in_array($one_permission->name, $user_permissions) ? 'checked' : '' }} >
+											<label class="ms-2" for="dc_ls_u1{{ $one_permission->id }}"> @lang('permissions.'.$one_permission->name) </label>
+										</div>
+										@endforeach
+									</div>
+									@endforeach
+
+
+								</div>
+
+
+							</div>
+						</div>
 					</div>
 				</div>
 

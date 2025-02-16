@@ -127,13 +127,6 @@ switch (request()->segment(3)) {
 						</span>
 					</a>
 					@endif
-
-					{{-- <a href="{{ route('board.index') }}" class="nav-link ">
-						<i class="icon-clear-formatting"></i>
-						<span>
-							@lang('dashboard.home')
-						</span>
-					</a> --}}
 				</li>
 
 				<li class="nav-item">
@@ -144,6 +137,7 @@ switch (request()->segment(3)) {
 						</span>
 					</a>
 				</li>
+				@can('edit settings')
 				<li class="nav-item">
 					<a href="{{ route('board.settings.edit') }}" class="nav-link {{ $settings }}">
 						<i class="icon-gear"></i>
@@ -152,6 +146,8 @@ switch (request()->segment(3)) {
 						</span>
 					</a>
 				</li>
+				@endcan
+
 				<li class="nav-item nav-item-submenu">
 					<a href="{{ route('board.admins.index') }}" class="nav-link {{ $admins }}">
 						<i class="icon-users4"></i>
@@ -163,16 +159,22 @@ switch (request()->segment(3)) {
 					</ul>
 				</li>
 
+				@canany(['show slides details', 'list all slides' , 'add new slide'  , 'edit slide details' , 'delete slide' ])
 				<li class="nav-item nav-item-submenu">
 					<a href="{{ route('board.slides.index') }}" class="nav-link {{ $slides }}">
 						<i class="icon-images2"></i>
 						<span> @lang('slides.slides') </span>
 					</a>
 					<ul class="nav-group-sub collapse">
+						@can('add new slide')
 						<li class="nav-item"><a href="{{ route('board.slides.create') }}" class="nav-link "> @lang('slides.add new slide') </a></li>
+						@endcan
 						<li class="nav-item"><a href="{{ route('board.slides.index') }}" class="nav-link"> @lang('slides.show all slides') </a></li>
 					</ul>
 				</li>
+				@endcanany
+
+				
 				<li class="nav-item nav-item-submenu">
 					<a href="{{ route('board.splashes.index') }}" class="nav-link {{ $splashes }}">
 						<i class="icon-images2"></i>
@@ -379,7 +381,7 @@ switch (request()->segment(3)) {
 								views increase  manipluate 
 							</a>
 						</li>
- --}}
+						--}}
 					</ul>
 				</li>
 				<li class="nav-item nav-item-submenu">
