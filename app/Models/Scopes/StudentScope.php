@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
 use Auth;
+use Request;
 class StudentScope implements Scope
 {
     /**
@@ -14,7 +15,8 @@ class StudentScope implements Scope
     public function apply(Builder $builder, Model $model): void
     {
 
-        switch (Auth::user()->type) {
+        if (!Request::wantsJson()) {
+            switch (Auth::user()->type) {
             case 1:
             break;
             case 2:
@@ -27,5 +29,7 @@ class StudentScope implements Scope
             case 3:
             break;
         }
+        }
+        
     }
 }
