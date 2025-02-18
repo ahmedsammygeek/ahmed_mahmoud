@@ -254,7 +254,7 @@ switch (request()->segment(3)) {
 
 
 				@canany(['list all courses', 'edit course details' , 'delete course' , 'show course details' , 'add new course'])
-					<li class="nav-item nav-item-submenu">
+				<li class="nav-item nav-item-submenu">
 					<a href="{{ route('board.courses.index') }}" class="nav-link {{ $courses }}">
 						<i class="icon-graduation2  "></i>
 						<span> @lang('courses.courses') </span>
@@ -267,35 +267,45 @@ switch (request()->segment(3)) {
 				@endcanany
 				
 				@canany(['list all videos', 'edit video details' , 'delete video' , 'show video details' , 'add new video'])
-					<li class="nav-item nav-item-submenu">
+				<li class="nav-item nav-item-submenu">
 					<a href="{{ route('board.videos.index') }}" class="nav-link {{ $videos }}">
 						<i class="icon-graduation2  "></i>
 						<span> @lang('videos.videos') </span>
 					</a>
 					<ul class="nav-group-sub collapse">
+						@can('add new video')
 						<li class="nav-item"><a href="{{ route('board.videos.create') }}" class="nav-link "> @lang('videos.add new video') </a></li>
+						@endcan
+						@can('list all videos')
 						<li class="nav-item"><a href="{{ route('board.videos.index') }}" class="nav-link"> @lang('videos.show all videos') </a></li>
+						@endcan
 					</ul>
 				</li>
 				@endcanany
-				
+
+				@canany(['list all students', 'show student details' , 'delete student' , 'edit student details' , 'add new student'  ])
 				<li class="nav-item nav-item-submenu">
 					<a href="{{ route('board.students.index') }}" class="nav-link {{ $students }}">
 						<i class="icon-users4"></i>
 						<span> @lang('students.students') </span>
 					</a>
 					<ul class="nav-group-sub collapse">
+						
+						@can('add new student')
 						<li class="nav-item">
-							<a href="{{ route('board.students.create') }}" class="nav-link "> 
+							<a href="{{ route('board.students.create') }}" class="nav-link"> 
 								@lang('students.add new student') 
 							</a>
 						</li>
+						@endcan
 
-						<li class="nav-item">
+						@can('list all students')
+							<li class="nav-item">
 							<a href="{{ route('board.students.index') }}" class="nav-link"> 
 								@lang('students.show all students')
 							</a>
 						</li>
+						@endcan
 
 						<li class="nav-item">
 							<a href="{{ route('board.students.courses.create') }}" class="nav-link"> 
@@ -330,6 +340,9 @@ switch (request()->segment(3)) {
 
 					</ul>
 				</li>
+				@endcanany
+				
+
 				<li class="nav-item nav-item-submenu">
 					<a href="{{ route('board.library.index') }}" class="nav-link {{ $library }}">
 						<i class="icon-file-pdf "></i>

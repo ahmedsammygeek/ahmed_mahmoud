@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\Scopes\StudentScope;
 
-// [ScopedBy([StudentScope::class])]
 class Student extends Authenticatable
 {
     use  Notifiable , HasApiTokens , SoftDeletes ;

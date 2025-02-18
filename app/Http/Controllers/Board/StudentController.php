@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\{Grade , EducationalSystem , Student };
 use App\Http\Requests\Board\Students\{StoreStudentRequest , UpdateStudentRequest};
-
+use Gate;
 use App\Actions\Board\StudentActions\{StoreStudentAction , UpdateStudentAction} ;
 class StudentController extends Controller
 {
@@ -15,6 +15,7 @@ class StudentController extends Controller
      */
     public function index()
     {
+        Gate::authorize('list all students');
         return view('board.students.index');
     }
 
@@ -23,7 +24,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-
+        Gate::authorize('add new student');
         return view('board.students.create');
     }
 
@@ -32,6 +33,8 @@ class StudentController extends Controller
      */
     public function store(StoreStudentRequest $request  , StoreStudentAction $action)
     {
+
+        Gate::authorize('add new student');
         $student = $action->execute($request->validated());
 
         return redirect(route('board.students.show' , $student ))->with('success' , trans('students.student addedd successfully') );
@@ -42,6 +45,7 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
+        Gate::authorize('show student details');
         $student->load(['educationalSystem' , 'grade' , 'user' , 'loginDevices' ]);
         return view('board.students.show' , compact('student') );
     }
@@ -51,6 +55,7 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
+        Gate::authorize('edit student details');
         $grades = Grade::select('id' , 'name' )->get();
         $systems = EducationalSystem::select('id' , 'name')->get();
 
@@ -62,6 +67,7 @@ class StudentController extends Controller
      */
     public function update(UpdateStudentRequest $request, Student $student , UpdateStudentAction $action )
     {
+        Gate::authorize('edit student details');
         $student = $action->execute($request->validated() , $student );
 
         return redirect(route('board.students.show' , $student ))->with('success' , trans('students.student updated successfully') );
