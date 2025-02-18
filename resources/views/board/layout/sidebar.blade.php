@@ -148,6 +148,7 @@ switch (request()->segment(3)) {
 				</li>
 				@endcan
 
+				@canany(['list all admins', 'add new admin' , 'show admin details' ])
 				<li class="nav-item nav-item-submenu">
 					<a href="{{ route('board.admins.index') }}" class="nav-link {{ $admins }}">
 						<i class="icon-users4"></i>
@@ -158,6 +159,7 @@ switch (request()->segment(3)) {
 						<li class="nav-item"><a href="{{ route('board.admins.index') }}" class="nav-link"> @lang('admins.show all admins') </a></li>
 					</ul>
 				</li>
+				@endcanany
 
 				@canany(['show slides details', 'list all slides' , 'add new slide'  , 'edit slide details' , 'delete slide' ])
 				<li class="nav-item nav-item-submenu">
@@ -175,26 +177,39 @@ switch (request()->segment(3)) {
 				@endcanany
 
 				
+				@canany(['list all splashes', 'add new splash' , 'show splash details' , 'edit spalsh details' , 'delete splash' ])
 				<li class="nav-item nav-item-submenu">
 					<a href="{{ route('board.splashes.index') }}" class="nav-link {{ $splashes }}">
 						<i class="icon-images2"></i>
 						<span> @lang('splashes.splashes') </span>
 					</a>
 					<ul class="nav-group-sub collapse">
+						@can('add new splash')
 						<li class="nav-item"><a href="{{ route('board.splashes.create') }}" class="nav-link "> @lang('splashes.add new splash') </a></li>
+						@endcan
+						@can('list all splashes')
 						<li class="nav-item"><a href="{{ route('board.splashes.index') }}" class="nav-link"> @lang('splashes.show all splashes') </a></li>
+						@endcan
 					</ul>
 				</li>
+				@endcanany
+				
+				@canany(['add new faculty', 'list all faculties' , 'delete faculty' , 'show faculty details' , 'edit faculty details' ])
 				<li class="nav-item nav-item-submenu">
 					<a href="{{ route('board.faculties.index') }}" class="nav-link {{ $faculties }}">
 						<i class="icon-city "></i>
 						<span> @lang('faculties.faculties') </span>
 					</a>
 					<ul class="nav-group-sub collapse">
+						@can('add new faculty')
 						<li class="nav-item"><a href="{{ route('board.faculties.create') }}" class="nav-link "> @lang('faculties.add new faculty') </a></li>
+						@endcan
+						@can('list all faculties')
 						<li class="nav-item"><a href="{{ route('board.faculties.index') }}" class="nav-link"> @lang('faculties.show all faculties') </a></li>
+						@endcan
 					</ul>
 				</li>
+				@endcanany
 
 				<li class="nav-item nav-item-submenu">
 					<a href="{{ route('board.faculty_levels.index') }}" class="nav-link {{ $faculty_levels }}">
@@ -207,40 +222,59 @@ switch (request()->segment(3)) {
 					</ul>
 				</li>
 
+				@canany(['list all universities', 'add new university', 'show university details' , 'edit university details' , 'delete university' ])
 				<li class="nav-item nav-item-submenu">
 					<a href="{{ route('board.universities.index') }}" class="nav-link {{ $universities }}">
 						<i class="icon-office"></i>
 						<span> @lang('universities.universities') </span>
 					</a>
 					<ul class="nav-group-sub collapse">
+						@can('add new university')
 						<li class="nav-item"><a href="{{ route('board.universities.create') }}" class="nav-link "> @lang('universities.add new university') </a></li>
+						@endcan
+						@can('list all universities')
 						<li class="nav-item"><a href="{{ route('board.universities.index') }}" class="nav-link"> @lang('universities.show all universities') </a></li>
+						@endcan
 					</ul>
 				</li>
+				@endcanany
 
+				@canany(['list all teachers', 'add new teacher' , 'show teacher details' , 'delete teacher' , 'edit teacher details' ])
 				<li class="nav-item nav-item-submenu">
 					<a href="{{ route('board.teachers.index') }}" class="nav-link {{ $teachers }}">
 						<i class="icon-images2"></i>
 						<span> @lang('teachers.teachers') </span>
 					</a>
 					<ul class="nav-group-sub collapse">
+						@can('add new teacher')
 						<li class="nav-item"><a href="{{ route('board.teachers.create') }}" class="nav-link "> @lang('teachers.add new teacher') </a></li>
+						@endcan
+						@can('list all teachers')
 						<li class="nav-item"><a href="{{ route('board.teachers.index') }}" class="nav-link"> @lang('teachers.show all teachers') </a></li>
+						@endcan
 					</ul>
 				</li>
+				@endcanany
 
 
+				@canany(['list all grades', 'add new grade' , 'show grade details' , 'delete grade' , 'edit grade details'])
 				<li class="nav-item nav-item-submenu">
 					<a href="{{ route('board.grades.index') }}" class="nav-link {{ $grades }}">
 						<i class="icon-graduation2  "></i>
 						<span> @lang('grades.grades') </span>
 					</a>
 					<ul class="nav-group-sub collapse">
+						@can('add new grade')
 						<li class="nav-item"><a href="{{ route('board.grades.create') }}" class="nav-link "> @lang('grades.add new grade') </a></li>
+						@endcan
+						@can('list all grades')
 						<li class="nav-item"><a href="{{ route('board.grades.index') }}" class="nav-link"> @lang('grades.show all grades') </a></li>
+						@endcan
 					</ul>
 				</li>
+				@endcanany
 
+				@canany(['list all educational systems'])
 				<li class="nav-item nav-item-submenu">
 					<a href="{{ route('board.educational_systems.index') }}" class="nav-link {{ $educational_systems }}">
 						<i class="icon-keyboard "></i>
@@ -251,6 +285,7 @@ switch (request()->segment(3)) {
 						<li class="nav-item"><a href="{{ route('board.educational_systems.index') }}" class="nav-link"> @lang('educational_systems.show all educational systems') </a></li>
 					</ul>
 				</li>
+				@endcanany
 
 
 				@canany(['list all courses', 'edit course details' , 'delete course' , 'show course details' , 'add new course'])
@@ -300,145 +335,140 @@ switch (request()->segment(3)) {
 						@endcan
 
 						@can('list all students')
-							<li class="nav-item">
+						<li class="nav-item">
 							<a href="{{ route('board.students.index') }}" class="nav-link"> 
 								@lang('students.show all students')
 							</a>
 						</li>
 						@endcan
 
+						@can('add course to student')
 						<li class="nav-item">
 							<a href="{{ route('board.students.courses.create') }}" class="nav-link"> 
 								add courses
 							</a>
 						</li>
+						@endcan
 
+						@can('disable course for student')
 						<li class="nav-item">
 							<a href="{{ route('board.students.courses.allow.units') }}" class="nav-link"> 
 								disable & allow courses
 							</a>
 						</li>
+						@endcan
 
+						@can('delete course from student')
 						<li class="nav-item">
 							<a href="{{ route('board.students.courses.remove') }}" class="nav-link"> 
 								delete from courses 
 							</a>
 						</li>
+						@endcan
 
+						@can('manipluate student device')
 						<li class="nav-item">
 							<a href="{{ route('board.students.devices.manipluate') }}" class="nav-link"> 
 								students devices manipluate 
 							</a>
 						</li>
+						@endcan
 
 
+						@can('manipluate student course views')
 						<li class="nav-item">
 							<a href="{{ route('board.students.videos') }}" class="nav-link"> 
 								views  manipluate 
 							</a>
 						</li>
 
+						@endcan
 					</ul>
 				</li>
 				@endcanany
 				
 
+				@canany(['add new file to library' , 'add student to library' ])
 				<li class="nav-item nav-item-submenu">
 					<a href="{{ route('board.library.index') }}" class="nav-link {{ $library }}">
 						<i class="icon-file-pdf "></i>
 						<span> @lang('library.library') </span>
 					</a>
 					<ul class="nav-group-sub collapse">
+						@can('add new file to library')
 						<li class="nav-item">
 							<a href="{{ route('board.library.create') }}" class="nav-link "> 
 								@lang('library.add new file') 
 							</a>
 						</li>
+						@endcan
+						@can('add student to library')
 						<li class="nav-item">
 							<a href="{{ route('board.library.students') }}" class="nav-link "> 
 								@lang('library.assgin students') 
 							</a>
 						</li>
-{{-- 
-						<li class="nav-item">
-							<a href="{{ route('board.students.index') }}" class="nav-link"> 
-								@lang('students.show all students')
-							</a>
-						</li>
-
-						<li class="nav-item">
-							<a href="{{ route('board.students.courses.create') }}" class="nav-link"> 
-								add courses
-							</a>
-						</li>
-
-						<li class="nav-item">
-							<a href="{{ route('board.students.courses.allow.units') }}" class="nav-link"> 
-								disable & allow courses
-							</a>
-						</li>
-
-						<li class="nav-item">
-							<a href="{{ route('board.students.courses.remove') }}" class="nav-link"> 
-								delete from courses 
-							</a>
-						</li>
-
-						<li class="nav-item">
-							<a href="{{ route('board.students.devices.manipluate') }}" class="nav-link"> 
-								students devices manipluate 
-							</a>
-						</li>
-
-						<li class="nav-item">
-							<a href="{{ route('board.students.devices.manipluate') }}" class="nav-link"> 
-								units manipluate 
-							</a>
-						</li>
-
-						<li class="nav-item">
-							<a href="{{ route('board.students.devices.manipluate') }}" class="nav-link"> 
-								views increase  manipluate 
-							</a>
-						</li>
-						--}}
+						@endcan
 					</ul>
 				</li>
+				@endcanany
+
+
+				@canany(['list all groups', 'add new group' , 'show group details' , 'edit group details' , 'delete group'])
 				<li class="nav-item nav-item-submenu">
 					<a href="{{ route('board.groups.index') }}" class="nav-link {{ $groups }} ">
 						<i class="icon-make-group "></i>
 						<span> @lang('groups.groups') </span>
 					</a>
 					<ul class="nav-group-sub collapse">
+						@can('add new group')
 						<li class="nav-item"><a href="{{ route('board.groups.create') }}" class="nav-link "> @lang('groups.add new gourp') </a></li>
+						@endcan
+						@can('list all groups')
 						<li class="nav-item"><a href="{{ route('board.groups.index') }}" class="nav-link"> @lang('groups.show all groups') </a></li>
+						@endcan
 					</ul>
 				</li>
+				@endcanany
 
 
+				@canany(['list all questions', 'add new question' , 'edit question details' , 'delete question' , 'show question details' ])
 				<li class="nav-item nav-item-submenu">
 					<a  href="{{ route('board.questions.index') }}"  class="nav-link {{ $questions }} "  >
 						<i class="icon-question7 "></i>
 						<span> @lang('questions.questions') </span>
 					</a>
 					<ul class="nav-group-sub collapse">
+						@can('add new question')
 						<li class="nav-item"><a href="{{ route('board.questions.create') }}" class="nav-link"> @lang('questions.add new question') </a></li>
+						@endcan
+						@can('list all questions')
 						<li class="nav-item"><a href="{{ route('board.questions.index') }}" class="nav-link"> @lang('questions.show all questions') </a></li>
+						@endcan
 					</ul>
 				</li>
+				@endcanany
 
 
 
+				@canany(['list all exams', 'add new exam' , 'show exam details' , 'edit exam details' , 'delete exam' ])
 				<li class="nav-item nav-item-submenu">
 					<a  class="nav-link  {{ $exams }}">
 						<i class="icon-compose "></i>
 						<span> @lang('exams.exams') </span>
 					</a>
 					<ul class="nav-group-sub collapse">
+						@can('add new exam')
 						<li class="nav-item"><a href="{{ route('board.exams.create') }}" class="nav-link "> @lang('exams.add new exams') </a></li>
+						@endcan
+						@can('list all exams')
 						<li class="nav-item"><a href="{{ route('board.exams.index') }}" class="nav-link"> @lang('exams.show all exams') </a></li>
+						@endcan
 					</ul>
 				</li>
+				@endcanany
+				
+				@canany(['policy', 'policy'])
 				<li class="nav-item nav-item-submenu">
 					<a  class="nav-link  {{ $dashboard_notifications }}">
 						<i class="icon-bell2 "></i>
@@ -449,7 +479,9 @@ switch (request()->segment(3)) {
 						<li class="nav-item"><a href="{{ route('board.dashboard_notifications.index') }}" class="nav-link"> @lang('dashboard_notifications.show all notifications') </a></li>
 					</ul>
 				</li>
+				@endcanany
 
+				@canany(['list all announcements'], Model::class)
 				<li class="nav-item nav-item-submenu">
 					<a  class="nav-link  {{ $announcements }}">
 						<i class="icon-bell2 "></i>
@@ -460,10 +492,10 @@ switch (request()->segment(3)) {
 						<li class="nav-item"><a href="{{ route('board.announcements.index') }}" class="nav-link"> @lang('announcements.show all announcements') </a></li>
 					</ul>
 				</li>
+				@endcanany
 
 
-				
-
+				@canany(['list all payments'])
 				<li class="nav-item">
 					<a href="{{ route('board.payments.index') }}" class="nav-link ">
 						<i class="ph-money "></i>
@@ -472,6 +504,11 @@ switch (request()->segment(3)) {
 						</span>
 					</a>
 				</li>
+				@endcanany
+				
+
+				
+				@canany(['list all installments'])
 				<li class="nav-item">
 					<a href="{{ route('board.installments.index') }}" class="nav-link {{ $installments }} ">
 						<i class="ph-currency-circle-dollar "></i>
@@ -480,7 +517,9 @@ switch (request()->segment(3)) {
 						</span>
 					</a>
 				</li>
+				@endcanany
 
+				@canany(['list all trashes'])
 				<li class="nav-item nav-item-submenu">
 					<a  class="nav-link {{ $trash }} ">
 						<i class="icon-trash "></i>
@@ -497,6 +536,8 @@ switch (request()->segment(3)) {
 					</ul>
 
 				</li>
+				@endcanany
+
 
 			</ul>
 		</div>
