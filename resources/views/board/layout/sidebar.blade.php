@@ -266,7 +266,8 @@ switch (request()->segment(3)) {
 				</li>
 				@endcanany
 				
-				<li class="nav-item nav-item-submenu">
+				@canany(['list all videos', 'edit video details' , 'delete video' , 'show video details' , 'add new video'])
+					<li class="nav-item nav-item-submenu">
 					<a href="{{ route('board.videos.index') }}" class="nav-link {{ $videos }}">
 						<i class="icon-graduation2  "></i>
 						<span> @lang('videos.videos') </span>
@@ -276,6 +277,8 @@ switch (request()->segment(3)) {
 						<li class="nav-item"><a href="{{ route('board.videos.index') }}" class="nav-link"> @lang('videos.show all videos') </a></li>
 					</ul>
 				</li>
+				@endcanany
+				
 				<li class="nav-item nav-item-submenu">
 					<a href="{{ route('board.students.index') }}" class="nav-link {{ $students }}">
 						<i class="icon-users4"></i>

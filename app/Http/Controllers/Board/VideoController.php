@@ -9,6 +9,7 @@ use Alaouy\Youtube\Facades\Youtube;
 use App\Models\{LessonVideo , LessonFile};
 use DateInterval;
 use Auth;
+use Gate;
 class VideoController extends Controller
 {
     /**
@@ -16,6 +17,7 @@ class VideoController extends Controller
      */
     public function index()
     {
+        Gate::authorize('list all videos');
         return view('board.videos.index');
     }
 
@@ -24,6 +26,7 @@ class VideoController extends Controller
      */
     public function create()
     {
+        Gate::authorize('add new video');
         return view('board.videos.create');
     }
 
@@ -32,6 +35,7 @@ class VideoController extends Controller
      */
     public function store(StoreVideoRequest $request)
     {
+        Gate::authorize('add new video');
         $videoId = Youtube::parseVidFromURL($request->video_link);
         $video = Youtube::getVideoInfo($videoId);
         $duration = new DateInterval($video->contentDetails->duration);
@@ -77,6 +81,7 @@ class VideoController extends Controller
      */
     public function show(LessonVideo $video)
     {
+        Gate::authorize('show video details');
         return view('board.videos.show' , compact('video') );
     }
 
@@ -85,6 +90,7 @@ class VideoController extends Controller
      */
     public function edit(LessonVideo $video)
     {
+        Gate::authorize('edit video details');
         return view('board.videos.edit' , compact('video') );
     }
 
@@ -93,6 +99,7 @@ class VideoController extends Controller
      */
     public function update(UpdateVideoRequest $request, LessonVideo $video)
     {
+        Gate::authorize('edit video details');
         $videoId = Youtube::parseVidFromURL($request->video_link);
         $videoDetails = Youtube::getVideoInfo($videoId);
         $duration = new DateInterval($videoDetails->contentDetails->duration);

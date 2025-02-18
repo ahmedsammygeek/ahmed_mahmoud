@@ -65,7 +65,6 @@ class CourseController extends Controller
 
         $grades = Grade::select('id' , 'name' )->get();
         $systems = EducationalSystem::select('id' , 'name' )->get();
-        // $teachers = Teacher::select('id' , 'name' )->get();
         $course_educational_systems = CourseEducationalSystem::where('course_id' , $course->id )->pluck('educational_system_id')->toArray();
 
         if (Auth::user()->type == 1 ) {
@@ -73,7 +72,7 @@ class CourseController extends Controller
         } else {
             $teachers = Teacher::select('id' , 'name' )->where('id' , Auth::id() )->get();
         }
-        
+
         return view('board.courses.edit' , compact( 'course' ,  'systems' , 'grades' , 'teachers'  , 'course_educational_systems' ) );
     }
 
