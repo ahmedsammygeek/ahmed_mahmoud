@@ -8,6 +8,8 @@ use App\Http\Requests\Board\Teachers\{StoreTeacherRequest , UpdateTeacherRequest
 use App\Actions\Board\Teachers\{StoreTeacherAction  , UpdateTeacherAction };
 
 use App\Models\Teacher;
+use App\Models\User;
+use Spatie\Permission\Models\Permission;
 class TeacherController extends Controller
 {
     /**
@@ -23,7 +25,8 @@ class TeacherController extends Controller
      */
     public function create()
     {
-        return view('board.teachers.create');
+        $permissions = Permission::get()->groupBy('group_name');
+        return view('board.teachers.create' , compact('permissions') );
     }
 
     /**
@@ -49,7 +52,11 @@ class TeacherController extends Controller
      */
     public function edit(Teacher $teacher)
     {
-        return view('board.teachers.edit' , compact('teacher') );
+        $permissions = Permission::get()->groupBy('group_name');
+
+        $user = User::find($teacher->id);
+        $user_permissions = $user->permissions()->pluck('name')->toArray();
+        return view('board.teachers.edit' , compact('teacher' , 'permissions'  ,  'user_permissions' ) );
     }
 
     /**

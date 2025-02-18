@@ -23,21 +23,27 @@
                 </div>
 
                 <div class="card-footer">
-                 <a href='{{ route('board.courses.show' , $course ) }}' class='btn btn-sm btn-primary ' title='مشاهده' >  <i class="icon-eye "></i>  </a>
-                 <a href='{{ route('board.courses.edit' , $course ) }}' class='btn btn-sm btn-warning ' title='تعديل' >  <i class="icon-database-edit2 "></i>  </a>
-                 <a wire:click="$dispatch('deleteConfirmation', '{{ $course->id }}')" class='btn btn-sm btn-danger  delete_item' title='حذف' >  <i class="icon-trash "></i>  </a>
-             </div>
-         </div>
-     </div>
-     @endforeach
+                    @can('show course details')
+                    <a href='{{ route('board.courses.show' , $course ) }}' class='btn btn-sm btn-primary ' title='مشاهده' >  <i class="icon-eye "></i>  </a>
+                    @endcan
+                    @can('edit course details')
+                    <a href='{{ route('board.courses.edit' , $course ) }}' class='btn btn-sm btn-warning ' title='تعديل' >  <i class="icon-database-edit2 "></i>  </a>
+                    @endcan
+                    @can('delete course')
+                    <a wire:click="$dispatch('deleteConfirmation', '{{ $course->id }}')" class='btn btn-sm btn-danger  delete_item' title='حذف' >  <i class="icon-trash "></i>  </a>
+                    @endcan
+                </div>
+            </div>
+        </div>
+        @endforeach
 
 
-     <div class="col-md-12 card-footer d-sm-flex justify-content-sm-between flex-sm-wrap py-sm-2">
-        <div class="pagination hstack gap-3">
-            {{ $courses->links() }}
+        <div class="col-md-12 card-footer d-sm-flex justify-content-sm-between flex-sm-wrap py-sm-2">
+            <div class="pagination hstack gap-3">
+                {{ $courses->links() }}
+            </div>
         </div>
     </div>
-</div>
 
 
 </div>

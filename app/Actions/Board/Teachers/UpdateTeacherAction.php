@@ -27,9 +27,9 @@ class UpdateTeacherAction
         $teacher->save();
 
         $user = User::find($teacher->id);
-        foreach ($data['permissions'] as $one_permission) {
-            $permission = Permission::firstOrCreate(['name' => $one_permission , 'guard_name' => 'web' ]);
-            $user->givePermissionTo($permission);
+        $user->permissions()->detach();
+        if (array_key_exists('permissions', $data)) {
+            $user->syncPermissions($data['permissions']);
         }
 
     }

@@ -252,7 +252,9 @@ switch (request()->segment(3)) {
 					</ul>
 				</li>
 
-				<li class="nav-item nav-item-submenu">
+
+				@canany(['list all courses', 'edit course details' , 'delete course' , 'show course details' , 'add new course'])
+					<li class="nav-item nav-item-submenu">
 					<a href="{{ route('board.courses.index') }}" class="nav-link {{ $courses }}">
 						<i class="icon-graduation2  "></i>
 						<span> @lang('courses.courses') </span>
@@ -262,6 +264,8 @@ switch (request()->segment(3)) {
 						<li class="nav-item"><a href="{{ route('board.courses.index') }}" class="nav-link"> @lang('courses.show all courses') </a></li>
 					</ul>
 				</li>
+				@endcanany
+				
 				<li class="nav-item nav-item-submenu">
 					<a href="{{ route('board.videos.index') }}" class="nav-link {{ $videos }}">
 						<i class="icon-graduation2  "></i>

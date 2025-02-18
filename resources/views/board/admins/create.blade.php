@@ -72,9 +72,6 @@
 							<label class="col-lg-2 col-form-label pt-0"> @lang('admins.permissions') </label>
 							<div class="col-lg-10">
 								<div class="row">
-
-
-
 									@foreach ($permissions as $permission)
 									<div class="col-md-4">
 										<label for="" class='mb-2'> @lang('admins.'.$permission->first()?->group_name) </label>
@@ -86,11 +83,7 @@
 										@endforeach
 									</div>
 									@endforeach
-
-
 								</div>
-
-
 							</div>
 						</div>
 					</div>

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\{ Grade  , EducationalSystem,  Teacher, Course  , CourseEducationalSystem };
 use App\Http\Requests\Board\Courses\{ StoreCourseRequest , UpdateCourseRequest};
 use App\Actions\Board\Courses\{ StoreCourseAction , UpdateCourseAction };
+use Gate;
+use Auth;
 class CourseController extends Controller
 {
     /**
@@ -14,6 +16,7 @@ class CourseController extends Controller
      */
     public function index()
     {
+        Gate::authorize('list all courses');
         return view('board.courses.index');
     }
 
@@ -22,9 +25,14 @@ class CourseController extends Controller
      */
     public function create()
     {
+        Gate::authorize('add new course');
         $grades = Grade::select('id' , 'name' )->get();
         $systems = EducationalSystem::select('id' , 'name' )->get();
-        $teachers = Teacher::select('id' , 'name' )->get();
+        if (Auth::user()->type == 1 ) {
+            $teachers = Teacher::select('id' , 'name' )->get();
+        } else {
+            $teachers = Teacher::select('id' , 'name' )->where('id' , Auth::id() )->get();
+        }
         return view('board.courses.create' , compact('systems' , 'grades' , 'teachers' ) );
     }
 
@@ -33,8 +41,8 @@ class CourseController extends Controller
      */
     public function store(StoreCourseRequest $request , StoreCourseAction $action  )
     {
+        Gate::authorize('add new course');
         $action->execute($request);
-
         return redirect(route('board.courses.index'))->with('success' , trans('courses.course addedd successfully') );
     }
 
@@ -43,8 +51,9 @@ class CourseController extends Controller
     */
     public function show(Course $course)
     {
+        Gate::authorize('show course details');
         $course->load('grade' , 'user' , 'teacher'  , 'educationalSystems.educationalSystem' );
-    return view('board.courses.show' , compact('course' ) );
+        return view('board.courses.show' , compact('course' ) );
     }
 
     /**
@@ -52,10 +61,19 @@ class CourseController extends Controller
      */
     public function edit(Course $course)
     {
+        Gate::authorize('edit course details');
+
         $grades = Grade::select('id' , 'name' )->get();
         $systems = EducationalSystem::select('id' , 'name' )->get();
-        $teachers = Teacher::select('id' , 'name' )->get();
+        // $teachers = Teacher::select('id' , 'name' )->get();
         $course_educational_systems = CourseEducationalSystem::where('course_id' , $course->id )->pluck('educational_system_id')->toArray();
+
+        if (Auth::user()->type == 1 ) {
+            $teachers = Teacher::select('id' , 'name' )->get();
+        } else {
+            $teachers = Teacher::select('id' , 'name' )->where('id' , Auth::id() )->get();
+        }
+        
         return view('board.courses.edit' , compact( 'course' ,  'systems' , 'grades' , 'teachers'  , 'course_educational_systems' ) );
     }
 
@@ -64,6 +82,7 @@ class CourseController extends Controller
      */
     public function update(UpdateCourseRequest $request, Course $course ,UpdateCourseAction $action )
     {
+        Gate::authorize('edit course details');
         $action->execute($request  , $course );
         return redirect(route('board.courses.index'))->with('success' , trans('dashboard.updated successfully') );
     }

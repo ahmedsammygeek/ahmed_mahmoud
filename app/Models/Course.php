@@ -6,9 +6,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Scopes\CourseScope;
 class Course extends Model
 {
     use HasFactory , HasTranslations , SoftDeletes  ;
+
+        /**
+     * The "booted" method of the model.
+     */
+    protected static function booted(): void
+    {
+        static::addGlobalScope(new CourseScope);
+    }
 
 
     public function toSearchableArray()

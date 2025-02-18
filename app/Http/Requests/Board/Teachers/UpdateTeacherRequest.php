@@ -29,7 +29,7 @@ class UpdateTeacherRequest extends FormRequest
             'bio' => 'required' , 
             'show_in_suggested_in_app' => 'nullable' , 
             'default_views_number' => 'nullable' , 
-            'permissions' => 'required' , 
+            'permissions' => 'nullable' , 
         ];
     }
 }
