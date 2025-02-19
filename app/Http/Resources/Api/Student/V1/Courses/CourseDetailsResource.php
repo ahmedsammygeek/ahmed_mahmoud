@@ -35,7 +35,7 @@ class CourseDetailsResource extends JsonResource
             'remains' => 0 , 
             'due_date' => '19-3-2025' , 
             'remains_days' => 0 , 
-            'show_course_payments' => true ,  
+            'show_course_payments' => false ,  
         ]; 
     }
 }
