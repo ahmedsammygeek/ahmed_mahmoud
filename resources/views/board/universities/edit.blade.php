@@ -42,6 +42,20 @@
 						</div>
 
 						<div class="row mb-3">
+							<label class="col-form-label col-lg-2"> الكليات المرتبطه <span class="text-danger">*</span></label>
+							<div class="col-lg-10">
+								<select name="faculties[]" id="" class='form-control form-select' multiple="">
+									@foreach ($faculties as $faculty)
+									<option value="{{ $faculty->id }}" {{ in_array($faculty->id, $university_faculties) ? 'selected="selected"' : '' }} > {{ $faculty->name }} </option>
+									@endforeach
+								</select>
+								@error('faculties')
+								<p class='text-danger' > {{ $message }} </p>
+								@enderror
+							</div>
+						</div>
+
+						<div class="row mb-3">
 							<label class="col-lg-2 col-form-label pt-0"> حاله الجامعه </label>
 							<div class="col-lg-10">
 								<label class="form-check form-switch">
