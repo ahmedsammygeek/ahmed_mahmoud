@@ -17,13 +17,13 @@ class Student extends Authenticatable
 
 
 
-    /**
-     * The "booted" method of the model.
-     */
-    protected static function booted(): void
-    {
-        static::addGlobalScope(new StudentScope);
-    }
+    // /**
+    //  * The "booted" method of the model.
+    //  */
+    // protected static function booted(): void
+    // {
+    //     static::addGlobalScope(new StudentScope);
+    // }
 
 
     

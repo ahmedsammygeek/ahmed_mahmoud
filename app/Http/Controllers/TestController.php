@@ -52,30 +52,35 @@ class TestController extends Controller
     public function index()
     {   
 
-        $permissions = Permission::all();
 
-        foreach ($permissions as $permission) {
+        $user = User::find(10);
 
-            // dd(strpos( $permission->name  ,  'admins'));
+        Auth::login($user);
+
+        // $permissions = Permission::all();
+
+        // foreach ($permissions as $permission) {
+
+        //     // dd(strpos( $permission->name  ,  'admins'));
             
-            if (strpos( $permission->name  ,  'announcements')) {
-                $permission->group_name = 'announcements';
-                $permission->save();
-            }
-        }
+        //     if (strpos( $permission->name  ,  'announcements')) {
+        //         $permission->group_name = 'announcements';
+        //         $permission->save();
+        //     }
+        // }
 
-        dd($permissions);
+        // dd($permissions);
 
 
-        $users = User::where('type' , 2 )->get();
+        // $users = User::where('type' , 2 )->get();
 
-        foreach ($users as $user) {
+        // foreach ($users as $user) {
             
-            $user->password = 90909090;
-            $user->save();
-        }
+        //     $user->password = 90909090;
+        //     $user->save();
+        // }
 
-        dd('ff');
+        // dd('ff');
 
 
         // $files = LessonFile::get();
@@ -278,26 +283,26 @@ class TestController extends Controller
 
 
 
-        $announcements->filter( function($announcement) use($student) {
-            if ($announcement->publish_for == 2 ) {
+        // $announcements->filter( function($announcement) use($student) {
+        //     if ($announcement->publish_for == 2 ) {
 
-                $students_who_whatched_this_annoncemnt_ids = $announcement->publishedForStudents()->pluck('student_id')->toArray();
+        //         $students_who_whatched_this_annoncemnt_ids = $announcement->publishedForStudents()->pluck('student_id')->toArray();
 
-                if (!in_array($student->id, $students_who_whatched_this_annoncemnt_ids)) {
-                    return $announcement;
-                }
-            }
-        });
-
-
-        dd($announcements);
+        //         if (!in_array($student->id, $students_who_whatched_this_annoncemnt_ids)) {
+        //             return $announcement;
+        //         }
+        //     }
+        // });
 
 
+        // dd($announcements);
 
 
-        $course = Course::find(2);
 
-        dd($course->lessons()->pluck('lessons.id')->toArray());
+
+        // $course = Course::find(2);
+
+        // dd($course->lessons()->pluck('lessons.id')->toArray());
 
 
 
