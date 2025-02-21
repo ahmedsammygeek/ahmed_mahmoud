@@ -27,6 +27,7 @@ class HomeController extends Controller
             $student_courses = CourseStudent::with('course')->where('student_id' , $student->id )->get();
             $suggested_courses = Course::query()
             ->where('grade_id' , $student->grade_id )
+            ->where('is_active' , 1 )
             ->whereNotIn('id' , $student_courses->pluck('course_id')->toArray() )
             ->whereHas('educationalSystems' , function($query) use($student) {
                 $query->where('educational_system_id' , $student->educational_system_id );
@@ -53,6 +54,7 @@ class HomeController extends Controller
         } else {
             $suggested_courses = Course::query()
             ->where('suggest_course' , 1 )
+            ->where('is_active' , 1 )
             ->get();
 
             $announcements = [];
