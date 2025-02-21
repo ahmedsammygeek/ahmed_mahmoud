@@ -167,6 +167,15 @@
                             </div>
                         </div>
 
+                        <div class="col-md-4">
+                            <label class="col-lg-12 col-form-label "> تفعيل الكورس </label>
+                            <div class="col-lg-12">
+                                <label class="form-check form-switch">
+                                    <input type="checkbox" value='1' class="form-check-input" name="active"  @checked($course->is_active) >
+                                    <span class="form-check-label"> نعم </span>
+                                </label>
+                            </div>
+                        </div>
 
                         <div class="col-md-4">
                             <label class="col-lg-12 col-form-label "> عرض داخل الصفحه الرئيسيه </label>
@@ -177,15 +186,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <label class="col-lg-12 col-form-label "> السماح بالاشتراك فى الكورس </label>
-                            <div class="col-lg-12">
-                                <label class="form-check form-switch">
-                                    <input type="checkbox" value='1' class="form-check-input" name="active"  @checked($course->is_active) >
-                                    <span class="form-check-label"> نعم </span>
-                                </label>
-                            </div>
-                        </div>
+
                     </div>
 
 
