@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Scopes\TeacherScope;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-class Teacher extends Authenticatable
+class Teacher extends Model
 {
     use HasFactory , HasRoles  ;
 

@@ -53,6 +53,8 @@ class TestController extends Controller
     {   
 
 
+        dd(Hash::make(90909090));
+
         $user = User::find(10);
 
         Auth::login($user);
