@@ -29,6 +29,7 @@ class CourseController extends Controller
         if (Auth::guard('student')->check()) {
             $student = Auth::guard('student')->user();    
             $courses = Course::query()
+            ->where('is_active' , 1 )
             ->where('grade_id' , $student->grade_id )
             ->whereHas('educationalSystems' , function($query) use($student) {
                 $query->where('educational_system_id' , $student->educational_system_id );
@@ -41,7 +42,7 @@ class CourseController extends Controller
             });
 
         } else {
-            $courses = Course::query()->get();
+            $courses = Course::query()->where('is_active', 1)->get();
             $courses->map(function($course)  {
                 $course->dose_user_subscribed = false ;
                 return $course;

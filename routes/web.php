@@ -120,6 +120,7 @@ Route::group(
                 Route::resource('dashboard_notifications', DashboardNotificationController::class );
                 // Route::resource('admins', DashboardNotificationController::class );
                 Route::resource('teachers', TeacherController::class );
+                Route::get('teachers/{teacher}/login', [TeacherController::class , 'login' ] )->name('teachers.login');
 
 
                 Route::resource('groups', GroupController::class );
