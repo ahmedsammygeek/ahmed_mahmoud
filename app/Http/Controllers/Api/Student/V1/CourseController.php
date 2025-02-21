@@ -8,6 +8,7 @@ use App\Traits\Api\GeneralResponse;
 use App\Models\{Course , CourseStudent  , Exam , Group , StudentLesson , Unit };
 use App\Http\Resources\Api\Student\V1\Courses\CourseResource;
 use Auth;
+use Log;
 use App\Http\Resources\Api\Student\V1\Courses\CourseDetailsResource;
 use App\Http\Resources\Api\Student\V1\Courses\ExamResource;
 use App\Http\Resources\Api\Student\V1\Courses\CourseUnitResource;
@@ -25,6 +26,8 @@ class CourseController extends Controller
      */
     public function index()
     {
+
+        Log::info('smsmsmssms');
 
         if (Auth::guard('student')->check()) {
             $student = Auth::guard('student')->user();    
