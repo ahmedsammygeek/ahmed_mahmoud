@@ -19,6 +19,8 @@
 
 		<a href="{{ route('board.courses.units.create' , $course ) }}" class="btn btn-primary mb-2" style="float: left;margin-left:10px;">  <i class="icon-plus3  me-2"></i>  @lang('courses.add new unit') </a>
 
+
+
 	</div>
 	<div class="col-md-12">
 		<ul class="nav nav-tabs nav-tabs-highlight nav-justified">
@@ -31,8 +33,8 @@
 				<a href="{{ route('board.courses.units.index', $course) }}" class="nav-link active"> @lang('courses.units') </a>
 			</li>
 			<li class="nav-item">
-				{{-- <a href="{{ route('board.courses.students', $course) }}" class="nav-link"> الطلبه </a> --}}
-			</li>
+               <a href="{{ route('board.courses.students.index', $course) }}" class="nav-link"> الطلبه  <span style="margin-right:10px;" class='badge bg-success '> {{ $course->students()->count() }} </span> </a>
+            </li>
 			<li class="nav-item">
 				{{-- <a href="{{ route('board.courses.reviews', $course) }}" class="nav-link"> التقييمات</a> --}}
 			</li>

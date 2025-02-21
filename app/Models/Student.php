@@ -41,6 +41,19 @@ class Student extends Authenticatable
     }
 
 
+
+      /**
+     * Get the user's profile picture.
+     *
+     * @return string
+     */
+    public function getProfilePictureAttribute($value)
+    {
+        return $value ?: 'defult_student_profile_pic.avif';
+    }
+
+
+
     public function grade()
     {
         return $this->belongsTo(Grade::class , 'grade_id');
