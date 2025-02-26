@@ -67,6 +67,7 @@ class VideoController extends Controller
             $user_id = Auth::id();
             for ($i=0; $i < count($request->file('files')) ; $i++) { 
                 $lesson_files[] = new LessonFile([
+                    'size' => $request->file('files.'.$i)->getSize() , 
                     'lesson_id' => $video->lesson_id,
                     'video_id' => $video->id , 
                     'name' => $request->file('files.'.$i)->getClientOriginalName() , 

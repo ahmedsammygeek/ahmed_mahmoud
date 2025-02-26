@@ -106,7 +106,7 @@
                 <tr>
                     <td>
                         <div class="form-check form-check-reverse mb-2">
-                            <input  type="checkbox" class="form-check-input" wire:model='selectedStudents.{{ $student->id }}' value="{{ $student->id }}"  >
+                            <input  type="checkbox" class="form-check-input" wire:model='selectedStudents' value="{{ $student->id }}"  >
                         </div>
                     </td>
                     <td> {{ $student->name }} </td>
@@ -258,7 +258,6 @@
 <script src="{{ asset('board_assets/demo/pages/extra_sweetalert.js') }}"></script>
 <script src="{{ asset('board_assets/js/vendor/media/glightbox.min.js') }}"></script>
 <script src="{{ asset('board_assets/demo/pages/gallery_library.js') }}"></script>
-<script src="//unpkg.com/alpinejs" defer></script>
 
 <script>
     $(function() {

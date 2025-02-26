@@ -7,18 +7,16 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Storage;
-class NewVideoAddedNotification extends Notification
+class NewFileAddedNotification extends Notification
 {
     use Queueable;
-    public $video;
-
+    public $lesson_file;
     /**
      * Create a new notification instance.
      */
-    public function __construct($video)
+    public function __construct($lesson_file)
     {
-        $this->video = $video;
-        $this->video->load('lesson.unit.course');
+        $this->lesson_file = $lesson_file;
     }
 
     /**
@@ -32,6 +30,7 @@ class NewVideoAddedNotification extends Notification
     }
 
 
+
     /**
      * Get the array representation of the notification.
      *
@@ -39,12 +38,13 @@ class NewVideoAddedNotification extends Notification
      */
     public function toArray(object $notifiable): array
     {
-       return [
-            'content' => 'تم اضافه فديو جديد داخل الكورس : '.$this->video?->lesson?->unit?->course?->title , 
-            'type' => 'new_video' ,
-            'course_id' => $this->video?->lesson?->unit?->course_id , 
-            'lesson_id' => $this->video->lesson_id , 
-            'video_id' => $this->video->id , 
+        return [
+            'content' => 'تم اضافه ملف جديد داخل الكورس : '.$this->lesson_file?->lesson?->unit?->course?->title , 
+            'type' => 'new_file' ,
+            'course_id' => $this->lesson_file?->lesson?->unit?->course_id , 
+            'lesson_id' => $this->lesson_file->lesson_id , 
+            'video_id' => $this->lesson_file?->video_id , 
+            'file_id' => $this->lesson_file->id , 
             'exam_id' => null , 
             'image' => Storage::url('notifications/notifications.webp') , 
         ];

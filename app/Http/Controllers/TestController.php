@@ -52,6 +52,14 @@ class TestController extends Controller
     public function index()
     {   
 
+        $videos = LessonVideo::whereHas('lesson' , function($query){
+                $query->whereIn('unit_id' , [45 , 44] )->whereHas('unit' , function($query){
+                    $query->where('course_id' , 31 );
+                });
+            })->get();
+
+
+        dd($videos);
 
         dd(Hash::make(90909090));
 

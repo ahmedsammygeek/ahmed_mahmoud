@@ -3,7 +3,7 @@
 namespace App\Livewire\Board\Students\Courses;
 
 use Livewire\Component;
-use App\Models\{Student , Grade  , StudentInstallment , Unit , StudentUnit , StudentPayment , StudentLesson , CourseStudent ,  Group , EducationalSystem , Course , Teacher };
+use App\Models\{Student , Grade  , StudentInstallment , LessonVideo , Unit , StudentUnit , StudentPayment , StudentLesson , CourseStudent ,  Group , EducationalSystem , Course , Teacher };
 use Livewire\WithPagination;
 use Livewire\Attributes\Computed;
 use Storage;
@@ -122,16 +122,19 @@ class ListAllStudents extends Component
 
             $student->units()->saveMany($student_units);
             $course = Course::find($this->selected_course_id );
-            $course_lessons = $course->lessons()->whereIn('lessons.unit_id' , $this->student_units )->pluck('lessons.id')->toArray();
+            $videos = LessonVideo::whereHas('lesson' , function($query){
+                $query->whereIn('unit_id' , $this->student_units );
+            })->get();
             $student_lessons = [];
-            foreach ($course_lessons as $course_lesson) {
+            foreach ($videos as $video) {
                 $student_lessons[] = new StudentLesson([
-                    'lesson_id' => $course_lesson , 
+                    'lesson_id' => $video->lesson_id , 
                     'user_id' => $user_id, 
                     'student_id' => $selectedStudent , 
                     'allowed_views' => $course->default_view_number , 
                     'remains_views' => $course->default_view_number , 
                     'total_views_till_now' => 0  ,
+                    'video_id' => $video->id
                 ]);
             }
 
@@ -162,8 +165,6 @@ class ListAllStudents extends Component
                     $student_installment->change_to_paid_by = null;
                     $student_installment->save();
                 }
-
-
             }
             $this->dispatch('studentAddedToCourse');
         }

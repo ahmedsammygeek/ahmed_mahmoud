@@ -5,10 +5,11 @@ namespace App\Http\Controllers\Board;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Board\Library\{StoreFileRequest , UpdateFileRequest};
-use App\Models\{ Lesson ,  LessonVideo , LessonFile , Course , CourseStudent , LessonFileView};
-
+use App\Models\{ Lesson ,  LessonVideo , LessonFile , Course , Student , CourseStudent , LessonFileView};
+use App\Notifications\NewFileAddedNotification;
 use Auth;
 use Carbon\Carbon;
+use Notification;
 class LibraryController extends Controller
 {
     /**
@@ -34,9 +35,17 @@ class LibraryController extends Controller
     {
         $lesson = Lesson::find($request->lesson_id);
         $video = LessonVideo::find($request->video_id);
-        $course_students = CourseStudent::where('course_id' , $request->course_id )->pluck('student_id')->toArray();
+        // $course_students = CourseStudent::where('course_id' , $request->course_id )->pluck('student_id')->toArray();
+        $students = Student::query()
+        ->whereHas('courses' , function($query) use ($request) {
+            $query->where('course_id' , $request->course_id );
+        })
+        ->whereHas('units', function($query) use($request) {
+            $query->where('unit_id' , $request->unit_id );
+        })
+        ->get();
 
-        
+
         $lesson_files = [];
         $file_students = [];
 
@@ -57,9 +66,9 @@ class LibraryController extends Controller
 
 
         foreach ($saved_lesson_files as $saved_lesson_file) {
-            foreach ($course_students as $course_student) {
+            foreach ($students as $student) {
                 $file_students[] = [
-                    'student_id' => $course_student , 
+                    'student_id' => $student->id , 
                     'lesson_file_id' => $saved_lesson_file->id , 
                     'total_views_till_now' => 0 , 
                     'total_downloads_till_now' => 0 , 
@@ -72,9 +81,11 @@ class LibraryController extends Controller
                     'updated_at' => Carbon::now() , 
                 ];
             }
+            Notification::send($students , new NewFileAddedNotification($saved_lesson_file) );
         }
-
         LessonFileView::insert($file_students);
+
+
 
         return redirect(route('board.library.index'))->with('success' , trans('library.file added successfully') );
     }
