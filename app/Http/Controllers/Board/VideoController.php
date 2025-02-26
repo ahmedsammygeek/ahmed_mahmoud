@@ -6,10 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Board\Videos\{StoreVideoRequest , UpdateVideoRequest};
 use Alaouy\Youtube\Facades\Youtube;
-use App\Models\{LessonVideo , LessonFile};
+use App\Models\{LessonVideo , LessonFile , Course , Student , StudentLesson};
 use DateInterval;
 use Auth;
 use Gate;
+use Carbon\Carbon;
 class VideoController extends Controller
 {
     /**
@@ -36,6 +37,8 @@ class VideoController extends Controller
     public function store(StoreVideoRequest $request)
     {
         Gate::authorize('add new video');
+
+        // add video to system
         $videoId = Youtube::parseVidFromURL($request->video_link);
         $video = Youtube::getVideoInfo($videoId);
         $duration = new DateInterval($video->contentDetails->duration);
@@ -73,7 +76,40 @@ class VideoController extends Controller
             $video->lesson?->files()->saveMany($lesson_files);
         }
 
-        return redirect(route('board.videos.index'))->with('success' , 'تم الاضافه بنجاح');
+        // now i need to add this video to all students who subscribed to this course unit
+
+        $students = Student::query()
+        ->whereHas('courses' , function($query) use ($request) {
+            $query->where('course_id' , $request->course_id );
+        })
+        ->whereHas('units', function($query) use($request) {
+            $query->where('unit_id' , $request->unit_id );
+        })
+        ->get();
+
+        $lesson_students = [];
+        $user_id = Auth::id();
+        $course = Course::find($request->course_id);
+        foreach ($students as $student) {
+
+            $lesson_students[] = [
+                'lesson_id' => $video->lesson_id , 
+                'user_id' => $user_id, 
+                'student_id' => $student->id , 
+                'allowed_views' => $course->default_view_number , 
+                'remains_views' => $course->default_view_number , 
+                'total_views_till_now' => 0  ,
+                'video_id' => $video->id ,  
+                'created_at' => Carbon::now() , 
+                'updated_at' => Carbon::now() , 
+            ];
+            
+        }
+
+        StudentLesson::insert($lesson_students);
+
+
+        // return redirect(route('board.videos.index'))->with('success' , 'تم الاضافه بنجاح');
     }
 
     /**
