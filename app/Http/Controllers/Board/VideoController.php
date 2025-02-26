@@ -10,7 +10,9 @@ use App\Models\{LessonVideo , LessonFile , Course , Student , StudentLesson};
 use DateInterval;
 use Auth;
 use Gate;
+use Notification;
 use Carbon\Carbon;
+use App\Notifications\NewVideoAddedNotification;
 class VideoController extends Controller
 {
     /**
@@ -91,7 +93,6 @@ class VideoController extends Controller
         $user_id = Auth::id();
         $course = Course::find($request->course_id);
         foreach ($students as $student) {
-
             $lesson_students[] = [
                 'lesson_id' => $video->lesson_id , 
                 'user_id' => $user_id, 
@@ -102,14 +103,13 @@ class VideoController extends Controller
                 'video_id' => $video->id ,  
                 'created_at' => Carbon::now() , 
                 'updated_at' => Carbon::now() , 
-            ];
-            
+            ];     
         }
-
         StudentLesson::insert($lesson_students);
+        Notification::send($students,new NewVideoAddedNotification($video));
 
 
-        // return redirect(route('board.videos.index'))->with('success' , 'تم الاضافه بنجاح');
+        return redirect(route('board.videos.index'))->with('success' , 'تم الاضافه بنجاح');
     }
 
     /**

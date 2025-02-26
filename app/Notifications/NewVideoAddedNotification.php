@@ -10,13 +10,15 @@ use Storage;
 class NewVideoAddedNotification extends Notification
 {
     use Queueable;
+    public $video;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct($video)
     {
-        //
+        $this->video = $video;
+        $this->video->load('lesson.unit.course');
     }
 
     /**
@@ -39,10 +41,11 @@ class NewVideoAddedNotification extends Notification
     {
        return [
             'content' => 'a new video has been  added to your course , course name' , 
+            'content' => 'تم اضافه فديو جديد داخل الكورس : '.$this->video?->lesson?->unit?->course?->title , 
             'type' => 'new_video' ,
-            'course_id' => 17 , 
-            'lesson_id' => 52 , 
-            'video_id' => 103 , 
+            'course_id' => $this->video?->lesson?->unit?->course_id , 
+            'lesson_id' => $this->video->lesson_id , 
+            'video_id' => $this->video->id , 
             'exam_id' => null , 
             'image' => Storage::url('notifications/notifications.webp') , 
         ];
