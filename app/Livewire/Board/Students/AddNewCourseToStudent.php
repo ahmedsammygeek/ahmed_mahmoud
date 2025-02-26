@@ -3,7 +3,7 @@
 namespace App\Livewire\Board\Students;
 
 use Livewire\Component;
-use App\Models\{Course , CourseStudent , Unit  , StudentUnit , Group , StudentLesson , StudentInstallment , StudentPayment };
+use App\Models\{Course , CourseStudent  , LessonVideo , Unit  , StudentUnit , Group , StudentLesson , StudentInstallment , StudentPayment };
 use Livewire\Attributes\Computed;
 use Auth;
 use Carbon\Carbon;
@@ -131,19 +131,21 @@ class AddNewCourseToStudent extends Component
         }
 
         $this->student->units()->saveMany($student_units);
-
         if ($this->allow) {
             $course = Course::find($this->course_id);
-            $course_lessons = $course->lessons()->whereIn('lessons.unit_id' , $this->student_units )->pluck('lessons.id')->toArray();
+            $videos = LessonVideo::whereHas('lesson' , function($query){
+                $query->whereIn('unit_id' , $this->student_units );
+            })->get();
             $student_lessons = [];
-            foreach ($course_lessons as $course_lesson) {
+            foreach ($videos as $video) {
                 $student_lessons[] = new StudentLesson([
-                    'lesson_id' => $course_lesson , 
+                    'lesson_id' => $video->lesson_id , 
                     'user_id' => $user_id, 
                     'student_id' => $this->student->id , 
                     'allowed_views' => $course->default_view_number , 
                     'remains_views' => $course->default_view_number , 
                     'total_views_till_now' => 0  ,
+                    'video_id' => $video->id
                 ]);
             }
             $this->student->lessons()->saveMany($student_lessons);
