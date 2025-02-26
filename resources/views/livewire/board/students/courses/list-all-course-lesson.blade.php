@@ -4,7 +4,8 @@
             <thead>
                 <tr>
                     <th> # </th>
-                    <th> @lang('lessons.title') </th>
+                    <th> @lang('lessons.lesson title') </th>
+                    <th> @lang('lessons.video title') </th>
                     <th> @lang('lessons.added by') </th>
                     <th> @lang('lessons.created at') </th>
                     <th> @lang('lessons.allowed') </th>

@@ -1,6 +1,7 @@
 <tr>
     <td> {{ $index }} </td>
     <td> {{ $lesson->lesson?->title }} </td>
+    <td> {{ $lesson->video?->title }} </td>
     <td> {{ $lesson->user?->name }} </td>
     <td> {{ $lesson->created_at }} <span> {{ $lesson->created_at->difFforHumans() }} </span> </td>
     <td>

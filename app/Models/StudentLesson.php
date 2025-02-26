@@ -16,6 +16,12 @@ class StudentLesson extends Model
         return $this->belongsTo(Lesson::class , 'lesson_id');
     }
 
+
+    public function video()
+    {
+        return $this->belongsTo(LessonVideo::class , 'video_id');
+    }
+
     public function student()
     {
         return $this->belongsTo(Student::class , 'student_id');

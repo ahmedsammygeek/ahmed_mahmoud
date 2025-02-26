@@ -19,7 +19,7 @@
                                 <select wire:model.live='course_id' class="form-select form-control @error('course_id') is-invalid @enderror " id="">
                                     <option value=""></option>
                                     @foreach ($courses as $course)
-                                    <option value="{{ $course->id }}"> {{ $course->title }} -- {{ $course->id }} </option>
+                                    <option value="{{ $course->id }}"> {{ $course->title }}</option>
                                     @endforeach
                                 </select>
                                 @error('course_id')

@@ -11,7 +11,7 @@ class ListAllCourseLesson extends Component
 
     public function render()
     {
-        $student_lessons = StudentLesson::with(['lesson' , 'user' ])->where('student_id' , $this->student->id )->whereIn('lesson_id' , $this->course->lessons()->pluck('lessons.id')->toArray() )->get();
+        $student_lessons = StudentLesson::with(['lesson' , 'user' , 'video' ])->where('student_id' , $this->student->id )->whereIn('lesson_id' , $this->course->lessons()->pluck('lessons.id')->toArray() )->get();
 
 
         return view('livewire.board.students.courses.list-all-course-lesson' , compact('student_lessons') );
