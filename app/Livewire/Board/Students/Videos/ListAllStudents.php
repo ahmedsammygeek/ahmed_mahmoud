@@ -134,31 +134,39 @@ class ListAllStudents extends Component
     public function addStudnetsToCourses()
     {   
         $this->validate();
-        // dd(array_keys($this->selectedStudents) , $this->selectedStudents);
-        if ($this->lesson_id) {
-            foreach ($this->lesson_id as $one_lesson_id) {
-                $students = StudentLesson::whereIn('student_id' ,  $this->selectedStudents )
-                ->where('lesson_id' , $one_lesson_id )
-                ->whereHas('lesson' , function($query){
-                    $query->whereHas('unit' , function($query){
-                        $query->whereHas('course' , function($query){
-                            $query->where('course_id' , $this->course_id );
-                        });
-                    });
-                })
-                ->increment( 'allowed_views' , $this->allowed_views );
-            }
-        } else {
-            $students = StudentLesson::whereIn('student_id' ,  $this->selectedStudents )
-            ->whereHas('lesson' , function($query){
-                $query->whereHas('unit' , function($query){
-                    $query->whereHas('course' , function($query){
-                        $query->where('course_id' , $this->course_id );
-                    });
-                });
-            })
+        // dd($this->selectedVideos);
+
+        $students = StudentLesson::whereIn('student_id' ,  $this->selectedStudents )
+        ->whereIn('video_id' ,  $this->selectedVideos )
+            // ->whereHas('lesson' , function($query){
+            //     $query->whereHas('unit' , function($query){
+            //         $query->whereHas('course' , function($query){
+            //             $query->where('course_id' , $this->course_id );
+            //         });
+            //     });
+            // })
             ->increment( 'allowed_views' , $this->allowed_views );
-        }
+
+            // dd($students);
+
+        // if ($this->lesson_id) {
+        //     dd('1');
+        //     foreach ($this->lesson_id as $one_lesson_id) {
+        //         $students = StudentLesson::whereIn('student_id' ,  $this->selectedStudents )
+        //         ->where('lesson_id' , $one_lesson_id )
+        //         ->whereHas('lesson' , function($query){
+        //             $query->whereHas('unit' , function($query){
+        //                 $query->whereHas('course' , function($query){
+        //                     $query->where('course_id' , $this->course_id );
+        //                 });
+        //             });
+        //         })
+        //         ->increment( 'allowed_views' , $this->allowed_views );
+        //     }
+        // } else {
+        //     dd('ff');
+            
+        // }
 
         $this->dispatch('studentAddedToCourse');
     }
