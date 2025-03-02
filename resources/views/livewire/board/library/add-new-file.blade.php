@@ -13,7 +13,7 @@
                                 <select wire:model.live="course_id" name="course_id" class="form-control form-select">
                                     <option value=""></option>
                                     @foreach ($this->courses as $course)
-                                    <option value="{{ $course->id }}">{{ $course->title }} </option>
+                                    <option value="{{ $course->id }}">{{ $course->title }} -- {{ $course->id }}</option>
                                     @endforeach
                                 </select>
                                 @error('course_id')
@@ -30,7 +30,7 @@
                                 <select wire:model.live="unit_id" name="unit_id" class="form-control form-select">
                                     <option value=""></option>
                                     @foreach ($this->units as $unit)
-                                    <option value="{{ $unit->id }}">{{ $unit->title }} </option>
+                                    <option value="{{ $unit->id }}">{{ $unit->title }} -- {{ $unit->id }} </option>
                                     @endforeach
                                 </select>
                                 @error('unit_id')
@@ -123,6 +123,15 @@
                     </div>
 
 
+                    <div class="col-md-12">
+                        <select multiple class="form-control listbox-basic" name="students[]" >
+                            @foreach ($this->students as $student)
+                            <option value="{{ $student->id }}"> {{ $student->name }} - {{ $student->mobile }} </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+
 
                 </div>
 
@@ -138,3 +147,26 @@
         </div>
     </form>
 </div>
+
+
+
+@section('styles')
+<link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
+
+@endsection
+
+@section('scripts')
+
+<script src="{{ asset('board_assets/js/vendor/forms/inputs/dual_listbox.min.js') }}"></script>
+<script src="{{ asset('board_assets/demo/pages/form_dual_listboxes.js') }}"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        Livewire.hook('morph.added', ({ el }) => {
+            const listboxBasicElement = document.querySelector(".listbox-basic");
+            const listboxBasic = new DualListbox(listboxBasicElement);
+        })
+    });
+</script>
+@endsection

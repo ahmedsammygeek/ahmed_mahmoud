@@ -33,18 +33,11 @@ class LibraryController extends Controller
      */
     public function store(StoreFileRequest $request)
     {
+
         $lesson = Lesson::find($request->lesson_id);
         $video = LessonVideo::find($request->video_id);
         // $course_students = CourseStudent::where('course_id' , $request->course_id )->pluck('student_id')->toArray();
-        $students = Student::query()
-        ->whereHas('courses' , function($query) use ($request) {
-            $query->where('course_id' , $request->course_id );
-        })
-        ->whereHas('units', function($query) use($request) {
-            $query->where('unit_id' , $request->unit_id );
-        })
-        ->get();
-
+        $students = Student::find($request->students);
 
         $lesson_files = [];
         $file_students = [];

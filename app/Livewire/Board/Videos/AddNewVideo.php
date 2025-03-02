@@ -3,7 +3,7 @@
 namespace App\Livewire\Board\Videos;
 
 use Livewire\Component;
-use App\Models\{Course , Unit , Lesson , LessonVideo};
+use App\Models\{Course , Unit , Lesson , Student , LessonVideo};
 use Livewire\Attributes\Computed;
 class AddNewVideo extends Component
 {
@@ -32,6 +32,8 @@ class AddNewVideo extends Component
     {
         return Lesson::select('title' , 'id', 'unit_id')->where('unit_id' , $this->unit_id)->get();
     }
+
+
 
     public function render()
     {

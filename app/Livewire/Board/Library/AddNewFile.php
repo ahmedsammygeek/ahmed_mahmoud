@@ -3,7 +3,7 @@
 namespace App\Livewire\Board\Library;
 
 use Livewire\Component;
-use App\Models\{Course , Unit , Lesson , LessonVideo};
+use App\Models\{Course , Unit , Lesson , Student , LessonVideo};
 use Livewire\Attributes\Computed;
 class AddNewFile extends Component
 {
@@ -39,6 +39,19 @@ class AddNewFile extends Component
     public function videos()
     {
         return LessonVideo::select('title' , 'id', 'lesson_id')->where('lesson_id' , $this->lesson_id)->get();
+    }
+
+
+    #[Computed]
+    public function students()
+    {
+        return Student::whereHas('courses' , function($query){
+            $query->where('course_id' , $this->course_id );
+        })
+        ->whereHas('units' , function($query){
+            $query->where('unit_id' , $this->unit_id );
+        })
+        ->get();
     }
 
 

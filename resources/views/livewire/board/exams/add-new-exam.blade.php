@@ -287,18 +287,7 @@
 <script>
     $(function() {
 
-        // Livewire.hook('morph.added', ({ el }) => {
-        //     // $(el).find('input[name="from[]"]').timepicker({});
-        //     // $(el).find('input[name="to[]"]').timepicker({});
-
-        //     const listboxBasicElement = document.querySelector(".listbox-basic");
-        //     const listboxBasic = new DualListbox(listboxBasicElement);
-        // })
-
-
-
-
-    });
+});
 
 </script>
 @endpush

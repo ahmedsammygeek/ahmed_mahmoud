@@ -31,6 +31,7 @@ class StoreFileRequest extends FormRequest
             'download_allowed_number' => 'required' , 
             'allowed_views_number' => 'required' , 
             'force_water_mark' => 'nullable' , 
+            'students' => 'required'  ,  
         ];
     }
 }

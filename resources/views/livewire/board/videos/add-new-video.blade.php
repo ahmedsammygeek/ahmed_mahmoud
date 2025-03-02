@@ -105,7 +105,7 @@
                 <div class="row mb-3">
                     <label class="col-form-label col-lg-2"> شرح الفديو بالعربيه <span class="text-danger">*</span></label>
                     <div class="col-lg-10">
-                        <textarea name="description_ar" class='form-control ' cols="30" rows="10"> {{ old('description_ar') }} </textarea>
+                        <textarea name="description_ar" class='form-control '  rows="5"> {{ old('description_ar') }} </textarea>
                         @error('description_ar')
                         <p class='text-danger' > {{ $message }} </p>
                         @enderror
@@ -116,7 +116,7 @@
                 <div class="row mb-3">
                     <label class="col-form-label col-lg-2"> شرح الفديو بالانجليزيه <span class="text-danger">*</span></label>
                     <div class="col-lg-10">
-                        <textarea name="description_en" class='form-control ' cols="30" rows="10"> {{ old('description_en') }} </textarea>
+                        <textarea name="description_en" class='form-control '  rows="5"> {{ old('description_en') }} </textarea>
                         @error('description_en')
                         <p class='text-danger' > {{ $message }} </p>
                         @enderror
@@ -164,6 +164,14 @@
                     </div>
                 </div>
 
+                <div class="row mb-3">
+                    <select multiple class="form-control listbox-basic">
+                        @foreach ($this->students as $student)
+                            <option value="{{ $student->id }}"> {{ $student->name }} - {{ $student->mobile }} </option>
+                        @endforeach
+                    </select>
+                </div>
+
             </div>
 
 
@@ -176,3 +184,4 @@
         </div>
     </form>
 </div>
+

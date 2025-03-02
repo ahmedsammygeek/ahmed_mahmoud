@@ -29,9 +29,10 @@ use App\Models\CourseStudent;
 use App\Models\LessonVideo;
 use App\Models\Announcement;
 use App\Models\Lesson;
-// use App\Models\LessonFile;
+
 use DB;
 use Mail;
+
 use App\Notifications\WelcomeNotification;
 // use App\Notifications\NewCourseLessonAddedNotification;
 use App\Mail\MyTestEmail;
@@ -52,37 +53,51 @@ class TestController extends Controller
     public function index()
     {       
 
+        $files = LessonFile::get();
 
+        foreach ($files as $file) {
 
-        $course_students = CourseStudent::where('course_id' , 33 )->get();
-
-        $not_found_ids = [];
-
-        foreach ($course_students as $course_student) {
-            $student = Student::where('id' , $course_student->student_id )->first();
-            if (!$student) {
-                $not_found_ids[] = $course_student->student_id;
+            if (Storage::exists('lesson_files/'.$file->file)) {
+                $file->size = Storage::size('lesson_files/'.$file->file);
+                $file->save();
+            } else {
+                $file->size = 1000;
+                $file->save();
             }
         }
 
 
-        dd($course_students , $not_found_ids );
+        dd('done');
 
-        $unit_id = 49;
-        $course_id = 33;
-        $students = Student::with('faculty')
-        ->whereHas('courses' , function($query) use($course_id) {
-            $query->where('course_id' , $course_id );
-        })
-        // ->when($unit_id , function($query) use($unit_id){
-        //     $query->whereHas('units' , function($query) use($unit_id) {
-        //         $query->where('unit_id' , $unit_id );
-        //     });
+        // $course_students = CourseStudent::where('course_id' , 33 )->get();
+
+        // $not_found_ids = [];
+
+        // foreach ($course_students as $course_student) {
+        //     $student = Student::where('id' , $course_student->student_id )->first();
+        //     if (!$student) {
+        //         $not_found_ids[] = $course_student->student_id;
+        //     }
+        // }
+
+
+        // dd($course_students , $not_found_ids );
+
+        // $unit_id = 49;
+        // $course_id = 33;
+        // $students = Student::with('faculty')
+        // ->whereHas('courses' , function($query) use($course_id) {
+        //     $query->where('course_id' , $course_id );
         // })
-        ->latest()->get();
+        // // ->when($unit_id , function($query) use($unit_id){
+        // //     $query->whereHas('units' , function($query) use($unit_id) {
+        // //         $query->where('unit_id' , $unit_id );
+        // //     });
+        // // })
+        // ->latest()->get();
 
 
-        dd($students);
+        // dd($students);
 
         // $videos = LessonVideo::whereHas('lesson' , function($query){
         //         $query->whereIn('unit_id' , [45 , 44] )->whereHas('unit' , function($query){
