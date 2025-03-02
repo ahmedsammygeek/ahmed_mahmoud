@@ -50,22 +50,54 @@ class TestController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {   
-
-        $videos = LessonVideo::whereHas('lesson' , function($query){
-                $query->whereIn('unit_id' , [45 , 44] )->whereHas('unit' , function($query){
-                    $query->where('course_id' , 31 );
-                });
-            })->get();
+    {       
 
 
-        dd($videos);
 
-        dd(Hash::make(90909090));
+        $course_students = CourseStudent::where('course_id' , 33 )->get();
 
-        $user = User::find(10);
+        $not_found_ids = [];
 
-        Auth::login($user);
+        foreach ($course_students as $course_student) {
+            $student = Student::where('id' , $course_student->student_id )->first();
+            if (!$student) {
+                $not_found_ids[] = $course_student->student_id;
+            }
+        }
+
+
+        dd($course_students , $not_found_ids );
+
+        $unit_id = 49;
+        $course_id = 33;
+        $students = Student::with('faculty')
+        ->whereHas('courses' , function($query) use($course_id) {
+            $query->where('course_id' , $course_id );
+        })
+        // ->when($unit_id , function($query) use($unit_id){
+        //     $query->whereHas('units' , function($query) use($unit_id) {
+        //         $query->where('unit_id' , $unit_id );
+        //     });
+        // })
+        ->latest()->get();
+
+
+        dd($students);
+
+        // $videos = LessonVideo::whereHas('lesson' , function($query){
+        //         $query->whereIn('unit_id' , [45 , 44] )->whereHas('unit' , function($query){
+        //             $query->where('course_id' , 31 );
+        //         });
+        //     })->get();
+
+
+        // dd($videos);
+
+        // dd(Hash::make(90909090));
+
+        // $user = User::find(10);
+
+        // Auth::login($user);
 
         // $permissions = Permission::all();
 

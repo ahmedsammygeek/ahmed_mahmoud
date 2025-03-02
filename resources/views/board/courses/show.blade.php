@@ -25,7 +25,7 @@
                 <a href="{{ route('board.courses.units.index', $course) }}" class="nav-link "> الوحدات <span style="margin-right:10px;" class='badge bg-primary '> {{ $course->units()->count() }} </span> </a>
             </li>
             <li class="nav-item">
-               <a href="{{ route('board.courses.students.index', $course) }}" class="nav-link"> الطلبه   <span style="margin-right:10px;" class='badge bg-primary '> {{ $course->students()->count() }} </span> </a>
+               <a href="{{ route('board.courses.students.index', $course) }}" class="nav-link"> الطلبه   <span style="margin-right:10px;" class='badge bg-primary '> {{ $students_count }} </span> </a>
             </li>
             <li class="nav-item">
                 {{-- <a href="{{ route('board.courses.reviews', $course) }}" class="nav-link"> التقييمات</a> --}}

@@ -138,15 +138,9 @@ class ListAllStudents extends Component
 
         $students = StudentLesson::whereIn('student_id' ,  $this->selectedStudents )
         ->whereIn('video_id' ,  $this->selectedVideos )
-            // ->whereHas('lesson' , function($query){
-            //     $query->whereHas('unit' , function($query){
-            //         $query->whereHas('course' , function($query){
-            //             $query->where('course_id' , $this->course_id );
-            //         });
-            //     });
-            // })
-            ->increment( 'allowed_views' , $this->allowed_views );
+        ->increment( 'allowed_views' , $this->allowed_views );
 
+ 
             // dd($students);
 
         // if ($this->lesson_id) {
@@ -165,7 +159,7 @@ class ListAllStudents extends Component
         //     }
         // } else {
         //     dd('ff');
-            
+
         // }
 
         $this->dispatch('studentAddedToCourse');

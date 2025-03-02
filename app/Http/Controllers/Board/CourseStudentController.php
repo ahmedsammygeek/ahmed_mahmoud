@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Board;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Course;
+use App\Models\{Course , Student };
 class CourseStudentController extends Controller
 {
     /**
@@ -12,7 +12,11 @@ class CourseStudentController extends Controller
      */
     public function index(Course $course)
     {
-        return view('board.courses.students' , compact('course'));
+        $course_students = Student::with('faculty')
+        ->whereHas('courses' , function($query) use($course) {
+            $query->where('course_id' , $course->id );
+        })->count();
+        return view('board.courses.students' , compact('course' , 'course_students'));
     }
 
     /**

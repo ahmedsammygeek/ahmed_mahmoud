@@ -36,7 +36,7 @@
 			</a>
 			</li>
 			<li class="nav-item">
-               <a href="{{ route('board.courses.students.index', $course) }}" class="nav-link"> الطلبه  <span style="margin-right:10px;" class='badge bg-primary '> {{ $course->students()->count() }} </span> </a>
+               <a href="{{ route('board.courses.students.index', $course) }}" class="nav-link"> الطلبه  <span style="margin-right:10px;" class='badge bg-primary '> {{ $course_students }} </span> </a>
             </li>
 			<li class="nav-item">
 				{{-- <a href="{{ route('board.courses.reviews', $course) }}" class="nav-link"> التقييمات</a> --}}

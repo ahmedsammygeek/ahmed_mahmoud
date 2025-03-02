@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Board;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{ Grade  , EducationalSystem,  Teacher, Course  , CourseEducationalSystem };
+use App\Models\{ Grade  , EducationalSystem, Student , Teacher, Course  , CourseEducationalSystem };
 use App\Http\Requests\Board\Courses\{ StoreCourseRequest , UpdateCourseRequest};
 use App\Actions\Board\Courses\{ StoreCourseAction , UpdateCourseAction };
 use Gate;
@@ -53,7 +53,11 @@ class CourseController extends Controller
     {
         Gate::authorize('show course details');
         $course->load('grade' , 'user' , 'teacher'  , 'educationalSystems.educationalSystem' );
-        return view('board.courses.show' , compact('course' ) );
+        $students_count = $students = Student::with('faculty')
+        ->whereHas('courses' , function($query) use($course) {
+            $query->where('course_id' , $course->id );
+        })->count();
+        return view('board.courses.show' , compact('course' , 'students_count' ) );
     }
 
     /**

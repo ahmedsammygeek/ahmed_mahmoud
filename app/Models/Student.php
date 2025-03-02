@@ -95,7 +95,7 @@ class Student extends Authenticatable
 
     public function units()
     {
-        return $this->hasMany(StudentUnit::class , 'student_id');
+        return $this->hasMany(StudentUnit::class );
     }
 
 

@@ -1,44 +1,65 @@
 
-<div class="row mt-3">
-    @foreach ($students as $student)
-    <div class="col-xl-3 col-lg-6">
-        <div class="card card-body">
-            <div class="d-flex">
-                <a href="#" class="me-3">
-                    <img src="{{ Storage::url('students/'.$student->profile_picture) }}" class="rounded-circle" width="44" height="44" alt="">
-                </a>
+<div class="container-fulid">
+    <div class="row">
+        <div class="col-md-11">
+            <div class="form-group mt-3">
+                <label class="form-label" for=""> الوحده : </label>
+                <select wire:model.live='unit_id' class='form-control form-select' >
+                    <option value=""> جميع الطلاب </option>
+                    @foreach ($units as $unit)
+                    <option value="{{ $unit->id }}"> طلاب الــ {{ $unit->title }} </option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div class="form-group mt-3">
+                <label  class="form-label" for=""> عدد الطلاب </label>
+                <span class="badge bg-primary mt-2"> {{ $students->count() }} </span>
+            </div>
+        </div>
+    </div>    
+    <div class="row mt-3">
+        @foreach ($students as $student)
+        <div class="col-xl-3 col-lg-6">
+            <div class="card card-body">
+                <div class="d-flex">
+                    <a href="#" class="me-3">
+                        <img src="{{ Storage::url('students/'.$student->profile_picture) }}" class="rounded-circle" width="44" height="44" alt="">
+                    </a>
 
-                <div class="flex-fill">
-                    <h6 class="mb-0"> {{ $student->name }} </h6>
-                    <span class="text-muted"> {{ $student->mobile }} </span>
-                </div>
+                    <div class="flex-fill">
+                        <h6 class="mb-0"> {{ $student->name }} </h6>
+                        <span class="text-muted"> {{ $student->mobile }} </span>
+                    </div>
 
-                <div class="align-self-center ms-3" >
-                    <div class="dropdown" >
-                        <a href="#" class="text-body" data-bs-toggle="dropdown">
-                            <i class="ph-list"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end">
-                            <a href="{{ route('board.students.show' , $student ) }}" class="dropdown-item">
-                                <i class="ph-user-circle  me-2"></i>
-                                الملف الشخصى
+                    <div class="align-self-center ms-3" >
+                        <div class="dropdown" >
+                            <a href="#" class="text-body" data-bs-toggle="dropdown">
+                                <i class="ph-list"></i>
                             </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a href="{{ route('board.students.show' , $student ) }}" class="dropdown-item">
+                                    <i class="ph-user-circle  me-2"></i>
+                                    الملف الشخصى
+                                </a>
 
-                            <div class="dropdown-divider"></div>
-                            <a wire:click="$dispatch('deleteConfirmation', '{{ $student->id }}')"  class="dropdown-item text-danger">
-                                <i class="ph-trash  me-2"></i>
-                                حذف من الماده
-                            </a>
+                                <div class="dropdown-divider"></div>
+                                <a wire:click="$dispatch('deleteConfirmation', '{{ $student->id }}')"  class="dropdown-item text-danger">
+                                    <i class="ph-trash  me-2"></i>
+                                    حذف من الماده
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    @endforeach
+        @endforeach
 
-    <div class="col-md-12">
-        {{ $students->links() }}
+        <div class="col-md-12">
+            {{ $students->links() }}
+        </div>
     </div>
 </div>
 
