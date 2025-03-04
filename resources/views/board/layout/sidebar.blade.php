@@ -395,6 +395,11 @@ switch (request()->segment(3)) {
 						<span> @lang('library.library') </span>
 					</a>
 					<ul class="nav-group-sub collapse">
+						<li class="nav-item">
+							<a href="{{ route('board.library.index') }}" class="nav-link "> 
+								@lang('library.show library files') 
+							</a>
+						</li>
 						@can('add new file to library')
 						<li class="nav-item">
 							<a href="{{ route('board.library.create') }}" class="nav-link "> 
