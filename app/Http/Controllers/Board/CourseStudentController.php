@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\{Course , Student  , CourseStudent , StudentUnit , LessonVideo , StudentLesson , LessonFile , LessonFileView  };
 use Auth;
 use Carbon\Carbon;
+use App\Http\Requests\Board\Courses\Students\AddCoursesToStudentsRequest;
 class CourseStudentController extends Controller
 {
     /**
@@ -35,7 +36,7 @@ class CourseStudentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AddCoursesToStudentsRequest $request)
     {
         // dd($request->all());
 

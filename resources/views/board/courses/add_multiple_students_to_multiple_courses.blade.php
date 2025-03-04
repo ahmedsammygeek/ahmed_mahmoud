@@ -46,12 +46,15 @@
                                                 <input type="checkbox" class="form-check-input" checked>
                                             </div>
 
-                                            <select class="form-control multiselect" name='units[{{ $course->id }}][]' multiple="multiple">
+                                            <select class="form-control multiselect" name='units[{{ $course->id }}][]' multiple="multiple" required >
                                                 @foreach ($course->units as $unit)
                                                 <option value="{{ $unit->id }}">{{ $unit->title }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
+                                        @error('units.['.$course->id.'].*')
+                                        <p class="text-danger"> {{ $message }} </p>
+                                        @enderror
                                     </td>
                                     <td>
                                         <div class="input-group">
@@ -75,13 +78,13 @@
                                     <td>
                                         <div class="form-check form-switch  mb-2 center-block ">
                                             <input type="checkbox" class="form-check-input" id="sc_lss_c" name="show_phone_on_viedo[{{ $course->id }}]" checked="">
-                                           عرض رقم الطالب
+                                            عرض رقم الطالب
                                         </div>
                                     </td>
                                     <td>
                                         <div class="form-check form-switch  mb-2 center-block ">
                                             <input type="checkbox" class="form-check-input" id="sc_lss_c" name="speak_user_phone[{{ $course->id }}]" checked="">
-                                           نطق اسم الطالب
+                                            نطق اسم الطالب
                                         </div>
                                     </td>
                                 </tr>
@@ -105,7 +108,7 @@
                         </table>
 
                         @foreach ($students as $student)
-                            <input type="hidden" name="students[]" value="{{ $student }}" >
+                        <input type="hidden" name="students[]" value="{{ $student }}" >
                         @endforeach
 
                     </div>
