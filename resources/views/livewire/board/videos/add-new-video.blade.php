@@ -164,13 +164,7 @@
                     </div>
                 </div>
 
-                <div class="row mb-3">
-                    <select multiple class="form-control listbox-basic">
-                        @foreach ($this->students as $student)
-                            <option value="{{ $student->id }}"> {{ $student->name }} - {{ $student->mobile }} </option>
-                        @endforeach
-                    </select>
-                </div>
+   
 
             </div>
 
