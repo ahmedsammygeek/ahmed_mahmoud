@@ -13,7 +13,7 @@
                                 <select wire:model.live="course_id" name="course_id" class="form-control form-select">
                                     <option value=""></option>
                                     @foreach ($this->courses as $course)
-                                    <option value="{{ $course->id }}">{{ $course->title }} -- {{ $course->id }}</option>
+                                    <option value="{{ $course->id }}">{{ $course->title }} </option>
                                     @endforeach
                                 </select>
                                 @error('course_id')
@@ -30,7 +30,7 @@
                                 <select wire:model.live="unit_id" name="unit_id" class="form-control form-select">
                                     <option value=""></option>
                                     @foreach ($this->units as $unit)
-                                    <option value="{{ $unit->id }}">{{ $unit->title }} -- {{ $unit->id }} </option>
+                                    <option value="{{ $unit->id }}">{{ $unit->title }} </option>
                                     @endforeach
                                 </select>
                                 @error('unit_id')

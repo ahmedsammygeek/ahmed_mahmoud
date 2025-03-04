@@ -82,6 +82,8 @@ Route::group(
                 Route::resource('faculty_levels', FacultyLevelController::class );
                 Route::resource('courses.units', CourseUnitController::class );
                 Route::resource('courses.students' , CourseStudentController::class);
+                Route::get('courses/students/step_two' , [CourseStudentController::class , 'step_two' ])->name('courses.students.create.step_two');
+                Route::post('courses/students/step_two' , [CourseStudentController::class , 'store' ])->name('courses.students.create.step_two.store');
                 Route::resource('courses.units.lessons', LessonController::class);
                 Route::resource('students.courses' , StudentCourseController::class);
                 Route::resource('students.courses.lessons', StudentLessonController::class);

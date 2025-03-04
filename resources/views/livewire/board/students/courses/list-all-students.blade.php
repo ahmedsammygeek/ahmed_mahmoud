@@ -9,7 +9,7 @@
         <div class="card card-body">
 
             <div class="d-sm-flex align-items-sm-start mt-2">
-                <div class="dropdown ms-sm-3  mb-sm-0">
+               {{--  <div class="dropdown ms-sm-3  mb-sm-0">
                     <select wire:model.change='grade_id' class="form-select">
                         <option value=""> @lang('students.all grades') </option>
                         @foreach ($grades as $grade)
@@ -27,7 +27,7 @@
                     </select>
                 </div>
                 <div class="dropdown ms-sm-3  mb-sm-0">
-                    <select wire:model.change='course_id' class="form-select">
+                    <select wire:model.change='course_id' class="form-select" multiple="" >
                         <option value=""> @lang('students.all courses') </option>
                         @foreach ($this->courses as $course)
                         <option value="{{ $course->id }}"> {{ $course->title }} </option>
@@ -48,7 +48,7 @@
                         <option value="1"> @lang('students.only center students') </option>
                         <option value="2"> @lang('students.only online students') </option>
                     </select>
-                </div>
+                </div> --}}
                 <div class="dropdown ms-sm-3  mb-sm-0">
                     <button  data-bs-toggle="modal" data-bs-target="#add_new_course_to_student_modal"  class="btn btn-primary "> add courses </button>
                 </div>
@@ -133,17 +133,49 @@
     </div>
 </div>
 
-  <div id="add_new_course_to_student_modal" class="modal fade" wire:ignore.self tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">@lang('students.add new course to student')</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
+<div id="add_new_course_to_student_modal" class="modal fade" wire:ignore.self tabindex="-1">
+    <div class="modal-dialog modal-full">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    @lang('students.add new course to student')
+                    <button type="button" class="btn btn-success add_more_courses" wire:click='AddMoreCourses' >   
+                        <i class="icon-plus3 me-2"></i>  
+                    </button>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
 
-                <form wire:submit="addStudnetsToCourses" class="form-horizontal">
-                    <div class="modal-body">
-                        <div class="row mb-3">
+            <form wire:submit="addStudnetsToCourses" class="form-horizontal">
+                <div class="modal-body">
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th> الكورس </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for ($i = 0; $i < $courses_count ; $i++)
+                            <tr>
+                                <td>
+                                    <select wire:model.live='selected_course_id.{{ $i }}' class="form-select form-control @error('course_id') is-invalid @enderror " id="">
+                                        <option value=""></option>
+                                        @foreach ($selectedCourses as $selectedCourse)
+                                        <option value="{{ $selectedCourse->id }}"> {{ $selectedCourse->title }} </option>
+                                        @endforeach
+                                    </select>
+                                    @error('course_id')
+                                    <p class='is-invalid text-danger'> {{ $message }} </p>
+                                    @enderror 
+                                </td>
+                            </tr>
+                            @endfor
+                        </tbody>
+                    </table>
+
+
+{{--                         <div class="row mb-3">
                             <label class="col-form-label col-sm-3"> @lang('students.course') </label>
                             <div class="col-sm-9">
                                 <select wire:model.live='selected_course_id' class="form-select form-control @error('course_id') is-invalid @enderror " id="">
@@ -235,7 +267,7 @@
                                     <input type="checkbox" class="form-check-input" id="sc_lss_c" wire:model.live='allow' checked>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
 
 
@@ -262,21 +294,21 @@
 <script>
     $(function() {
 
-  
 
-            Livewire.on('studentAddedToCourse' , () => {
-        $(document).find('#add_new_course_to_student_modal').modal('hide');
-        swalInit.fire({
-            text: "@lang('dashboard.addedd successfully')" ,
-            icon: 'success',
-            toast: true,
-            showConfirmButton: false,
-            position: 'top-start' , 
-            timer: 1500
+
+        Livewire.on('studentAddedToCourse' , () => {
+            $(document).find('#add_new_course_to_student_modal').modal('hide');
+            swalInit.fire({
+                text: "@lang('dashboard.addedd successfully')" ,
+                icon: 'success',
+                toast: true,
+                showConfirmButton: false,
+                position: 'top-start' , 
+                timer: 1500
+            });
+
+
         });
-
-
-    });
 
 
         Livewire.on('itemDeleted', () =>  {

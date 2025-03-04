@@ -26,12 +26,13 @@ class ListAllStudents extends Component
     public $systems;
     public $is_active = 'all';
     public $selectedStudents = [];
+    public $courses_count = 0;
 
     protected $listeners = ['deleteItem' , 'itemDeleted' => '$refresh' ];  
 
 
     #[Validate('required')]
-    public $selected_course_id;
+    public $selected_course_id = [];
 
     #[Validate('required')]
     public $group_id;
@@ -43,7 +44,7 @@ class ListAllStudents extends Component
     public $paid ;
 
     #[Validate('required')]
-    public $student_units ;
+    public $student_units = [] ;
 
     public $installment_months = 1;
     public $allow = true;
@@ -61,6 +62,11 @@ class ListAllStudents extends Component
             $item->delete();
             $this->dispatch('itemDeleted');
         }
+    }
+
+    public function AddMoreCourses()
+    {
+        $this->courses_count++;
     }
 
     #[Computed]
@@ -92,83 +98,15 @@ class ListAllStudents extends Component
 
     public function addStudnetsToCourses()
     {
+        // dd($this->selected_course_id);
+
+
+        return redirect(route('board.courses.students.create.step_two' , ['courses' => $this->selected_course_id , 'students' => $this->selectedStudents ]  ));
 
         $user_id = Auth::id();
 
 
-        foreach ($this->selectedStudents as $selectedStudent) {
-
-            $student = Student::find($selectedStudent);
-
-
-            $student_course = new CourseStudent;
-            $student_course->user_id = Auth::id();
-            $student_course->student_id = $selectedStudent;
-            $student_course->course_id = $this->selected_course_id;
-            $student_course->group_id = $this->group_id;
-            $student_course->save();
-
-
-            $student_units = [];
-            foreach ($this->student_units as $student_unit) {
-
-                $student_units[] = new StudentUnit([
-                    'student_id' => $selectedStudent , 
-                    'user_id' => Auth::id() , 
-                    'unit_id' => $student_unit , 
-                    'is_allowed' => 1 , 
-                ]);
-            }
-
-            $student->units()->saveMany($student_units);
-            $course = Course::find($this->selected_course_id );
-            $videos = LessonVideo::whereHas('lesson' , function($query){
-                $query->whereIn('unit_id' , $this->student_units );
-            })->get();
-            $student_lessons = [];
-            foreach ($videos as $video) {
-                $student_lessons[] = new StudentLesson([
-                    'lesson_id' => $video->lesson_id , 
-                    'user_id' => $user_id, 
-                    'student_id' => $selectedStudent , 
-                    'allowed_views' => $course->default_view_number , 
-                    'remains_views' => $course->default_view_number , 
-                    'total_views_till_now' => 0  ,
-                    'video_id' => $video->id
-                ]);
-            }
-
-
-            $student->lessons()->saveMany($student_lessons);
-
-            $student_payment = new StudentPayment;
-            $student_payment->student_id = $selectedStudent;
-            $student_payment->user_id = Auth::id();
-            $student_payment->course_id = $this->selected_course_id;
-            $student_payment->type = 1; 
-            $student_payment->amount = $this->paid;
-            $student_payment->save();
-
-            if ($this->paid != $this->purchase_price ) {
-            // then we need to add installments
-                $installment_amount = (($this->purchase_price - $this->paid ) / $this->installment_months);
-
-                for ($i=0; $i < $this->installment_months ; $i++) { 
-                    $student_installment = new StudentInstallment;
-                    $student_installment->user_id = Auth::id();
-                    $student_installment->student_id = $selectedStudent;
-                    $student_installment->course_id = $this->selected_course_id;
-                    $student_installment->amount = $installment_amount;
-                    $student_installment->due_date = Carbon::now()->addMonths(($i +1));
-                    $student_installment->is_paid = 0;
-                    $student_installment->student_payment_id = null;
-                    $student_installment->change_to_paid_by = null;
-                    $student_installment->save();
-                }
-            }
-            $this->dispatch('studentAddedToCourse');
-        }
-
+        
     }
 
     public function mount() {
