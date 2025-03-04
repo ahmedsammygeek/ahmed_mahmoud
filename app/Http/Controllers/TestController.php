@@ -53,21 +53,25 @@ class TestController extends Controller
     public function index()
     {       
 
-        $files = LessonFile::get();
+        $student = Student::find(721);
 
-        foreach ($files as $file) {
+        dd($student->createToken($student->id)->plainTextToken);
 
-            if (Storage::exists('lesson_files/'.$file->file)) {
-                $file->size = Storage::size('lesson_files/'.$file->file);
-                $file->save();
-            } else {
-                $file->size = 1000;
-                $file->save();
-            }
-        }
+        // $files = LessonFile::get();
+
+        // foreach ($files as $file) {
+
+        //     if (Storage::exists('lesson_files/'.$file->file)) {
+        //         $file->size = Storage::size('lesson_files/'.$file->file);
+        //         $file->save();
+        //     } else {
+        //         $file->size = 1000;
+        //         $file->save();
+        //     }
+        // }
 
 
-        dd('done');
+        // dd('done');
 
         // $course_students = CourseStudent::where('course_id' , 33 )->get();
 
