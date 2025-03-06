@@ -31,6 +31,7 @@ class UpdateStudentCourseRequest extends FormRequest
             'force_face_detecting' => 'nullable', 
             'office_library' => 'nullable', 
             'online_library' => 'nullable', 
+            'units_id' => 'required' , 
         ];
     }
 }

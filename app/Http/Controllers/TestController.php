@@ -53,6 +53,14 @@ class TestController extends Controller
     public function index()
     {       
 
+
+        dd(StudentLesson::where('student_id' , 714)->pluck('video_id')->toArray());
+
+
+        dd(LessonVideo::whereHas('lesson' , function($query){
+            $query->where('unit_id' , 58 );
+        })->count());
+
         $student = Student::find(721);
 
         dd($student->createToken($student->id)->plainTextToken);

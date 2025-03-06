@@ -111,6 +111,7 @@ class CourseController extends Controller
 
     public function unit_lessons(Course $course , Unit $unit)
     {
+
         $is_user = false;
         if (Auth::guard('student')->check()) {
             $is_user = true;

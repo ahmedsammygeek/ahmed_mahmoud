@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Student\V1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{Course , Lesson  , StudentLesson  , LessonFile   , LessonVideo , Unit , StudentExam , Exam , CourseStudent };
+use App\Models\{Course , Lesson  , StudentLesson  , LessonFile  , StudentUnit  , LessonVideo , Unit , StudentExam , Exam , CourseStudent };
 use App\Traits\Api\GeneralResponse;
 use App\Http\Resources\Api\Student\V1\Lessons\LessonResource;
 use App\Http\Resources\Api\Student\V1\Courses\ExamResource;
@@ -137,6 +137,7 @@ class LessonController extends Controller
 
 
 
+
         $course_student = CourseStudent::where('course_id' , $course->id )
         ->where('student_id' , $student->id )->first();
 
@@ -144,6 +145,17 @@ class LessonController extends Controller
             return $this->response(
                 status : 'error' , 
                 message : 'you have been prevented from this course becourse : '.$course_student->disable_reason  , 
+            );
+        }
+
+        // now we need to check if this user has access to this unit or not
+
+        $student_unit = StudentUnit::where('student_id' , $student->id )->where('unit_id' , $unit->id )->latest()->first();
+
+        if ($student_unit->is_allowed == 0) {
+            return $this->response(
+                status : 'error' , 
+                message : 'you did not subscribed to this unit yet  , contact support to give you access '  , 
             );
         }
 

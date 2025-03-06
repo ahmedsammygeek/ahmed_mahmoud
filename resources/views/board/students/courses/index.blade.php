@@ -79,9 +79,7 @@
 
 <!-- Content area -->
 <div class="content">
-
 	@livewire('board.students.list-all-student-courses' , ['student' => $student] )
-
 </div>
 <!-- /content area -->
 @endsection

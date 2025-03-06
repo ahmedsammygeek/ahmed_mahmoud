@@ -26,8 +26,6 @@
                         <div class="fw-bold border-bottom pb-2 mb-3"> @lang('courses.course details') </div>
 
                         <div class="row mb-2">
-
-
                             <div class="col-md-6">
                                 <label class="col-form-label col-lg-12"> @lang('courses.course') <span class="text-danger">*</span></label>
                                 <div class="col-lg-12">
@@ -36,8 +34,6 @@
                                     </select>
                                 </div>
                             </div>
-
-
 
                             <div class="col-md-6">
                                 <label class="col-form-label col-lg-12">  @lang('courses.group') <span class="text-danger">*</span></label>
@@ -49,6 +45,22 @@
                                         @endforeach
                                     </select>
                                     @error('group_id')
+                                    <p class='text-danger'> {{ $message }} </p>
+                                    @enderror
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-12">
+                                <label class="col-form-label col-lg-12">  @lang('courses.units') <span class="text-danger">*</span></label>
+                                <div class="col-lg-12">
+                                    <select type='number' name="units_id[]" multiple="" class='form-control form-select '  id="">
+                                        <option value="">  </option>
+                                        @foreach ($student_course->course?->units as $one_unit)
+                                        <option value="{{ $one_unit->id }}" @selected(in_array($one_unit->id, $student_course_units )) >  {{ $one_unit->title }} </option>
+                                        @endforeach
+                                    </select>
+                                    @error('units_id')
                                     <p class='text-danger'> {{ $message }} </p>
                                     @enderror
                                 </div>

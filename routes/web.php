@@ -49,6 +49,7 @@ use App\Http\Controllers\Board\SplashController;
 use App\Http\Controllers\Board\LibraryController;
 use App\Http\Controllers\Board\StudentVideoViewsController;
 use App\Http\Controllers\Board\CourseStudentController;
+use App\Http\Controllers\Board\StudentUnitcontroller;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\ApplicationController;
 
@@ -87,6 +88,7 @@ Route::group(
                 Route::resource('courses.units.lessons', LessonController::class);
                 Route::resource('students.courses' , StudentCourseController::class);
                 Route::resource('students.courses.lessons', StudentLessonController::class);
+                Route::resource('students.courses.units', StudentUnitcontroller::class);
                 Route::resource('students.installments', UserInstallmentController::class);
                 Route::resource('students.payments', StudentPaymentController::class);
                 Route::resource('students.exams', StudentExamController::class);
