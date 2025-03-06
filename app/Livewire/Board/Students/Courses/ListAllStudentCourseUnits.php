@@ -10,6 +10,20 @@ class ListAllStudentCourseUnits extends Component
     public $course;
 
 
+    protected $listeners = ['deleteItem' , 'itemDeleted' => '$refresh' ];  
+
+
+    public function deleteItem($itemId)
+    {
+        $item = StudentUnit::find($itemId);
+        if($item) {
+            $item->delete();
+            $this->dispatch('itemDeleted');
+        }
+    }
+
+
+
     public function disallow($student_unit_id)
     {   
         $student_unit = StudentUnit::where('id' , $student_unit_id )->first();
