@@ -23,7 +23,10 @@ class LessonController extends Controller
     public function watched(Course $course , Lesson $lesson , LessonVideo $video )
     {
         $student = Auth::guard('student')->user();
-        $student_lesson = StudentLesson::where('student_id' , $student->id )->where('lesson_id' , $lesson->id )->first();
+        $student_lesson = StudentLesson::where('student_id' , $student->id )
+        ->where('video_id' , $video->id )
+        ->latest()
+        ->first();
 
         if ($student_lesson) {
             $student_lesson->total_views_till_now = $student_lesson->total_views_till_now + 1;
