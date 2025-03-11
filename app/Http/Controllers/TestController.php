@@ -54,14 +54,16 @@ class TestController extends Controller
     {       
 
 
-        dd(StudentLesson::where('student_id' , 714)->pluck('video_id')->toArray());
+        dd(Hash::make(90909090));
+
+        // dd(StudentLesson::where('student_id' , 714)->pluck('video_id')->toArray());
 
 
-        dd(LessonVideo::whereHas('lesson' , function($query){
-            $query->where('unit_id' , 58 );
-        })->count());
+        // dd(LessonVideo::whereHas('lesson' , function($query){
+        //     $query->where('unit_id' , 58 );
+        // })->count());
 
-        $student = Student::find(721);
+        $student = Student::find(438);
 
         dd($student->createToken($student->id)->plainTextToken);
 
