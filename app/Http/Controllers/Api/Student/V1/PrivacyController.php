@@ -13,23 +13,9 @@ class PrivacyController extends Controller
      */
     public function index()
     {
-        $data['privacy'] = '<pre>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-
-cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-
-
-consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-
-
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        $data['privacy'] = '<pre>ابلكيشن تعليمي لا يجوز تداول المحتوي الخاص بيه خارج الابلكيشن 
+والا يحق للابلكيشن القيام بكل وسائل
+الدفاع عن حقوقه بما فيها المسائله القانونيه
 
         </pre>';
 
