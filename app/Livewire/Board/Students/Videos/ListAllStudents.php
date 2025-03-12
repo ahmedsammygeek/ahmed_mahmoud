@@ -140,6 +140,13 @@ class ListAllStudents extends Component
         ->whereIn('video_id' ,  $this->selectedVideos )
         ->increment( 'allowed_views' , $this->allowed_views );
 
+
+        $students = StudentLesson::whereIn('student_id' ,  $this->selectedStudents )
+        ->whereIn('video_id' ,  $this->selectedVideos )
+        ->increment( 'remains_views' , $this->allowed_views );
+
+ 
+
  
             // dd($students);
 
