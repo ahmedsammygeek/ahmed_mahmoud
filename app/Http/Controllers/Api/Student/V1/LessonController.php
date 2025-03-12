@@ -43,8 +43,6 @@ class LessonController extends Controller
 
     public function show(Course $course , Unit $unit ,  Lesson $lesson )
     {
-
-        // dd('ff');
         $is_user = false;
         if (Auth::guard('student')->check()) {
             $is_user = true;
@@ -193,7 +191,10 @@ class LessonController extends Controller
 
 
 
-        $student_lesson = StudentLesson::where('student_id' , $student->id )->where('lesson_id' , $lesson->id )->first();
+        $student_lesson = StudentLesson::where('student_id' , $student->id )
+        ->where('lesson_id' , $lesson->id )
+        ->where('video_id' , $video->id )
+        ->first();
 
         // dd($student_lesson , $student->id , $lesson->id );
 
