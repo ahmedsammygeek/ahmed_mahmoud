@@ -26,7 +26,7 @@
                 <div class="row mb-3">
                     <label class="col-form-label col-lg-2"> التصنيف <span class="text-danger">*</span></label>
                     <div class="col-lg-10">
-                        <select wire:model.live='unit_id' name="unit_id" class="form-control form-select" id="">
+                        <select wire:model.live='unit_id' name="unit_id" class="form-control select2" id="">
                             <option value=""></option>
                             @foreach ($this->units as $unit)
                             <option value="{{ $unit->id }}">{{ $unit->title }} </option>

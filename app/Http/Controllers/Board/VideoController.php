@@ -62,6 +62,22 @@ class VideoController extends Controller
         $video->save();
 
 
+        $other_videos = LessonVideo::where('lesson_id' , $request->lesson_id )
+        ->whereNotIn('id' , [$video->id] )
+        ->orderBy('sorting' , 'DESC' )
+        ->first();
+
+        // dd($other_videos);
+
+        if ($other_videos) {
+            $video->sorting = $other_videos->sorting + 1;
+            $video->save();
+        } else {
+            $video->sorting =  1;
+            $video->save();
+        }
+
+
         if ($request->hasFile('files')) {
             $lesson_files = [];
             $user_id = Auth::id();

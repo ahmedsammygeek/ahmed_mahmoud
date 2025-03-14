@@ -77,6 +77,19 @@ class LessonController extends Controller
         }
 
 
+        $other_lessons = Lesson::where('unit_id' , $unit->id )
+        ->whereNotIn('id' , [$lesson->id] )
+        ->orderBy('sorting' , 'DESC' )
+        ->first();
+
+        if ($other_lessons) {
+            $lesson->sorting = $other_lessons->sorting + 1;
+            $lesson->save();
+        } else {
+            $lesson->sorting =  1;
+            $lesson->save();
+        }
+
         return redirect(route('board.courses.units.lessons.index'  ,  ['course' => $course  , 'unit' => $unit ] ))->with('success' , trans('board.added successfully') );
     }
 
