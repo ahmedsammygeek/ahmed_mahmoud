@@ -143,7 +143,7 @@
                                 @enderror
                             </div>
                         </div>
-                         <div class="col-md-6">
+                        <div class="col-md-6">
                             <label class="col-form-label col-lg-12"> رقم التواصل للاشتراك  </label>
                             <div class="col-lg-12">
                                 <input type="text" name="contact_mobile"  class="form-control @error('contact_mobile')  is-invalid @enderror" required
@@ -191,6 +191,41 @@
                                 </label>
                             </div>
                         </div>
+
+                        <div class="col-md-4">
+                            <label class="col-lg-12 col-form-label ">  الاشتراك المباشر فى الكورس </label>
+                            <div class="col-lg-12">
+                                <label class="form-check form-switch">
+                                    <input type="checkbox" value='1' class="form-check-input" name="direct_register" >
+                                    <span class="form-check-label"> نعم </span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="col-form-label col-lg-12"> طريقه عرض عدد الطلاب <span class="text-danger">*</span></label>
+                            <div class="col-lg-12">
+                                <select name="students_count_status" class='form-control form-select'  id="">
+                                    <option value="1"> عرض عدد الطلاب الحقيقى </option>
+                                    <option value="2"> عرض عدد وهمى </option>
+                                    <option value="3"> عدم عرض عدد الطلاب نهئى </option>
+                                </select>
+                                @error('students_count_status')
+                                <p class='text-danger'> {{ $message }} </p>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="col-form-label col-lg-12"> عدد الطلاب الوهمى  </label>
+                            <div class="col-lg-12">
+                                <input type="number" name="fake_students_count" value='{{ old('fake_students_count') }}' class="form-control @error('fake_students_count')  is-invalid @enderror" placeholder=''>
+                                @error('fake_students_count')
+                                <p class='text-danger'> {{ $message }} </p>
+                                @enderror
+                            </div>
+                        </div>
+
                     </div>
 
 

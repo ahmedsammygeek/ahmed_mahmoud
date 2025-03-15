@@ -33,7 +33,9 @@ class UpdateCourseRequest extends FormRequest
             'grade' => 'required' , 
             'default_view_number' => 'nullable' , 
             'contact_mobile' => 'required' , 
-            
+            'direct_register' => 'nullable' , 
+            'students_count_status' => 'nullable' , 
+            'fake_students_count' => 'nullable' , 
         ];
     }
 }

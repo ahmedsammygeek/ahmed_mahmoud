@@ -27,7 +27,6 @@ class CourseController extends Controller
     public function index()
     {
 
-        Log::info('smsmsmssms');
 
         if (Auth::guard('student')->check()) {
             $student = Auth::guard('student')->user();    

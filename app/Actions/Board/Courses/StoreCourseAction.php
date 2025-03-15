@@ -31,6 +31,9 @@ class StoreCourseAction
         $course->grade_id = $request->grade;
         $course->is_active = $request->filled('active') ? 1 : 0;
         $course->suggest_course = $request->filled('show_in_home') ? 1 : 0;
+        $course->direct_register = $request->filled('direct_register') ? 1 : 0;
+        $course->students_count_status = $request->students_count_status;
+        $course->fake_students_count = $request->fake_students_count;
         $course->user_id = Auth::id();
         $course->teacher_id = $request->teacher_id;
         $course->default_view_number = $request->default_view_number;

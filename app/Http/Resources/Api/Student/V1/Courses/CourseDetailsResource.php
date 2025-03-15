@@ -16,6 +16,21 @@ class CourseDetailsResource extends JsonResource
      */
     public function toArray(Request $request): array
     {    
+        switch ($this->students_count_status) {
+            case 1:
+                $students_count = $this->students->count();
+            break;
+            case 2:
+                $students_count = $this->fake_students_count;
+            break;
+            case 3:
+                $students_count = null;
+            break;
+            
+            default:
+            break;
+        }
+
         return [
             'id' => $this->id , 
             'title' => $this->title , 
@@ -24,7 +39,7 @@ class CourseDetailsResource extends JsonResource
             // 'total_mins' => $this->lessons()->sum('lesson_mins') , 
             'total_mins' => mt_rand(10 , 16) , 
             'rate' => 4.9 , 
-            'students_count' => $this->students->count() , 
+            'students_count' => $students_count , 
             'content' => $this->content , 
             'dose_user_subscribed' => $this->dose_user_subscribed , 
             'user_progress' => 20 , 
@@ -36,6 +51,7 @@ class CourseDetailsResource extends JsonResource
             'due_date' => '19-3-2025' , 
             'remains_days' => 0 , 
             'show_course_payments' => false ,  
+            'direct_register' => (bool) $this->direct_register , 
         ]; 
     }
 }
