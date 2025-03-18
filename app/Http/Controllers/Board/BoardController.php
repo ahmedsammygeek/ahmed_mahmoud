@@ -13,14 +13,15 @@ class BoardController extends Controller
      */
     public function index()
     {
-
         $students_count = Student::count();
         $admins_count = User::where('type'  , 1)->count();
         $teachers_count = User::where('type'  , 2)->count();
         $courses_count = Course::count();
         $groups_count = Course::count();
         $exams_count = Course::count();
-        $due_date_installments_count = StudentInstallment::where('is_paid'  , 0 )->whereDate('due_date' , '<=' , Carbon::today() )->count();
+        $due_date_installments_count = StudentInstallment::where('is_paid'  , 0 )
+        ->whereDate('due_date' , '<=' , Carbon::today() )
+        ->count();
 
         return view('board.index' , compact('students_count', 'admins_count' , 'teachers_count' , 'courses_count'  , 'groups_count' , 'exams_count' , 'due_date_installments_count' ) );
     }

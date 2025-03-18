@@ -123,6 +123,7 @@ class LessonController extends Controller
                 $lesson['speak_user_phone'] =  false;
             }
             $data['lesson'] = new LessonResource($lesson);
+            $data['video'] = new VideoResource($video);
             return $this->response(
                 data : $data , 
             );
@@ -153,7 +154,11 @@ class LessonController extends Controller
 
         $student_unit = StudentUnit::where('student_id' , $student->id )->where('unit_id' , $unit->id )->latest()->first();
 
-        if ($student_unit->is_allowed == 0) {
+
+  
+
+
+        if ($student_unit?->is_allowed == 0) {
             return $this->response(
                 status : 'error' , 
                 message : 'you did not subscribed to this unit yet  , contact support to give you access '  , 

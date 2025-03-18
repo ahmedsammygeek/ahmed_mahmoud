@@ -1,33 +1,41 @@
 <div>
-    <button  data-bs-toggle="modal" data-bs-target="#add_new_course_to_student_modal" class='btn btn-primary mb-2' style="float: left;">  <i class="icon-plus3 me-2"></i>  
-        @lang('students.add new course to student')
-    </button>
-
-    <div id="add_new_course_to_student_modal" class="modal fade" wire:ignore.self tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">@lang('students.add new course to student')</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"> @lang('courses.add new course') </h5>
                 </div>
+                <div class="card-body">
+                    <form class="" method="POST" action="{{ route('board.courses.store') }}" enctype="multipart/form-data">
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-sm-4" wire:ignore>
+                                    <label class="col-form-label"> @lang('students.teacher') </label>
+                                    <select wire:model.live='teacher_id' data-placeholder="اختر المدرس..." class="teachers form-control @error('teacher_id') is-invalid @enderror " id="">
+                                        <option value=""></option>
+                                        @foreach ($this->teachers as $teacher)
+                                        <option value="{{ $teacher->id }}"> {{ $teacher->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('teacher_id')
+                                    <p class='is-invalid text-danger'> {{ $message }} </p>
+                                    @enderror 
+                                </div>
 
-
-                    <div class="modal-body">
-                        <div class="row mb-3">
-                            <label class="col-form-label col-sm-3"> @lang('students.course') </label>
-                            <div class="col-sm-9">
-                                <select wire:model.live='course_id' class="form-select form-control @error('course_id') is-invalid @enderror " id="">
-                                    <option value=""></option>
-                                    @foreach ($courses as $course)
-                                    <option value="{{ $course->id }}"> {{ $course->title }}</option>
-                                    @endforeach
-                                </select>
-                                @error('course_id')
-                                <p class='is-invalid text-danger'> {{ $message }} </p>
-                                @enderror 
+                                <div class="col-sm-4" >
+                                    <label class="col-form-label"> @lang('students.course') </label>
+                                    <select  wire:model.live='course_id'  data-placeholder="اختر الماده..." class=" courses form-select form-control @error('course_id') is-invalid @enderror " id="">
+                                        <option value=""></option>
+                                        @foreach ($this->courses as $course)
+                                        <option value="{{ $course->id }}"> {{ $course->title }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('course_id')
+                                    <p class='is-invalid text-danger'> {{ $message }} </p>
+                                    @enderror 
+                                </div>
                             </div>
-                        </div>
-                        <div class="row mb-3">
+                       {{--  <div class="row mb-3">
                             <label class="col-form-label col-sm-3"> الاجزاء </label>
                             <div class="col-sm-9">
                                 <select wire:model.live='student_units' multiple="multiple" class="form-select form-control @error('student_units') is-invalid @enderror " id="">
@@ -54,7 +62,7 @@
                                 <p class='is-invalid text-danger'> {{ $message }} </p>
                                 @enderror 
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="row mb-3">
                             <label class="col-form-label col-sm-3"> @lang('students.purchase_price') </label>
                             <div class="col-sm-9">
@@ -73,7 +81,7 @@
                                 @enderror 
                             </div>
                         </div>
-                        @if ($paid < $purchase_price )
+                       {{--  @if ($paid < $purchase_price )
                         <span class="badge d-block bg-primary text-start mt-1"> المبلغ المتبقى : {{ $purchase_price - $paid }} </span>
                         <table class='table table-bordered table-condensed mt-2'>
                             <thead>
@@ -103,7 +111,7 @@
                                 @endfor
                             </tbody>
                         </table>
-                        @endif
+                        @endif --}}
                         <div class="row mb-3">
                             <label class="col-form-label col-sm-3"> @lang('students.allow to view on app') </label>
                             <div class="col-sm-9">
@@ -136,59 +144,49 @@
                                 </div>
                             </div>
                         </div>
+
+
+
+
+
+
                     </div>
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-link" data-bs-dismiss="modal"> @lang('dashboard.cancel') </button>
-                        <button wire:click='save' class="btn btn-primary"> @lang('dashboard.add') </button>
+                    <div class="card-footer d-flex justify-content-end">
+                        <a href='{{ route('board.courses.index') }}' class="btn btn-light" id="reset"> @lang('dashboard.cancel') </a>
+                        <button type="submit" class="btn btn-primary ms-3">
+                            @lang('dashboard.add') 
+                            <i  class="ph-paper-plane-tilt ms-2"></i>
+                        </button>
                     </div>
-             
+                </form>
             </div>
         </div>
     </div>
 </div>
+</div>
 
 
 @push('scripts')
-<script src="{{ asset('board_assets/js/vendor/notifications/sweet_alert.min.js') }}"></script>
-<script src="{{ asset('board_assets/demo/pages/extra_sweetalert.js') }}"></script>
+<script src="{{ asset('board_assets/js/vendor/forms/selects/select2.min.js') }}"></script>
+{{-- <script src="{{ asset('board_assets/demo/pages/form_select2.js') }}"></script> --}}
 <script>
-    const swalInit = swal.mixin({
-        buttonsStyling: false,
-        customClass: {
-            confirmButton: 'btn btn-primary',
-            cancelButton: 'btn btn-light',
-            denyButton: 'btn btn-light',
-            input: 'form-control'
-        }
-    });
-    Livewire.on('studentAddedToCourse' , () => {
-        $(document).find('#add_new_course_to_student_modal').modal('hide');
-        swalInit.fire({
-            text: "@lang('dashboard.addedd successfully')" ,
-            icon: 'success',
-            toast: true,
-            showConfirmButton: false,
-            position: 'top-start' , 
-            timer: 1500
+
+    $(function() {
+        $('.teachers').select2();
+        $('.teachers').on('change', function (e) {
+            var data = $('.teachers').select2("val");
+            @this.set('teacher_id', data);
+            console.log(data);
+            $('.courses').select2();
+        });
+
+
+        $('.courses').on('change', function (e) {
+            var data = $('.courses').select2("val");
+            @this.set('course_id', data);
         });
     });
-
-
-    // $(document).on('click', 'button.add_more_installments', function(event) {
-    //     event.preventDefault();
-    //     $(document).find('tr.installments').last().after(`<tr class='installments'>
-    //                                 <td><input type="number" class="form-control"></td>
-    //                                 <td><input type="date" class="form-control"></td>
-    //         <td> <button class='btn btn-danger btn-sm delete_row'> <i class='icon-trash'> </i>  </button> </td>
-    //         </tr>`);
-    // });
-
-
-    $(document).on('click', 'button.delete_row', function(event) {
-        event.preventDefault();
-        $(this).parent().parent().remove();
-    });
-
+    
 </script>
 @endpush

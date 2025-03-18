@@ -131,9 +131,9 @@ class StudentCourseController extends Controller
     }
 
 
-    public function create()  {
+    public function create(Student $student)  {
 
-        return view('board.students.courses.create');
+        return view('board.students.courses.create' , compact('student') );
     }
 
     public function allow_units()  {

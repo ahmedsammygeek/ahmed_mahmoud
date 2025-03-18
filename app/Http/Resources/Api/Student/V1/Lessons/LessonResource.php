@@ -18,9 +18,19 @@ class LessonResource extends JsonResource
     public function toArray(Request $request): array
     {
         $settings = Setting::first();
-        $student = Auth::guard('student')->user();
-        $student_course = CourseStudent::where('student_id' , $student->id )->where('course_id' , $this->unit?->course_id )->latest()->first();
-        $student_lesson = StudentLesson::where('student_id' , $student->id )->where('lesson_id' , $this->id )->first();
+        
+        if (Auth::guard('student')->check()) {
+            $student = Auth::guard('student')->user();
+            $student_course = CourseStudent::where('student_id' , $student->id )
+            ->where('course_id' , $this->unit?->course_id )
+            ->latest()
+            ->first();
+            $student_lesson = StudentLesson::where('student_id' , $student->id )->where('lesson_id' , $this->id )->first();
+        } else {
+            $student_lesson = null;
+            $student_course = null;
+        }
+        
 
         $remains_views = $student_lesson ? $student_lesson->remains_views : 10;
         $show_phone_on_viedo = $student_course ? (bool)$student_lesson->show_phone_on_viedo : false;
