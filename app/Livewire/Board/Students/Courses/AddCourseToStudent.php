@@ -26,9 +26,11 @@ class AddCourseToStudent extends Component
     }
 
 
+
+
     public function updated( $property ,  $value)
     {
-       // dd($property , $value)
+       // dd($property , $value);
     }
 
 

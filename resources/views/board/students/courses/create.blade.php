@@ -11,7 +11,7 @@
 @endsection
 
 @section('page_content')
-<div class="navbar navbar-expand-lg border-bottom py-2">
+{{-- <div class="navbar navbar-expand-lg border-bottom py-2">
 	<div class="container-fluid">
 		<ul class="nav navbar-nav flex-row flex-fill">
 			<li class="nav-item me-1">
@@ -85,10 +85,10 @@
 <div class="content">
 	@livewire('board.students.courses.add-course-to-student' , ['student' => $student] )
 </div>
-<!-- /content area -->
+<!-- /content area --> --}}
 
 
-{{-- @livewire('board.students.courses.list-all-students') --}}
+@livewire('board.students.courses.list-all-students')
 
 @endsection
 

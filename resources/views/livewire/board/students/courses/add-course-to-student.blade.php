@@ -22,9 +22,9 @@
                                     @enderror 
                                 </div>
 
-                                <div class="col-sm-4" >
+                                <div class="col-sm-4" wire:ignore>
                                     <label class="col-form-label"> @lang('students.course') </label>
-                                    <select  wire:model.live='course_id'  data-placeholder="اختر الماده..." class=" courses form-select form-control @error('course_id') is-invalid @enderror " id="">
+                                    <select  wire:model.live='course_id'  data-placeholder="اختر الماده..." class="courses form-select form-control @error('course_id') is-invalid @enderror " id="">
                                         <option value=""></option>
                                         @foreach ($this->courses as $course)
                                         <option value="{{ $course->id }}"> {{ $course->title }}</option>
@@ -173,15 +173,16 @@
 <script>
 
     $(function() {
+
+
         $('.teachers').select2();
         $('.teachers').on('change', function (e) {
             var data = $('.teachers').select2("val");
             @this.set('teacher_id', data);
             console.log(data);
-            $('.courses').select2();
         });
 
-
+        $('.courses').select2();
         $('.courses').on('change', function (e) {
             var data = $('.courses').select2("val");
             @this.set('course_id', data);
