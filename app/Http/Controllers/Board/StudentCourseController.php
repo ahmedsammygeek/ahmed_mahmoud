@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Board;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{CourseStudent , Group , Student , Course , StudentUnit , StudentLesson , LessonVideo};
+use App\Models\{CourseStudent , Group, StudentInstallment , Student , Course , StudentUnit , StudentPayment ,  StudentLesson , LessonVideo};
+
+
 use App\Http\Requests\Board\Students\Courses\UpdateStudentCourseRequest;
 use Auth;
 class StudentCourseController extends Controller
@@ -128,6 +130,83 @@ class StudentCourseController extends Controller
             }
         }
         return redirect()->back()->with('success' , trans('courses.updated successfully' ) );
+    }
+
+
+    public function store(Request $request , Student $student)
+    {
+
+        foreach ($request->courses as $one_course) {
+
+            $dose_students_has_this_course = CourseStudent::where('student_id' , $student->id )->where('course_id', $one_course )->first();
+            if (!$dose_students_has_this_course) {
+                $user_id = Auth::id();
+                $student_course = new CourseStudent;
+                $student_course->user_id = Auth::id();
+                $student_course->student_id = $student->id;
+                $student_course->course_id = $one_course;
+                $student_course->group_id = $request->groups[$one_course];
+                $student_course->in_office = 1;
+                $student_course->office_library = 1;
+                $student_course->online_library = $request->filled('online_library.'.$one_course) ? 1 : 0 ;
+                $student_course->is_online = 1;
+                $student_course->save();
+                $student_units = [];
+                foreach ($request->student_units[$one_course] as $student_unit) {
+
+                    $student_units[] = new StudentUnit([
+                        'student_id' => $student->id , 
+                        'user_id' => Auth::id() , 
+                        'unit_id' => $student_unit , 
+                        'is_allowed' => 1 , 
+                    ]);
+                }
+                $student->units()->saveMany($student_units);
+                $course = Course::find($one_course);
+                $videos = LessonVideo::whereHas('lesson' , function($query) use($request , $one_course ) {
+                    $query->whereIn('unit_id' , $request->student_units[$one_course] );
+                })->get();
+                $student_lessons = [];
+                foreach ($videos as $video) {
+                    $student_lessons[] = new StudentLesson([
+                        'lesson_id' => $video->lesson_id , 
+                        'user_id' => $user_id, 
+                        'student_id' => $student->id , 
+                        'allowed_views' => $course->default_view_number , 
+                        'remains_views' => $course->default_view_number , 
+                        'total_views_till_now' => 0  ,
+                        'video_id' => $video->id
+                    ]);
+                }
+                $student->lessons()->saveMany($student_lessons);
+
+                $student_payment = new StudentPayment;
+                $student_payment->student_id = $student->id;
+                $student_payment->user_id = Auth::id();
+                $student_payment->course_id = $one_course;
+                $student_payment->type = 1; 
+                $student_payment->amount = $request->paid[$one_course];
+                $student_payment->save();
+                if ($request->filled('installment_months.'.$one_course)) {
+                    for ($i=0; $i < count($request->installment_months[$one_course]) ; $i++) { 
+                        $student_installment = new StudentInstallment;
+                        $student_installment->user_id = Auth::id();
+                        $student_installment->student_id = $student->id;
+                        $student_installment->course_id = $one_course ;
+                        $student_installment->amount = $request->installment_amounts[$one_course][$i];
+                        $student_installment->due_date = $request->installment_months[$one_course][$i];
+                        $student_installment->is_paid = 0;
+                        $student_installment->student_payment_id = null;
+                        $student_installment->change_to_paid_by = null;
+                        $student_installment->save();
+                    }
+                }
+
+            }        
+        }
+
+
+        return redirect(route('board.students.courses.index' , $student))->with('success' , trans('courses.courses addedd successfully' ) );
     }
 
 

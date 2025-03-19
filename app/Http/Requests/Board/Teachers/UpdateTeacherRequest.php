@@ -30,6 +30,10 @@ class UpdateTeacherRequest extends FormRequest
             'show_in_suggested_in_app' => 'nullable' , 
             'default_views_number' => 'nullable' , 
             'permissions' => 'nullable' , 
+            'force_face_detecting' => 'nullable' , 
+            'speak_user_phone' => 'nullable' , 
+            'show_phone_on_viedo' => 'nullable' , 
+            'force_headphones' => 'nullable' , 
         ];
     }
 }
