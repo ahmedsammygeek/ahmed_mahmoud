@@ -36,6 +36,10 @@ class UpdateCourseRequest extends FormRequest
             'direct_register' => 'nullable' , 
             'students_count_status' => 'nullable' , 
             'fake_students_count' => 'nullable' , 
+            'force_face_detecting' => 'nullable' , 
+            'speak_user_phone' => 'nullable' , 
+            'show_phone_on_viedo' => 'nullable' , 
+            'force_headphones' => 'nullable' , 
         ];
     }
 }

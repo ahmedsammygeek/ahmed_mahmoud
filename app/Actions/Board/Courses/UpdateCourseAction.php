@@ -35,6 +35,10 @@ class UpdateCourseAction
         $course->teacher_id = $request->teacher_id;
         $course->contact_mobile = $request->contact_mobile;
         $course->direct_register = $request->filled('direct_register') ? 1 : 0;
+        $course->force_face_detecting = $request->filled('force_face_detecting') ? 1 : 0 ;
+        $course->speak_user_phone = $request->filled('speak_user_phone') ? 1 : 0 ;
+        $course->show_phone_on_viedo = $request->filled('show_phone_on_viedo') ? 1 : 0 ;
+        $course->force_headphones = $request->filled('force_headphones') ? 1 : 0 ;
         $course->students_count_status = $request->students_count_status;
         $course->fake_students_count = $request->fake_students_count;
         $course->save();
