@@ -92,7 +92,7 @@
 											<td> 
 												<ul>
 													@foreach ($teacher->courses as $teacher_course)
-														<li> {{ $teacher_course->title }} </li>
+														<li> <a href="{{ route('board.courses.show' , $teacher_course->id ) }}"> {{ $teacher_course->title }} </a> </li>
 													@endforeach
 												</ul>
 											</td>
