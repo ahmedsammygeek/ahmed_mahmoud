@@ -20,7 +20,6 @@ class SettingResource extends JsonResource
             'allow_developer_mode' => (bool)$this->allow_developer_mode , 
             'allow_payments_view' => false , 
             'force_guardian_mobile' => (bool) $this->force_guardian_mobile , 
-            'default_seen_mints' => $this->default_seen_mints , 
         ];
     }
 }
