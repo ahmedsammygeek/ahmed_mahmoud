@@ -6,6 +6,29 @@
             </a>
         </div>
     </div>
+    <div class="row mb-2">
+        <div class="col-md-5">
+            <input type="text" class='form-control' placeholder="search by course namae...." wire:model.live='search'>
+        </div>
+        <div class="col-md-3" >
+            <select  wire:model.live='teacher_id'  class='select form-control'>
+                <option value="">جميع المدرسين</option>
+                @foreach ($teachers as $teacher)
+                   <option value="{{ $teacher->id }}"> {{ $teacher->name }} </option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col-md-2" >
+            <select wire:model.live="rows" class="form-select ">
+                <option value="2"> 2 صف </option>
+                <option value="15">15 صف </option>
+                <option value="30">30 صف </option>
+                <option value="50">50 صف </option>
+                <option value="70">70 صف </option>
+                <option value="100">100 صف </option>
+            </select>
+        </div>
+    </div>
 
     <div class="row">
 
