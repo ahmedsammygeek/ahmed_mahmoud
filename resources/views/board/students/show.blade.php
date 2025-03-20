@@ -9,70 +9,64 @@
 @section('page_content')
 <div class="navbar navbar-expand-lg border-bottom py-2">
 	<div class="container-fluid">
-		<ul class="nav navbar-nav flex-row flex-fill">
-			<li class="nav-item me-1">
-				<a href="{{ route('board.students.show' , $student ) }}" class="navbar-nav-link navbar-nav-link-icon  rounded active" >
+		<ul class="nav nav-tabs nav-tabs-highlight">
+			<li class="nav-item ">
+				<a href="{{ route('board.students.show' , $student ) }}" class="nav-link  rounded active" >
 					<div class="d-flex align-items-center mx-lg-1">
 						<i class="ph-activity"></i>
-						<span class="d-none d-lg-inline-block ms-2"> @lang('students.student details') </span>
+						@lang('students.student details')
 					</div>
 				</a>
 			</li>
 
-			<li class="nav-item me-1">
-				<a href="{{ route('board.students.courses.index', $student ) }}" class="navbar-nav-link navbar-nav-link-icon rounded" >
+			<li class="nav-item ">
+				<a href="{{ route('board.students.courses.index', $student ) }}" class="nav-link  rounded" >
 					<div class="d-flex align-items-center mx-lg-1">
 						<i class="ph-calendar"></i>
-						<span class="d-none d-lg-inline-block ms-2">
-							@lang('students.library')
-						</span>
+						@lang('students.courses')
 					</div>
 				</a>
 			</li>
-			<li class="nav-item me-1">
-				<a href="{{ route('board.students.library.index' , $student ) }}" class="navbar-nav-link navbar-nav-link-icon rounded" >
+			<li class="nav-item ">
+				<a href="{{ route('board.students.library.index' , $student ) }}" class="nav-link  rounded" >
 					<div class="d-flex align-items-center mx-lg-1">
 						<i class="ph-gear"></i>
-						<span class="d-none d-lg-inline-block ms-2"> تقارير الماليه للطالب </span>
+						المكتبه
 					</div>
 				</a>
 			</li>
 
-			<li class="nav-item me-1">
-				<a  href="{{ route('board.students.exams.index', $student ) }}" class="navbar-nav-link navbar-nav-link-icon rounded" >
+			<li class="nav-item ">
+				<a  href="{{ route('board.students.exams.index', $student ) }}" class="nav-link  rounded" >
 					<div class="d-flex align-items-center mx-lg-1">
 						<i class="ph-calendar"></i>
-						<span class="d-none d-lg-inline-block ms-2">
-							@lang('students.exams')
-						</span>
+						@lang('students.exams')
 					</div>
 				</a>
 			</li>
-			<li class="nav-item me-1">
-				<a href="{{ route('board.students.installments.index' , $student ) }}" class="navbar-nav-link navbar-nav-link-icon rounded" >
+			<li class="nav-item ">
+				<a href="{{ route('board.students.installments.index' , $student ) }}" class="nav-link rounded" >
 					<div class="d-flex align-items-center mx-lg-1">
 						<i class="ph-calendar"></i>
-						<span class="d-none d-lg-inline-block ms-2">
-							@lang('students.installments')
-						</span>
+						@lang('students.installments')
 					</div>
 				</a>
 			</li>
-			<li class="nav-item me-1">
-				<a href="{{ route('board.students.payments.index' , $student ) }}" class="navbar-nav-link navbar-nav-link-icon rounded">
+			<li class="nav-item ">
+				<a href="{{ route('board.students.payments.index' , $student ) }}" class="nav-link navbar-nav-link-icon rounded">
 					<div class="d-flex align-items-center mx-lg-1">
 						<i class="ph-calendar"></i>
-						<span class="d-none d-lg-inline-block ms-2">
+						
 							@lang('students.payments')
-						</span>
+						
 					</div>
 				</a>
 			</li>
-			<li class="nav-item me-1">
-				<a href="{{ route('board.students.financial_reports.index' , $student ) }}" class="navbar-nav-link navbar-nav-link-icon rounded" >
+			<li class="nav-item ">
+				<a href="{{ route('board.students.financial_reports.index' , $student ) }}" class="nav-link  rounded" >
 					<div class="d-flex align-items-center mx-lg-1">
 						<i class="ph-gear"></i>
-						<span class="d-none d-lg-inline-block ms-2"> تقارير الماليه للطالب </span>
+						تقارير الماليه للطالب
 					</div>
 				</a>
 			</li>

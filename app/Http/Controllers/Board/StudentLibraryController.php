@@ -12,6 +12,7 @@ class StudentLibraryController extends Controller
      */
     public function index(Student $student)
     {
+        dd('working now');
         return view('board.students.library.index' , compact('student') );
     }
 

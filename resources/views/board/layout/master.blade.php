@@ -11,6 +11,7 @@
 	<link href="{{ asset('board_assets/fonts/inter/inter.css') }}" rel="stylesheet" type="text/css">
 	<link href="{{ asset('board_assets/icons/phosphor/styles.min.css') }}" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="{{ asset('board_assets/icons/icomoon/styles.min.css') }}">
+	<script src="{{ asset('board_assets/js/bootstrap/bootstrap.bundle.min.js') }}"></script>
 	<script src="{{ asset('board_assets/js/vendor/notifications/noty.min.js') }}"></script>
 	@livewireStyles
 	@yield('styles')
