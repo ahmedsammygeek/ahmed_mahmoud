@@ -1,6 +1,8 @@
 <div class="row">
     <div class="col-md-12">
-        @livewire('board.students.add-new-course-to-student' , ['student' => $student ] )
+        <a  href="{{ url('Board/students/'.$student->id.'/courses/create'  ) }}" class='btn btn-primary mb-2' style="float: left;">  <i class="icon-plus3 me-2"></i>  
+            @lang('students.add new course to student')
+        </a>
     </div>
     <div class="col-md-12">
         <div class="card">
@@ -17,124 +19,124 @@
                     </select>
                 </div>
             </div>
-           <table  class='table  table-responsive table-striped table-xs text-center '>
-                    <thead>
-                        <tr>
-                            <th> @lang('students.course') </th>
-                            <th> @lang('students.group') </th>
-                            <th> @lang('students.force headphons') </th>
-                            <th> @lang('students.show phone on viedo') </th>
-                            <th> @lang('students.speak user phone') </th>
-                            <th> @lang('students.force face detection') </th>
-                            <th> @lang('students.allow') </th>
-                            <th> @lang('students.options') </th>
-                        </tr>
-                    </thead>
-                    <tbody class='text-center center-block' >
+            <table  class='table  table-responsive table-striped table-xs text-center '>
+                <thead>
+                    <tr>
+                        <th> @lang('students.course') </th>
+                        <th> @lang('students.group') </th>
+                        <th> @lang('students.force headphons') </th>
+                        <th> @lang('students.show phone on viedo') </th>
+                        <th> @lang('students.speak user phone') </th>
+                        <th> @lang('students.force face detection') </th>
+                        <th> @lang('students.allow') </th>
+                        <th> @lang('students.options') </th>
+                    </tr>
+                </thead>
+                <tbody class='text-center center-block' >
 
-                        @foreach ($student_courses as $student_course)
-                        <tr>
-
-                            
-                            <td>
-                                {{ $student_course?->course?->title }}
-                            </td>
-                            <td>
-                                {{ $student_course?->group?->name }}
-                            </td>
-
-                            <td class='center-block' >
-                                @if ($student_course->force_headphones)
-                                <div class="form-check form-switch  mb-2 center-block ">
-                                    <input type="checkbox" wire:click='un_force_headphonse({{ $student_course->id }})' class="form-check-input un_force_headphonse" checked>
-                                </div>
-                                @else
-                                <div class="form-check form-switch  mb-2 center-block ">
-                                    <input type="checkbox" wire:click='force_headphone({{  $student_course->id }})' class="form-check-input" >
-                                </div>
-                                <span> {{ $student_course->not_allow_message }} </span>
-                                @endif
-                            </td>
-
-                            <td class='center-block' >
-                                <div class="form-check form-switch  mb-2 center-block ">
-                                    <input type="checkbox" wire:click='show_phone_on_viedo({{ $student_course->id }})' class="form-check-input un_force_headphonse"  {{ $student_course->show_phone_on_viedo == 1 ? 'checked' : '' }} >
-                                </div>
-                            </td>
+                    @foreach ($student_courses as $student_course)
+                    <tr>
 
 
-                            <td class='center-block' >
-                               <div class="form-check form-switch  mb-2 center-block ">
-                                    <input type="checkbox" wire:click='speak_user_phone({{ $student_course->id }})' class="form-check-input un_force_headphonse"  {{ $student_course->speak_user_phone == 1 ? 'checked' : '' }} >
-                                </div>
-                            </td>
+                        <td>
+                            {{ $student_course?->course?->title }}
+                        </td>
+                        <td>
+                            {{ $student_course?->group?->name }}
+                        </td>
 
-                            <td class='center-block' >
-                                <div class="form-check form-switch  mb-2 center-block ">
-                                    <input type="checkbox" wire:click='force_face_detecting({{ $student_course->id }})' class="form-check-input force_face_detecting"  {{ $student_course->force_face_detecting == 1 ? 'checked' : '' }} >
-                                </div>
-                            </td>
+                        <td class='center-block' >
+                            @if ($student_course->force_headphones)
+                            <div class="form-check form-switch  mb-2 center-block ">
+                                <input type="checkbox" wire:click='un_force_headphonse({{ $student_course->id }})' class="form-check-input un_force_headphonse" checked>
+                            </div>
+                            @else
+                            <div class="form-check form-switch  mb-2 center-block ">
+                                <input type="checkbox" wire:click='force_headphone({{  $student_course->id }})' class="form-check-input" >
+                            </div>
+                            <span> {{ $student_course->not_allow_message }} </span>
+                            @endif
+                        </td>
+
+                        <td class='center-block' >
+                            <div class="form-check form-switch  mb-2 center-block ">
+                                <input type="checkbox" wire:click='show_phone_on_viedo({{ $student_course->id }})' class="form-check-input un_force_headphonse"  {{ $student_course->show_phone_on_viedo == 1 ? 'checked' : '' }} >
+                            </div>
+                        </td>
+
+
+                        <td class='center-block' >
+                         <div class="form-check form-switch  mb-2 center-block ">
+                            <input type="checkbox" wire:click='speak_user_phone({{ $student_course->id }})' class="form-check-input un_force_headphonse"  {{ $student_course->speak_user_phone == 1 ? 'checked' : '' }} >
+                        </div>
+                    </td>
+
+                    <td class='center-block' >
+                        <div class="form-check form-switch  mb-2 center-block ">
+                            <input type="checkbox" wire:click='force_face_detecting({{ $student_course->id }})' class="form-check-input force_face_detecting"  {{ $student_course->force_face_detecting == 1 ? 'checked' : '' }} >
+                        </div>
+                    </td>
 
 
 
-                            <td>
-                                @if ($student_course->allow)
-                                <div class="form-check form-switch  mb-2 center-block ">
-                                    <input type="checkbox" data-course_id='{{ $student_course->id }}' class="form-check-input disallow" checked>
-                                </div>
-                                @else
-                                <div class="form-check form-switch  mb-2 center-block ">
-                                    <input type="checkbox" data-course_id='{{ $student_course->id }}' class="form-check-input allow" >
-                                </div>
-                                <span> {{ $student_course->not_allow_message }} </span>
-                                @endif
-                            </td>
-                            <td>
-                                <a class='btn btn-sm btn-primary ' title='الدروس' href="{{ route('board.students.courses.units.index' , [ 'student' => $student , 'course' => $student_course->course_id ] ) }}"   >  <i class="icon-archive "></i>  </a>
-                                <a class='btn btn-sm btn-primary ' title='الدروس' href="{{ route('board.students.courses.lessons.index' , [ 'student' => $student , 'course' => $student_course->course_id ] ) }}"   >  <i class="icon-video-camera2"></i>  </a>
-                                <a class='btn btn-sm btn-primary  ' title='مشاهده' href="{{ route('board.students.courses.show' , ['student' => $student_course->student_id , 'course' => $student_course->course_id ] ) }}" >  <i class="icon-eye "></i>  </a>
-                                <a class='btn btn-sm btn-warning  ' title='تعديل' href="{{ route('board.students.courses.edit' , ['student' => $student_course->student_id , 'course' => $student_course->course_id ] ) }}" >  <i class="icon-database-edit2 "></i>  </a>
-                                <a data-item_id='{{ $student_course->id }}' class='btn btn-xs btn-danger btn-xs  delete_item' title='حذف' >  <i class="icon-trash "></i>  </a>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            <div class="card-footer d-sm-flex justify-content-sm-between flex-sm-wrap py-sm-2">
+                    <td>
+                        @if ($student_course->allow)
+                        <div class="form-check form-switch  mb-2 center-block ">
+                            <input type="checkbox" data-course_id='{{ $student_course->id }}' class="form-check-input disallow" checked>
+                        </div>
+                        @else
+                        <div class="form-check form-switch  mb-2 center-block ">
+                            <input type="checkbox" data-course_id='{{ $student_course->id }}' class="form-check-input allow" >
+                        </div>
+                        <span> {{ $student_course->not_allow_message }} </span>
+                        @endif
+                    </td>
+                    <td>
+                        <a class='btn btn-sm btn-primary ' title='الدروس' href="{{ route('board.students.courses.units.index' , [ 'student' => $student , 'course' => $student_course->course_id ] ) }}"   >  <i class="icon-archive "></i>  </a>
+                        <a class='btn btn-sm btn-primary ' title='الدروس' href="{{ route('board.students.courses.lessons.index' , [ 'student' => $student , 'course' => $student_course->course_id ] ) }}"   >  <i class="icon-video-camera2"></i>  </a>
+                        <a class='btn btn-sm btn-primary  ' title='مشاهده' href="{{ route('board.students.courses.show' , ['student' => $student_course->student_id , 'course' => $student_course->course_id ] ) }}" >  <i class="icon-eye "></i>  </a>
+                        <a class='btn btn-sm btn-warning  ' title='تعديل' href="{{ route('board.students.courses.edit' , ['student' => $student_course->student_id , 'course' => $student_course->course_id ] ) }}" >  <i class="icon-database-edit2 "></i>  </a>
+                        <a data-item_id='{{ $student_course->id }}' class='btn btn-xs btn-danger btn-xs  delete_item' title='حذف' >  <i class="icon-trash "></i>  </a>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+        <div class="card-footer d-sm-flex justify-content-sm-between flex-sm-wrap py-sm-2">
 
-                {{ $student_courses->links() }}
-            </div>
+            {{ $student_courses->links() }}
         </div>
     </div>
-    <div id="not_allow_message_modal" wire:ignore.self class="modal fade" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title"> @lang('courses.disallow reason') </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
+</div>
+<div id="not_allow_message_modal" wire:ignore.self class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"> @lang('courses.disallow reason') </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
 
-                <form wire:submit="disallow" class="form-horizontal">
-                    <div class="modal-body">
-                        <div class="row mb-3">
-                            <label class="col-form-label col-sm-3"> @lang('courses.reason') </label>
-                            <div class="col-sm-9">
-                                <input type="text" wire:model.live='not_allow_message' class="form-control @error('not_allow_message') is-invalid @enderror ">
-                                @error('not_allow_message')
-                                <p class="is-invalid"> {{ $message }} </p>
-                                @enderror
-                            </div>
+            <form wire:submit="disallow" class="form-horizontal">
+                <div class="modal-body">
+                    <div class="row mb-3">
+                        <label class="col-form-label col-sm-3"> @lang('courses.reason') </label>
+                        <div class="col-sm-9">
+                            <input type="text" wire:model.live='not_allow_message' class="form-control @error('not_allow_message') is-invalid @enderror ">
+                            @error('not_allow_message')
+                            <p class="is-invalid"> {{ $message }} </p>
+                            @enderror
                         </div>
                     </div>
+                </div>
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-link" data-bs-dismiss="modal"> @lang('dashboard.cancel') </button>
-                        <button type="submit" class="btn btn-primary"> @lang('dashboard.edit') </button>
-                    </div>
-                </form>
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-bs-dismiss="modal"> @lang('dashboard.cancel') </button>
+                    <button type="submit" class="btn btn-primary"> @lang('dashboard.edit') </button>
+                </div>
+            </form>
         </div>
     </div>
+</div>
 </div>
 
 
