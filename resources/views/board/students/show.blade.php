@@ -24,11 +24,20 @@
 					<div class="d-flex align-items-center mx-lg-1">
 						<i class="ph-calendar"></i>
 						<span class="d-none d-lg-inline-block ms-2">
-							@lang('students.courses')
+							@lang('students.library')
 						</span>
 					</div>
 				</a>
 			</li>
+			<li class="nav-item me-1">
+				<a href="{{ route('board.students.library.index' , $student ) }}" class="navbar-nav-link navbar-nav-link-icon rounded" >
+					<div class="d-flex align-items-center mx-lg-1">
+						<i class="ph-gear"></i>
+						<span class="d-none d-lg-inline-block ms-2"> تقارير الماليه للطالب </span>
+					</div>
+				</a>
+			</li>
+
 			<li class="nav-item me-1">
 				<a  href="{{ route('board.students.exams.index', $student ) }}" class="navbar-nav-link navbar-nav-link-icon rounded" >
 					<div class="d-flex align-items-center mx-lg-1">
