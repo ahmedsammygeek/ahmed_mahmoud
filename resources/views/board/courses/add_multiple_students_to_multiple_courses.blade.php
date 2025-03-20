@@ -66,35 +66,8 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <tr >
-                                    <td>
-                                        <div class="form-check form-switch  mb-2 center-block ">
-                                            <input type="checkbox" class="form-check-input" id="sc_lss_c" name="force_headphones[{{ $course->id }}]" checked="">
-                                            اجبار استخدام السماعات
-                                        </div>
-
-
-                                    </td>
-                                    <td>
-                                        <div class="form-check form-switch  mb-2 center-block ">
-                                            <input type="checkbox" class="form-check-input" id="sc_lss_c" name="show_phone_on_viedo[{{ $course->id }}]" checked="">
-                                            عرض رقم الطالب
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-check form-switch  mb-2 center-block ">
-                                            <input type="checkbox" class="form-check-input" id="sc_lss_c" name="speak_user_phone[{{ $course->id }}]" checked="">
-                                            نطق اسم الطالب
-                                        </div>
-                                    </td>
-                                </tr>
+ 
                                 <tr>
-                                    <td>
-                                        <div class="form-check form-switch  mb-2 center-block ">
-                                            <input type="checkbox" class="form-check-input" id="sc_lss_c" name="force_face_detecting[{{ $course->id }}]" checked="">
-                                            اجبار التعرف على الوجه
-                                        </div>
-                                    </td>
                                     <td>
                                         <div class="form-check form-switch  mb-2 center-block ">
                                             <input type="checkbox" class="form-check-input" id="sc_lss_c" name="online_library[{{ $course->id }}]" checked="">

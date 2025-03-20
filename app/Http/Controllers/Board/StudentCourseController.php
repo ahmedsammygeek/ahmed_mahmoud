@@ -225,6 +225,11 @@ class StudentCourseController extends Controller
         return view('board.students.courses.create' , compact('student') );
     }
 
+    public function create_multi()
+    {
+        return view('board.students.courses.create_multi');
+    }
+
     public function allow_units()  {
 
         return view('board.students.courses.allow_units');

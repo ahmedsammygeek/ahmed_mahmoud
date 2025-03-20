@@ -99,7 +99,11 @@ Route::group(
                 Route::resource('announcements', AnnouncementController::class);
                 Route::resource('splashes', SplashController::class);
 
-                Route::get('/students/courses/create' , [StudentCourseController::class , 'create'] )->name('students.courses.create');
+                 Route::get('/students/courses/create' , [StudentCourseController::class , 'create'] )->name('students.courses.create');
+
+                Route::get('/students/courses/create_multi' , [StudentCourseController::class , 'create_multi' ])->name('students.courses.create_multi');
+
+               
                 Route::get('/students/courses/allow/units' , [StudentCourseController::class , 'allow_units'] )->name('students.courses.allow.units');
 
                 Route::get('/students/courses/remove' , [StudentCourseController::class , 'remove'] )->name('students.courses.remove');

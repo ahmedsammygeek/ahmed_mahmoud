@@ -344,7 +344,7 @@ switch (request()->segment(3)) {
 
 						@can('add course to student')
 						<li class="nav-item">
-							<a href="{{ route('board.students.courses.create') }}" class="nav-link"> 
+							<a href="{{ route('board.students.courses.create_multi') }}" class="nav-link"> 
 								add courses
 							</a>
 						</li>
