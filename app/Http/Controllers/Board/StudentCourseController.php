@@ -104,9 +104,7 @@ class StudentCourseController extends Controller
                     $student_lesson_video->user_id = Auth::id();
                     $student_lesson_video->save();
                 }
-            }
-
-            
+            }            
         }
 
         foreach ($student_course_units as $student_course_unit) {
@@ -136,10 +134,18 @@ class StudentCourseController extends Controller
     public function store(Request $request , Student $student)
     {
 
+
+
         foreach ($request->courses as $one_course) {
 
-            $dose_students_has_this_course = CourseStudent::where('student_id' , $student->id )->where('course_id', $one_course )->first();
+
+
+            $dose_students_has_this_course = CourseStudent::where('student_id' , $student->id )
+            ->where('course_id', $one_course )->first();
             if (!$dose_students_has_this_course) {
+                $default_course_options = get_default_course_options($one_course);
+                $default_course_views = get_default_course_views($one_course);
+
                 $user_id = Auth::id();
                 $student_course = new CourseStudent;
                 $student_course->user_id = Auth::id();
@@ -150,6 +156,10 @@ class StudentCourseController extends Controller
                 $student_course->office_library = 1;
                 $student_course->online_library = $request->filled('online_library.'.$one_course) ? 1 : 0 ;
                 $student_course->is_online = 1;
+                $student_course->force_face_detecting = $default_course_options['force_face_detecting']  ;
+                $student_course->speak_user_phone = $default_course_options['speak_user_phone']  ;
+                $student_course->show_phone_on_viedo = $default_course_options['show_phone_on_viedo']  ;
+                $student_course->force_headphones = $default_course_options['force_headphones']  ;
                 $student_course->save();
                 $student_units = [];
                 foreach ($request->student_units[$one_course] as $student_unit) {
@@ -172,8 +182,8 @@ class StudentCourseController extends Controller
                         'lesson_id' => $video->lesson_id , 
                         'user_id' => $user_id, 
                         'student_id' => $student->id , 
-                        'allowed_views' => $course->default_view_number , 
-                        'remains_views' => $course->default_view_number , 
+                        'allowed_views' => $default_course_views , 
+                        'remains_views' =>  $default_course_views , 
                         'total_views_till_now' => 0  ,
                         'video_id' => $video->id
                     ]);
