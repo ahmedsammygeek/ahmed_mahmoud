@@ -43,6 +43,8 @@ class VideoResource extends JsonResource
             'lesson_mins_to_be_mark_as_viewed' => $settings->default_seen_mints ,
             'force_headphone' =>  $student_course ? (boolean)$student_course->force_headphones : true , 
             'force_face_detecting' =>  $student_course ? (boolean)$student_course->force_face_detecting : true , 
+            'is_free' => (boolean)$this->is_free , 
+            
             // 'files' => LessonFileResource::collection($this->files) , 
             // 'quizzes' =>  ExamResource::collection($this->exams)
         ];

@@ -24,7 +24,7 @@ class StudentSuggestedCourseResource extends JsonResource
             'dose_user_subscribed' => false , 
             'not_allow_message' => $this->not_allow_message , 
             'is_free' => (bool)$this->is_free, 
-            'show_price' => (bool)$this->show_price, 
+            'show_course_price' => (bool)$this->show_price, 
         ];
     }
 }

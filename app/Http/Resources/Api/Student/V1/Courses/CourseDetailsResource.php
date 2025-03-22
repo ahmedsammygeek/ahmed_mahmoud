@@ -53,7 +53,7 @@ class CourseDetailsResource extends JsonResource
             'show_course_payments' => false ,  
             'direct_register' => (bool) $this->direct_register , 
             'is_free' => (bool) $this->is_free , 
-            'show_price' => (bool)$this->show_price,
+            'show_course_price' => (bool)$this->show_price,
         ]; 
     }
 }
