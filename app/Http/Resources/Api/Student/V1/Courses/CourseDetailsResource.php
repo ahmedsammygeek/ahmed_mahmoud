@@ -52,6 +52,8 @@ class CourseDetailsResource extends JsonResource
             'remains_days' => 0 , 
             'show_course_payments' => false ,  
             'direct_register' => (bool) $this->direct_register , 
+            'is_free' => (bool) $this->is_free , 
+            'show_price' => (bool)$this->show_price,
         ]; 
     }
 }

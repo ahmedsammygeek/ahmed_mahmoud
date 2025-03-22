@@ -191,6 +191,24 @@
                                 </label>
                             </div>
                         </div>
+                        <div class="col-md-4">
+                            <label class="col-lg-12 col-form-label "> كورس مجانى </label>
+                            <div class="col-lg-12">
+                                <label class="form-check form-switch">
+                                    <input type="checkbox" value='1' class="form-check-input"  name="is_free"  >
+                                    <span class="form-check-label"> نعم </span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-lg-12 col-form-label "> عرض السعر </label>
+                            <div class="col-lg-12">
+                                <label class="form-check form-switch">
+                                    <input type="checkbox" value='1' class="form-check-input"  name="show_price" checked >
+                                    <span class="form-check-label"> نعم </span>
+                                </label>
+                            </div>
+                        </div>
 
                         <div class="col-md-4">
                             <label class="col-lg-12 col-form-label ">  الاشتراك المباشر فى الكورس </label>

@@ -40,6 +40,8 @@ class StoreCourseRequest extends FormRequest
             'speak_user_phone' => 'nullable' , 
             'show_phone_on_viedo' => 'nullable' , 
             'force_headphones' => 'nullable' , 
+            'is_free' => 'nullable' , 
+            'show_price' => 'nullable' , 
         ];
     }
 }
