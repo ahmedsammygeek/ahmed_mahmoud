@@ -44,7 +44,8 @@ class VideoResource extends JsonResource
             'force_headphone' =>  $student_course ? (boolean)$student_course->force_headphones : true , 
             'force_face_detecting' =>  $student_course ? (boolean)$student_course->force_face_detecting : true , 
             'is_free' => (boolean)$this->is_free , 
-            
+            'total_views_remains' => 10 , 
+            'total_allowed_views' => 20 , 
             // 'files' => LessonFileResource::collection($this->files) , 
             // 'quizzes' =>  ExamResource::collection($this->exams)
         ];
