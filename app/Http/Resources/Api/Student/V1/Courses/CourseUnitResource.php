@@ -18,7 +18,7 @@ class CourseUnitResource extends JsonResource
         return [
             'id' => $this->id , 
             'title' => $this->title , 
-            'lesson_mins' => '20 min'  , 
+            'lesson_mins' => 20  , 
             'lesson_count' => $this->lessons()->count() ,  
         ];
     }
