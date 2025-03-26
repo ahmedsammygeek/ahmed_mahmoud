@@ -53,8 +53,9 @@
                     <a href='{{ route('board.courses.edit' , $course ) }}' class='btn btn-sm btn-warning ' title='تعديل' >  <i class="icon-database-edit2 "></i>  </a>
                     @endcan
                     @can('delete course')
-                    <a wire:click="$dispatch('deleteConfirmation', '{{ $course->id }}')" class='btn btn-sm btn-danger  delete_item' title='حذف' >  <i class="icon-trash "></i>  </a>
+                    <a wire:click="$dispatch('deleteConfirmation', '{{ $course->id }}')" class='btn btn-sm btn-danger  delete_item' title='حذف' >  <i class="icon-trash" ></i>  </a>
                     @endcan
+                    <a href="{{ route('board.courses.fix' , $course ) }}" class='btn btn-success btn-sm' href=""> <i class="icon-reading ">  </i > </a>
                 </div>
             </div>
         </div>

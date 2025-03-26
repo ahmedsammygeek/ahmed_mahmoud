@@ -51,12 +51,12 @@ Route::group(['prefix' => 'student/v1'  , 'middleware' => ['locale' , 'check_if_
     Route::get('/search' , [SearchController::class , 'index'] ); 
     Route::get('/teachers' , [TeacherController::class , 'index'] ); 
     Route::get('/teachers/{teacher}' , [TeacherController::class , 'show'] ); 
-    Route::get('/courses' , [CourseController::class , 'index'] );
-    Route::get('/courses/{course}' , [CourseController::class , 'show'] );
-    Route::get('/courses/{course}/units' , [CourseController::class , 'units'] ); // new
-    Route::get('/courses/{course}/units/{unit}/lessons' , [CourseController::class , 'unit_lessons'] ); // new
-    Route::get('/courses/{course}/units/{unit}/lessons/{lesson}/videos' , [LessonController::class , 'show'] );
-    Route::get('/courses/{course}/units/{unit}/lessons/{lesson}/videos/{video}' , [LessonController::class , 'show_video'] );
+    Route::get('/courses' , [CourseController::class , 'index']);
+    Route::get('/courses/{course}' , [CourseController::class , 'show']);
+    Route::get('/courses/{course}/units' , [CourseController::class , 'units']); // new
+    Route::get('/courses/{course}/units/{unit}/lessons' , [CourseController::class , 'unit_lessons']); // new
+    Route::get('/courses/{course}/units/{unit}/lessons/{lesson}/videos' , [LessonController::class , 'show']);
+    Route::get('/courses/{course}/units/{unit}/lessons/{lesson}/videos/{video}',[LessonController::class , 'show_video']);
 
     Route::get('/logo' , [SettingController::class , 'logo'] );
     Route::get('/universities' , [UniversityController::class , 'index'] );

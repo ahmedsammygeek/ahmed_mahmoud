@@ -79,6 +79,7 @@ Route::group(
                 Route::resource('cities', CityController::class);
                 Route::resource('students', StudentController::class );
                 Route::resource('courses', CourseController::class );
+                Route::get('courses/{course}/fix', [CourseController::class , 'fix'] )->name('courses.fix');
                 Route::resource('universities', UniversityController::class );
                 Route::resource('faculties', FacultyController::class );
                 Route::resource('faculty_levels', FacultyLevelController::class );
