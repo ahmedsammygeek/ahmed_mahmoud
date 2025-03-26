@@ -6,9 +6,11 @@ use Livewire\Component;
 use App\Models\{ CourseStudent , StudentLesson , StudentUnit };
 use Livewire\Attributes\On; 
 use Livewire\Attributes\Validate;
-
+use Livewire\WithPagination;
 class ListAllStudentCourses extends Component
 {
+
+    use WithPagination;
     public $student;
 
     #[Validate('required')]

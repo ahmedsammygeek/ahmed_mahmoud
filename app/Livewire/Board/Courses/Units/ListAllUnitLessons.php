@@ -7,7 +7,7 @@ use App\Models\Lesson;
 use Livewire\WithPagination;
 class ListAllUnitLessons extends Component
 {   
-        use WithPagination;
+    use WithPagination;
 
     public $unit;
     public $course;
@@ -21,6 +21,12 @@ class ListAllUnitLessons extends Component
                 $lesson->save();
             }
         }
+    }
+
+    
+    public function deleteItem()
+    {
+        // code...
     }
 
     public function render()
