@@ -7,7 +7,7 @@ if (! function_exists('get_default_course_options')) {
         $course = Course::find($course_id);
         // $Teacher = Teacher::find()
         if ($course) {
-            if ($course->force_face_detecting || $course->speak_user_phone || $course->show_phone_on_viedo || $course->force_headphones ) {
+            if (!is_null($course->force_face_detecting) && !is_null($course->speak_user_phone) && !is_null($course->show_phone_on_viedo) && !is_null($course->force_headphones) ) {
 
                 return [
                     'force_face_detecting' => $course->force_face_detecting , 
@@ -38,10 +38,10 @@ if (! function_exists('get_default_course_options')) {
         }
 
         return [
-            'force_face_detecting' => 1 , 
-            'speak_user_phone' => 1 , 
-            'show_phone_on_viedo' =>  1, 
-            'force_headphones' => 1 , 
+            'force_face_detecting' => 0 , 
+            'speak_user_phone' => 0 , 
+            'show_phone_on_viedo' =>  0, 
+            'force_headphones' => 0 , 
         ];
     }
 }
