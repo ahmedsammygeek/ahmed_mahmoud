@@ -9,6 +9,7 @@ use App\Http\Requests\Board\Courses\{ StoreCourseRequest , UpdateCourseRequest};
 use App\Actions\Board\Courses\{ StoreCourseAction , UpdateCourseAction };
 use Gate;
 use Auth;
+use Log;
 use App\Models\{CourseStudent , StudentUnit  , LessonVideo , StudentLesson };
 
 class CourseController extends Controller
@@ -42,43 +43,53 @@ class CourseController extends Controller
     public function fix(Course $course)
     {
 
-        $course_students = CourseStudent::where('course_id', $course->id )->get(); 
+        $course_students = CourseStudent::where('course_id', $course->id )->pluck('student_id')->toArray(); 
 
-        $course_students->map(function($course_student){
-            $student_course_units = StudentUnit::where('student_id' , $course_student->student_id )
-            ->whereHas('unit' , function($query) use($course_student) {
-                $query->where('course_id' , $course_student->course_id );
+        $students = Student::find($course_students);
+
+        $default_course_options = get_default_course_options($course->id);
+        $default_course_views = get_default_course_views($course->id);
+
+
+        foreach ($students as $student) {
+
+            $one_course_student = CourseStudent::where('course_id', $course->id )
+            ->where('student_id' , $student->id )
+            ->latest()
+            ->first();
+
+            $student_course_units = StudentUnit::where('student_id' , $student->id )
+            ->whereHas('unit' , function($query) use($student , $course ) {
+                $query->where('course_id' , $course->id );
             })->pluck('unit_id')->toArray() ;
-            $course_student->student_course_units = $student_course_units ;
 
-            StudentUnit::where('student_id' , $course_student->student_id )
-            ->whereHas('unit' , function($query) use($course_student) {
-                $query->where('course_id' , $course_student->course_id );
+            // dd($student_course_units);
+            $student->student_course_units = array_unique($student_course_units) ;
+
+            StudentUnit::where('student_id' , $student->id )
+            ->whereHas('unit' , function($query) use($student , $course ) {
+                $query->where('course_id' ,$course->id);
             })->delete(); 
 
 
-            StudentLesson::where('student_id' , $course_student->student_id )
+            $res = StudentLesson::where('student_id' , $student->id )
             ->whereHas('lesson' , function($query) use($student_course_units) {
                 $query->whereIn('unit_id' , $student_course_units );
             })->delete();
-        });
 
+  
 
-        CourseStudent::where('course_id', $course->id )->delete(); 
-        
-        $default_course_options = get_default_course_options($course->id);
-        $default_course_views = get_default_course_views($course->id);
-        foreach ($course_students as $one_course_student) {
-            $dose_students_has_this_course = CourseStudent::where('student_id' , $one_course_student->student_id )
+            CourseStudent::where('course_id', $course->id )->where('student_id' , $student->id )->delete(); 
+
+            $dose_students_has_this_course = CourseStudent::where('student_id' , $student->id )
             ->where('course_id', $course->id )->first();
 
-            $student = Student::where('id' , $one_course_student->student_id )->first();
             if (!$dose_students_has_this_course) {
                 $student_course = new CourseStudent;
                 $student_course->user_id = Auth::id();
                 $student_course->student_id = $student->id;
                 $student_course->course_id = $course->id;
-                $student_course->group_id = $one_course_student->group_id;
+                $student_course->group_id = $one_course_student?->group_id;
                 $student_course->force_headphones =   $default_course_options['force_headphones'] ;
                 $student_course->show_phone_on_viedo =  $default_course_options['show_phone_on_viedo'] ;
                 $student_course->speak_user_phone =   $default_course_options['speak_user_phone'] ;
@@ -87,7 +98,7 @@ class CourseController extends Controller
                 $student_course->allow = 1;
                 $student_course->save();
                 $student_units = [];
-                foreach ($one_course_student->student_course_units as $one_unit) {
+                foreach ($student->student_course_units as $one_unit) {
                     $student_units[] = new StudentUnit([
                         'student_id' => $student->id , 
                         'user_id' => Auth::id() , 
@@ -95,8 +106,8 @@ class CourseController extends Controller
                         'is_allowed' => 1 , 
                     ]);
                     $student->units()->saveMany($student_units);
-                    $videos = LessonVideo::whereHas('lesson' , function($query) use( $one_course_student , $course ) {
-                        $query->whereIn('unit_id' , $one_course_student->student_course_units );
+                    $videos = LessonVideo::whereHas('lesson' , function($query) use( $student , $course, $one_unit ) {
+                        $query->where('unit_id' , $one_unit);
                     })->get();
                     $student_lessons = [];
                     foreach ($videos as $video) {
@@ -115,6 +126,10 @@ class CourseController extends Controller
             }
 
         }
+
+
+
+
 
         return redirect(route('board.courses.index'))->with('success' , 'تم حذف جميع الطلاب و ادخالهم الى المواد مره اخرى بنجاح' );
     }
