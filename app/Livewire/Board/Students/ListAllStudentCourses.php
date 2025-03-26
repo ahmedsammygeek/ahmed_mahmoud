@@ -12,6 +12,7 @@ class ListAllStudentCourses extends Component
 
     use WithPagination;
     public $student;
+    public $rows;
 
     #[Validate('required')]
     public $not_allow_message;
