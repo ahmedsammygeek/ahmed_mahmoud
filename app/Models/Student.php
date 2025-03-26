@@ -47,8 +47,8 @@ class Student extends Authenticatable
      *
      * @return string
      */
-    public function getProfilePictureAttribute($value)
-    {
+      public function getProfilePictureAttribute($value)
+      {
         return $value ?: 'defult_student_profile_pic.avif';
     }
 
@@ -81,6 +81,22 @@ class Student extends Authenticatable
     {
         return $this->hasMany(CourseStudent::class , 'student_id');
     }
+
+    public function library()
+    {
+        return $this->hasMany(LibraryStudent::class , 'student_id');
+    }
+
+    public function libraryUnits() {
+
+        return $this->hasMany(LibraryStudentUnit::class);
+    }
+
+    public function filesViews() {
+
+        return $this->hasMany(LessonFileView::class , 'student_id');
+    }
+
 
     public function groups()
     {

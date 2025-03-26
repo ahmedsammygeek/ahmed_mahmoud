@@ -3,7 +3,7 @@
 namespace App\Livewire\Board\Students;
 
 use Livewire\Component;
-use App\Models\{ CourseStudent , StudentLesson };
+use App\Models\{ CourseStudent , StudentLesson , StudentUnit };
 use Livewire\Attributes\On; 
 use Livewire\Attributes\Validate;
 
@@ -33,11 +33,26 @@ class ListAllStudentCourses extends Component
     #[On('deleteStudentCourse')] 
     public function delete($item_id)
     {   
+
+        // dd('ggg');
         // we need first to delete all lessons
         $student_course = CourseStudent::with('course')->find($item_id);
+
+        // now we delete the lessons
         StudentLesson::where('student_id' , $this->student->id )->whereIn('lesson_id' , $student_course->course->lessons()->pluck('lessons.id')->toArray() )->delete();
 
+
+        StudentUnit::where('student_id' , $this->student->id )
+        ->whereHas('unit' , function($query) use($student_course) {
+            $query->where('course_id' , $student_course->course_id );
+        })->delete();
+
+
         $student_course->delete();
+
+        // now we need to delete the course units
+
+
 
         $this->dispatch('deleted');
     }
