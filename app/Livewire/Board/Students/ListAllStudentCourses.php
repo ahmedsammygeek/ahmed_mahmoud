@@ -160,7 +160,9 @@ class ListAllStudentCourses extends Component
 
     public function render()
     {
-        $student_courses = CourseStudent::with(['course', 'group' ])->where('student_id' , $this->student->id )->paginate(15);
+        $student_courses = CourseStudent::with(['course', 'group' ])
+        ->where('student_id' , $this->student->id )
+        ->paginate($this->rows);
         return view('livewire.board.students.list-all-student-courses' , compact('student_courses') );
     }
 }
