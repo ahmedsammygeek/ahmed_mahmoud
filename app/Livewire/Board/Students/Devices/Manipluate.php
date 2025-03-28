@@ -39,40 +39,7 @@ class Manipluate extends Component
         $this->resetPage();
     }
 
-    public function deleteItem($itemId)
-    {
-        $item = Student::find($itemId);
-        if($item) {
-            $item->delete();
-            $this->dispatch('itemDeleted');
-        }
-    }
 
-    #[Computed]
-    public function groups()
-    {
-        return Group::where('course_id' , $this->selected_course_id )->get();
-    }
-
-
-    #[Computed]
-    public function units()
-    {
-        return Unit::where('course_id' , $this->selected_course_id )->get();
-    }
-
-
-    public function updatedCourseId()
-    {
-        $course = Course::find($this->course_id);
-        $this->purchase_price = $course->price;
-    }
-
-        #[Computed]
-    public function single_installment()
-    {
-        return    ($this->purchase_price - $this->paid) / $this->installment_months   ;
-    }
 
 
     public function loginFromAnotherDevice()
@@ -128,12 +95,7 @@ class Manipluate extends Component
             ->orWhere('mobile' ,  'LIKE' , '%'.$this->search.'%'  )
             ->orWhere('guardian_mobile' ,  'LIKE' , '%'.$this->search.'%' );
         })
-        // ->when($this->grade_id , function($query){
-        //     $query->where('grade_id' , $this->grade_id );
-        // })
-        // ->when($this->educational_system_id , function($query){
-        //     $query->where('educational_system_id' , $this->educational_system_id );
-        // })
+
         ->when($this->teacher_id , function($query){
             $query->whereHas('courses' , function($query){
                 $query->whereHas('course' , function($query){
@@ -146,10 +108,6 @@ class Manipluate extends Component
                 $query->where('course_id' , $this->course_id );
             });
         })
-
-        // ->when($this->student_type, function($query){
-        //     $query->where('student_type' , $this->student_type);
-        // })
         ->latest()
         ->paginate($this->rows);
 
