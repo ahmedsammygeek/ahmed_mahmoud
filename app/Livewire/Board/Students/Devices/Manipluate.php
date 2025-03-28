@@ -106,25 +106,16 @@ class Manipluate extends Component
     #[Computed]
     public function courses()
     {
-        return Course::when($this->grade_id , function($query){
-            $query->where('grade_id' , $this->grade_id );
+        return Course::when($this->teacher_id , function($query){
+            $query->where('teacher_id' , $this->teacher_id );
         })
-        ->when($this->teacher_id , function($query){
-            $query->whereHas('teachers' , function($query){
-                $query->where('teacher_id' , $this->teacher_id );
-            });
-        })
-        ->select('title' , 'id')->get();
+        ->select('title' , 'id'  , 'teacher_id')->get();
     }
 
     #[Computed]
     public function teachers()
     {
-        return Teacher::when($this->course_id , function($query){
-            $query->whereHas('courses' , function($query){
-                $query->where('course_id' , $this->course_id);
-            });
-        })->select('name' , 'id')->get();
+        return Teacher::select('name' , 'id')->get();
     }
 
     public function render()
@@ -137,27 +128,28 @@ class Manipluate extends Component
             ->orWhere('mobile' ,  'LIKE' , '%'.$this->search.'%'  )
             ->orWhere('guardian_mobile' ,  'LIKE' , '%'.$this->search.'%' );
         })
-        ->when($this->grade_id , function($query){
-            $query->where('grade_id' , $this->grade_id );
-        })
-        ->when($this->educational_system_id , function($query){
-            $query->where('educational_system_id' , $this->educational_system_id );
+        // ->when($this->grade_id , function($query){
+        //     $query->where('grade_id' , $this->grade_id );
+        // })
+        // ->when($this->educational_system_id , function($query){
+        //     $query->where('educational_system_id' , $this->educational_system_id );
+        // })
+        ->when($this->teacher_id , function($query){
+            $query->whereHas('courses' , function($query){
+                $query->whereHas('course' , function($query){
+                    $query->where('teacher_id' , $this->teacher_id );
+                });
+            });
         })
         ->when($this->course_id , function($query){
             $query->whereHas('courses' , function($query){
                 $query->where('course_id' , $this->course_id );
             });
         })
-        ->when($this->teacher_id , function($query){
-            $query->whereHas('courses' , function($query){
-                $query->whereHas('CourseTeacher' , function($query){
-                    $query->where('teacher_id' , $this->teacher_id );
-                });
-            });
-        })
-        ->when($this->student_type, function($query){
-            $query->where('student_type' , $this->student_type);
-        })
+
+        // ->when($this->student_type, function($query){
+        //     $query->where('student_type' , $this->student_type);
+        // })
         ->latest()
         ->paginate($this->rows);
 

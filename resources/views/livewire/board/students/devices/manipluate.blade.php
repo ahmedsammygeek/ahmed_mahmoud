@@ -9,6 +9,28 @@
         <div class="card card-body">
 
             <div class="d-sm-flex align-items-sm-start mt-2">
+
+                <div class="dropdown ms-sm-3  mb-sm-0">
+                    <select wire:model.change='teacher_id' class="form-select">
+                        <option value=""> @lang('students.all teachers') </option>
+                        @foreach ($this->teachers as $teacher)
+                        <option value="{{ $teacher->id }}"> {{ $teacher->name }} </option>
+                        @endforeach
+                    </select>
+                </div>
+
+
+
+                <div class="dropdown ms-sm-3  mb-sm-0">
+                    <select wire:model.change='course_id' class="form-select">
+                        <option value=""> @lang('students.all courses') </option>
+                        @foreach ($this->courses as $course)
+                        <option value="{{ $course->id }}"> {{ $course->title }} </option>
+                        @endforeach
+                    </select>
+                </div>
+                
+
                 <div class="dropdown ms-sm-3  mb-sm-0">
                     <select wire:model.change='grade_id' class="form-select">
                         <option value=""> @lang('students.all grades') </option>
@@ -26,29 +48,8 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="dropdown ms-sm-3  mb-sm-0">
-                    <select wire:model.change='course_id' class="form-select">
-                        <option value=""> @lang('students.all courses') </option>
-                        @foreach ($this->courses as $course)
-                        <option value="{{ $course->id }}"> {{ $course->title }} </option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="dropdown ms-sm-3  mb-sm-0">
-                    <select wire:model.change='teacher_id' class="form-select">
-                        <option value=""> @lang('students.all teachers') </option>
-                        @foreach ($this->teachers as $teacher)
-                        <option value="{{ $teacher->id }}"> {{ $teacher->name }} </option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="dropdown ms-sm-3  mb-sm-0">
-                    <select wire:model.change='student_type' class="form-select">
-                        <option value=""> @lang('students.all students') </option>
-                        <option value="1"> @lang('students.only center students') </option>
-                        <option value="2"> @lang('students.only online students') </option>
-                    </select>
-                </div>
+                
+              
                 <div class="dropdown ms-sm-3  mb-sm-0">
                     <button wire:click='loginFromAnotherDevice' class="btn btn-primary "> login from another device </button>
                 </div>

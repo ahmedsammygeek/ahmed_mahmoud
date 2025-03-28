@@ -98,7 +98,7 @@ class CourseController extends Controller
             $course['dose_user_subscribed'] = false ;
         }
 
-        $course->units()->where('is_active' , 1 )->get();
+        $units = $course->units()->where('is_active' , 1 )->get();
 
         $data = [
             'course' => new CourseResource($course)  , 
