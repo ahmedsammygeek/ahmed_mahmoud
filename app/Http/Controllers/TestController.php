@@ -54,6 +54,8 @@ class TestController extends Controller
     {       
 
 
+        dd(get_default_course_options(133) );
+
         dd(Hash::make(90909090));
 
         // dd(StudentLesson::where('student_id' , 714)->pluck('video_id')->toArray());

@@ -40,7 +40,8 @@
                             <div class="col-md-2">
                                 <label class="col-form-label col-lg-12"> @lang('courses.teacher') <span class="text-danger">*</span></label>
                                 <div class="col-lg-12">
-                                    <select name="teacher_id" class='form-control form-select select'  id="">
+                                    <select name="teacher_id" class='teacher_id form-control form-select select'  id="">
+                                        <option value=""></option>
                                         @foreach ($teachers as $teacher)
                                         <option value="{{ $teacher->id }}">    {{ $teacher->name }}  </option>
                                         @endforeach
@@ -246,42 +247,7 @@
 
                     </div>
 
-                    <div class="row">
-                            <div class="col-sm-3 mt-4">
-                                <div class="form-check form-switch  mb-2 center-block ">
-                                    <input type="checkbox" class="form-check-input" name='force_face_detecting' id="sc_lss_c"  checked>
-                                    <label class=""> استخدام الوجه المام الكاميره </label>
-                                </div>
-                            </div>
-
-
-                            <div class="col-sm-3 mt-4">
-                                <div class="form-check form-switch  mb-2 center-block ">
-                                    <input type="checkbox" class="form-check-input" name='speak_user_phone' id="sc_lss_c"  checked>
-                                    <label class=""> نطق رقم الطالب  </label>
-                                </div>
-                            </div>
-
-
-                            <div class="col-sm-3 mt-4">
-                                <div class="form-check form-switch  mb-2 center-block ">
-                                    <input type="checkbox" class="form-check-input" name='show_phone_on_viedo' id="sc_lss_c"  checked>
-                                    <label class=""> اظهار رقم الطالب على الفديو </label>
-                                </div>
-                            </div>
-
-
-
-                            <div class="col-sm-3 mt-4">
-                                <div class="form-check form-switch  mb-2 center-block ">
-                                    <input type="checkbox" class="form-check-input" name='force_headphones' id="sc_lss_c"  checked>
-                                    <label class=""> اجبار السمعات </label>
-                                </div>
-                            </div>
-
-                        </div>
-
-
+                    @livewire('board.courses.course-default-options')
 
 
                 </div>
@@ -305,11 +271,15 @@ referrerpolicy="origin"></script>
 <script src="{{ asset('board_assets/demo/pages/form_select2.js') }}"></script>
 <script>
     $(document).ready(function() {
-                    // tinymce.init({
-                    //     selector: '#enTextarea',
-                    //     plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
-                    //     toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
-                    // });
+
+        $(".teacher_id").on('select2:select', function (e) {
+            var teacher_id = $(this).val();
+            Livewire.dispatch('teacher-choosed' , {teacher_id:teacher_id} );
+        });
+
+
+
+
     });
 
     $(document).ready(function() {
