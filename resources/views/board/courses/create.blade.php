@@ -276,19 +276,7 @@ referrerpolicy="origin"></script>
             var teacher_id = $(this).val();
             Livewire.dispatch('teacher-choosed' , {teacher_id:teacher_id} );
         });
-
-
-
-
     });
 
-    $(document).ready(function() {
-                    // tinymce.init({
-                    //     selector: '#arTextarea',
-                    //     plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
-                    //     toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
-                    //     language: 'ar'
-                    // });
-    });
 </script>
 @endsection
