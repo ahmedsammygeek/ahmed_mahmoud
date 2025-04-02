@@ -18,6 +18,7 @@ class CourseResource extends JsonResource
             'id' => $this->id , 
             'title' => $this->title , 
             'image' => Storage::url('courses/'.$this->image) , 
+            'dddddd' => 'fdfdfdfd' , 
         ];
     }
 }

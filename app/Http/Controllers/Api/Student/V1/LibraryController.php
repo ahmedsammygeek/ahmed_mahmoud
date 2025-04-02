@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Student\V1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{Student , LessonFileView , Course , CourseStudent , Lesson , LessonFile };
+use App\Models\{Student , LessonFileView  , LibraryStudentUnit, LibraryStudent , Course , CourseStudent , Lesson , LessonFile };
 use Auth;
 use App\Traits\Api\GeneralResponse;
 
@@ -22,19 +22,22 @@ class LibraryController extends Controller
         $student = Auth::guard('student')->user();
 
 
-        $courses_id = CourseStudent::whereHas('course' , function($query) use ($student) {
-            $query->where('student_id', $student->id )->whereHas('units' , function($query) use($student) {
-                $query->whereHas('lessons' , function($query) use($student) {
-                    $query->whereHas('files' , function($query) use($student) {
-                        $query->whereHas('views' , function($query)  use($student) {
-                         $query->whereIn('lesson_file_id' , $student->LessonsFilesViews()->pluck('lesson_file_id')->toArray() );
-                     });
-                    });
-                });
-            });
-        })->pluck('course_id')->toArray();
+        // $courses_id = CourseStudent::whereHas('course' , function($query) use ($student) {
+        //     $query->where('student_id', $student->id )->whereHas('units' , function($query) use($student) {
+        //         $query->whereHas('lessons' , function($query) use($student) {
+        //             $query->whereHas('files' , function($query) use($student) {
+        //                 $query->whereHas('views' , function($query)  use($student) {
+        //                     $query->whereIn('lesson_file_id' , $student->LessonsFilesViews()->pluck('lesson_file_id')->toArray() );
+        //                 });
+        //             });
+        //         });
+        //     });
+        // })->pluck('course_id')->toArray();
 
 
+        $courses_id = LibraryStudent::where('student_id' , $student->id )
+        ->where('is_allowed' , 1 )
+        ->pluck('course_id')->toArray();
         $courses = Course::whereIn('id' , $courses_id )->get();
 
         $data = [
@@ -56,31 +59,41 @@ class LibraryController extends Controller
 
         // we need to check if this user has this course or not 
 
-        $student_course = CourseStudent::where([
+        $student_course = LibraryStudent::where([
             ['student_id' , '=' , $student->id ] , 
-            ['course_id' , '=' , $course->id ]
+            ['course_id' , '=' , $course->id ] , 
+            ['is_allowed' , '='  , 1 ]
         ])->first();
+
+
 
         if (!$student_course) {
 
             return $this->response(
                 status : 'error' , 
-                message : 'you do not has this course in your profile'
+                message : 'انت غير مشترك فى المكتبه لهاذا الكورس'
             );
         }
 
 
-        if ($student_course->allow == 0 ) {
+        if ($student_course->is_allowed == 0 ) {
 
             return $this->response(
                 status : 'error' , 
-                message :  $student_course->disable_reason ? $student_course->disable_reason : 'تم ايقاف هذا الكورس لك..تواصل مع الدعم' 
+                message :  'تم ايقاف المكتبه لهاذ الكورس لك..تواصل مع الدعم' 
             );
         }
 
-        // dd( $course->units()->pluck('units.id')->toArray());
 
-        $lessons = Lesson::whereIn('unit_id' , $course->units()->pluck('units.id')->toArray())
+        $student_library_course_units = LibraryStudentUnit::where('student_id' , $student->id )
+        ->where('course_id' , $course->id )
+        ->pluck('unit_id')->toArray();
+
+
+
+        // dd($student_library_course_units);
+
+        $lessons = Lesson::whereIn('unit_id' , $student_library_course_units )
         ->whereHas('files' , function($query) use($student) {
             $query->whereHas('views' , function($query) use($student) {
                 $query->where('student_id' , $student->id );
@@ -105,10 +118,12 @@ class LibraryController extends Controller
 
         // we need to check if this user has this course or not 
 
-        $student_course = CourseStudent::where([
+        $student_course = LibraryStudent::where([
             ['student_id' , '=' , $student->id ] , 
-            ['course_id' , '=' , $course->id ]
+            ['course_id' , '=' , $course->id ] , 
+            ['is_allowed' , '='  , 1 ]
         ])->first();
+
 
         if (!$student_course) {
 
@@ -118,11 +133,11 @@ class LibraryController extends Controller
             );
         }
 
-        if ($student_course->allow == 0 ) {
+        if ($student_course->is_allowed == 0 ) {
 
             return $this->response(
                 status : 'error' , 
-                message :  $student_course->disable_reason ? $student_course->disable_reason : 'تم ايقاف هذا الكورس لك..تواصل مع الدعم' 
+                message : 'تم ايقاف هذا الكورس لك..تواصل مع الدعم' 
             );
         }
 
@@ -130,14 +145,27 @@ class LibraryController extends Controller
         // now we need to get this lesson files , 
 
 
-        $files = LessonFileView::with('lessonFile')->where('student_id' , $student->id )
-        ->whereHas('lessonFile' , function($query) use($lesson)  {
-            $query->whereHas('lesson' , function($query) use($lesson)  {
-                $query->whereHas('files' , function($query) use($lesson) {
-                    $query->where('lesson_file_id' , $lesson->id  );
-                });
+        $student_library_course_units = LibraryStudentUnit::where('student_id' , $student->id )
+        ->where('course_id' , $course->id )
+        ->pluck('unit_id')
+        ->toArray();
+
+
+        // dd($student_library_course_units);
+
+
+        $files = LessonFileView::with('lessonFile')
+        ->where('student_id' , $student->id )
+        ->whereHas('lessonFile' , function($query) use($lesson ,  $student_library_course_units)  {
+            $query->whereHas('lesson' , function($query) use($lesson , $student_library_course_units)  {
+                $query->whereIn('unit_id'  , $student_library_course_units );
+                // ->whereHas('files' , function($query) use($lesson) {
+                //     $query->where('lesson_file_id' , $lesson->id  );
+                // });
             });
-        })->get();
+        })
+        ->get();
+
 
         $data = [
             'files' => LessonFileResource::collection($files),
@@ -147,7 +175,6 @@ class LibraryController extends Controller
             data : $data
         );
 
-        // return $files;
     }
 
 

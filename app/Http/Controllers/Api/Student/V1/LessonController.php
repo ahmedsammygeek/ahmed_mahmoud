@@ -43,6 +43,8 @@ class LessonController extends Controller
 
     public function show(Course $course , Unit $unit ,  Lesson $lesson )
     {
+
+        
         $is_user = false;
         if (Auth::guard('student')->check()) {
             $is_user = true;
