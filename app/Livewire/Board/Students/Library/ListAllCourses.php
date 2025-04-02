@@ -3,13 +3,50 @@
 namespace App\Livewire\Board\Students\Library;
 
 use Livewire\Component;
-
+use App\Models\LibraryStudent;
 class ListAllCourses extends Component
 {
     public $student;
+
+
+    public function manipluateDownloadOption($student_library_course_id)
+    {
+        $student_library_course = LibraryStudent::find($student_library_course_id);
+        if ($student_library_course) {
+            $student_library_course->allow_download = !$student_library_course->allow_download ;
+            $student_library_course->save();
+            $this->dispatch('changed');
+        }
+    }
+
+    public function manipluateWaterMarkOption($student_library_course_id)
+    {
+        $student_library_course = LibraryStudent::find($student_library_course_id);
+        if ($student_library_course) {
+            $student_library_course->force_water_mark = !$student_library_course->force_water_mark ;
+            $student_library_course->save();
+            $this->dispatch('changed');
+        }
+    }
+
+    public function manipluateAvailabilityOption($student_library_course_id)
+    {
+        $student_library_course = LibraryStudent::find($student_library_course_id);
+        if ($student_library_course) {
+            $student_library_course->is_allowed = !$student_library_course->is_allowed ;
+            $student_library_course->save();
+            $this->dispatch('changed');
+        }
+    }
+
+
+
     
     public function render()
     {
-        return view('livewire.board.students.library.list-all-courses');
+        $student_library_courses = LibraryStudent::where('student_id' , $this->student->id )
+        ->latest()
+        ->get();
+        return view('livewire.board.students.library.list-all-courses' , compact('student_library_courses') );
     }
 }

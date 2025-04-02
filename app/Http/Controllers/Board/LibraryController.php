@@ -34,6 +34,8 @@ class LibraryController extends Controller
     public function store(StoreFileRequest $request)
     {
 
+        // dd('fff');
+
         $lesson = Lesson::find($request->lesson_id);
         $video = LessonVideo::find($request->video_id);
         // $course_students = CourseStudent::where('course_id' , $request->course_id )->pluck('student_id')->toArray();
