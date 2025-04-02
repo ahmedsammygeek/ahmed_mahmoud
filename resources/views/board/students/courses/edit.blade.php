@@ -113,6 +113,17 @@
                                 </label>
                             </div>
                         </div>
+
+                        <div class="col-md-6">
+                            <label class="col-lg-12 col-form-label "> عرض اسم  الطالب </label>
+                            <div class="col-lg-12">
+                                <label class="form-check form-switch">
+                                    <input type="checkbox" value='1' class="form-check-input"  name="show_name_on_viedo" @checked($student_course->show_name_on_viedo) >
+                                    <span class="form-check-label"> @lang('courses.yes')  </span>
+                                </label>
+                            </div>
+                        </div>
+
                         <div class="col-md-6">
                             <label class="col-lg-12 col-form-label "> نطق رقم الطالب </label>
                             <div class="col-lg-12">

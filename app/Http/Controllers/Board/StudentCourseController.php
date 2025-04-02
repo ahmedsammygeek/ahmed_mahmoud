@@ -35,6 +35,8 @@ class StudentCourseController extends Controller
     public function edit( Student $student , Course $course)
     {
 
+
+
         $student_course = CourseStudent::where('student_id' , $student->id )->where('course_id' , $course->id )->first();
         $groups = Group::select('name' , 'id' , 'course_id' )->where('course_id' , $student_course->course_id )->get();
         $student_course_units = StudentUnit::where('student_id' , $student->id )
@@ -60,6 +62,7 @@ class StudentCourseController extends Controller
         $student_course->show_phone_on_viedo = $request->filled('show_phone_on_viedo')  ? 1 : 0;
         $student_course->speak_user_phone = $request->filled('speak_user_phone')  ? 1 : 0;
         $student_course->force_face_detecting = $request->filled('force_face_detecting')  ? 1 : 0;
+        $student_course->show_name_on_viedo = $request->filled('show_name_on_viedo')  ? 1 : 0;
         $student_course->office_library = $request->filled('office_library')  ? 1 : 0;
         $student_course->online_library = $request->filled('online_library')  ? 1 : 0;
         $student_course->save();
