@@ -55,11 +55,13 @@
                         </td>
 
                         <td>
-                            <a class='btn btn-sm btn-primary ' title='الدروس' href="{{ route('board.students.courses.units.index' , [ 'student' => $student , 'course' => $student_library_course->course_id ] ) }}"   >  <i class="icon-archive "></i>  </a>
+                            {{-- <a class='btn btn-sm btn-primary ' title='الدروس' href="{{ route('board.students.courses.units.index' , [ 'student' => $student , 'course' => $student_library_course->course_id ] ) }}"   >  <i class="icon-archive "></i>  </a>
                             <a class='btn btn-sm btn-primary ' title='الدروس' href="{{ route('board.students.courses.lessons.index' , [ 'student' => $student , 'course' => $student_library_course->course_id ] ) }}"   >  <i class="icon-video-camera2"></i>  </a>
                             <a class='btn btn-sm btn-primary  ' title='مشاهده' href="{{ route('board.students.courses.show' , ['student' => $student_library_course->student_id , 'course' => $student_library_course->course_id ] ) }}" >  <i class="icon-eye "></i>  </a>
-                            <a class='btn btn-sm btn-warning  ' title='تعديل' href="{{ route('board.students.courses.edit' , ['student' => $student_library_course->student_id , 'course' => $student_library_course->course_id ] ) }}" >  <i class="icon-database-edit2 "></i>  </a>
-                            <a data-item_id='{{ $student_library_course->id }}' class='btn btn-xs btn-danger delete_item' title='حذف' >  <i class="icon-trash "></i>  </a>
+                            <a class='btn btn-sm btn-warning  ' title='تعديل' href="{{ route('board.students.courses.edit' , ['student' => $student_library_course->student_id , 'course' => $student_library_course->course_id ] ) }}" >  <i class="icon-database-edit2 "></i>  </a> --}}
+                           
+
+                            <a wire:click="$dispatch('deleteConfirmation', '{{ $student_library_course->id }}')" class='btn btn-sm btn-danger  delete_item' title="@lang('dashboard.delete')" >  <i class="icon-trash "></i>  </a>
                         </td>
                     </tr>
                     @endforeach
@@ -80,16 +82,6 @@
 <script>
     $(document).ready(function() {
 
-        const swalInit = swal.mixin({
-            buttonsStyling: false,
-            customClass: {
-                confirmButton: 'btn btn-primary',
-                cancelButton: 'btn btn-light',
-                denyButton: 'btn btn-light',
-                input: 'form-control'
-            }
-        });
-
 
         Livewire.on('changed' , () => {
             $(document).find('#not_allow_message_modal').modal('hide');
@@ -104,14 +96,33 @@
         });
 
 
-        $(document).on('click', 'a.delete_item', function(event) {
-            event.preventDefault();
-            var item_id = $(this).attr('data-item_id');
+
+        Livewire.on('itemDeleted', () =>  {
+            swalInit.fire({
+                text: "@lang('dashboard.deleted successfully')" ,
+                icon: 'success',
+                toast: true,
+                showConfirmButton: false,
+                position: 'top-start' , 
+                timer: 1500
+            });
+        });
+
+        const swalInit = swal.mixin({
+            buttonsStyling: false,
+            customClass: {
+                confirmButton: 'btn btn-primary',
+                cancelButton: 'btn btn-light',
+                denyButton: 'btn btn-light',
+                input: 'form-control'
+            }
+        });
+        Livewire.on('deleteConfirmation', (itemId) => {
             swalInit.fire({
                 title: "@lang('dashboard.delete confirmation')",
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonText: "@lang('dashboard.yes change')",
+                confirmButtonText: "@lang('dashboard.yes delete')",
                 cancelButtonText: "@lang('dashboard.cancel')",
                 buttonsStyling: false,
                 customClass: {
@@ -120,10 +131,13 @@
                 }
             }).then(function(result) {
                 if(result.value) {
-                    Livewire.dispatch('deleteStudentCourse' , {item_id} );
+                    Livewire.dispatch('deleteItem' , {itemId} );
                 }
-            });        
-        });
+            });
+        })
+
+
+
 
 
     });

@@ -9,6 +9,19 @@ class ListAllCourses extends Component
     public $student;
 
 
+    protected $listeners = ['deleteItem' , 'itemDeleted' => '$refresh' ];  
+
+
+    public function deleteItem($itemId)
+    {
+        $item = LibraryStudent::find($itemId);
+        if($item) {
+            $item->delete();
+            $this->dispatch('itemDeleted');
+        }
+    }
+
+
     public function manipluateDownloadOption($student_library_course_id)
     {
         $student_library_course = LibraryStudent::find($student_library_course_id);
