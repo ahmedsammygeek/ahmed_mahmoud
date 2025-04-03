@@ -27,6 +27,7 @@ class Manipluate extends Component
     public $systems;
     public $disable_reason;
     public $is_active = 'all';
+    public $selectAll = false ;
     public $selectedStudents = [];
 
     protected $listeners = ['deleteItem' , 'itemDeleted' => '$refresh'  ];  
@@ -46,9 +47,7 @@ class Manipluate extends Component
     {
 
         foreach ($this->selectedStudents as $key => $selectedStudent) {
-
-            $student = Student::find($key);
-
+            $student = Student::find($selectedStudent);
             if ($student) {
                 $student->mobile_serial_number = null;
                 $student->unique_device_id = null;
@@ -85,9 +84,20 @@ class Manipluate extends Component
         return Teacher::select('name' , 'id')->get();
     }
 
-    public function render()
+
+    public function selectAllStudents() {
+
+        $this->selectAll = !$this->selectAll;
+        if ($this->selectAll) {
+            $this->selectedStudents =  $this->generateQuery()->pluck('id')->toArray()  ;
+        } else {
+            $this->selectedStudents =  []  ;
+        }
+    }
+
+    public function generateQuery()
     {
-        $students = Student::query()
+        return Student::query()
         ->with(['grade' , 'educationalSystem' ])
         ->when($this->search , function($query){
             $query
@@ -107,7 +117,12 @@ class Manipluate extends Component
             $query->whereHas('courses' , function($query){
                 $query->where('course_id' , $this->course_id );
             });
-        })
+        });
+    }
+
+    public function render()
+    {
+        $students =  $this->generateQuery()
         ->latest()
         ->paginate($this->rows);
 
