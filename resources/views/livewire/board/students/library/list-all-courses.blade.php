@@ -55,12 +55,9 @@
                         </td>
 
                         <td>
-                            {{-- <a class='btn btn-sm btn-primary ' title='الدروس' href="{{ route('board.students.courses.units.index' , [ 'student' => $student , 'course' => $student_library_course->course_id ] ) }}"   >  <i class="icon-archive "></i>  </a>
-                            <a class='btn btn-sm btn-primary ' title='الدروس' href="{{ route('board.students.courses.lessons.index' , [ 'student' => $student , 'course' => $student_library_course->course_id ] ) }}"   >  <i class="icon-video-camera2"></i>  </a>
-                            <a class='btn btn-sm btn-primary  ' title='مشاهده' href="{{ route('board.students.courses.show' , ['student' => $student_library_course->student_id , 'course' => $student_library_course->course_id ] ) }}" >  <i class="icon-eye "></i>  </a>
-                            <a class='btn btn-sm btn-warning  ' title='تعديل' href="{{ route('board.students.courses.edit' , ['student' => $student_library_course->student_id , 'course' => $student_library_course->course_id ] ) }}" >  <i class="icon-database-edit2 "></i>  </a> --}}
-                           
-
+                            {{-- <a class='btn btn-sm btn-primary ' title='الدروس' href="{{ route('board.students.courses.units.index' , [ 'student' => $student , 'course' => $student_library_course->course_id ] ) }}"   >  <i class="icon-archive "></i>  </a> --}}
+                            <a class='btn btn-sm btn-primary ' title='الملفات' href="{{ route('board.students.library.files.index' , [ 'student' => $student , 'course' => $student_library_course->course_id ] ) }}"   >  <i class="icon-books "></i>  </a>
+                            <a class='btn btn-sm btn-primary  ' title='مشاهده' href="{{ route('board.students.library.show' , ['student' => $student_library_course->student_id , 'library' => $student_library_course->course_id ] ) }}" >  <i class="icon-eye "></i>  </a>                       
                             <a wire:click="$dispatch('deleteConfirmation', '{{ $student_library_course->id }}')" class='btn btn-sm btn-danger  delete_item' title="@lang('dashboard.delete')" >  <i class="icon-trash "></i>  </a>
                         </td>
                     </tr>

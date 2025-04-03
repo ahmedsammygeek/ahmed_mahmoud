@@ -7,7 +7,7 @@
 @section('breadcrumb')
 <a href="{{ route('board.students.index') }}" class="breadcrumb-item"> @lang('students.students') </a>
 <a href="{{ route('board.students.show' , $student_course->student ) }}" class="breadcrumb-item"> {{ $student_course->student?->name }} </a>
-<a href="{{ route('board.students.courses.index' , $student_course->student ) }}" class="breadcrumb-item"> @lang('students.courses') </a>
+<a href="{{ route('board.students.library.index' , $student_course->student ) }}" class="breadcrumb-item"> @lang('students.library') </a>
 <span class="breadcrumb-item active"> @lang('courses.show student course details') </span>
 @endsection
 
@@ -39,19 +39,22 @@
                         </tr>
 
                         <tr>
-                            <th class='col-md-3' > @lang('course.group name')  </th>
-                            <td class='col-md-9' > {{ $student_course->group?->name }} </td>
-                        </tr>
-
-                        <tr>
-                            <th class='col-md-3' > @lang('course.progress')  </th>
-                            <td class='col-md-9' > <span class='badge bg-primary'> {{ $student_course->progress }} %  </span>  </td>
-                        </tr>
-
-                        <tr>
-                            <th class='col-md-3' > @lang('courses.force headphones') </th>
+                            <th class='col-md-3' > @lang('courses.force_water_mark') </th>
                             <td class='col-md-9' >
-                                @switch($student_course->force_headphones)
+                                @switch($student_course->force_water_mark)
+                                @case(1)
+                                <span class="badge bg-primary"> @lang('courses.yes') </span>
+                                @break
+                                @case(0)
+                                <span class="badge bg-danger"> @lang('courses.no')  </span>
+                                @break
+                                @endswitch
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class='col-md-3' > @lang('courses.allow_download') </th>
+                            <td class='col-md-9' >
+                                @switch($student_course->allow_download)
                                 @case(1)
                                 <span class="badge bg-primary"> @lang('courses.yes') </span>
                                 @break
@@ -64,7 +67,7 @@
                         <tr>
                             <th class='col-md-3' > @lang('courses.allow to watch course') </th>
                             <td class='col-md-9' >
-                                @switch($student_course->allow)
+                                @switch($student_course->is_allowed)
                                 @case(1)
                                 <span class="badge bg-primary"> @lang('courses.yes') </span>
                                 @break

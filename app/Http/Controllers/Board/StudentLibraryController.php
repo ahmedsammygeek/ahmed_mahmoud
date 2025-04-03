@@ -101,9 +101,15 @@ class StudentLibraryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Student $student , Course $library)
     {
-        //
+        $student_course = LibraryStudent::with(['course' , 'user'])->where('student_id' , $student->id )
+        ->where('course_id' , $library->id )
+        ->latest()
+        ->first();
+
+        return view('board.students.library.show' , compact('student_course') );
+
     }
 
     /**
@@ -128,5 +134,11 @@ class StudentLibraryController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+
+    public function files(Student $student , Course $library)
+    {
+        // code...
     }
 }

@@ -101,6 +101,7 @@ Route::group(
                 Route::resource('announcements', AnnouncementController::class);
                 Route::resource('splashes', SplashController::class);
                 Route::resource('students.library',StudentLibraryController::class);
+                Route::get('students/{student}/library/{course}/files',[StudentLibraryController::class , 'files' ])->name('students.library.files.index');
 
                 Route::get('/students/courses/create_multi' , [StudentCourseController::class , 'create_multi' ])->name('students.courses.create_multi');
 
