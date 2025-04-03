@@ -31,6 +31,23 @@ class LoginController extends Controller
             );
         }
 
+        if ($student->is_banned == 1 ) {
+
+            $message = 'تم عمل بلوك للحساب الخاص بك';
+
+            if ($student->banning_message) {
+                $message = $message .' , '. $student->banning_message;
+            }
+
+
+            return $this->response(
+                statusCode : 403 ,
+                message : $message
+            );
+        }
+
+
+
         // Auth::guard('student')->logout();
 
         // dd($student->tokens()->first());
@@ -55,9 +72,9 @@ class LoginController extends Controller
         
 
         return $this->response(
-                statusCode : 403 ,
-                message : trans('api.you have an active session indeed')
-            );
+            statusCode : 403 ,
+            message : trans('api.you have an active session indeed')
+        );
         
     }
 
