@@ -34,6 +34,8 @@ class UpdateTeacherRequest extends FormRequest
             'speak_user_phone' => 'nullable' , 
             'show_phone_on_viedo' => 'nullable' , 
             'force_headphones' => 'nullable' , 
+            'default_library_views_number' => 'required' , 
+            'default_library_download_number' => 'required' , 
         ];
     }
 }

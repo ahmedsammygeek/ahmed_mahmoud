@@ -32,5 +32,22 @@
             </div>
         </div>
 
+        <div class="col-sm-3 mt-4">
+            <div class="form-check form-switch  mb-2 center-block ">
+                <input type="checkbox" class="form-check-input" wire:model='force_water_mark'  name='force_water_mark' id="sc_lss_c"  >
+                <label class=""> العلامه المائيه داخل المكتبه </label>
+            </div>
+        </div>
+
+
+
+        <div class="col-sm-3 mt-4">
+            <div class="form-check form-switch  mb-2 center-block ">
+                <input type="checkbox" class="form-check-input" wire:model='allow_download'  name='allow_download' id="sc_lss_c"  >
+                <label class=""> السماح بالتحميل داخل المكتبه  </label>
+            </div>
+        </div>
+
+
     </div>
 </div>

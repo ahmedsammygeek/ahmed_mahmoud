@@ -42,6 +42,10 @@ class StoreCourseRequest extends FormRequest
             'force_headphones' => 'nullable' , 
             'is_free' => 'nullable' , 
             'show_price' => 'nullable' , 
+            'force_water_mark' => 'nullable' , 
+            'allow_download' => 'nullable' , 
+            'default_library_views_number' => 'nullable' , 
+            'default_library_download_number' => 'nullable' , 
         ];
     }
 }

@@ -12,6 +12,8 @@ class CourseDefaultOptions extends Component
     public $speak_user_phone = false ; 
     public $show_phone_on_viedo = false ; 
     public $force_headphones = false ; 
+    public $force_water_mark = false ; 
+    public $allow_download = false ; 
 
 
     #[On('teacher-choosed')] 
@@ -23,6 +25,8 @@ class CourseDefaultOptions extends Component
         $this->speak_user_phone =  (boolean)$teacher->speak_user_phone ;
         $this->show_phone_on_viedo = (boolean)$teacher->show_phone_on_viedo ;
         $this->force_headphones = (boolean)$teacher->force_headphones  ;    
+        $this->force_water_mark = (boolean)$teacher->force_water_mark  ;    
+        $this->allow_download = (boolean)$teacher->allow_download  ;    
     }
 
 

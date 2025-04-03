@@ -26,6 +26,8 @@ class SettingController extends Controller
         $settings->application_form_status = $request->filled('application_form_status') ? 1 : 0;
         $settings->default_views_number = $request->default_views_number;
         $settings->default_seen_mints = $request->default_seen_mints;
+        $settings->default_library_views_number = $request->default_library_views_number;
+        $settings->default_library_download_number = $request->default_library_download_number;
         $settings->force_guardian_mobile =  $request->filled('force_guardian_mobile') ? 1 : 0;
 
         if ($request->hasFile('logo')) {

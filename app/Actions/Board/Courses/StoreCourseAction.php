@@ -36,6 +36,8 @@ class StoreCourseAction
         $course->speak_user_phone = $request->filled('speak_user_phone') ? 1 : 0 ;
         $course->show_phone_on_viedo = $request->filled('show_phone_on_viedo') ? 1 : 0 ;
         $course->force_headphones = $request->filled('force_headphones') ? 1 : 0 ;
+        $course->force_water_mark = $request->filled('force_water_mark') ? 1 : 0 ;
+        $course->allow_download = $request->filled('allow_download') ? 1 : 0 ;
         $course->is_free = $request->filled('is_free') ? 1 : 0 ;
         $course->show_price = $request->filled('show_price') ? 1 : 0 ;
         $course->students_count_status = $request->students_count_status;
@@ -44,6 +46,8 @@ class StoreCourseAction
         $course->teacher_id = $request->teacher_id;
         $course->default_view_number = $request->default_view_number;
         $course->contact_mobile = $request->contact_mobile;
+        $course->default_library_views_number = $request->default_library_views_number;
+        $course->default_library_download_number = $request->default_library_download_number;
         $course->save();
 
         

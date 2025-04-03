@@ -84,6 +84,26 @@
 							</div>
 						</div>
 
+						<div class="row mb-3">
+							<label class="col-form-label col-lg-2">  عدد المشاهدات التلقائى للمكتبه  <span class="text-danger">*</span></label>
+							<div class="col-lg-10">
+								<input type="number" name="default_library_views_number" class="form-control @error('default_library_views_number')  is-invalid @enderror" placeholder="">
+								@error('default_library_views_number')
+								<p class='text-danger' > {{ $message }} </p>
+								@enderror
+							</div>
+						</div>
+						<div class="row mb-3">
+							<label class="col-form-label col-lg-2">  عدد التنزيلات التلقائى للمكتبه  <span class="text-danger">*</span></label>
+							<div class="col-lg-10">
+								<input type="number" name="default_library_download_number"  class="form-control @error('default_library_download_number')  is-invalid @enderror" placeholder="">
+								@error('default_library_download_number')
+								<p class='text-danger' > {{ $message }} </p>
+								@enderror
+							</div>
+						</div>
+
+
 						<div class="row">
 							<div class="col-sm-3 mt-4">
 								<div class="form-check form-switch  mb-2 center-block ">
@@ -116,6 +136,23 @@
 									<label class=""> اجبار السمعات </label>
 								</div>
 							</div>
+
+							<div class="col-sm-3 mt-4">
+								<div class="form-check form-switch  mb-2 center-block ">
+									<input type="checkbox" class="form-check-input" name='force_water_mark' id="sc_lss_c"  checked >
+									<label class=""> العلامه المائيه داخل المكتبه </label>
+								</div>
+							</div>
+
+
+							<div class="col-sm-3 mt-4">
+								<div class="form-check form-switch  mb-2 center-block ">
+									<input type="checkbox" class="form-check-input" name='allow_download' id="sc_lss_c" checked >
+									<label class=""> السماح بالتحميل داخل المكتبه </label>
+								</div>
+							</div>
+
+
 
 						</div>
 

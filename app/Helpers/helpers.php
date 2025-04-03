@@ -5,7 +5,6 @@ if (! function_exists('get_default_course_library_options')) {
     function get_default_course_library_options($course_id)
     {
         $course = Course::find($course_id);
-
         if (!$course) {
             return [
                 'force_water_mark' => 0  , 
@@ -76,3 +75,28 @@ if (! function_exists('get_default_course_views')) {
 }
 
 
+
+if (! function_exists('get_default_course_library_views')) {
+    function get_default_course_library_views($course_id)
+    {
+        $course = Course::find($course_id);
+        
+        if ($course) {
+            if ($course->default_view_number) {
+                return $course->default_view_number;
+            }             
+            $teacher = Teacher::where('id' , $course->teacher_id )->first();
+
+            if ($teacher?->default_views_number) {
+                return $teacher->default_views_number;
+            }  
+        } 
+
+        $settings = Setting::first();
+        if ($settings->default_views_number) {
+            return $settings->default_views_number;
+        } 
+
+        return 10;
+    }
+}

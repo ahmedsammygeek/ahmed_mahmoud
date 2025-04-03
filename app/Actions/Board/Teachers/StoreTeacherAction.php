@@ -25,6 +25,8 @@ class StoreTeacherAction
         $teacher->force_headphones = array_key_exists('force_headphones', $data) ? 1 : 0 ;
         $teacher->force_water_mark = array_key_exists('force_water_mark', $data) ? 1 : 0 ;
         $teacher->allow_download = array_key_exists('allow_download', $data) ? 1 : 0 ;
+        $teacher->default_library_views_number = $data['default_library_views_number'];
+        $teacher->default_library_download_number = $data['default_library_download_number'];
         $teacher->image = basename($data['image']->store('teachers'));
         $teacher->type = 2;
         $teacher->is_banned = 0;

@@ -68,9 +68,21 @@
 							</div>
 						</div>
 						<div class="row mb-3">
-							<label class="col-lg-2 col-form-label pt-0"> عدد المشاهدات التلقائى </label>
+							<label class="col-lg-2 col-form-label pt-0"> عدد المشاهدات التلقائى للفديو </label>
 							<div class="col-lg-10">
 								<input type="number" value='{{ $settings->default_views_number }}' class="form-control" name="default_views_number"  >
+							</div>
+						</div>
+						<div class="row mb-3">
+							<label class="col-lg-2 col-form-label pt-0"> عدد المشاهدات التلقائى للمكتبه </label>
+							<div class="col-lg-10">
+								<input type="number" value='{{ $settings->default_library_views_number }}' class="form-control" name="default_library_views_number"  >
+							</div>
+						</div>
+						<div class="row mb-3">
+							<label class="col-lg-2 col-form-label pt-0"> عدد التنزيلات التلقائى للمكتبه </label>
+							<div class="col-lg-10">
+								<input type="number" value='{{ $settings->default_library_download_number }}' class="form-control" name="default_library_download_number"  >
 							</div>
 						</div>
 						<div class="row mb-3">
