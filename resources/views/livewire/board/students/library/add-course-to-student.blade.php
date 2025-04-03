@@ -7,7 +7,8 @@
     <div class="row mb-3">
         <div class="col-sm-4"  wire:ignore.self>
             <label class="col-form-label"> @lang('students.teacher') </label>
-            <select wire:model.live='teacher_id' required  data-placeholder="اختر المدرس..." class="teachers form-control @error('teacher_id') is-invalid @enderror " id="">
+            <select wire:model.live='teacher_id' required  data-placeholder="اختر المدرس..." class="teachers form-control 
+            @error('teacher_id') is-invalid @enderror " id="">
                 <option value=""></option>
                 @foreach ($this->teachers as $teacher)
                 <option value="{{ $teacher->id }}"> {{ $teacher->name }}</option>

@@ -57,6 +57,13 @@ class AddCourseToStudent extends Component
         ->get();
     }
 
+    #[Computed]
+    public function lessons()
+    {
+        return Lesson::select('title' , 'id' , 'course_id' )
+        ->where('course_id' , $this->course_id )
+        ->get();
+    }
 
 
     public function updatedCourseId()

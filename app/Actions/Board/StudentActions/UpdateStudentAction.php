@@ -4,7 +4,7 @@ namespace App\Actions\Board\StudentActions;
 
 class UpdateStudentAction
 {
- 
+
 
 
 
@@ -20,6 +20,15 @@ class UpdateStudentAction
         $student->banning_message = $data['banning_message'];
         $student->is_banned = array_key_exists('is_banned', $data) ? 1 : 0;
         $student->save();
+
+        if (array_key_exists('is_banned', $data) && $data['is_banned'] == 1 ) {
+            $student->mobile_serial_number = null;
+            $student->unique_device_id = null;
+            $student->save();
+            $student->tokens()->delete();
+            $student->tokens()->delete();
+        }
+
         return $student;
     }
 }
