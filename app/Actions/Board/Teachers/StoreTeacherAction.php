@@ -23,6 +23,8 @@ class StoreTeacherAction
         $teacher->speak_user_phone = array_key_exists('speak_user_phone', $data) ? 1 : 0 ;
         $teacher->show_phone_on_viedo = array_key_exists('show_phone_on_viedo', $data) ? 1 : 0 ;
         $teacher->force_headphones = array_key_exists('force_headphones', $data) ? 1 : 0 ;
+        $teacher->force_water_mark = array_key_exists('force_water_mark', $data) ? 1 : 0 ;
+        $teacher->allow_download = array_key_exists('allow_download', $data) ? 1 : 0 ;
         $teacher->image = basename($data['image']->store('teachers'));
         $teacher->type = 2;
         $teacher->is_banned = 0;

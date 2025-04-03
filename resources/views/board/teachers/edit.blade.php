@@ -117,6 +117,21 @@
 								</div>
 							</div>
 
+							<div class="col-sm-3 mt-4">
+								<div class="form-check form-switch  mb-2 center-block ">
+									<input type="checkbox" class="form-check-input" name='force_water_mark' id="sc_lss_c"  {{ $teacher->force_water_mark == 1 ? 'checked' : '' }}>
+									<label class=""> العلامه المائيه داخل المكتبه </label>
+								</div>
+							</div>
+
+
+							<div class="col-sm-3 mt-4">
+								<div class="form-check form-switch  mb-2 center-block ">
+									<input type="checkbox" class="form-check-input" name='allow_download' id="sc_lss_c"  {{ $teacher->allow_download == 1 ? 'checked' : '' }}>
+									<label class=""> السماح بالتحميل داخل المكتبه </label>
+								</div>
+							</div>
+
 						</div>
 
 

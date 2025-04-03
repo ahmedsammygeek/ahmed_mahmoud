@@ -1,6 +1,28 @@
 <?php 
 use App\Models\{Teacher, Setting , Course};
 
+if (! function_exists('get_default_course_library_options')) {
+    function get_default_course_library_options($course_id)
+    {
+        $course = Course::find($course_id);
+
+        if (!$course) {
+            return [
+                'force_water_mark' => 0  , 
+                'allow_download' => 0  , 
+            ];
+        }
+
+        return [
+            'force_water_mark' => $course->force_water_mark  , 
+            'allow_download' => $course->allow_download  , 
+        ];
+        
+    }
+}
+
+
+
 
 if (! function_exists('get_default_course_options')) {
     function get_default_course_options($course_id)

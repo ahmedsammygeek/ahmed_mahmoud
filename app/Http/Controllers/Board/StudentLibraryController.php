@@ -36,19 +36,17 @@ class StudentLibraryController extends Controller
     {
         // dd($request->all());
 
+        $user_id = Auth::id();
         foreach ($request->courses as $one_course) {
-
-
 
             $dose_students_has_this_course = LibraryStudent::where('student_id' , $student->id )
             ->where('course_id', $one_course )->first();
             if (!$dose_students_has_this_course) {
-                $default_course_options = get_default_course_options($one_course);
-                $default_course_views = get_default_course_views($one_course);
+                $default_course_library_options = get_default_course_library_options($one_course);
 
-                $user_id = Auth::id();
+
                 $student_course = new LibraryStudent;
-                $student_course->user_id = Auth::id();
+                $student_course->user_id =  $user_id ;
                 $student_course->student_id = $student->id;
                 $student_course->course_id = $one_course;
                 $student_course->is_allowed = 1;
@@ -58,7 +56,7 @@ class StudentLibraryController extends Controller
 
                     $student_units[] = new LibraryStudentUnit([
                         'student_id' => $student->id , 
-                        'user_id' => Auth::id() , 
+                        'user_id' => $user_id , 
                         'unit_id' => $student_unit , 
                         'is_allowed' => 1 , 
                         'course_id' => $one_course,
@@ -81,7 +79,8 @@ class StudentLibraryController extends Controller
                         'total_downloads_till_now' => 0 , 
                         'allowed_views_number' => 50 , 
                         'allowed_downloads_number' => 50 , 
-                        'force_water_mark' => $request->filled('force_water_mark') ? 1 : 0 , 
+                        'force_water_mark' => $default_course_library_options['force_water_mark'] , 
+                        'allow_download' => $default_course_library_options['allow_download'] , 
                         'water_mark_text' => 't3leem' , 
                         'user_id' => $user_id , 
                         'created_at' => Carbon::now() , 

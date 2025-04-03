@@ -1,8 +1,39 @@
 <div class="row">
     <div class="col-md-12">
-
         <button style="float: left;"  data-bs-toggle="modal" data-bs-target="#add_new_course_to_student_modal"  class="btn btn-primary mb-2"> add student to library </button>
+        <a class='btn btn-primary mb-2 me-2' data-bs-toggle="collapse" data-bs-target="#filters" aria-expanded="true"  style="float: left;">  
+            <i class="icon-filter4 me-2"></i> 
+        </a>
+    </div>
 
+    <div class="col-md-12 collapse" id='filters' wire:ignore.self >
+        <div class="card card-body">
+
+            <div class="d-sm-flex align-items-sm-start mt-2">
+
+                <div class="dropdown ms-sm-3  mb-sm-0">
+                    <select wire:model.change='teacher_id' class="form-select">
+                        <option value=""> @lang('students.all teachers') </option>
+                        @foreach ($this->teachers as $teacher)
+                        <option value="{{ $teacher->id }}"> {{ $teacher->name }} </option>
+                        @endforeach
+                    </select>
+                </div>
+
+
+                <div class="dropdown ms-sm-3  mb-sm-0">
+                    <select wire:model.change='course_id' class="form-select">
+                        <option value=""> @lang('students.all courses') </option>
+                        @foreach ($this->courses as $course)
+                        <option value="{{ $course->id }}"> {{ $course->title }} </option>
+                        @endforeach
+                    </select>
+                </div>
+                
+
+
+            </div>
+        </div>
     </div>
 
     <div class="col-md-12">
@@ -21,7 +52,7 @@
                 </div>
             </div>
             <div class='card-body' >
-               <div class="d-sm-flex align-items-sm-start">
+             <div class="d-sm-flex align-items-sm-start">
                 <div class="form-control-feedback form-control-feedback-start flex-grow-1 mb-3 mb-sm-0">
                     <input type="text" wire:model.live.debounce.500ms='search' class="form-control" placeholder="البحث داخل الطلاب">
                     <div class="form-control-feedback-icon">
@@ -39,7 +70,11 @@
         <table  class='table  table-responsive table-striped table-xs text-center '>
             <thead>
                 <tr>
-                    <th> # </th>
+                    <th> 
+                        <div class="form-check form-check-reverse mb-2">
+                            <input  type="checkbox" class='form-check-input'  wire:click='selectAllStudents' id='ddsdsd' >
+                        </div> 
+                    </th>
                     <th> @lang('students.name') </th>
                     <th> @lang('students.mobile') </th>
                     <th> @lang('students.guardian mobile') </th>
@@ -53,11 +88,9 @@
                 $i =1
                 @endphp
                 @foreach ($students as $student)
-                <tr>
+                <tr id='student-{{ $student->id }}' >
                     <td>
-                        <div class="form-check form-check-reverse mb-2">
-                            <input  type="checkbox" class="form-check-input" wire:model='selectedStudents.{{ $student->id }}' value="{{ $student->id }}"  >
-                        </div>
+                        <input type="checkbox"  class='form-check-input'  wire:model.live='selectedStudents' value="{{ $student->id }}" >
                     </td>
                     <td> {{ $student->name }} </td>
                     <td> {{ $student->mobile }} </td>
@@ -157,12 +190,12 @@
 <script src="{{ asset('board_assets/demo/pages/extra_sweetalert.js') }}"></script>
 <script src="{{ asset('board_assets/js/vendor/media/glightbox.min.js') }}"></script>
 <script src="{{ asset('board_assets/demo/pages/gallery_library.js') }}"></script>
-<script src="//unpkg.com/alpinejs" defer></script>
+
 
 <script>
     $(function() {
 
-      
+
 
         Livewire.on('studentAddedToCourse' , () => {
             $(document).find('#add_new_course_to_student_modal').modal('hide');
