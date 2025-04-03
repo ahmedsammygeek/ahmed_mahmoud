@@ -110,6 +110,7 @@ class ListAllStudents extends Component
     {
         $user_id = Auth::id();
         $default_course_library_options = get_default_course_library_options($this->selected_course_id);
+        $default_course_library_views = get_default_course_library_views($this->selected_course_id);
         foreach ($this->selectedStudents as $selectedStudent) {
 
 
@@ -150,11 +151,11 @@ class ListAllStudents extends Component
                         'lesson_file_id' => $file->id , 
                         'total_views_till_now' => 0 , 
                         'total_downloads_till_now' => 0 , 
-                        'allowed_views_number' => 50 , 
-                        'allowed_downloads_number' => 50 , 
+                        'allowed_views_number' => $default_course_library_views['default_library_views_number'] , 
+                        'allowed_downloads_number' => $default_course_library_views['default_library_download_number'] ,
                         'force_water_mark' => $default_course_library_options['force_water_mark'] , 
                         'allow_download' => $default_course_library_options['allow_download'] , 
-                        'water_mark_text' => 't3leem' , 
+                        'water_mark_text' => $student->mobile , 
                         'user_id' => $user_id , 
                         'created_at' => Carbon::now() , 
                         'updated_at' => Carbon::now() , 

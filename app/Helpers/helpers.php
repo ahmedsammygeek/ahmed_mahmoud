@@ -82,21 +82,23 @@ if (! function_exists('get_default_course_library_views')) {
         $course = Course::find($course_id);
         
         if ($course) {
-            if ($course->default_view_number) {
-                return $course->default_view_number;
-            }             
-            $teacher = Teacher::where('id' , $course->teacher_id )->first();
-
-            if ($teacher?->default_views_number) {
-                return $teacher->default_views_number;
-            }  
+            return [
+                'default_library_views_number' => $course->default_library_views_number , 
+                'default_library_download_number' => $course->default_library_download_number , 
+            ];            
         } 
 
         $settings = Setting::first();
-        if ($settings->default_views_number) {
-            return $settings->default_views_number;
+        if ($settings->default_library_views_number && $settings->default_library_download_number ) {
+            return [
+                'default_library_views_number' => $settings->default_library_views_number , 
+                'default_library_download_number' => $settings->default_library_download_number , 
+            ];
         } 
 
-        return 10;
+        return [
+            'default_library_views_number' => 10 , 
+            'default_library_download_number' => 10 , 
+        ];
     }
 }
