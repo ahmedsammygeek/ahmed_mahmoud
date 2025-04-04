@@ -34,7 +34,7 @@ class StudentLibraryController extends Controller
      */
     public function store(Request $request , Student $student)
     {
-        // dd($request->all());
+        dd($request->all());
 
         $user_id = Auth::id();
         foreach ($request->courses as $one_course) {
@@ -45,7 +45,7 @@ class StudentLibraryController extends Controller
                 $default_course_library_options = get_default_course_library_options($one_course);
                 $default_course_library_views = get_default_course_library_views($one_course);
 
-                // dd($default_course_library_views , $one_course );
+
 
 
                 $student_course = new LibraryStudent;

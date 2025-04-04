@@ -27,7 +27,7 @@ class LoginController extends Controller
             return $this->response(
                 status : 'error' ,
                 statusCode : 401 , 
-                message  : trans('api.mobile ,  password is wrong ')
+                message  : 'بيانات الدخول غير صحيحه'
             );
         }
 
@@ -55,7 +55,7 @@ class LoginController extends Controller
         if ($student->tokens()->first()) {
             return $this->response(
                 statusCode : 403 ,
-                message : trans('api.you have an active session indeed')
+                message : 'انت مسجل من جهاز اخر '
             );
         }
 
@@ -73,7 +73,7 @@ class LoginController extends Controller
 
         return $this->response(
             statusCode : 403 ,
-            message : trans('api.you have an active session indeed')
+            message : 'انت مسجل من جهاز اخر'
         );
         
     }
@@ -94,7 +94,7 @@ class LoginController extends Controller
         return $this->response(
             data : $data  ,
             statusCode : 200 ,
-            message : trans('api.logined in successfully')
+            message : 'تم تسجل الدخول بنجاح'
         );
     }
 

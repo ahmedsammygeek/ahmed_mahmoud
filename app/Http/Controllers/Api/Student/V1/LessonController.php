@@ -35,7 +35,7 @@ class LessonController extends Controller
         }
 
         return $this->response(
-            message : 'video marked as watched successfully'  , 
+            message : 'تم تحديد الفديو مشاهد منجاح'  , 
         );
 
     }
@@ -89,7 +89,7 @@ class LessonController extends Controller
 
             return $this->response(
                 status : 'error' , 
-                message: 'this lessons is not exist' , 
+                message: 'هذا الدرس غير موجود' , 
                 statusCode : 404 ,
             );
         }
@@ -98,7 +98,7 @@ class LessonController extends Controller
         if (!$lesson->is_active) {
             return $this->response(
                 status : 'error' , 
-                message: 'this lessons is not allowed to show right now' , 
+                message: 'هذا الدرس غير متاح للمشاهده فى الوقت الحالى' , 
                 statusCode : 404 ,
             );
         }
@@ -130,7 +130,7 @@ class LessonController extends Controller
         } else {
             if (!Auth::guard('student')->check()) {
                 return $this->response(
-                    message : 'you need to purchase this course first to whach the lesson '  , 
+                    message : 'يجب الاشتارك فى هذا الكورس لمشاهده الدرس'  , 
                 );
             }
         }
@@ -146,7 +146,7 @@ class LessonController extends Controller
         if ($course_student->allow == 0 ) {
             return $this->response(
                 status : 'error' , 
-                message : 'you have been prevented from this course becourse : '.$course_student->disable_reason  , 
+                message : ' تم منعك من مشاهده هذا الكورس بسبب  : '.$course_student->disable_reason  , 
             );
         }
 
@@ -161,7 +161,7 @@ class LessonController extends Controller
         if ($student_unit?->is_allowed == 0) {
             return $this->response(
                 status : 'error' , 
-                message : 'you did not subscribed to this unit yet  , contact support to give you access '  , 
+                message : 'انت غير مشترك بهذا الجزء , برجاء التواصل مع اداره التطبيق'  , 
             );
         }
 
@@ -205,7 +205,7 @@ class LessonController extends Controller
 
         if (!$student_lesson || ($student_lesson->allowed == 0) ) {
             return $this->response(
-                message : 'you had been prevented to watch this lesson'  , 
+                message : 'تم منعك من مشاهده هذ الدرس'  , 
             );
         }
 
@@ -222,7 +222,7 @@ class LessonController extends Controller
 
             return $this->response(
                 status : 'error' , 
-                message : 'you have been exceeded the number of lesson views'  , 
+                message : 'لقد تم استهلاك عدد المشاهدات المسموح لك به'  , 
             );
         }
     }
@@ -234,7 +234,7 @@ class LessonController extends Controller
         ];
 
         return $this->response(
-            message : 'file viewed successfully'  , 
+            message : 'تم مشاهده الملف بنجاح'  , 
             data : $data , 
         );
     }
@@ -246,7 +246,7 @@ class LessonController extends Controller
         ];
 
         return $this->response(
-            message : 'file downloaded successfully'  , 
+            message : 'تم تنزيل الملف بنجاح'  , 
             data : $data , 
         );
     }

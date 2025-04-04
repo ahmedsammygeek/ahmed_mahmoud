@@ -4,27 +4,31 @@ namespace App\Livewire\Board\Students\Library;
 
 use Livewire\Component;
 use Livewire\Attributes\Computed;
-use App\Models\{Course , Teacher , Unit , Group};
+use App\Models\{Course , Teacher , Unit , Group , LessonFile , Lesson};
 class AddCourseToStudent extends Component
 {
     public $student;
     public $course_id;
     public $teacher_id;
-    public $units_id;
-    public $online_library = true;
-    public $paid = 0 ;
-    public $purchase_price = 0;
-    public $installment_months = [] ;
-    public $installment_amounts = [] ;
-    public $installment_months_count = 1;
+    public $units_id = [] ;
+    public $lessons_id = [];
+    public $files_id = [];
+    public $selectAll = false;
 
 
-    public function addMoreInstallments()
-    {
-        $this->installment_months_count++;
+
+
+    public function selectAllLessons() {
+
+        $this->selectAll = !$this->selectAll;
+        if ($this->selectAll) {
+            $this->files_id =  $this->files()->pluck('id')->toArray()  ;
+        } else {
+            $this->files_id =  []  ;
+        }
     }
 
-    
+
 
     #[Computed]
     public function teachers()
@@ -60,8 +64,16 @@ class AddCourseToStudent extends Component
     #[Computed]
     public function lessons()
     {
-        return Lesson::select('title' , 'id' , 'course_id' )
-        ->where('course_id' , $this->course_id )
+        return Lesson::select('title' , 'id'  )
+        ->whereIn('unit_id' , $this->units_id )
+        ->get();
+    }
+
+    #[Computed]
+    public function files()
+    {
+        return LessonFile::select('name' , 'id'  )
+        ->whereIn('lesson_id' , $this->lessons_id )
         ->get();
     }
 

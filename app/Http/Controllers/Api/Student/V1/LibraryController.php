@@ -129,7 +129,7 @@ class LibraryController extends Controller
 
             return $this->response(
                 status : 'error' , 
-                message : 'you do not has this course in your profile'
+                message : 'انت غير مشترك فى هذا الكورس'
             );
         }
 
@@ -195,7 +195,7 @@ class LibraryController extends Controller
 
             return $this->response(
                 status : 'error' , 
-                message : 'you do not has this course in your profile'
+                message : 'انت غير مشترك فى هذا الكورس'
             );
         }
 
@@ -259,7 +259,7 @@ class LibraryController extends Controller
 
             return $this->response(
                 status : 'error' , 
-                message : 'you do not has this course in your profile'
+                message : 'انت غير مشترك فى هذا الكورس'
             );
         }
 
@@ -322,7 +322,7 @@ class LibraryController extends Controller
 
             return $this->response(
                 status : 'error' , 
-                message : 'you do not has this file in your library'
+                message : 'غير مسموح لك بمشاهده هذا الملف'
             );
         }
 
@@ -352,7 +352,7 @@ class LibraryController extends Controller
 
             return $this->response(
                 status : 'error' , 
-                message : 'you do not has this file in your library'
+                message : 'انت غير مشترك فى هذا الملف'
             );
         }
 
