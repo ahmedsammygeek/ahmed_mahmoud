@@ -125,6 +125,8 @@ class LibraryController extends Controller
         ])->first();
 
 
+
+
         if (!$student_course) {
 
             return $this->response(
@@ -186,9 +188,10 @@ class LibraryController extends Controller
 
         // we need to check if this user has this course or not 
 
-        $student_course = CourseStudent::where([
+        $student_course = LibraryStudent::where([
             ['student_id' , '=' , $student->id ] , 
-            ['course_id' , '=' , $course->id ]
+            ['course_id' , '=' , $course->id ] , 
+            ['is_allowed' , '='  , 1 ]
         ])->first();
 
         if (!$student_course) {
@@ -199,7 +202,7 @@ class LibraryController extends Controller
             );
         }
 
-        if ($student_course->allow == 0 ) {
+        if ($student_course->is_allowed == 0 ) {
 
             return $this->response(
                 status : 'error' , 
@@ -232,6 +235,7 @@ class LibraryController extends Controller
         }
 
 
+
         $data = [
             'file' => new FileResource($lesson_file_view) , 
         ];
@@ -250,11 +254,13 @@ class LibraryController extends Controller
 
         // we need to check if this user has this course or not 
 
-        $student_course = CourseStudent::where([
+        $student_course = LibraryStudent::where([
             ['student_id' , '=' , $student->id ] , 
-            ['course_id' , '=' , $course->id ]
+            ['course_id' , '=' , $course->id ] , 
+            ['is_allowed' , '='  , 1 ]
         ])->first();
 
+        
         if (!$student_course) {
 
             return $this->response(
