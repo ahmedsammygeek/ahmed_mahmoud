@@ -78,12 +78,6 @@ class AddCourseToStudent extends Component
     }
 
 
-    public function updatedCourseId()
-    {
-        $course = Course::find($this->course_id);
-        $this->purchase_price = $course->price;
-    }
-
 
 
     public function updated( $property ,  $value)

@@ -34,7 +34,7 @@ class StudentLibraryController extends Controller
      */
     public function store(Request $request , Student $student)
     {
-        dd($request->all());
+
 
         $user_id = Auth::id();
         foreach ($request->courses as $one_course) {
@@ -65,19 +65,15 @@ class StudentLibraryController extends Controller
                         'course_id' => $one_course,
                     ]);
                 }
-                $student->libraryUnits()->saveMany($student_units);
-                $course = Course::find($one_course);
-                $lessons = Lesson::whereHas('unit' , function($query) use($request , $one_course ) {
-                    $query->whereIn('unit_id' , $request->student_units[$one_course] );
-                })->pluck('id')->toArray();
 
-                $files = LessonFile::whereIn('lesson_id' , $lessons )->get();
+                $student->libraryUnits()->saveMany($student_units);
 
                 $student_files = [];
-                foreach ($files as $file) {
+
+                foreach ($request->files_id[$one_course] as $file) {
                     $student_files[] = [
                         'student_id' => $student->id , 
-                        'lesson_file_id' => $file->id , 
+                        'lesson_file_id' => $file , 
                         'total_views_till_now' => 0 , 
                         'total_downloads_till_now' => 0 , 
                         'allowed_views_number' => $default_course_library_views['default_library_views_number'] , 
