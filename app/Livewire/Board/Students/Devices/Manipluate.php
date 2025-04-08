@@ -57,6 +57,8 @@ class Manipluate extends Component
             }
         }
 
+        $this->selectedStudents = [];
+
         $this->dispatch('devicesRemoved');
 
 
