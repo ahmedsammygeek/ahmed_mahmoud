@@ -44,8 +44,8 @@ class StoreCourseRequest extends FormRequest
             'show_price' => 'nullable' , 
             'force_water_mark' => 'nullable' , 
             'allow_download' => 'nullable' , 
-            'default_library_views_number' => 'nullable' , 
-            'default_library_download_number' => 'nullable' , 
+            'default_library_views_number' => 'required' , 
+            'default_library_download_number' => 'required' , 
         ];
     }
 }

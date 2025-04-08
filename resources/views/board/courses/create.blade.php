@@ -156,6 +156,30 @@
                         </div>
                     </div>
 
+                                        <div class="row mb-3 ">
+                        <div class="col-md-6">
+                            <label class="col-form-label col-lg-12">   عدد المشاهدات التلقائى للمكتبه    </label>
+                            <div class="col-lg-12">
+                                <input type="number" name="default_library_views_number"  class="form-control @error('default_library_views_number')  is-invalid @enderror" required
+                                placeholder=''>
+                                @error('default_library_views_number')
+                                <p class='text-danger'> {{ $message }} </p>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="col-form-label col-lg-12">  عدد التنزيلات التلقائى للمكتبه   </label>
+                            <div class="col-lg-12">
+                                <input type="text" name="default_library_download_number"  class="form-control @error('default_library_download_number')  is-invalid @enderror" required
+                                placeholder=''>
+                                @error('default_library_download_number')
+                                <p class='text-danger'> {{ $message }} </p>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+
 
 
 
