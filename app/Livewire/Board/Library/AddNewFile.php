@@ -3,12 +3,13 @@
 namespace App\Livewire\Board\Library;
 
 use Livewire\Component;
-use App\Models\{Course , Unit , Lesson , Student , LessonVideo};
+use App\Models\{Course , Unit , Lesson , Student , LessonVideo , Teacher};
 use Livewire\Attributes\Computed;
 class AddNewFile extends Component
 {
 
 
+    public $teacher_id;
     public $course_id;
     public $unit_id;
     public $lesson_id;
@@ -16,9 +17,18 @@ class AddNewFile extends Component
 
 
     #[Computed]
+    public function teachers()
+    {
+        return Teacher::select('name' , 'id')->get();
+    }
+
+
+    #[Computed]
     public function courses()
     {
-        return Course::select('title' , 'id')->get();
+        return Course::select('title' , 'id' , 'teacher_id')
+        ->where('teacher_id' , $this->teacher_id )
+        ->get();
     }
 
 

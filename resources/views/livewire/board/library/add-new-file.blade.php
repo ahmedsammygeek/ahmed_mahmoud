@@ -8,6 +8,23 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class=" mb-3">
+                            <label class="col-form-label col-lg-12"> @lang('library.teacher') <span class="text-danger">*</span></label>
+                            <div class="col-lg-12">
+                                <select wire:model.live="teacher_id" name="teacher_id" class="form-control form-select">
+                                    <option value=""></option>
+                                    @foreach ($this->teachers as $teacher)
+                                    <option value="{{ $teacher->id }}">{{ $teacher->name }} </option>
+                                    @endforeach
+                                </select>
+                                @error('teacher_id')
+                                <p class='text-danger' > {{ $message }} </p>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class=" mb-3">
                             <label class="col-form-label col-lg-12"> @lang('library.course') <span class="text-danger">*</span></label>
                             <div class="col-lg-12">
                                 <select wire:model.live="course_id" name="course_id" class="form-control form-select">

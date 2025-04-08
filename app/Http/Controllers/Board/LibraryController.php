@@ -10,6 +10,7 @@ use App\Notifications\NewFileAddedNotification;
 use Auth;
 use Carbon\Carbon;
 use Notification;
+use Storage;
 class LibraryController extends Controller
 {
     /**
@@ -33,12 +34,8 @@ class LibraryController extends Controller
      */
     public function store(StoreFileRequest $request)
     {
-
-        // dd('fff');
-
         $lesson = Lesson::find($request->lesson_id);
         $video = LessonVideo::find($request->video_id);
-        // $course_students = CourseStudent::where('course_id' , $request->course_id )->pluck('student_id')->toArray();
         $students = Student::find($request->students);
 
         $lesson_files = [];
@@ -46,13 +43,14 @@ class LibraryController extends Controller
 
         $user_id = Auth::id();
         for ($i=0; $i < count($request->file('files')) ; $i++) { 
+            $file_path = basename($request->file('files.'.$i)->store('lesson_files'));
             $lesson_files[] = new LessonFile([
                 'video_id' => $video ? $request->video_id : null , 
                 'lesson_id' => $lesson->id,
                 'name' => $request->file('files.'.$i)->getClientOriginalName() , 
-                'file' => basename($request->file('files.'.$i)->store('lesson_files')) , 
+                'file' =>  $file_path   , 
                 'user_id' => $user_id  ,
-                'size' => $request->file('files.'.$i)->getSize() , 
+                'size' =>  Storage::size('lesson_files/'.$file_path)  , 
                 'download_allowed_number' => $request->download_allowed_number   ,  
             ]);
         }
