@@ -1,4 +1,5 @@
 <div class="row">
+
     <div class="col-md-12">
         <button style="float: left;"  data-bs-toggle="modal" data-bs-target="#add_new_course_to_student_modal"  class="btn btn-primary mb-2"> add student to library </button>
         <a class='btn btn-primary mb-2 me-2' data-bs-toggle="collapse" data-bs-target="#filters" aria-expanded="true"  style="float: left;">  
@@ -30,6 +31,14 @@
                     </select>
                 </div>
                 
+                <div class="dropdown ms-sm-3  mb-sm-0">
+                    <select wire:model.change='unit_id' class="form-select" multiple >
+                        <option value=""> @lang('students.all units') </option>
+                        @foreach ($this->units as $unit)
+                        <option value="{{ $unit->id }}"> {{ $unit->title }} </option>
+                        @endforeach
+                    </select>
+                </div>
 
 
             </div>
@@ -126,12 +135,29 @@
 
             <form wire:submit="addStudnetsToCourses" class="form-horizontal">
                 <div class="modal-body">
+
+                    <div class="row mb-3">
+                        <label class="col-form-label col-sm-3"> @lang('students.teacher') </label>
+                        <div class="col-sm-9">
+                            <select wire:model.live='selected_teacher_id' class="form-select form-control @error('selected_teacher_id') is-invalid @enderror " id="">
+                                <option value=""></option>
+                                @foreach ($this->teachers as $teacher)
+                                <option value="{{ $teacher->id }}"> {{ $teacher->name }} </option>
+                                @endforeach
+                            </select>
+                            @error('selected_teacher_id')
+                            <p class='is-invalid text-danger'> {{ $message }} </p>
+                            @enderror 
+                        </div>
+                    </div>
+
+
                     <div class="row mb-3">
                         <label class="col-form-label col-sm-3"> @lang('students.course') </label>
                         <div class="col-sm-9">
                             <select wire:model.live='selected_course_id' class="form-select form-control @error('course_id') is-invalid @enderror " id="">
                                 <option value=""></option>
-                                @foreach ($selectedCourses as $selectedCourse)
+                                @foreach ($this->choosed_courses as $selectedCourse)
                                 <option value="{{ $selectedCourse->id }}"> {{ $selectedCourse->title }} </option>
                                 @endforeach
                             </select>
@@ -146,8 +172,8 @@
                         <div class="col-sm-9">
                             <select wire:model.live='student_units' multiple="multiple" class="form-select form-control @error('student_units') is-invalid @enderror " id="">
                                 <option value=""></option>
-                                @foreach ($this->units as $unit)
-                                <option value="{{ $unit->id }}"> {{ $unit->title }} </option>
+                                @foreach ($this->choosed_units as $choosed_unit)
+                                <option value="{{ $choosed_unit->id }}"> {{ $choosed_unit->title }} </option>
                                 @endforeach
                             </select>
                             @error('student_units')

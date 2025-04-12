@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Livewire\Board\Students\Library;
-
 use Livewire\Component;
 use App\Models\{Student , Grade , LibraryStudent, LessonFile  , LibraryStudentUnit , StudentInstallment , Unit  , Lesson , LessonFileView, StudentUnit , StudentPayment , StudentLesson , CourseStudent ,  Group , EducationalSystem , Course , Teacher };
 use Livewire\WithPagination;
@@ -27,12 +26,19 @@ class ListAllStudents extends Component
     public $is_active = 'all';
     public $selectedStudents = [];
     public $selectAll = false ;
+    public $unit_id = [];
 
     protected $listeners = ['deleteItem' , 'itemDeleted' => '$refresh' ];  
 
 
     #[Validate('required')]
     public $selected_course_id;
+
+    #[Validate('required')]
+    public $selected_teacher_id;
+
+
+    
 
     #[Validate('required')]
     public $group_id;
@@ -64,21 +70,34 @@ class ListAllStudents extends Component
         }
     }
 
-
-    #[Computed]
-    public function courses()
-    {
-        return Course::when($this->teacher_id , function($query){
-            $query->where('teacher_id' , $this->teacher_id );
-
-        })
-        ->select('title' , 'id')->get();
-    }
-
     #[Computed]
     public function teachers()
     {
         return Teacher::select('name' , 'id')->get();
+    }
+
+    #[Computed]
+    public function courses()
+    {
+        return Course::query()
+        ->where('teacher_id' , $this->teacher_id )
+        ->select('title' , 'id')->get();
+    }
+
+
+    #[Computed]
+    public function choosed_courses()
+    {
+        return Course::query()
+        ->where('teacher_id' , $this->selected_teacher_id )
+        ->select('title' , 'id')->get();
+    }
+
+
+    #[Computed]
+    public function choosed_units()
+    {
+        return Unit::where('course_id' , $this->selected_course_id )->get();
     }
 
     #[Computed]
@@ -91,7 +110,7 @@ class ListAllStudents extends Component
     #[Computed]
     public function units()
     {
-        return Unit::where('course_id' , $this->selected_course_id )->get();
+        return Unit::where('course_id' , $this->course_id )->get();
     }
 
     public function selectAllStudents() {
@@ -108,6 +127,8 @@ class ListAllStudents extends Component
 
     public function addStudnetsToCourses()
     {
+
+        // dd($this->selected_course_id , $this->student_units );
         $user_id = Auth::id();
         $default_course_library_options = get_default_course_library_options($this->selected_course_id);
         $default_course_library_views = get_default_course_library_views($this->selected_course_id);
@@ -170,9 +191,6 @@ class ListAllStudents extends Component
     }
 
     public function mount() {
-
-        $this->grades = Grade::select('name', 'id' )->get();
-        $this->systems = EducationalSystem::select('name', 'id' )->get();
         $this->selectedCourses = Course::select('id' , 'title')->get();
     }
 
@@ -197,6 +215,11 @@ class ListAllStudents extends Component
                 $query->whereHas('course' , function($query){
                     $query->where('teacher_id' , $this->teacher_id );
                 });
+            });
+        })
+        ->when($this->unit_id  , function($query){
+            $query->whereHas('units' , function($query){
+                $query->whereIn('unit_id' , $this->unit_id );
             });
         });
     }
