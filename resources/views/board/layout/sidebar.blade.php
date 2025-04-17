@@ -350,6 +350,14 @@ switch (request()->segment(3)) {
 						</li>
 						@endcan
 
+						<li class="nav-item">
+							<a href="{{ route('board.students.courses.units.manipulate') }}" class="nav-link"> 
+								manipulate students units
+							</a>
+						</li>
+
+						
+
 						@can('disable course for student')
 						<li class="nav-item">
 							<a href="{{ route('board.students.courses.allow.units') }}" class="nav-link"> 

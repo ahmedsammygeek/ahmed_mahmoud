@@ -108,6 +108,8 @@ Route::group(
 
                 Route::get('/students/courses/create' , [StudentCourseController::class , 'create'] )->name('students.courses.create');
 
+                Route::get('/assgin_students_to_units' , [StudentUnitcontroller::class , 'assgin_students_to_units'] )->name('students.courses.units.manipulate');
+
 
                 Route::get('/students/courses/allow/units' , [StudentCourseController::class , 'allow_units'] )->name('students.courses.allow.units');
 

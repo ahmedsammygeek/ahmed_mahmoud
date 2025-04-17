@@ -33,8 +33,7 @@ class StudentCourseController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit( Student $student , Course $course)
-    {
-
+    {   
 
 
         $student_course = CourseStudent::where('student_id' , $student->id )->where('course_id' , $course->id )->first();
