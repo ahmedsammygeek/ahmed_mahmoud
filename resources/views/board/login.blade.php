@@ -10,7 +10,9 @@
 	<link href="{{ asset('board_assets/fonts/inter/inter.css') }}" rel="stylesheet" type="text/css">
 	<link href="{{ asset('board_assets/icons/phosphor/styles.min.css') }}" rel="stylesheet" type="text/css">
 	<link href="{{ asset('assets/css/rtl/all.min.css') }}" id="stylesheet" rel="stylesheet" type="text/css">
-	<script src="{{ asset('board_assets/js/bootstrap/bootstrap.bundle.min.js') }}"></script>
+		<script src="{{ asset('board_assets/js/bootstrap/bootstrap.bundle.min.js') }}"></script>
+	<script src="{{ asset('board_assets/js/jquery/jquery.min.js') }}"></script>
+	<script src="{{ asset('board_assets/js/vendor/notifications/noty.min.js') }}"></script>
 	<script src="{{ asset('assets/js/app.js') }}"></script>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
