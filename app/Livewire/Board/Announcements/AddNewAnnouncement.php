@@ -69,14 +69,14 @@ class AddNewAnnouncement extends Component
         $announcement
         ->setTranslation('title', 'ar', $this->title_ar)
         ->setTranslation('title', 'en', $this->title_en);
-        if ($this->type == 1) {
+        if ($this->type == 2) {
             $image = basename($this->image->store('announcements'));
             $announcement
             ->setTranslation('content', 'ar', $image)
             ->setTranslation('content', 'en', $image);
         }
 
-        if ($this->type == 2) {
+        if ($this->type == 1) {
             $announcement
             ->setTranslation('content', 'ar', $this->content_ar)
             ->setTranslation('content', 'en', $this->content_en);

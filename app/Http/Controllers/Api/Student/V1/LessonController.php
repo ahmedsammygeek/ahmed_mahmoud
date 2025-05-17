@@ -74,11 +74,6 @@ class LessonController extends Controller
      */
     public function show_video(Course $course , Unit $unit ,  Lesson $lesson  , LessonVideo $video)
     {
-
-        // $student = Auth::guard('student')->user();
-
-            // dd($student);
-
         // we need first to check if this lesson related to this course or not
 
         $course_lessons_ids = $course->lessons()->pluck('lessons.id')->toArray();
@@ -107,7 +102,7 @@ class LessonController extends Controller
 
         // $student_lesson = StudentLesson::where('student_id' , $student->id )->where('course_unit_lesson_id' , $lesson->id )->first();
 
-        if ($lesson->is_free) {
+        if ($video->is_free) {
             $lesson['remains_views'] =  10;
             if (Auth::guard('student')->check()) {
 
