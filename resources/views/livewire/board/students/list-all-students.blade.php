@@ -44,7 +44,7 @@
                         @endforeach
                     </select>
                 </div>
-                 <div class="dropdown ms-sm-3  mb-sm-0">
+                <div class="dropdown ms-sm-3  mb-sm-0">
                     <select wire:model.change='student_type' class="form-select">
                         <option value=""> @lang('students.all students') </option>
                         <option value="1"> @lang('students.only center students') </option>
@@ -80,7 +80,7 @@
                 </div>
             </div>
             <div class='card-body' >
-               <div class="d-sm-flex align-items-sm-start">
+             <div class="d-sm-flex align-items-sm-start">
                 <div class="form-control-feedback form-control-feedback-start flex-grow-1 mb-3 mb-sm-0">
                     <input type="text" wire:model.live.debounce.500ms='search' class="form-control" placeholder="البحث داخل الطلاب">
                     <div class="form-control-feedback-icon">
@@ -95,7 +95,7 @@
                 جارى التحقق من المواعيد برجاء الانتظار
             </div>
         </div>
-        <table  class='table  table-responsive table-striped table-xs text-center '>
+        <table  class='table table-responsive table-xs text-center '>
             <thead>
                 <tr>
                     <th> # </th>
@@ -112,25 +112,30 @@
                 $i =1
                 @endphp
                 @foreach ($students as $student)
-                <tr>
+                <tr class='{{ $student->isBanned() ? 'text-danger' : '' }}' >
                     <td> {{ $i++ }} </td>
-                    <td> {{ $student->name }} </td>
+                    <td> 
+                        @if ($student->isBanned())
+                            <i class="icon-bell-cross" data-bs-popup="tooltip" data-bs-placement="auto" data-bs-original-title="{{ $student->banning_message }}" ></i>
+                        @endif
+                        {{ $student->name }} 
+                    </td>
                     <td> {{ $student->mobile }} </td>
                     <td> {{ $student->guardian_mobile }} </td>
                     <td> {{ $student->grade?->name }} </td>
                     <td> {{ $student->educationalSystem?->name }} </td>
                     <td>
                         @can('show student details')
-                            <a href='{{ route('board.students.show' , $student ) }}' class='btn btn-sm btn-primary ' title="@lang('dashboard.view')" >  <i class="icon-eye "></i>  </a>
+                        <a href='{{ route('board.students.show' , $student ) }}' class='btn btn-sm btn-primary ' title="@lang('dashboard.view')" >  <i class="icon-eye "></i>  </a>
                         @endcan
                         @can('policy')
-                            <a wire:click="$dispatchTo('board.students.change-student-password' ,  'open-modal' , { student_id: {{ $student->id }} } )"  class='btn btn-info btn-sm ' > <i class='icon-key '> </i>  </a>
+                        <a wire:click="$dispatchTo('board.students.change-student-password' ,  'open-modal' , { student_id: {{ $student->id }} } )"  class='btn btn-info btn-sm ' > <i class='icon-key '> </i>  </a>
                         @endcan
                         @can('policy')
-                            <a href='{{ route('board.students.edit' , $student ) }}' class='btn btn-sm btn-warning ' title="@lang('dashboard.edit')" >  <i class="icon-database-edit2 "></i>  </a>
+                        <a href='{{ route('board.students.edit' , $student ) }}' class='btn btn-sm btn-warning ' title="@lang('dashboard.edit')" >  <i class="icon-database-edit2 "></i>  </a>
                         @endcan
                         @can('policy')
-                             <a wire:click="$dispatch('deleteConfirmation', '{{ $student->id }}')" class='btn btn-sm btn-danger  delete_item' title="@lang('dashboard.delete')" >  <i class="icon-trash "></i>  </a>
+                        <a wire:click="$dispatch('deleteConfirmation', '{{ $student->id }}')" class='btn btn-sm btn-danger  delete_item' title="@lang('dashboard.delete')" >  <i class="icon-trash "></i>  </a>
                         @endcan
                     </td>
                 </tr>

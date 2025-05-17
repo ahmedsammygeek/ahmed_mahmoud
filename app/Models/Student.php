@@ -149,4 +149,14 @@ class Student extends Authenticatable
         return $this->belongsTo(User::class , 'deleted_by');
     }
 
+
+    public function isBanned()
+    {
+        if ($this->is_banned == 1) {
+            return true;
+        }
+
+        return false;
+    }
+
 }
