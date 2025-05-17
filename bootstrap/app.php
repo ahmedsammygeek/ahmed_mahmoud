@@ -27,6 +27,7 @@ return Application::configure(basePath: dirname(__DIR__))
         'locale' =>  \App\Http\Middleware\SetLocalMiddleware::class , 
         'check_if_blocked' =>  \App\Http\Middleware\redirectIfBlockedMiddleware::class , 
         'check_if_admin_blocked' =>  \App\Http\Middleware\RedirectAdminIfBlockedMiddleware::class , 
+        'prevent_access' =>   \App\Http\Middleware\PreventAccessToApiMiddleware::class
     ]);
 })
 ->withExceptions(function (Exceptions $exceptions) {

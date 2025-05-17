@@ -29,14 +29,14 @@ class SettingController extends Controller
         $settings->default_library_views_number = $request->default_library_views_number;
         $settings->default_library_download_number = $request->default_library_download_number;
         $settings->force_guardian_mobile =  $request->filled('force_guardian_mobile') ? 1 : 0;
+        $settings->access_api =  $request->filled('access_api') ? 1 : 0;
+        $settings->api_access_message =  $request->api_access_message;
 
         if ($request->hasFile('logo')) {
             $settings->logo = basename($request->file('logo')->store('settings'));
         }
 
-
         $settings->save();
-
         return redirect()->back()->with('success' , trans('dashboard.updated successfully'));
 
 

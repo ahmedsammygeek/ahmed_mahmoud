@@ -79,6 +79,27 @@
 								<input type="number" value='{{ $settings->default_library_views_number }}' class="form-control" name="default_library_views_number"  >
 							</div>
 						</div>
+
+						<div class="row mb-3">
+							<label class="col-lg-2 col-form-label pt-0"> تفعيل تطبيق الموبيل </label>
+							<div class="col-lg-10">
+								<label class="form-check form-switch">
+									<input type="checkbox" value='1' class="form-check-input" name="access_api" {{ $settings->access_api == 1 ? 'checked' : '' }} >
+									<span class="form-check-label"> @lang('dashboard.activate') </span>
+								</label>
+							</div>
+						</div>
+						<div class="row mb-3">
+							<label class="col-lg-2 col-form-label pt-0"> رساله الايقاف  </label>
+							<div class="col-lg-10">
+								<input type="text" value='{{ $settings->api_access_message }}' class="form-control" 
+								name="api_access_message"  >
+							</div>
+							@error('api_access_message')
+							<p class='text-danger'> {{ $message }} </p>
+							@enderror	
+						</div>
+
 						<div class="row mb-3">
 							<label class="col-lg-2 col-form-label pt-0"> عدد التنزيلات التلقائى للمكتبه </label>
 							<div class="col-lg-10">
