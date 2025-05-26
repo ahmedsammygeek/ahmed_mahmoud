@@ -50,7 +50,7 @@ class ListAllStudents extends Component
         $this->grade_id = null;
         $this->search = null;
 
-    }
+}
 
     public function SelectAllVideosddddd()
     {

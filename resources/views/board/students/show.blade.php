@@ -7,7 +7,17 @@
 @endsection
 
 @section('page_content')
+@if ($student->isBanned())
+<div class="alert bg-danger text-white alert-icon-start alert-dismissible fade show border-0">
+	<span class="alert-icon bg-black bg-opacity-20">
+		<i class="ph-x-circle"></i>
+	</span>
+	<span class="fw-semibold"> تنبيه !</span> هذا الطالب تم حظره بسبب :  {{ $student->banning_message }} 
+	<button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
+</div>
+@endif
 <div class="navbar navbar-expand-lg border-bottom py-2">
+
 	<div class="container-fluid">
 		<ul class="nav nav-tabs nav-tabs-highlight">
 			<li class="nav-item ">
@@ -57,7 +67,7 @@
 					<div class="d-flex align-items-center mx-lg-1">
 						<i class="ph-calendar"></i>
 						
-							@lang('students.payments')
+						@lang('students.payments')
 						
 					</div>
 				</a>

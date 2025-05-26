@@ -141,9 +141,7 @@
 <script>
     $(function() {
 
-
-
-        Livewire.on('devicesRemoved', () =>  {
+        Livewire.on('devicesRemoved', () => {
             swalInit.fire({
                 text: "@lang('dashboard.devices Removed successfully')" ,
                 icon: 'success',

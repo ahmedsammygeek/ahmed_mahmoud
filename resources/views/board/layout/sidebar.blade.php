@@ -366,23 +366,23 @@ switch (request()->segment(3)) {
 						</li>
 						@endcan
 
-						@can('delete course from student')
+{{-- 						@can('delete course from student')
 						<li class="nav-item">
 							<a href="{{ route('board.students.courses.remove') }}" class="nav-link"> 
 								delete from courses 
 							</a>
 						</li>
-						@endcan
+						@endcan --}}
 
-						@can('manipluate student device')
+{{-- 						@can('manipluate student device')
 						<li class="nav-item">
 							<a href="{{ route('board.students.devices.manipluate') }}" class="nav-link"> 
 								students devices manipluate 
 							</a>
 						</li>
-						@endcan
+						@endcan --}}
 
-
+{{-- 
 						@can('manipluate student course views')
 						<li class="nav-item">
 							<a href="{{ route('board.students.videos') }}" class="nav-link"> 
@@ -390,7 +390,7 @@ switch (request()->segment(3)) {
 							</a>
 						</li>
 
-						@endcan
+						@endcan --}}
 					</ul>
 				</li>
 				@endcanany
