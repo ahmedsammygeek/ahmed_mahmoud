@@ -1,5 +1,5 @@
 <div style='display: inline;' >
-    <a data-bs-toggle="modal" data-bs-target="#modal_form_vertical{{ $course->id }}" class='btn btn-danger btn-sm'> <i class="icon-users ">  </i > </a>
+    <a data-bs-toggle="modal" data-bs-target="#modal_form_vertical{{ $course->id }}" class='btn btn-danger btn-sm'> <i class="icon-user-cancel ">  </i > </a>
 
 
     <div id="modal_form_vertical{{ $course->id }}" class="modal fade" tabindex="-1" wire:ignore.self >

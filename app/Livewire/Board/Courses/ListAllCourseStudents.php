@@ -13,6 +13,7 @@ class ListAllCourseStudents extends Component
     use WithPagination;
     public $course;
     public $unit_id;
+    public $selectedStudents = [];
 
     protected $listeners = ['removeStudentFromCourse' , 'itemDeleted' => '$refresh' ];  
 
@@ -24,18 +25,20 @@ class ListAllCourseStudents extends Component
 
 
 
-    public function removeStudentFromCourse ($itemId) {
+    public function removeStudentFromCourse () {
 
-        $courseStudent = CourseStudent::where('student_id' , $itemId )
+
+
+        CourseStudent::whereIn('student_id' , $this->selectedStudents )
         ->where('course_id' , $this->course->id )
-        ->latest()
-        ->first();
-        if ($courseStudent) {
-            $courseStudent->deleted_by = Auth::id();
-            $courseStudent->save();
-            $courseStudent->delete();
+        ->update(['deleted_by' => Auth::id()  ]);
+
+        CourseStudent::whereIn('student_id' , $this->selectedStudents )
+        ->where('course_id' , $this->course->id )
+        ->delete();
+
             $this->dispatch('studentDeletedFromCourse');
-        }
+
     }
 
 

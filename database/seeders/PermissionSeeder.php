@@ -20,6 +20,7 @@ class PermissionSeeder extends Seeder
         'manipluate student course views' , 
         'add new file to library' , 
         'add student to library' , 
+        'remove students from courses'
     ];
 
 

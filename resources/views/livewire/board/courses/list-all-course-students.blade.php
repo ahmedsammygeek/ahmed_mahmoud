@@ -1,7 +1,7 @@
 
 <div class="container-fulid">
     <div class="row">
-        <div class="col-md-11">
+        <div class="col-md-9">
             <div class="form-group mt-3">
                 <label class="form-label" for=""> الوحده : </label>
                 <select wire:model.live='unit_id' class='form-control form-select' >
@@ -10,6 +10,12 @@
                     <option value="{{ $unit->id }}"> طلاب الــ {{ $unit->title }} </option>
                     @endforeach
                 </select>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group mt-3">
+                <label class="form-label" for=""> خصائص : </label> <br>
+                <button wire:click='removeStudentFromCourse' class="btn btn-danger"> remove from course </button>
             </div>
         </div>
         <div class="col-md-1">
@@ -23,13 +29,17 @@
         @foreach ($students as $student)
         <div class="col-xl-3 col-lg-6">
             <div class="card card-body">
+
                 <div class="d-flex">
                     <a href="#" class="me-3">
                         <img src="{{ Storage::url('students/'.$student->profile_picture) }}" class="rounded-circle" width="44" height="44" alt="">
                     </a>
 
                     <div class="flex-fill">
-                        <h6 class="mb-0"> {{ $student->name }} </h6>
+                        <h6 class="mb-0">
+                            <input type="checkbox" id="dc_ls_c{{ $student->id }}"  wire:model.live='selectedStudents' value="{{ $student->id }}" >
+                            <label class="ms-2" for="dc_ls_c{{ $student->id }}">{{ $student->name }}</label>
+                        </h6>
                         <span class="text-muted"> {{ $student->mobile }} </span>
                     </div>
 
@@ -44,11 +54,6 @@
                                     الملف الشخصى
                                 </a>
 
-                                <div class="dropdown-divider"></div>
-                                <a wire:click="$dispatch('deleteConfirmation', '{{ $student->id }}')"  class="dropdown-item text-danger">
-                                    <i class="ph-trash  me-2"></i>
-                                    حذف من الماده
-                                </a>
                             </div>
                         </div>
                     </div>

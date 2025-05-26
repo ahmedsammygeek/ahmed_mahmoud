@@ -57,8 +57,10 @@
                     @endcan
                     <a href="{{ route('board.courses.fix' , $course ) }}" class='btn btn-success btn-sm'> <i class="icon-reading ">  </i > </a>
 
+                    @can('remove students from courses')
+                                          @livewire('board.courses.remove-students-from-course' , ['course' => $course] , key($course->id) )
 
-                    @livewire('board.courses.remove-students-from-course' , ['course' => $course] , key($course->id) )
+                    @endcan
                 </div>
             </div>
         </div>
