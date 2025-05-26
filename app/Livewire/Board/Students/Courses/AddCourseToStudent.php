@@ -24,7 +24,10 @@ class AddCourseToStudent extends Component
         $this->installment_months_count++;
     }
 
-    
+    public function decreaseCourses() {
+
+        $this->dispatch('decreaseCoursesCountEvent');
+    }
 
     #[Computed]
     public function teachers()

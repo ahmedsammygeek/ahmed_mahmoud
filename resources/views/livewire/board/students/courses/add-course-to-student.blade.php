@@ -1,4 +1,5 @@
 <div class="card-body border border-primary mt-1">
+    <button class="btn btn-danger" wire:click.prevent='decreaseCourses' > remove</button>
     <div class="row mb-3">
         <div class="col-sm-4"  wire:ignore.self>
             <label class="col-form-label"> @lang('students.teacher') </label>

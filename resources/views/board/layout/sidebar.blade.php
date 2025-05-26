@@ -358,13 +358,13 @@ switch (request()->segment(3)) {
 
 						
 
-						@can('disable course for student')
+{{-- 						@can('disable course for student')
 						<li class="nav-item">
 							<a href="{{ route('board.students.courses.allow.units') }}" class="nav-link"> 
 								disable & allow courses
 							</a>
 						</li>
-						@endcan
+						@endcan --}}
 
 {{-- 						@can('delete course from student')
 						<li class="nav-item">
