@@ -9,6 +9,6 @@
 @endsection
 
 @section('page_content')
-@livewire('board.videos.list-all-videos') 
+@livewire('board.videos.list-all-lesson-videos' , ['unit' => $unit , 'lesson' => $lesson ]) 
 @endsection
 

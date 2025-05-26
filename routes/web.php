@@ -51,6 +51,7 @@ use App\Http\Controllers\Board\StudentVideoViewsController;
 use App\Http\Controllers\Board\CourseStudentController;
 use App\Http\Controllers\Board\StudentUnitcontroller;
 use App\Http\Controllers\Board\StudentLibraryController;
+use App\Http\Controllers\Board\LessonVideoController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\ApplicationController;
 
@@ -88,6 +89,7 @@ Route::group(
                 Route::get('courses/students/step_two' , [CourseStudentController::class , 'step_two' ])->name('courses.students.create.step_two');
                 Route::post('courses/students/step_two' , [CourseStudentController::class , 'store' ])->name('courses.students.create.step_two.store');
                 Route::resource('courses.units.lessons', LessonController::class);
+                Route::resource('courses.units.lessons.videos', LessonVideoController::class);
                 Route::resource('students.courses' , StudentCourseController::class);
                 Route::resource('students.courses.lessons', StudentLessonController::class);
                 Route::resource('students.courses.units', StudentUnitcontroller::class);

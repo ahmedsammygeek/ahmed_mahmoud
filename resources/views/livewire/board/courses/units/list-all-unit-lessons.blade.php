@@ -78,9 +78,9 @@
                             <a  href="{{ route('board.courses.units.lessons.show'  ,  ['course' => $course  , 'unit' => $unit , 'lesson' => $lesson  ] ) }}"  class="btn btn-sm btn-primary  ">
                                 <i class="icon-eye  "></i>
                             </a>
-{{--                             <a  href="{{ route('board.courses.units.lessons.index'  ,  ['course' => $course  , 'unit' => $unit ] ) }}"  class="btn btn-sm btn-info  ">
+                            <a  href="{{ route('board.courses.units.lessons.videos.index'  ,  ['course' => $course  , 'unit' => $unit  , 'lesson' => $lesson ] ) }}"  class="btn btn-sm btn-info  ">
                                 <i class="icon-video-camera "></i>
-                            </a> --}}
+                            </a>
                             <a href="{{ route('board.courses.units.lessons.edit'  ,  ['course' => $course  , 'unit' => $unit , 'lesson' => $lesson ] ) }}"  class="btn btn-sm btn-warning ">
                                 <i class="icon-database-edit2  "></i>
                             </a>
