@@ -14,7 +14,7 @@
             <select  wire:model.live='teacher_id'  class='select form-control'>
                 <option value="">جميع المدرسين</option>
                 @foreach ($teachers as $teacher)
-                   <option value="{{ $teacher->id }}"> {{ $teacher->name }} </option>
+                <option value="{{ $teacher->id }}"> {{ $teacher->name }} </option>
                 @endforeach
             </select>
         </div>
@@ -55,7 +55,10 @@
                     @can('delete course')
                     <a wire:click="$dispatch('deleteConfirmation', '{{ $course->id }}')" class='btn btn-sm btn-danger  delete_item' title='حذف' >  <i class="icon-trash" ></i>  </a>
                     @endcan
-                    <a href="{{ route('board.courses.fix' , $course ) }}" class='btn btn-success btn-sm' href=""> <i class="icon-reading ">  </i > </a>
+                    <a href="{{ route('board.courses.fix' , $course ) }}" class='btn btn-success btn-sm'> <i class="icon-reading ">  </i > </a>
+
+
+                    @livewire('board.courses.remove-students-from-course' , ['course' => $course] , key($course->id) )
                 </div>
             </div>
         </div>
@@ -96,6 +99,8 @@
             });
         });
 
+
+
         const swalInit = swal.mixin({
             buttonsStyling: false,
             customClass: {
@@ -125,6 +130,7 @@
                 }
             });
         })
+
 
 
 
