@@ -3,7 +3,7 @@
     <div class="row mb-3">
         <label class="col-form-label col-lg-2"> @lang('students.name') <span class="text-danger">*</span></label>
         <div class="col-lg-10">
-            <input type="text" name="name" value="{{ old('name') }}" class="form-control @error('name')  is-invalid @enderror" required placeholder="">
+            <input type="text" name="name" wire:model.live='name' class="form-control @error('name')  is-invalid @enderror" required placeholder="">
             @error('name')
             <p class='text-danger' > {{ $message }} </p>
             @enderror
@@ -13,7 +13,7 @@
     <div class="row mb-3">
         <label class="col-form-label col-lg-2"> @lang('students.mobile') <span class="text-danger">*</span></label>
         <div class="col-lg-10">
-            <input type="text" name="mobile" value="{{ old('mobile') }}" class="form-control @error('mobile')  is-invalid @enderror" required placeholder="">
+            <input type="text" name="mobile" wire:model.live='mobile' class="form-control @error('mobile')  is-invalid @enderror" required placeholder="">
             @error('mobile')
             <p class='text-danger' > {{ $message }} </p>
             @enderror
@@ -23,7 +23,7 @@
     <div class="row mb-3">
         <label class="col-form-label col-lg-2"> @lang('students.guardian mobile') <span class="text-danger">*</span></label>
         <div class="col-lg-10">
-            <input type="text" name="guardian_mobile" value="{{ old('guardian_mobile') }}" class="form-control @error('guardian_mobile')  is-invalid @enderror" required placeholder="">
+            <input type="text" name="guardian_mobile" wire:model.live='guardian_mobile' class="form-control @error('guardian_mobile')  is-invalid @enderror" required placeholder="">
             @error('guardian_mobile')
             <p class='text-danger' > {{ $message }} </p>
             @enderror
@@ -32,7 +32,7 @@
     <div class="row mb-3">
         <label class="col-form-label col-lg-2"> @lang('students.grade') <span class="text-danger">*</span></label>
         <div class="col-lg-10">
-            <select name="grade" class="form-control form-select" id="">
+            <select name="grade" wire:model.live='grade' class="form-control form-select" id="">
                 @foreach ($grades as $grade)
                 <option value="{{ $grade->id }}"> {{ $grade->name }} </option>
                 @endforeach
@@ -45,7 +45,7 @@
     <div class="row mb-3">
         <label class="col-form-label col-lg-2"> @lang('students.educational system') <span class="text-danger">*</span></label>
         <div class="col-lg-10">
-            <select name="educational_system_id" class="form-control form-select" id="">
+            <select name="educational_system_id" wire:model.live='educational_system_id' class="form-control form-select" id="">
                 @foreach ($systems as $system)
                 <option value="{{ $system->id }}"> {{ $system->name }} </option>
                 @endforeach
