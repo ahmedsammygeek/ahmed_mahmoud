@@ -8,6 +8,7 @@ use Livewire\WithPagination;
 use Livewire\Attributes\Computed;
 use Storage;
 use Auth;
+use Livewire\Attributes\Url;
 class ListAllStudents extends Component
 {
 
@@ -15,13 +16,20 @@ class ListAllStudents extends Component
     protected $paginationTheme = 'bootstrap';
     public $rows = 15;
     public $student_type;
+    #[Url]
     public $search;
+    #[Url]
     public $course_id;
+    #[Url]
     public $teacher_id;
     public $is_active = 'all';
+    #[Url]
     public $selectAll = false ;
+    #[Url]
     public $selectedStudents = [];
+    #[Url]
     public $unit_id;
+    #[Url]
     public $lesson_id;
     public $selectedVideos = [];
     public $selectAllVideos = false ;

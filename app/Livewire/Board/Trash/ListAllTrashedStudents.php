@@ -46,8 +46,7 @@ class ListAllTrashedStudents extends Component
 
     public function render()
     {
-        $students = Student::query()
-        ->onlyTrashed()
+        $students = Student::onlyTrashed()
         ->with(['grade' , 'educationalSystem' ])
         ->when($this->search , function($query){
             $query
@@ -55,6 +54,7 @@ class ListAllTrashedStudents extends Component
             ->orWhere('mobile' ,  'LIKE' , '%'.$this->search.'%'  )
             ->orWhere('guardian_mobile' ,  'LIKE' , '%'.$this->search.'%' );
         })
+
         ->latest()
         ->paginate($this->rows);
 

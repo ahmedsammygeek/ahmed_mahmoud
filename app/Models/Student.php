@@ -13,7 +13,7 @@ use App\Models\Scopes\StudentScope;
 
 class Student extends Authenticatable
 {
-    use  Notifiable , HasApiTokens , SoftDeletes ;
+    use  SoftDeletes, Notifiable , HasApiTokens  ;
 
 
 
