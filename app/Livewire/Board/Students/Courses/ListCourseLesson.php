@@ -22,9 +22,11 @@ class ListCourseLesson extends Component
     }
 
 
-    public function updatedRemainsViews()
+    public function updatedRemainsViews($value)
     {
-        $this->lesson->remains_views = $this->remains_views;
+
+
+        $this->lesson->remains_views = (int)$this->remains_views;
         $this->lesson->save();
         $refesh;
     }

@@ -20,10 +20,10 @@
         
     </td>
     <td>
-        <input type="text" class='form-control'  wire:model.live='allowed_views'>
+        <input type="text" class='form-control'  wire:model.live='allowed_views' disabled="disabled" >
     </td>
     <td>
-        <input type="text" class='form-control'  wire:model.live='remains_views' >
+        <input type="number" class='form-control'  wire:model.live='remains_views' >
     </td>
     
 </tr>
