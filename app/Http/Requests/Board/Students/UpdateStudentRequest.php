@@ -24,12 +24,12 @@ class UpdateStudentRequest extends FormRequest
         return [
             'name' => 'required', 
             'mobile' => 'required|unique:students,mobile,'.$this->student->id , 
-            'guardian_mobile' => 'required' , 
+            'guardian_mobile' => 'nullable' , 
             'grade' => 'required' , 
             'educational_system_id' => 'required' ,
             'student_type' => 'required' , 
             'is_banned' => 'nullable' , 
-            'banning_message' => 'nullable' , 
+            'banning_message' => 'required_if:is_banned,1' , 
         ];
     }
 }

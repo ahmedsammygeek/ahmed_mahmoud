@@ -43,7 +43,7 @@
 						<div class="row mb-3">
 							<label class="col-form-label col-lg-2"> @lang('students.guardian mobile') <span class="text-danger">*</span></label>
 							<div class="col-lg-10">
-								<input type="text" name="guardian_mobile" value="{{ old('guardian_mobile') ? old('guardian_mobile') : $student->guardian_mobile }}" class="form-control @error('guardian_mobile')  is-invalid @enderror" required placeholder="">
+								<input type="text" name="guardian_mobile" value="{{ old('guardian_mobile') ? old('guardian_mobile') : $student->guardian_mobile }}" class="form-control @error('guardian_mobile')  is-invalid @enderror"  placeholder="">
 								@error('guardian_mobile')
 								<p class='text-danger' > {{ $message }} </p>
 								@enderror
@@ -101,7 +101,10 @@
                         <div class="row mb-3">
                             <label class="col-lg-2 col-form-label "> رساله الحظر </label>
                             <div class="col-lg-10">
-                                <input type="text" name="banning_message" value="{{ $student->banning_message }}" class="form-control @error('banning_message')  is-invalid @enderror" required placeholder="">
+                                <input type="text" name="banning_message" value="{{ $student->banning_message }}" class="form-control @error('banning_message')  is-invalid @enderror"  placeholder="">
+                                @error('banning_message')
+								<p class='text-danger' > {{ $message }} </p>
+								@enderror
                             </div>
                         </div>
 					</div>

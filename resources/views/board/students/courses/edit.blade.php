@@ -53,7 +53,7 @@
                             <div class="col-md-4">
                                 <label class="col-form-label col-lg-12"> متاح حتى تاريخ </label>
                                 <div class="col-lg-12">
-                                      <input type="date" value='{{ $student_course->available_until }}' class="form-control"  name="available_until"  >
+                                    <input type="date" value='{{ $student_course->available_until }}' class="form-control"  name="available_until"  >
                                 </div>
                             </div>
 
@@ -175,15 +175,15 @@
 
 
                 </div>
-           
 
-            <div class="card-footer d-flex justify-content-end">
-                <a href='{{ route('board.courses.index') }}' class="btn btn-light" id="reset"> @lang('dashboard.cancel') </a>
-                <button type="submit" class="btn btn-primary ms-3"> @lang('dashboard.edit') <i  class="ph-paper-plane-tilt ms-2"></i></button>
-            </div>
-        </form>
+
+                <div class="card-footer d-flex justify-content-end">
+                    <a href='{{ route('board.courses.index') }}' class="btn btn-light" id="reset"> @lang('dashboard.cancel') </a>
+                    <button type="submit" class="btn btn-primary ms-3"> @lang('dashboard.edit') <i  class="ph-paper-plane-tilt ms-2"></i></button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 </div>
 
 @endsection
