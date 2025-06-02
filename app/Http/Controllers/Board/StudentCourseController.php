@@ -9,6 +9,7 @@ use App\Models\{CourseStudent , Group, StudentInstallment , Student , Course , S
 
 use App\Http\Requests\Board\Students\Courses\UpdateStudentCourseRequest;
 use Auth;
+use Carbon\Carbon;
 class StudentCourseController extends Controller
 {
 
@@ -34,7 +35,6 @@ class StudentCourseController extends Controller
      */
     public function edit( Student $student , Course $course)
     {   
-
 
         $student_course = CourseStudent::where('student_id' , $student->id )->where('course_id' , $course->id )->first();
         $groups = Group::select('name' , 'id' , 'course_id' )->where('course_id' , $student_course->course_id )->get();
@@ -64,6 +64,7 @@ class StudentCourseController extends Controller
         $student_course->show_name_on_viedo = $request->filled('show_name_on_viedo')  ? 1 : 0;
         $student_course->office_library = $request->filled('office_library')  ? 1 : 0;
         $student_course->online_library = $request->filled('online_library')  ? 1 : 0;
+        $student_course->available_until = $request->available_until;
         $student_course->save();
 
         $student_course_units = StudentUnit::where('student_id' , $student->id )
@@ -136,8 +137,6 @@ class StudentCourseController extends Controller
     public function store(Request $request , Student $student)
     {
 
-
-
         foreach ($request->courses as $one_course) {
 
 
@@ -147,6 +146,8 @@ class StudentCourseController extends Controller
             if (!$dose_students_has_this_course) {
                 $default_course_options = get_default_course_options($one_course);
                 $default_course_views = get_default_course_views($one_course);
+
+                $course = Course::find($one_course);
 
                 $user_id = Auth::id();
                 $student_course = new CourseStudent;
@@ -162,6 +163,11 @@ class StudentCourseController extends Controller
                 $student_course->speak_user_phone = $default_course_options['speak_user_phone']  ;
                 $student_course->show_phone_on_viedo = $default_course_options['show_phone_on_viedo']  ;
                 $student_course->force_headphones = $default_course_options['force_headphones']  ;
+
+                if ($course->period) {
+                    $student_course->available_until = Carbon::now()->addDays($course->period);
+                }
+
                 $student_course->save();
                 $student_units = [];
                 foreach ($request->student_units[$one_course] as $student_unit) {
@@ -174,7 +180,7 @@ class StudentCourseController extends Controller
                     ]);
                 }
                 $student->units()->saveMany($student_units);
-                $course = Course::find($one_course);
+                
                 $videos = LessonVideo::whereHas('lesson' , function($query) use($request , $one_course ) {
                     $query->whereIn('unit_id' , $request->student_units[$one_course] );
                 })->get();

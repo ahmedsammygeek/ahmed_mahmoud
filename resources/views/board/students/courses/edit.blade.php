@@ -26,7 +26,7 @@
                         <div class="fw-bold border-bottom pb-2 mb-3"> @lang('courses.course details') </div>
 
                         <div class="row mb-2">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label class="col-form-label col-lg-12"> @lang('courses.course') <span class="text-danger">*</span></label>
                                 <div class="col-lg-12">
                                     <select name="teacher_id" class='form-control form-select select' disabled="" id="">  
@@ -35,7 +35,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label class="col-form-label col-lg-12">  @lang('courses.group') <span class="text-danger">*</span></label>
                                 <div class="col-lg-12">
                                     <select name="group_id" class='form-control form-select '  id="">
@@ -47,6 +47,13 @@
                                     @error('group_id')
                                     <p class='text-danger'> {{ $message }} </p>
                                     @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="col-form-label col-lg-12"> متاح حتى تاريخ </label>
+                                <div class="col-lg-12">
+                                      <input type="date" value='{{ $student_course->available_until }}' class="form-control"  name="available_until"  >
                                 </div>
                             </div>
 

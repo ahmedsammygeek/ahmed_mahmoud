@@ -32,6 +32,7 @@ class UpdateStudentCourseRequest extends FormRequest
             'office_library' => 'nullable', 
             'online_library' => 'nullable', 
             'units_id' => 'required' , 
+            'available_until' => 'required' , 
         ];
     }
 }
