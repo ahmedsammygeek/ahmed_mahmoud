@@ -46,6 +46,7 @@ class StoreCourseRequest extends FormRequest
             'allow_download' => 'nullable' , 
             'default_library_views_number' => 'required' , 
             'default_library_download_number' => 'required' , 
+            'show_files_in' => 'required' , 
         ];
     }
 }

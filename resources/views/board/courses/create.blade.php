@@ -156,8 +156,8 @@
                         </div>
                     </div>
 
-                                        <div class="row mb-3 ">
-                        <div class="col-md-6">
+                    <div class="row mb-3 ">
+                        <div class="col-md-4">
                             <label class="col-form-label col-lg-12">   عدد المشاهدات التلقائى للمكتبه    </label>
                             <div class="col-lg-12">
                                 <input type="number" name="default_library_views_number"  class="form-control @error('default_library_views_number')  is-invalid @enderror" required
@@ -167,12 +167,27 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <label class="col-form-label col-lg-12">  عدد التنزيلات التلقائى للمكتبه   </label>
                             <div class="col-lg-12">
                                 <input type="text" name="default_library_download_number"  class="form-control @error('default_library_download_number')  is-invalid @enderror" required
                                 placeholder=''>
                                 @error('default_library_download_number')
+                                <p class='text-danger'> {{ $message }} </p>
+                                @enderror
+                            </div>
+                        </div>
+                         <div class="col-md-4">
+                            <label class="col-form-label col-lg-12"> مكان عرض الملفات  </label>
+                            <div class="col-lg-12">
+
+                                <select name="show_files_in" class='form-control form-select'  id="">
+                                    
+                                    <option value="1"> المكتبه فقط </option>
+                                    <option value="2"> اسفل الدروس و الفديوهات فقط </option>
+                                    <option value="3"> المكتبه + الدروس + الفدويهات </option>
+                                </select>
+                                @error('show_files_in')
                                 <p class='text-danger'> {{ $message }} </p>
                                 @enderror
                             </div>

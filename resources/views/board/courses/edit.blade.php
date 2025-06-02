@@ -155,7 +155,7 @@
                         </div>
                     </div>
                     <div class="row mb-3 ">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <label class="col-form-label col-lg-12">   عدد المشاهدات التلقائى للمكتبه    </label>
                             <div class="col-lg-12">
                                 <input type="number" name="default_library_views_number" value='{{ $course->default_library_views_number }}' class="form-control @error('default_library_views_number')  is-invalid @enderror" required
@@ -165,12 +165,27 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <label class="col-form-label col-lg-12">  عدد التنزيلات التلقائى للمكتبه   </label>
                             <div class="col-lg-12">
                                 <input type="text" name="default_library_download_number" value='{{ $course->default_library_download_number }}' class="form-control @error('default_library_download_number')  is-invalid @enderror" required
                                 placeholder=''>
                                 @error('default_library_download_number')
+                                <p class='text-danger'> {{ $message }} </p>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-form-label col-lg-12"> مكان عرض الملفات  </label>
+                            <div class="col-lg-12">
+
+                                <select name="show_files_in" class='form-control form-select'  id="">
+                                    
+                                    <option value="1" {{ $course->show_files_in == 1 ? 'selected="selected"' : '' }} > المكتبه فقط </option>
+                                    <option value="2" {{ $course->show_files_in == 2 ? 'selected="selected"' : '' }} > اسفل الدروس و الفديوهات فقط </option>
+                                    <option value="3" {{ $course->show_files_in == 3 ? 'selected="selected"' : '' }} > المكتبه + الدروس + الفدويهات </option>
+                                </select>
+                                @error('show_files_in')
                                 <p class='text-danger'> {{ $message }} </p>
                                 @enderror
                             </div>
@@ -279,54 +294,54 @@
                     </div>
 
                     <div class="row">
-                            <div class="col-sm-3 mt-4">
-                                <div class="form-check form-switch  mb-2 center-block ">
-                                    <input type="checkbox" class="form-check-input" name='force_face_detecting' id="sc_lss_c"  {{ $course->force_face_detecting == 1 ? 'checked' : '' }}>
-                                    <label class=""> استخدام الوجه المام الكاميره </label>
-                                </div>
+                        <div class="col-sm-3 mt-4">
+                            <div class="form-check form-switch  mb-2 center-block ">
+                                <input type="checkbox" class="form-check-input" name='force_face_detecting' id="sc_lss_c"  {{ $course->force_face_detecting == 1 ? 'checked' : '' }}>
+                                <label class=""> استخدام الوجه المام الكاميره </label>
                             </div>
-
-
-                            <div class="col-sm-3 mt-4">
-                                <div class="form-check form-switch  mb-2 center-block ">
-                                    <input type="checkbox" class="form-check-input" name='speak_user_phone' id="sc_lss_c"  {{ $course->speak_user_phone == 1 ? 'checked' : '' }}>
-                                    <label class=""> نطق رقم الطالب </label>
-                                </div>
-                            </div>
-
-
-                            <div class="col-sm-3 mt-4">
-                                <div class="form-check form-switch  mb-2 center-block ">
-                                    <input type="checkbox" class="form-check-input" name='show_phone_on_viedo' id="sc_lss_c"  {{ $course->show_phone_on_viedo == 1 ? 'checked' : '' }}>
-                                    <label class=""> اظهار رقم الطالب على الفديو </label>
-                                </div>
-                            </div>
-
-
-
-                            <div class="col-sm-3 mt-4">
-                                <div class="form-check form-switch  mb-2 center-block ">
-                                    <input type="checkbox" class="form-check-input" name='force_headphones' id="sc_lss_c"  {{ $course->force_headphones == 1 ? 'checked' : '' }}>
-                                    <label class=""> اجبار السمعات </label>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-3 mt-4">
-                                <div class="form-check form-switch  mb-2 center-block ">
-                                    <input type="checkbox" class="form-check-input" name='force_water_mark' id="sc_lss_c"  {{ $course->force_water_mark == 1 ? 'checked' : '' }}>
-                                    <label class=""> العلامه المائيه داخل المكتبه </label>
-                                </div>
-                            </div>
-
-
-                            <div class="col-sm-3 mt-4">
-                                <div class="form-check form-switch  mb-2 center-block ">
-                                    <input type="checkbox" class="form-check-input" name='allow_download' id="sc_lss_c"  {{ $course->allow_download == 1 ? 'checked' : '' }}>
-                                    <label class=""> السماح بالتحميل داخل المكتبه </label>
-                                </div>
-                            </div>
-
                         </div>
+
+
+                        <div class="col-sm-3 mt-4">
+                            <div class="form-check form-switch  mb-2 center-block ">
+                                <input type="checkbox" class="form-check-input" name='speak_user_phone' id="sc_lss_c"  {{ $course->speak_user_phone == 1 ? 'checked' : '' }}>
+                                <label class=""> نطق رقم الطالب </label>
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-3 mt-4">
+                            <div class="form-check form-switch  mb-2 center-block ">
+                                <input type="checkbox" class="form-check-input" name='show_phone_on_viedo' id="sc_lss_c"  {{ $course->show_phone_on_viedo == 1 ? 'checked' : '' }}>
+                                <label class=""> اظهار رقم الطالب على الفديو </label>
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-sm-3 mt-4">
+                            <div class="form-check form-switch  mb-2 center-block ">
+                                <input type="checkbox" class="form-check-input" name='force_headphones' id="sc_lss_c"  {{ $course->force_headphones == 1 ? 'checked' : '' }}>
+                                <label class=""> اجبار السمعات </label>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3 mt-4">
+                            <div class="form-check form-switch  mb-2 center-block ">
+                                <input type="checkbox" class="form-check-input" name='force_water_mark' id="sc_lss_c"  {{ $course->force_water_mark == 1 ? 'checked' : '' }}>
+                                <label class=""> العلامه المائيه داخل المكتبه </label>
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-3 mt-4">
+                            <div class="form-check form-switch  mb-2 center-block ">
+                                <input type="checkbox" class="form-check-input" name='allow_download' id="sc_lss_c"  {{ $course->allow_download == 1 ? 'checked' : '' }}>
+                                <label class=""> السماح بالتحميل داخل المكتبه </label>
+                            </div>
+                        </div>
+
+                    </div>
 
 
 

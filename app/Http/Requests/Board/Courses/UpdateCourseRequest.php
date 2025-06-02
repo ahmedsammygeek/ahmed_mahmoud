@@ -46,6 +46,7 @@ class UpdateCourseRequest extends FormRequest
             'allow_download' => 'nullable' , 
             'default_library_views_number' => 'nullable' , 
             'default_library_download_number' => 'nullable' , 
+            'show_files_in' => 'required' , 
             
         ];
     }

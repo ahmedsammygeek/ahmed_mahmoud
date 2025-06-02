@@ -47,6 +47,7 @@ class UpdateCourseAction
         $course->fake_students_count = $request->fake_students_count;
         $course->default_library_views_number = $request->default_library_views_number;
         $course->default_library_download_number = $request->default_library_download_number;
+        $course->show_files_in = $request->show_files_in;
         $course->period = $request->period;
         $course->save();
 
