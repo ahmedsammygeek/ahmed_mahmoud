@@ -52,6 +52,8 @@ use App\Http\Controllers\Board\CourseStudentController;
 use App\Http\Controllers\Board\StudentUnitcontroller;
 use App\Http\Controllers\Board\StudentLibraryController;
 use App\Http\Controllers\Board\LessonVideoController;
+use App\Http\Controllers\Board\MissingPaymentController;
+use App\Http\Controllers\Board\StudentMissingPaymentController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\ApplicationController;
 
@@ -72,6 +74,8 @@ Route::group(
             Route::group(['middleware' => ['admin' , 'check_if_admin_blocked' ] ], function() {
                 Route::get('/' , [BoardController::class , 'index'] )->name('index');
                 Route::resource('admins', AdminController::class);
+                Route::resource('students.missing_payments', StudentMissingPaymentController::class);
+                Route::resource('missing_payments', MissingPaymentController::class);
                 Route::resource('categories', CategoryController::class);
                 Route::resource('items', ItemController::class);
                 Route::resource('slides', SlideController::class);

@@ -1,5 +1,5 @@
 @php
-$groups = $admins = $home = $settings = $teachers = $payments = $students = $educational_systems = $installments = $grades = $dashboard_notifications  = $announcements = $questions = $videos = $trash = $exams = $users = $courses = $slides = $faculties = $universities = $faculty_levels  = $library = $splashes = '';
+$groups = $admins = $home = $settings = $teachers = $payments = $students = $educational_systems = $installments = $grades = $dashboard_notifications  = $announcements = $questions = $videos = $trash = $exams = $users = $courses = $slides = $faculties = $universities = $faculty_levels = $missing_payments = $library = $splashes = '';
 
 
 
@@ -73,6 +73,9 @@ switch (request()->segment(3)) {
 	break;
 	case 'library':
 	$library = 'active';
+	break;
+	case 'missing_payments':
+	$missing_payments = 'active';
 	break;
 	default:
 	$home = 'active';
@@ -531,6 +534,15 @@ switch (request()->segment(3)) {
 					</a>
 				</li>
 				@endcanany
+
+				<li class="nav-item">
+					<a href="{{ route('board.missing_payments.index') }}" class="nav-link {{ $missing_payments }} ">
+						<i class="ph-currency-circle-dollar "></i>
+						<span>
+							الحسابات المفقوده 
+						</span>
+					</a>
+				</li>
 
 				@canany(['list all trashes'])
 				<li class="nav-item nav-item-submenu">

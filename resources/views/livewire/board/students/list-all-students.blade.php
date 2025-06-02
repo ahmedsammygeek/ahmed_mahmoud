@@ -133,6 +133,7 @@
                             @can('show student details')
                             <a href='{{ route('board.students.show' , $student ) }}' class='btn btn-sm btn-primary ' title="@lang('dashboard.view')" >  <i class="icon-eye "></i>  </a>
                             @endcan
+                            <a class='btn btn-outline-dark btn-sm' href='{{ route('board.students.missing_payments.create' , $student ) }}'> <i class="icon-stack-plus "></i> </a>
                             @can('policy')
                             <a wire:click="$dispatchTo('board.students.change-student-password' ,  'open-modal' , { student_id: {{ $student->id }} } )"  class='btn btn-info btn-sm ' > <i class='icon-key '> </i>  </a>
                             @endcan

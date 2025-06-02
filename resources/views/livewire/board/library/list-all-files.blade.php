@@ -4,6 +4,68 @@
             <i class="icon-plus3 me-2"></i>
             @lang('library.add new file')
         </a>
+        <a class='btn btn-primary mb-2 me-2' data-bs-toggle="collapse" data-bs-target="#filters" aria-expanded="true"  style="float: left;">  
+            <i class="icon-filter4 me-2"></i> 
+        </a>
+    </div>
+    <div class="col-md-12 collapse" id='filters' wire:ignore.self >
+        <div class="card card-body">
+
+            <div class="d-sm-flex align-items-sm-start mt-2">
+
+                <div class="dropdown ms-sm-3  mb-sm-0" wire:ignore >
+                    <select wire:model.change='teacher_id' class="form-select teachers" data-width="250">
+                        <option value=""> @lang('students.all teachers') </option>
+                        @foreach ($this->teachers as $teacher)
+                        <option value="{{ $teacher->id }}"> {{ $teacher->name }} </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="dropdown ms-sm-3  mb-sm-0" wire:ignore>
+                    <select wire:model.change='course_id' class="form-select courses" data-width="250">
+                        <option value=""> @lang('students.all courses') </option>
+                        @foreach ($this->courses as $course)
+                        <option value="{{ $course->id }}"> {{ $course->title }} </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="dropdown ms-sm-3  mb-sm-0" >
+                    <select wire:model.change='unit_id' class="form-select" data-width="250">
+                        <option value=""> @lang('students.all units') </option>
+                        @foreach ($this->units as $unit)
+                        <option value="{{ $unit->id }}"> {{ $unit->title }} </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="dropdown ms-sm-3  mb-sm-0" >
+                    <select wire:model.change='lesson_id' class="form-select" data-width="250">
+                        <option value=""> @lang('students.all lessons') </option>
+                        @foreach ($this->lessons as $lesson)
+                        <option value="{{ $lesson->id }}"> {{ $lesson->title }} </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="dropdown ms-sm-3  mb-sm-0" >
+                    <select wire:model.change='video_id' class="form-select" data-width="250">
+                        <option value=""> @lang('students.all videos') </option>
+                        @foreach ($this->videos as $video)
+                        <option value="{{ $video->id }}"> {{ $video->title }} </option>
+                        @endforeach
+                    </select>
+                </div>
+
+
+                <div class="dropdown ms-sm-3  mb-sm-0">
+                    <button wire:click='resetFilters' type="button" class="btn btn-primary">
+                        <i class="icon-reset  me-2"></i>
+                        Reset Fillters
+                    </button>
+                </div>
+
+            </div>
+        </div>
     </div>
     <div class="col-md-12">
         <div class="card">
@@ -72,10 +134,26 @@
 <script src="{{ asset('board_assets/demo/pages/extra_sweetalert.js') }}"></script>
 <script src="{{ asset('board_assets/js/vendor/media/glightbox.min.js') }}"></script>
 <script src="{{ asset('board_assets/demo/pages/gallery_library.js') }}"></script>
-
+<script src="{{ asset('board_assets/js/vendor/forms/selects/select2.min.js') }}"></script>
 
 <script>
     $(function() {
+
+        $('.teachers').select2().on('select2:select', function (e) {
+            @this.set('teacher_id', $('.teachers').select2("val"));
+        });
+        $('.courses').select2().on('select2:select', function (e) {
+            @this.set('course_id', $('.courses').select2("val"));
+        });
+        $('.teachers').on('change', function (e) {
+            var data = $(this).select2("val");
+            @this.set('teacher_id', data);
+        });
+        $('.courses').on('change', function (e) {
+            var data = $(this).select2("val");
+            @this.set('course_id', data);
+        });
+
 
 
         Livewire.on('itemDeleted', () =>  {
