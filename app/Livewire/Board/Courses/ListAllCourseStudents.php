@@ -27,8 +27,6 @@ class ListAllCourseStudents extends Component
 
     public function removeStudentFromCourse () {
 
-
-
         CourseStudent::whereIn('student_id' , $this->selectedStudents )
         ->where('course_id' , $this->course->id )
         ->update(['deleted_by' => Auth::id()  ]);
@@ -37,14 +35,15 @@ class ListAllCourseStudents extends Component
         ->where('course_id' , $this->course->id )
         ->delete();
 
-            $this->dispatch('studentDeletedFromCourse');
-
+        $this->dispatch('studentDeletedFromCourse');
     }
 
 
 
     public function render()
     {
+       
+
         $students = Student::with('faculty')
         ->whereHas('courses' , function($query){
             $query->where('course_id' , $this->course->id );
@@ -54,7 +53,8 @@ class ListAllCourseStudents extends Component
                 $query->where('unit_id' , $this->unit_id );
             });
         })
-        ->latest()->paginate(1555);
+        ->orderBy(CourseStudent::select('course_students.created_at AS StudentJoinDate')->whereColumn('course_students.student_id', 'students.id')->where('course_students.course_id' , $this->course->id )->latest()->take(1) , 'asc')
+        ->paginate(1555);
 
         $units = Unit::where('course_id' , $this->course->id )->get();
 

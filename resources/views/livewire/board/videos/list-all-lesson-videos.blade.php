@@ -22,7 +22,7 @@
                 </div>
             </div>
             <div class='card-body' >
-               <div class="d-sm-flex align-items-sm-start">
+             <div class="d-sm-flex align-items-sm-start">
                 <div class="form-control-feedback form-control-feedback-start flex-grow-1 mb-3 mb-sm-0">
                     <input type="text" wire:model.live.debounce.500ms='search' class="form-control" placeholder="البحث داخل الفديوهات">
                     <div class="form-control-feedback-icon">
@@ -31,12 +31,7 @@
                 </div>
             </div>
         </div>
-        <div wire:loading> 
-            <div class="card-overlay card-overlay-fadeout">
-                <span class="ph-spinner spinner"></span>
-                جارى ترتيب الدروس
-            </div>
-        </div>
+
         <table  class='table  table-responsive table-striped table-xs text-center '>
             <thead>
                 <tr>
@@ -57,17 +52,19 @@
                 @foreach ($videos as $video)
                 <tr wire:sortable.item="{{ $video->id }}" wire:key="video-{{ $video->id }}">
                     <td> 
-                         <a class='btn btn-sm btn-info ' title="@lang('dashboard.view')" >  <i class="icon-grab "></i>  </a>
+                        <a class='btn btn-sm btn-info ' title="@lang('dashboard.view')" >  <i class="icon-grab "></i>  </a>
                     </td>
                     <td> {{ $video->title }} </td>
                     <td> {{ $video->lesson?->title }} </td>
                     <td> <a target="_blank" href="{{ $video->lesson_video_link }}"> <i class='icon-youtube '>  </i> </a> </td>
                     <td> {{ $video->lesson_mins }} <span class="text-muted"> دقيقه </span> </td>
-                    <td> {{ $video->sorting }} </td>
+                    <td> 
+                        @livewire('board.videos.sort-video-by-input' , ['video' => $video] , key($video->id) )
+                    </td>
                     <td> {{ $video->user?->name }} </td>
                     <td>
-                       
-                        
+
+
                         <a href='{{ route('board.videos.show' , $video ) }}' class='btn btn-sm btn-primary ' title="@lang('dashboard.view')" >  <i class="icon-eye "></i>  </a>
                         <a href='{{ route('board.videos.edit' , $video ) }}' class='btn btn-sm btn-warning ' title="@lang('dashboard.edit')" >  <i class="icon-database-edit2 "></i>  </a>
                         <a wire:click="$dispatch('deleteConfirmation', '{{ $video->id }}')" class='btn btn-sm btn-danger  delete_item' title="@lang('dashboard.delete')" >  <i class="icon-trash "></i>  </a>
@@ -100,7 +97,7 @@
 <script>
     $(function() {
 
-  
+
 
         // $('.select2').select2();
 

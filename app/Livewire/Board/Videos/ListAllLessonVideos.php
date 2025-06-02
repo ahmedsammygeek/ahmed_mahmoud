@@ -17,7 +17,7 @@ class ListAllLessonVideos extends Component
     public $search;
 
 
-    protected $listeners = ['deleteItem' , 'itemDeleted' => '$refresh' ];  
+    protected $listeners = ['deleteItem' , 'itemDeleted' => '$refresh'  , 'itemUpdated' => '$refresh' ];  
 
 
     public function updated()
@@ -44,6 +44,8 @@ class ListAllLessonVideos extends Component
                 $video->save();
             }
         }
+
+        $this->dispatch('itemUpdated');
     }
 
 

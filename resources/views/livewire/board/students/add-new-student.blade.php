@@ -23,7 +23,7 @@
     <div class="row mb-3">
         <label class="col-form-label col-lg-2"> @lang('students.guardian mobile') <span class="text-danger">*</span></label>
         <div class="col-lg-10">
-            <input type="text" name="guardian_mobile" wire:model.live='guardian_mobile' class="form-control @error('guardian_mobile')  is-invalid @enderror" required placeholder="">
+            <input type="text" name="guardian_mobile" wire:model.live='guardian_mobile' class="form-control @error('guardian_mobile')  is-invalid @enderror" placeholder="">
             @error('guardian_mobile')
             <p class='text-danger' > {{ $message }} </p>
             @enderror

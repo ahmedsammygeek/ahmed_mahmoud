@@ -48,6 +48,7 @@ class StoreCourseAction
         $course->contact_mobile = $request->contact_mobile;
         $course->default_library_views_number = $request->default_library_views_number;
         $course->default_library_download_number = $request->default_library_download_number;
+        $course->period = $request->period;
         $course->save();
 
         

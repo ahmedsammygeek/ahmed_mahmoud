@@ -24,7 +24,7 @@ class StoreStudentRequest extends FormRequest
         return [
             'name' => 'required', 
             'mobile' => 'required|unique:students,mobile' , 
-            'guardian_mobile' => 'required' , 
+            'guardian_mobile' => 'nullable' , 
             'password' => 'required_if:student_type,2,3|confirmed' , 
             'grade' => 'required' , 
             'educational_system_id' => 'required' ,

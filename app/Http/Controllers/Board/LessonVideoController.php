@@ -12,6 +12,7 @@ class LessonVideoController extends Controller
      */
     public function index(Course  $course , Unit $unit , Lesson $lesson )
     {
+
         return view('board.videos.course_videos' , compact('course' , 'unit' , 'lesson') );
     }
 

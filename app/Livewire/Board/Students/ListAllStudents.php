@@ -48,7 +48,7 @@ class ListAllStudents extends Component
         $this->modal_courses = Course::select('title' , 'id')->get();
     }
 
-    public function updated()
+    public function updated($value)
     {
         $this->resetPage();
     }

@@ -38,9 +38,10 @@
                     <div class="flex-fill">
                         <h6 class="mb-0">
                             <input type="checkbox" id="dc_ls_c{{ $student->id }}"  wire:model.live='selectedStudents' value="{{ $student->id }}" >
-                            <label class="ms-2" for="dc_ls_c{{ $student->id }}">{{ $student->name }}</label>
+                            <label class="ms-2" for="dc_ls_c{{ $student->id }}">{{ $student->name }} </label>
                         </h6>
                         <span class="text-muted"> {{ $student->mobile }} </span>
+                        <span class="text-muted"> {{ $student->StudentJoinDate }} </span>
                     </div>
 
                     <div class="align-self-center ms-3" >

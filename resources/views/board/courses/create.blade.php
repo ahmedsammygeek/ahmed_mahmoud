@@ -269,6 +269,16 @@
                             </div>
                         </div>
 
+                        <div class="col-md-4">
+                            <label class="col-form-label col-lg-12">  عدد الايام لاتاحه الكورس للطالب </label>
+                            <div class="col-lg-12">
+                                <input type="number" name="period" value='{{ old('period') }}' class="form-control @error('period')  is-invalid @enderror" placeholder=''>
+                                @error('period')
+                                <p class='text-danger'> {{ $message }} </p>
+                                @enderror
+                            </div>
+                        </div>
+
                     </div>
 
                     @livewire('board.courses.course-default-options')
