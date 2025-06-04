@@ -60,12 +60,9 @@ class TestController extends Controller
         foreach ($courses as $course) {
             $course_id = $course->id;
 
-            $course_id = 90;
-
             $default_course_views = get_default_course_views($course_id);
 
             $selectedVideos = [];
-            $selectedStudents = [];
             $selectedStudents = CourseStudent::where('course_id' , $course_id )
             ->pluck('student_id')
             ->toArray();
@@ -80,19 +77,17 @@ class TestController extends Controller
             ->pluck('id')
             ->toArray();
 
-        // dd($selectedVideos , $selectedStudents);
 
             foreach ($selectedVideos as $selectedVideo) {
-                $res =  StudentLesson::whereIn('student_id' ,  $selectedStudents )
-                ->where('video_id' ,  $selectedVideo )
-                ->update( ['allowed_views' => 0 , 'remains_views' => 0   ] );
+                StudentLesson::where('video_id' ,  $selectedVideo )
+                ->whereIn('student_id' ,  $selectedStudents )
 
-                dd($res);
+                ->update( ['allowed_views' => 0 , 'remains_views' => 0   ] );
             }
 
         }
 
-        
+
 
 
 
@@ -452,7 +447,7 @@ class TestController extends Controller
         //     // });
         // }]
 
-        
+
 
         // $student = Student::with('courses')->find(15);
         // $student_course = CourseStudent::where('student_id', 15 )->where('course_id' , 1 )->first();
