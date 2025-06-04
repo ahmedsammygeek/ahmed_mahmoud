@@ -53,21 +53,63 @@ class TestController extends Controller
     public function index()
     {       
 
+        $courses = Course::where('id' , '!=' , 121 )
+        ->where('teacher_id'  ,  21 )
+        ->get();
 
-        dd(get_default_course_library_views(133) );
+        foreach ($courses as $course) {
+            $course_id = $course->id;
 
-        dd(Hash::make(90909090));
+            $course_id = 90;
 
-        // dd(StudentLesson::where('student_id' , 714)->pluck('video_id')->toArray());
+            $default_course_views = get_default_course_views($course_id);
+
+            $selectedVideos = [];
+            $selectedStudents = [];
+            $selectedStudents = CourseStudent::where('course_id' , $course_id )
+            ->pluck('student_id')
+            ->toArray();
 
 
-        // dd(LessonVideo::whereHas('lesson' , function($query){
-        //     $query->where('unit_id' , 58 );
-        // })->count());
+            $selectedVideos = LessonVideo::query()
+            ->whereHas('lesson' , function($query) use($course_id) {
+                $query->whereHas('unit' , function($query) use($course_id) {
+                    $query->where('course_id' , $course_id );
+                });
+            })
+            ->pluck('id')
+            ->toArray();
 
-        $student = Student::find(438);
+        // dd($selectedVideos , $selectedStudents);
 
-        dd($student->createToken($student->id)->plainTextToken);
+            foreach ($selectedVideos as $selectedVideo) {
+                StudentLesson::whereIn('student_id' ,  $selectedStudents )
+                ->where('video_id' ,  $selectedVideo )
+                ->update( ['allowed_views' => 0 , 'remains_views' => 0   ] );
+            }
+
+        }
+
+        
+
+
+
+
+
+        // dd(get_default_course_library_views(133) );
+
+        // dd(Hash::make(90909090));
+
+        // // dd(StudentLesson::where('student_id' , 714)->pluck('video_id')->toArray());
+
+
+        // // dd(LessonVideo::whereHas('lesson' , function($query){
+        // //     $query->where('unit_id' , 58 );
+        // // })->count());
+
+        // $student = Student::find(438);
+
+        // dd($student->createToken($student->id)->plainTextToken);
 
         // $files = LessonFile::get();
 
@@ -135,7 +177,7 @@ class TestController extends Controller
         // foreach ($permissions as $permission) {
 
         //     // dd(strpos( $permission->name  ,  'admins'));
-            
+
         //     if (strpos( $permission->name  ,  'announcements')) {
         //         $permission->group_name = 'announcements';
         //         $permission->save();
@@ -148,7 +190,7 @@ class TestController extends Controller
         // $users = User::where('type' , 2 )->get();
 
         // foreach ($users as $user) {
-            
+
         //     $user->password = 90909090;
         //     $user->save();
         // }
@@ -160,7 +202,7 @@ class TestController extends Controller
 
 
         // foreach ($files as $file) {
-            
+
         //     $file->size = mt_rand(0 , 10000);
         //     $file->save();
         // }
