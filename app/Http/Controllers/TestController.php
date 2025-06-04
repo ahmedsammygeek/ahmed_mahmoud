@@ -83,9 +83,11 @@ class TestController extends Controller
         // dd($selectedVideos , $selectedStudents);
 
             foreach ($selectedVideos as $selectedVideo) {
-                StudentLesson::whereIn('student_id' ,  $selectedStudents )
+                $res =  StudentLesson::whereIn('student_id' ,  $selectedStudents )
                 ->where('video_id' ,  $selectedVideo )
                 ->update( ['allowed_views' => 0 , 'remains_views' => 0   ] );
+
+                dd($res);
             }
 
         }
