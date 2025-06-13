@@ -3,14 +3,18 @@
 namespace App\Livewire\Board\Courses\Units;
 
 use Livewire\Component;
-use App\Models\Lesson;
+use App\Models\{Lesson , StudentLesson , LessonFile};
 use Livewire\WithPagination;
+use Storage;
+use App\Jobs\DeleteLessonFileJob;
 class ListAllUnitLessons extends Component
 {   
     use WithPagination;
 
     public $unit;
     public $course;
+
+    protected $listeners = ['deleteItem' , 'itemDeleted' => '$refresh' ];  
 
     public function updateLessonOrder($items)
     {
@@ -24,9 +28,17 @@ class ListAllUnitLessons extends Component
     }
 
     
-    public function deleteItem()
+    public function deleteItem($item_id)
     {
-        // code...
+        $lesson = Lesson::find($item_id);
+
+        if($lesson) {
+            dispatch(new DeleteLessonFileJob($lesson));
+            LessonFile::where('lesson_id'  , $item_id )->delete();
+            StudentLesson::where('lesson_id'  , $item_id )->delete();
+            $lesson->delete();
+            $this->dispatch('itemDeleted');
+        }
     }
 
     public function render()

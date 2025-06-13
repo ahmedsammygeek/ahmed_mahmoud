@@ -84,7 +84,7 @@
                             <a href="{{ route('board.courses.units.lessons.edit'  ,  ['course' => $course  , 'unit' => $unit , 'lesson' => $lesson ] ) }}"  class="btn btn-sm btn-warning ">
                                 <i class="icon-database-edit2  "></i>
                             </a>
-                            <a data-item_id='{{ $unit->id }}' class="btn btn-danger btn-sm delete_item">
+                            <a data-item_id='{{ $lesson->id }}' class="btn btn-danger btn-sm delete_item">
                                 <i class="icon-trash  "></i>
                             </a>
                         </td>
