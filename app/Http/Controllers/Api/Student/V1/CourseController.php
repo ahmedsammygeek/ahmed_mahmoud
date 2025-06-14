@@ -123,7 +123,7 @@ class CourseController extends Controller
             $course['dose_user_subscribed'] = false ;
         }
 
-        $lessons = $unit->lessons()->orderBy('sorting' , 'ASC' )->get();
+        $lessons = $unit->lessons()->orderBy('sorting' , 'ASC' )->where('is_active' , 1 )->get();
         $data = [
             'course' => new CourseResource($course)  , 
             'unit' => new CourseUnitResource($unit) , 
