@@ -15,7 +15,6 @@ class ListAllStudents extends Component
     use WithPagination  ;
     protected $paginationTheme = 'bootstrap';
     public $rows = 15;
-    public $student_type;
     #[Url]
     public $search;
     #[Url]
@@ -25,7 +24,7 @@ class ListAllStudents extends Component
     public $is_active = 'all';
     #[Url]
     public $selectAll = false ;
-    #[Url]
+    // [Url]
     public $selectedStudents = [];
     #[Url]
     public $unit_id;
@@ -48,10 +47,10 @@ class ListAllStudents extends Component
         $this->modal_courses = Course::select('title' , 'id')->get();
     }
 
-    public function updated($value)
-    {
-        $this->resetPage();
-    }
+    // public function updated($value)
+    // {
+    //     $this->resetPage();
+    // }
 
 
     public function updatedSelectAll()
@@ -158,15 +157,24 @@ class ListAllStudents extends Component
         $default_course_views = get_default_course_views($this->course_id);
 
 
-        dd($default_course_views);
+        // dd($default_course_views);
 
         $this->selectedVideos = LessonVideo::whereIn('lesson_id' , $this->lessons()->pluck('id')->toArray() )->pluck('id')->toArray();
-        $students = StudentLesson::whereIn('student_id' ,  $this->selectedStudents )
-        ->whereIn('video_id' ,  $this->selectedVideos )
-        ->update( ['allowed_views' => $default_course_views] );
-        $students = StudentLesson::whereIn('student_id' ,  $this->selectedStudents )
-        ->whereIn('video_id' ,  $this->selectedVideos )
-        ->update( ['remains_views' => $default_course_views ]);
+
+        StudentLesson::whereIn('student_id' ,  $this->selectedStudents)
+        ->where(function ($query) {
+            $query->whereIn('video_id' ,  $this->selectedVideos);
+        })
+        ->update( ['allowed_views' => $default_course_views ] );
+
+
+        StudentLesson::whereIn('student_id' ,  $this->selectedStudents)
+        ->where(function ($query) {
+            $query->whereIn('video_id' ,  $this->selectedVideos);
+        })
+        ->update( ['remains_views' => $default_course_views ] );
+
+
 
         $this->course_id = null;
         $this->unit_id = null;
@@ -263,25 +271,22 @@ class ListAllStudents extends Component
     public function generateQuery()
     {
         return Student::query()
-        ->with('grade' , 'educationalSystem' )
+        ->with('grade' , 'educationalSystem' , 'courses' , 'courses.course' )
         ->when($this->search , function($query){
             $query
             ->where('name' , 'LIKE' , '%'.$this->search.'%' )
             ->orWhere('mobile' ,  'LIKE' , '%'.$this->search.'%'  )
             ->orWhere('guardian_mobile' ,  'LIKE' , '%'.$this->search.'%' );
         })
-        ->when($this->course_id , function($query){
-            $query->whereHas('courses' , function($query){
-                $query->where('course_id' , $this->course_id );
-            });
-        })
         ->when($this->teacher_id , function($query){
             $query->whereHas('courses.course' , function($query){
                 $query->where('teacher_id' , $this->teacher_id );
             });
         })
-        ->when($this->student_type, function($query){
-            $query->where('student_type' , $this->student_type);
+        ->when($this->course_id , function($query){
+            $query->whereHas('courses' , function($query){
+                $query->where('course_id' , $this->course_id );
+            });
         });
     }
 

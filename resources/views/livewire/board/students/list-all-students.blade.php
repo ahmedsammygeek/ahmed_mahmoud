@@ -12,21 +12,22 @@
 
             <div class="d-sm-flex align-items-sm-start mt-2">
 
-                <div class="dropdown ms-sm-3  mb-sm-0"  >
-                    <select wire:model.change='teacher_id' class="form-select teachers" data-width="250">
+                <div class="dropdown ms-sm-3  mb-sm-0"   >
+                    <select wire:model.change='teacher_id'  class="form-select teachers" data-width="250">
                         <option value=""> @lang('students.all teachers') </option>
                         @foreach ($this->teachers as $teacher)
                         <option value="{{ $teacher->id }}"> {{ $teacher->name }} </option>
                         @endforeach
                     </select>
                 </div>
-                <div class="dropdown ms-sm-3  mb-sm-0" >
-                    <select wire:model.change='course_id' class="form-select courses" data-width="250">
+                <div class="dropdown ms-sm-3  mb-sm-0"  >
+                    <select wire:model.change='course_id'  class="form-select courses" data-width="250">
                         <option value=""> @lang('students.all courses') </option>
                         @foreach ($this->courses as $course)
                         <option value="{{ $course->id }}"> {{ $course->title }} </option>
                         @endforeach
                     </select>
+                    {{ $course_id }}
                 </div>
                 <div class="dropdown ms-sm-3  mb-sm-0" >
                     <select wire:model.change='unit_id' class="form-select units" data-width="250">
@@ -35,6 +36,7 @@
                         <option value="{{ $unit->id }}"> {{ $unit->title }} </option>
                         @endforeach
                     </select>
+                    {{ $unit_id }}
                 </div>
 
 
@@ -380,31 +382,26 @@
             @this.set('unit_id', data);
         });
 
-        Livewire.hook('morph.updated',  () => {
-
-            $('.teachers').select2().on('select2:select', function (e) {
+        Livewire.hook('morph.adding',  ({ el, component }) => {
+    $('.teachers').select2().on('select2:select', function (e) {
                 @this.set('teacher_id', $('.teachers').select2("val"));
             });
 
             $('.courses').select2().on('select2:select', function (e) {
                 @this.set('course_id', $('.courses').select2("val"));
             });
+
             $('.teachers').on('change', function (e) {
                 var data = $(this).select2("val");
                 @this.set('teacher_id', data);
             });
+
             $('.courses').on('change', function (e) {
                 var data = $(this).select2("val");
                 @this.set('course_id', data);
             });
-            $('.units').select2().on('select2:select', function (e) {
-                @this.set('unit_id', $('.units').select2("val"));
-            });
-            $('.units').on('change', function (e) {
-                var data = $(this).select2("val");
-                @this.set('unit_id', data);
-            });
-        })
+})
+
 
 
 
