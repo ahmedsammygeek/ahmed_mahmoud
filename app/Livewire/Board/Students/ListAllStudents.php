@@ -3,7 +3,7 @@
 namespace App\Livewire\Board\Students;
 
 use Livewire\Component;
-use App\Models\{Student , Grade , EducationalSystem , CourseStudent , Course , Teacher , Unit, Lesson , LessonVideo , StudentLesson   };
+use App\Models\{Student  , CourseStudent , Course , Teacher , Unit, Lesson , LessonVideo , StudentLesson   };
 use Livewire\WithPagination;
 use Livewire\Attributes\Computed;
 use Storage;
@@ -259,6 +259,7 @@ class ListAllStudents extends Component
     public function generateQuery()
     {
         return Student::query()
+        ->with('grade' , 'educationalSystem' )
         ->when($this->search , function($query){
             $query
             ->where('name' , 'LIKE' , '%'.$this->search.'%' )
