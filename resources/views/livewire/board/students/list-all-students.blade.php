@@ -380,7 +380,7 @@
             @this.set('unit_id', data);
         });
 
-        Livewire.hook('morph.updated',  ({ el, component, toEl, skip, childrenOnly }) => {
+        Livewire.hook('morph.updated',  () => {
 
             $('.teachers').select2().on('select2:select', function (e) {
                 @this.set('teacher_id', $('.teachers').select2("val"));

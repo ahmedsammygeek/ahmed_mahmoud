@@ -156,6 +156,10 @@ class ListAllStudents extends Component
     {
 
         $default_course_views = get_default_course_views($this->course_id);
+
+
+        dd($default_course_views);
+
         $this->selectedVideos = LessonVideo::whereIn('lesson_id' , $this->lessons()->pluck('id')->toArray() )->pluck('id')->toArray();
         $students = StudentLesson::whereIn('student_id' ,  $this->selectedStudents )
         ->whereIn('video_id' ,  $this->selectedVideos )
