@@ -12,6 +12,7 @@
         "dawson/youtube": "^2.0",
         "jantinnerezo/livewire-alert": "^3.0",
         "laravel/framework": "^11.9",
+        "laravel/nightwatch": "^1.9",
         "laravel/pulse": "^1.2",
         "laravel/sanctum": "^4.0",
         "laravel/scout": "^10.11",

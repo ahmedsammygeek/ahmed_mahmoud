@@ -142,12 +142,24 @@ class ListAllStudents extends Component
 
     public function IncreaseViews()
     {
-        $students = StudentLesson::whereIn('student_id' ,  $this->selectedStudents )
-        ->whereIn('video_id' ,  $this->selectedVideos )
+
+
+        // dd($this->selectedStudents , $this->selectedVideos , $this->allowed_views );
+
+        StudentLesson::whereIn('student_id' ,  $this->selectedStudents)
+        ->where(function ($query) {
+            $query->whereIn('video_id' ,  $this->selectedVideos);
+        })
         ->increment( 'allowed_views' , $this->allowed_views );
-        $students = StudentLesson::whereIn('student_id' ,  $this->selectedStudents )
-        ->whereIn('video_id' ,  $this->selectedVideos )
-        ->increment( 'remains_views' , $this->allowed_views );
+
+        StudentLesson::whereIn('student_id' ,  $this->selectedStudents)
+        ->where(function ($query) {
+            $query->whereIn('video_id' ,  $this->selectedVideos);
+        })
+        ->increment( 'remains_views' , $this->allowed_views  );
+
+
+
         $this->dispatch('viewsUpdateSuccessfully');
     }
 
@@ -155,18 +167,12 @@ class ListAllStudents extends Component
     {
 
         $default_course_views = get_default_course_views($this->course_id);
-
-
-        // dd($default_course_views);
-
         $this->selectedVideos = LessonVideo::whereIn('lesson_id' , $this->lessons()->pluck('id')->toArray() )->pluck('id')->toArray();
-
         StudentLesson::whereIn('student_id' ,  $this->selectedStudents)
         ->where(function ($query) {
             $query->whereIn('video_id' ,  $this->selectedVideos);
         })
         ->update( ['allowed_views' => $default_course_views ] );
-
 
         StudentLesson::whereIn('student_id' ,  $this->selectedStudents)
         ->where(function ($query) {
@@ -175,26 +181,36 @@ class ListAllStudents extends Component
         ->update( ['remains_views' => $default_course_views ] );
 
 
-
         $this->course_id = null;
         $this->unit_id = null;
         $this->selectAllVideos = [];
         $this->selectedVideos = [];
         $this->selectedStudents = [];
+        $this->selectAll = false;
         $this->dispatch('viewsUpdateSuccessfully');
     }
 
 
     public function ZeroViews()
     {
-        $default_course_views = get_default_course_views($this->course_id);
+
+
         $this->selectedVideos = LessonVideo::whereIn('lesson_id' , $this->lessons()->pluck('id')->toArray() )->pluck('id')->toArray();
-        $students = StudentLesson::whereIn('student_id' ,  $this->selectedStudents )
-        ->whereIn('video_id' ,  $this->selectedVideos )
+
+
+
+        StudentLesson::whereIn('student_id' ,  $this->selectedStudents)
+        ->where(function ($query) {
+            $query->whereIn('video_id' ,  $this->selectedVideos);
+        })
         ->update( ['allowed_views' => 0 ] );
-        $students = StudentLesson::whereIn('student_id' ,  $this->selectedStudents )
-        ->whereIn('video_id' ,  $this->selectedVideos )
-        ->update( ['remains_views' => 0  ]);
+
+        StudentLesson::whereIn('student_id' ,  $this->selectedStudents)
+        ->where(function ($query) {
+            $query->whereIn('video_id' ,  $this->selectedVideos);
+        })
+        ->update( ['remains_views' => 0 ] );
+
 
         $this->course_id = null;
         $this->unit_id = null;
